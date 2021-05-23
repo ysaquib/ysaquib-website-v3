@@ -1,15 +1,17 @@
-import React from 'react';
-import './App.css';
+import React, { FC } from 'react';
+import './components/styles/main.scss';
+import { BrowserRouter, Switch } from 'react-router-dom';
 
 import './firebase/config'
 
-function App() {
+import HomePage from './components/pages/HomePage'
+
+const App : FC = () =>
+{
   return (
-    <div className="App">
-      <header className="App-header">
-        <title>Test</title>
-      </header>
-    </div>
+    <BrowserRouter>
+        <HomePage />
+    </BrowserRouter>
   );
 }
 

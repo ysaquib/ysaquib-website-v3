@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,700,900&display=swap');
+
+
+h1 
+{
+    font-weight: 900;
+    font-family: 'Roboto', sans-serif;
+    color: $white-color;
+}
+  
+h2
+{
+    font-family: 'Fira Mono', sans-serif;
+    font-weight: 400;
+    color: $primary-color;
+}
+  
+title
+{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    color: $primary-color;
+}
