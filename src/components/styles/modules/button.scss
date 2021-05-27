@@ -1,0 +1,51 @@
+.btn
+{
+    background-color: $primary-color;
+    border: none;
+
+    height: 4rem;
+    width: 12rem;
+
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 1.4rem;
+    margin-right: 1.2rem;
+    
+    transition: background ease 0.3s, box-shadow ease 0.3s;
+    
+    &:hover
+    {
+        box-shadow: 1px 1px 10px rgb(#000, 30%);
+        transition: background ease 0.3s, box-shadow ease 0.3s;
+        background-color: lighten($primary-color, 5%);
+        cursor: pointer;
+    }
+
+    // $ ---- Button Sizes ----
+    
+    &.small
+    {
+        height: 2rem;
+        width:  6rem;
+    }
+
+    // $ ---- Button Purposes ----
+    &.resume
+    {
+        width: 11rem;
+        height: 3.5rem;
+    }
+    
+    &.contact
+    {
+        background-color: $dark-foreground-color;
+        width: 11rem;
+        height: 3.5rem;
+
+        &:hover
+        {
+            background-color: lighten($dark-foreground-color, 5%);
+        }
+    }
+}
+

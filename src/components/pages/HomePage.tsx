@@ -1,11 +1,15 @@
 import React, { FC } from 'react';
 
-import Intro from '../sections/Intro';
+import Banner from '../sections/Banner';
+import Projects from '../sections/Projects';
 
 const HomePage : FC = () =>
 {
     return (
-        <Intro />
+        <>
+        <Banner />
+        <Projects />
+        </>
     );
 }
 

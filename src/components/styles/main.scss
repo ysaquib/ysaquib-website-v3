@@ -4,9 +4,12 @@
 @import './base/typography.scss';
 @import './base/base.scss';
 
-@import './sections/intro.scss';
+@import './sections/banner.scss';
+@import './sections/projects.scss';
 
-@import './layout/sections.scss';
+@import './modules/button.scss';
+
+@import './layout/section.scss';
 
 
 // @import './vendor/css/font-awesome.min.css';
