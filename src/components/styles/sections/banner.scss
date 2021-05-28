@@ -3,12 +3,12 @@
     .banner_wrapper
     {
         margin: 0rem;
-        padding: 6rem; // 4rem 3rem 4rem;
-        background-color: $light-background-color;
+        padding: 6rem 6rem; // 4rem 3rem 4rem;
+        background-color: $dark-background-color;
         display: flex;
         flex-direction: column;
 
-        .btns
+        .banner_buttons
         {
             width: 100%;
             display: flex;
@@ -21,23 +21,24 @@
         .pre
         {
             text-align: left;
-            margin: 0rem 0rem 1rem 0rem;
+            margin: 0rem;
+            font: $medium-weight $regular-size $mono-font, monospace;
         }
 
         .my_name
         {
             margin: 0rem; //0rem 4rem 0rem;
             text-align: left;
-            font: 700 $huge-font-size 'Roboto', sans-serif;
+            font: $bolder-weight $huge-size $sans-font, sans-serif;
             color: $white-color;
         }
 
-        .suf
+        .my_title
         {
             margin: 0rem 0rem 4rem 0rem;
             text-align: left;
-            font: 700 $huge-font-size 'Roboto', sans-serif;
-            color: $dark-foreground-color;
+            font: $bold-weight $huge-size $sans-font, sans-serif;
+            color: lighten($light-background-color, 50%);
         }
 
     }

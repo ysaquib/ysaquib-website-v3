@@ -1,12 +1,12 @@
 html 
 {
     font-size: 62.5%;
-    background: $background-color;
+    background: $dark-background-color;
 }
   
 body 
 {
-    font-family: 'Montserrat', sans-serif;
+    font-family: $sans-font, sans-serif;
     text-align: center;
-    background: $background-color;
+    background: $dark-background-color;
 }

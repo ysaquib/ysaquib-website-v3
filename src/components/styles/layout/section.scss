@@ -7,7 +7,7 @@ section
 
     .sec_title
     {
-        font: 900 $medium-font-size 'Roboto Slab', serif;
+        font: $bold-weight $medium-size $serif-font, serif;
     }
 
     @include respond(phone)

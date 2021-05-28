@@ -3,6 +3,7 @@
     text-align: left;
     .projects_wrapper
     {
-        content: '';
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
     }
 }

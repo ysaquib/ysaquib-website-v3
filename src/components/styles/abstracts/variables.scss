@@ -2,7 +2,7 @@
 
 $dark-background-color:     #101620;
 $background-color:          #202430;
-$light-background-color:    #353B50;//464D5A;
+$light-background-color:    #363D4B;//464D5A;
 
 $dark-foreground-color:     #D1D1D2;  
 $foreground-color:          #E0E0E0;  
@@ -11,19 +11,38 @@ $light-foreground-color:    #FAFAFA;
 
 $white-color:               #FFFFFF;
 
-$primary-color:             #FFC107;
-$secondary-color:           #C107FF; //#39BAE6;
+$primary-color:             #CF7BFF; //#FFC107
+$secondary-color:           #D307B8; //#C107FF;
 
 
 // # Text Variables -----------------------------------------------------------
 
-$default-font-size:     1.7rem;
 
-$tiny-font-size:        1rem;
-$small-font-size:       2rem;
-$medium-font-size:      3rem;
-$large-font-size:       4rem;
-$huge-font-size:        5rem;
+$micro-size:       0.8rem;
+$tiny-size:        1rem;
+$small-size:       1.2rem;
+$regular-size:     1.7rem;
+$medium-size:      3rem;
+$large-size:       4rem;
+$huge-size:        5rem;
 
-$Huge-font-size:        6rem;
-$gigantic-font-size:    7rem;
+$Huge-size:        6rem;
+$gigantic-size:    7rem;
+
+// # Font Variables -----------------------------------------------------------
+
+$sans-font:    'Raleway';
+$mono-font:    'Fira Code';
+$serif-font:   'Roboto Slab';
+
+// # Font Weight Variables ----------------------------------------------------
+
+$thin-weight:       100;
+$lighter-weight:    200;
+$light-weight:      300;
+$regular-weight:    400;
+$medium-weight:     500;
+$semi-weight:       600;
+$bold-weight:       700;
+$bolder-weight:     800;
+$black-weight:      900;

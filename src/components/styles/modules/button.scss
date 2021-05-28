@@ -6,8 +6,8 @@
     height: 4rem;
     width: 12rem;
 
-    font-family: 'Roboto', sans-serif;
-    font-weight: 400;
+    font-family: $sans-font, sans-serif;
+    font-weight: $medium-weight;
     font-size: 1.4rem;
     margin-right: 1.2rem;
     
@@ -38,13 +38,13 @@
     
     &.contact
     {
-        background-color: $dark-foreground-color;
+        background-color: lighten($light-background-color, 50%);
         width: 11rem;
         height: 3.5rem;
 
         &:hover
         {
-            background-color: lighten($dark-foreground-color, 5%);
+            background-color: lighten($light-background-color, 55%);
         }
     }
 }
