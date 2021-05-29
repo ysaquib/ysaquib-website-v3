@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 
 import Banner from '../sections/Banner';
 import Projects from '../sections/Projects';
+import ACWrapper from '../wrappers/AboutContact';
 
 const HomePage : FC = () =>
 {
@@ -9,6 +10,7 @@ const HomePage : FC = () =>
         <>
         <Banner />
         <Projects />
+        <ACWrapper />
         </>
     );
 }

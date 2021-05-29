@@ -1,9 +1,18 @@
 #projects
 {
-    text-align: left;
     .projects_wrapper
     {
         display: grid;
         grid-template-columns: repeat(6, 1fr);
+        gap: 1.5rem;
+        margin-bottom: 4rem;
     }
+
+    .projects_button
+    {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
 }

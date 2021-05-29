@@ -1,32 +1,68 @@
 // # Color Variables ----------------------------------------------------------
 
-$dark-background-color:     #101620;
-$background-color:          #202430;
-$light-background-color:    #363D4B;//464D5A;
 
-$dark-foreground-color:     #D1D1D2;  
-$foreground-color:          #E0E0E0;  
-$light-foreground-color:    #FAFAFA;  
+:root
+{
+    --dark-background-color:     #101620;
+    --background-color:          #202430;
+    --light-background-color:    #363D4B;//464D5A;
+    
+    --dark-foreground-color:     #B1B1B2;
+    --foreground-color:          #D1D1D2;  
+    --light-foreground-color:    #FAFAFA;  
+    
+    
+    --white-color:               #FFFFFF;
+    
+    --primary-color:             #CF7BFF; //#FFC107
+    --secondary-color:           #D307B8; //#C107FF;
 
+    --success-color:            #00ff00;
+    --warning-color:            #ffC000;
+    --error-color:              #ff0000;
+    
+}
 
-$white-color:               #FFFFFF;
+$dark-background-color:     var(--dark-background-color);
+$background-color:          var(--background-color);
+$light-background-color:    var(--light-background-color);//464D5A;
 
-$primary-color:             #CF7BFF; //#FFC107
-$secondary-color:           #D307B8; //#C107FF;
+$dark-foreground-color:     var(--dark-foreground-color);  
+$foreground-color:          var(--foreground-color);  
+$light-foreground-color:    var(--light-foreground-color);
+
+$white-color:               var(--white-color);
+
+$primary-color:             var(--primary-color); //#FFC107
+$secondary-color:           var(--secondary-color); //#C107FF;
+
 
 
 // # Text Variables -----------------------------------------------------------
 
 
-$micro-size:       0.8rem;
 $tiny-size:        1rem;
-$small-size:       1.2rem;
-$regular-size:     1.7rem;
-$medium-size:      3rem;
-$large-size:       4rem;
-$huge-size:        5rem;
+$Tiny-size:        1.1rem;
 
+$little-size:      1.2rem;
+$Little-size:      1.3rem;
+
+$small-size:       1.4rem;
+$Small-size:       1.5rem;
+
+$regular-size:     1.6rem;
+
+$medium-size:      2rem;
+$Medium-size:      2.5rem;
+
+$large-size:       3rem;
+$larger-size:      3.5rem;
+$Large-size:       4rem;
+
+$huge-size:        5rem;
+$huger-size:       5.5rem;
 $Huge-size:        6rem;
+
 $gigantic-size:    7rem;
 
 // # Font Variables -----------------------------------------------------------
@@ -46,3 +82,12 @@ $semi-weight:       600;
 $bold-weight:       700;
 $bolder-weight:     800;
 $black-weight:      900;
+
+
+// $light-foreground-color:     var(--dark-background-color);
+// $foreground-color:          var(--background-color);
+// $dark-foreground-color:    var(--light-background-color);//464D5A;
+
+// $light-background-color:     var(--dark-foreground-color);  
+// $background-color:          var(--foreground-color);  
+// $dark-background-color:    var(--light-foreground-color);

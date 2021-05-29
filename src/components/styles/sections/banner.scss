@@ -3,7 +3,7 @@
     .banner_wrapper
     {
         margin: 0rem;
-        padding: 6rem 6rem; // 4rem 3rem 4rem;
+        padding: 4rem 4rem; // 4rem 3rem 4rem;
         background-color: $dark-background-color;
         display: flex;
         flex-direction: column;
@@ -30,7 +30,7 @@
             margin: 0rem; //0rem 4rem 0rem;
             text-align: left;
             font: $bolder-weight $huge-size $sans-font, sans-serif;
-            color: $white-color;
+            color: $light-foreground-color;
         }
 
         .my_title
@@ -38,7 +38,7 @@
             margin: 0rem 0rem 4rem 0rem;
             text-align: left;
             font: $bold-weight $huge-size $sans-font, sans-serif;
-            color: lighten($light-background-color, 50%);
+            color: $dark-foreground-color;
         }
 
     }

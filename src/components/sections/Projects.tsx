@@ -1,4 +1,5 @@
 import React, { FC } from 'react'
+import Button from '../modules/Button';
 import ProjectCard from '../modules/ProjectCard';
 import Section from '../modules/Section';
 
@@ -15,6 +16,11 @@ const Projects : FC = () =>
                     talking about haha.
                 </ProjectCard>
                 <ProjectCard className="large" title="Clock Timer">Test</ProjectCard>
+                <ProjectCard className="large" title="Clock Timer2">Test</ProjectCard>
+                <ProjectCard title="Clock Timer3">Test</ProjectCard>
+           </div>
+           <div className="projects_button">
+                <Button className="big" text="See All Projects"/>
            </div>
        </Section>
     );

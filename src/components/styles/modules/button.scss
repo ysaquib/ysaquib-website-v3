@@ -3,30 +3,40 @@
     background-color: $primary-color;
     border: none;
 
-    height: 4rem;
-    width: 12rem;
-
-    font-family: $sans-font, sans-serif;
-    font-weight: $medium-weight;
-    font-size: 1.4rem;
+    
+    font: $semi-weight $small-size $sans-font, sans-serif;
+    color: $dark-background-color;
+    
     margin-right: 1.2rem;
     
-    transition: background ease 0.3s, box-shadow ease 0.3s;
+    transition: box-shadow ease 0.3s;
+    
+    position: relative;
     
     &:hover
     {
         box-shadow: 1px 1px 10px rgb(#000, 30%);
-        transition: background ease 0.3s, box-shadow ease 0.3s;
-        background-color: lighten($primary-color, 5%);
+        transition: box-shadow ease 0.3s;
         cursor: pointer;
     }
-
+    
+    height: 4rem;
+    width: 12rem;
+    
     // $ ---- Button Sizes ----
     
     &.small
     {
-        height: 2rem;
-        width:  6rem;
+        font: $semi-weight $Little-size $sans-font, sans-serif;
+        height: 3rem;
+        width:  9rem;
+    }
+
+    &.big
+    {
+        font: $bold-weight $Small-size $sans-font, sans-serif;
+        height: 5rem;
+        width: 15rem;
     }
 
     // $ ---- Button Purposes ----
@@ -38,14 +48,9 @@
     
     &.contact
     {
-        background-color: lighten($light-background-color, 50%);
+        background-color: $dark-foreground-color;
         width: 11rem;
         height: 3.5rem;
-
-        &:hover
-        {
-            background-color: lighten($light-background-color, 55%);
-        }
     }
 }
 

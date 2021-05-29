@@ -4,10 +4,21 @@ section
     padding: 2rem 1rem;
     margin: auto;
     width: 70%;
+    text-align: left;
+
+    margin-bottom: 5rem;
+
+
+    &.mini
+    {
+        padding: 0rem;
+        margin: 0rem;
+        width: 100%;
+    }
 
     .sec_title
     {
-        font: $bold-weight $medium-size $serif-font, serif;
+        font: $bold-weight $large-size $serif-font, serif;
     }
 
     @include respond(phone)

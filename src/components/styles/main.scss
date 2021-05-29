@@ -1,11 +1,15 @@
 @import './abstracts/mixins.scss';
 @import './abstracts/variables.scss';
 
-@import './base/typography.scss';
 @import './base/base.scss';
+@import './base/typography.scss';
 
 @import './sections/banner.scss';
 @import './sections/projects.scss';
+@import './sections/about.scss';
+@import './sections/contact.scss';
+
+@import './wrappers/ac_wrapper.scss';
 
 @import './modules/button.scss';
 @import './modules/projectcard.scss';

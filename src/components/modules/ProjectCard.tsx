@@ -7,11 +7,11 @@ interface CardProps
     children?: string;
     image?: string;
     github?: string;
-    demo?: string;
+    url?: string;
     languages?: string[];
 }
 
-const ProjectCard : FC<CardProps> = ({children, title, className, image, github, demo, languages}) => 
+const ProjectCard : FC<CardProps> = ({children, title, className, image, github, url, languages}) => 
 {
     // Create tag
     var tag: JSX.Element = (
@@ -35,6 +35,9 @@ const ProjectCard : FC<CardProps> = ({children, title, className, image, github,
                 <p className="project_description">
                     {children}
                 </p>
+                <ul className="project_languages">
+                    {languages?.map(lang => {return(<li>{lang}</li>);})}
+                </ul>
             </div>
         </div>
     );

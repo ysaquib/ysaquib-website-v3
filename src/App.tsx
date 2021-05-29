@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import './components/styles/main.scss';
-import { BrowserRouter, Switch } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom'; //Switch
 
 import './firebase/config'
 
