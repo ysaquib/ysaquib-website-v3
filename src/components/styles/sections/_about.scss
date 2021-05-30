@@ -7,7 +7,11 @@
         .about_description
         {
             font: $regular-weight $regular-size $sans-font, sans-serif;
-            color: $light-foreground-color;
+            // color: $light-foreground-color;
+            @include themify()
+            {
+                color: themed('grey-9');
+            }
         }
     }
 }

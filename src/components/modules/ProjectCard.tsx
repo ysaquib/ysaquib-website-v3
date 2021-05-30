@@ -36,7 +36,7 @@ const ProjectCard : FC<CardProps> = ({children, title, className, image, github,
                     {children}
                 </p>
                 <ul className="project_languages">
-                    {languages?.map(lang => {return(<li>{lang}</li>);})}
+                    {languages?.map(lang => {return(<li key={lang}>{lang}</li>);})}
                 </ul>
             </div>
         </div>

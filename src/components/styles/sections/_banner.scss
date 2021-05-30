@@ -4,7 +4,12 @@
     {
         margin: 0rem;
         padding: 4rem 4rem; // 4rem 3rem 4rem;
-        background-color: $dark-background-color;
+
+        @include themify()
+        {
+            background-color: themed('background-dark');
+        }
+
         display: flex;
         flex-direction: column;
 
@@ -30,7 +35,11 @@
             margin: 0rem; //0rem 4rem 0rem;
             text-align: left;
             font: $bolder-weight $huge-size $sans-font, sans-serif;
-            color: $light-foreground-color;
+
+            @include themify()
+            {
+                color: themed('grey-9');
+            }
         }
 
         .my_title
@@ -38,7 +47,11 @@
             margin: 0rem 0rem 4rem 0rem;
             text-align: left;
             font: $bold-weight $huge-size $sans-font, sans-serif;
-            color: $dark-foreground-color;
+
+            @include themify()
+            {
+                color: themed('grey-7');
+            }
         }
 
     }

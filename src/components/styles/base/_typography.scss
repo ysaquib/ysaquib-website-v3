@@ -9,18 +9,30 @@ h1
 {
     font-weight: $black-weight;
     font-family: $serif-font, serif;
-    color: $light-foreground-color;
+    // color: $light-foreground-color;
+    @include themify()
+    {
+        color: themed('grey-9');
+    }
     font: $medium-weight $large-size $serif-font, serif;
 }
   
 h2
 {
     font: $medium-weight $regular-size $mono-font, monospace;
-    color: $primary-color;
+    // color: $primary-color;
+    @include themify()
+    {
+        color: themed('primary-0');
+    }
 }
 
 title
 {
     font: $bold-weight $regular-size $sans-font, sans-serif;
-    color: $primary-color;
+    // color: $primary-color;
+    @include themify()
+    {
+        color: themed('primary-0');
+    }
 }

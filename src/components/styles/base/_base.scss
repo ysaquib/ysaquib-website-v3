@@ -1,0 +1,20 @@
+html 
+{
+    font-size: 62.5%;
+}
+  
+body 
+{
+    font-family: $sans-font, sans-serif;
+    text-align: center;
+    &.theme-dark
+    {
+        background-color: get_color($key: 'grey-0', $theme: 'dark');
+    }
+    
+    &.theme-light
+    {
+        background-color: get_color($key: 'grey-1', $theme: 'light');
+
+    }
+}

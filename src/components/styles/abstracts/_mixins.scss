@@ -1,0 +1,78 @@
+// MEDIA QUERY MANAGER
+/*
+
+0 - 600px:          Phone
+600px - 900px       Table Portrait
+900px - 1200px      Table Landscape
+[1200px - 1800px]   Desktop Normal Styles
+1800px +            Big Desktop
+
+1em = 16px
+
+ORDER: Base + Typography > General Layout + Grid > Page Layout > Components
+
+*/
+@mixin respond($breakpoint) 
+{
+  // Phone-xs
+  @if $breakpoint == phone-xs 
+  {
+    @media (max-width: 20em) 
+    {
+      @content;
+    } //0 - 320px
+  }
+  // Phone
+  @if $breakpoint == phone 
+  {
+    @media (max-width: 37.5em) 
+    {
+      @content;
+    } //0 - 600px
+  }
+  // Table Portrait
+  @if $breakpoint == tab-port 
+  {
+    @media (max-width: 56.25em) 
+    {
+      @content;
+    } //900px
+  }
+  // Table Landscape
+  @if $breakpoint == tab-land 
+  {
+    @media (max-width: 75em) 
+    {
+      @content;
+    } //1200px
+  }
+  // Big Desktop
+  @if $breakpoint == big-desktop 
+  {
+    @media (min-width: 112.5em) 
+    {
+      @content;
+    } //1800px +
+  }
+}
+
+// Code from https://medium.com/@dmitriy.borodiy/easy-color-theming-with-scss-bc38fd5734d1
+
+@mixin themify($themes: $themes) 
+{
+  @each $theme, $map in $themes 
+  {
+    .theme-#{$theme} & 
+    {
+      $theme-map: () !global;
+      @each $key, $submap in $map 
+      {
+        $value: map-get(map-get($themes, $theme), '#{$key}');
+        $theme-map: map-merge($theme-map, ($key: $value)) !global;
+      }
+
+      @content;
+      $theme-map: null !global;
+    }
+  }
+}

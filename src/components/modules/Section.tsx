@@ -1,3 +1,11 @@
+/**
+ * File: Section.tsx
+ * Author: Yusuf Saquib
+ * 
+ * This file describes a Function Component that creates a section with
+ * a title. 
+ */
+
 import React, {FC} from 'react';
 
 interface SectionProps

@@ -1,0 +1,88 @@
+.btn
+{
+    border: none;
+    
+    
+    font: $semi-weight $small-size $sans-font, sans-serif;
+    @include themify()
+    {
+        color: themed('grey-0');
+        background-color: themed('primary-0');
+        &:hover
+        {
+            background-color: lighten(themed('primary-0'), $btn-lighten-amount);
+        }
+    }
+    
+    margin-right: 1.2rem;
+    
+    transition: background ease 0.3s, box-shadow ease 0.3s;
+    
+    position: relative;
+    
+    &:hover
+    {
+        box-shadow: 1px 1px 10px rgb(#000, 30%);
+        transition: background ease 0.3s, box-shadow ease 0.3s;
+        cursor: pointer;
+    }
+    
+    height: 4rem;
+    width: 12rem;
+    
+    // $ ---- Button Sizes ----
+    
+    &.small
+    {
+        font: $semi-weight $Little-size $sans-font, sans-serif;
+        height: 3rem;
+        width:  9rem;
+    }
+
+    &.big
+    {
+        font: $bold-weight $Small-size $sans-font, sans-serif;
+        height: 5rem;
+        width: 15rem;
+    }
+
+    // $ ---- Button Purposes ----
+    &.resume
+    {
+        width: 11rem;
+        height: 3.5rem;
+    }
+    
+    &.contact
+    {
+        @include themify()
+        {
+            background-color: themed('grey-9');
+            &:hover
+            {
+                background-color: lighten(themed('grey-9'), $btn-lighten-amount);
+            }
+        }
+
+        width: 11rem;
+        height: 3.5rem;
+    }
+
+    &.theme_toggler
+    {
+        background: none;
+        
+        @include themify()
+        {
+            color: themed('grey-9');
+        }
+
+        width: 15rem;
+        &:hover
+        {
+            background: none;
+            box-shadow: none;
+        }
+    }
+}
+

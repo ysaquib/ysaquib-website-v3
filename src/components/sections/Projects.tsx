@@ -1,15 +1,50 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect, useState } from 'react'
+// import {database} from '../../firebase/config';
+import Firebase from '../../firebase/config';
 import Button from '../modules/Button';
 import ProjectCard from '../modules/ProjectCard';
 import Section from '../modules/Section';
 
 const Projects : FC = () =>
 {
-    const langs : string[] = ["Javascript", "React", "NodeJS"];
+    const [projects, setProjects] = useState<any>([]);
+    const [loading, setLoading] = useState<boolean>(false);
+
+    
+    useEffect(() => {
+        const projectsDB = Firebase.firestore().collection("projects");
+        setLoading(true);
+        projectsDB.onSnapshot((querySnapshot) => 
+        {
+            const items : any = [];
+            querySnapshot.forEach((doc) => 
+            {
+                items.push(doc.data());
+            });
+            items.sort(
+                (a : any, b : any) =>
+                {
+                    if (b.featured && !(a.featured))
+                        return 1;
+                    else
+                        return -1;
+                }
+            );
+            setProjects(items);
+            console.log(items);
+            setLoading(false);
+        });
+    }, []);
+    
     return (
        <Section title="My Projects" id="projects">
            <div className="projects_wrapper">
-                <ProjectCard className="featured" title="Digital Canvas" languages={langs}>
+               {projects && projects.map((project : any) => (
+                   <ProjectCard className={project.featured ? "featured" : ""} key={project.id} title={project.title}>
+                       {project.description}
+                   </ProjectCard>
+               ))}
+                <ProjectCard className="featured" title="Digital Canvas">
                     this is a brief description of the project that I have created and I can keep talking
                     about stuff that I have done in my life because this is super super super cool and 
                     this is just utter nonsense now. However I do in fact oviously clearly know what I am 

@@ -1,8 +1,12 @@
 import React, { FC } from 'react'
 import Button from '../modules/Button'
+import ThemeSwitcher from '../modules/ThemeSwitcher'
+
 
 const Banner : FC = () =>
 {
+
+
     return (
        <section id="banner">
            <div className="banner_wrapper">
@@ -12,6 +16,7 @@ const Banner : FC = () =>
                 <div className="banner_buttons">
                     <Button type="button" className="resume" text="See Resume"/>
                     <Button type="button" className="contact" text="Contact Me"/>
+                    <ThemeSwitcher />
                 </div>
            </div>
        </section>

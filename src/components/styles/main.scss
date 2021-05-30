@@ -1,20 +1,22 @@
-@import './abstracts/mixins.scss';
-@import './abstracts/variables.scss';
+@import './abstracts/variables';
+@import './abstracts/colorthemes';
+@import './abstracts/mixins';
+@import './abstracts/functions';
 
-@import './base/base.scss';
-@import './base/typography.scss';
+@import './base/base';
+@import './base/typography';
 
-@import './sections/banner.scss';
-@import './sections/projects.scss';
-@import './sections/about.scss';
-@import './sections/contact.scss';
+@import './sections/banner';
+@import './sections/projects';
+@import './sections/about';
+@import './sections/contact';
 
-@import './wrappers/ac_wrapper.scss';
+@import './wrappers/acwrapper';
 
-@import './modules/button.scss';
-@import './modules/projectcard.scss';
+@import './modules/button';
+@import './modules/projectcard';
 
-@import './layout/section.scss';
+@import './layout/section';
 
 
 // @import './vendor/css/font-awesome.min.css';
