@@ -1,7 +1,7 @@
 import firebase from 'firebase/app';
 import 'firebase/firestore';
+import 'firebase/auth';
 // import 'firebase/database';
-// import 'firebase/auth';
 // import 'firebase/analytics';
 
 // import { useAuthState } from 'react-firebase-hooks/auth';
@@ -24,7 +24,15 @@ const config : Object =
 
 const Firebase = firebase.initializeApp(config);
 
-// export const auth = Firebase.auth();
-export const database = Firebase.firestore();
+const auth = Firebase.auth();
+const database = Firebase.firestore();
+
+// eslint-disable-next-line no-restricted-globals
+if (location.hostname === 'localhost') {
+    console.log("On Localhost");
+    database.useEmulator('localhost', 8080);
+    auth.useEmulator('http://localhost:9099/');
+}
 
 export default Firebase;
+export {database, auth};
