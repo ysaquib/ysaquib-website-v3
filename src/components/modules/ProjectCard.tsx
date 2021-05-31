@@ -1,3 +1,8 @@
+/**
+ * File: ProjectCard.tsx
+ * Author: Yusuf Saquib
+ */
+
 import React, {FC} from 'react';
 
 interface CardProps
@@ -13,13 +18,15 @@ interface CardProps
 
 const ProjectCard : FC<CardProps> = ({children, title, className, image, github, url, languages}) => 
 {
-    // Create tag
+    /**
+     * Create the "Featured Project" tag that will only be applied to the 
+     * featured project (any project with the 'featured' className)
+     */
     var tag: JSX.Element = (
         <div className="featured_tag">
             <h3 className="label">Featured Project</h3>
         </div>);
-    
-    // Only apply tag to featured project
+
     if (className !== "featured")
     {
         tag = (<></>);

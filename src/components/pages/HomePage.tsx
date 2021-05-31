@@ -1,3 +1,8 @@
+/**
+ * File: HomePage.tsx
+ * Author: Yusuf Saquib
+ */
+
 import React, { FC } from 'react';
 
 import Banner from '../sections/Banner';

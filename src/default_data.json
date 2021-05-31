@@ -1,0 +1,19 @@
+{
+    "banner" : 
+    {
+        "prefix": "Hi! My name is",
+        "name" : "Yusuf Saquib.",
+        "title" : "I am a Computer Science Student.",
+        "resume" : "www.google.com"
+    },
+    "about" :
+    {
+        "description": "",
+        "links" :
+        {
+            "linkedin" : "",
+            "github" : "",
+            "email" : "yusufsaquib@gmail.com"
+        }
+    }
+}

@@ -1,3 +1,8 @@
+/**
+ * File: About.tsx
+ * Author: Yusuf Saquib
+ */
+
 import React, { FC } from 'react'
 import Section from '../modules/Section';
 

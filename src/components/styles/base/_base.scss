@@ -1,3 +1,8 @@
+/*
+ * File: _base.scss
+ * Author: Yusuf Saquib
+ */
+
 html 
 {
     font-size: 62.5%;
@@ -14,7 +19,9 @@ body
     
     &.theme-light
     {
-        background-color: get_color($key: 'grey-1', $theme: 'light');
+        background-color: get_color($key: 'grey-0', $theme: 'light');
 
     }
 }
+
+.firebase-emulator-warning { display: none; }

@@ -1,9 +1,14 @@
+/*
+ * File: _projectcard.scss
+ * Author: Yusuf Saquib
+ */
+
 .project_card_wrapper
 {
     // background-color: $background-color;
     @include themify()
     {
-        background-color: themed('grey-0');
+        background-color: themed('grey-1');
     }
     height: 28rem;
     position: relative;

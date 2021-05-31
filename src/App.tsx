@@ -1,3 +1,8 @@
+/**
+ * File: App.tsx
+ * Author: Yusuf Saquib
+ */
+
 import React, { FC } from 'react';
 import './components/styles/main.scss';
 import { BrowserRouter } from 'react-router-dom'; //Switch

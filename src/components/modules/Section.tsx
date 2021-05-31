@@ -1,12 +1,14 @@
 /**
  * File: Section.tsx
  * Author: Yusuf Saquib
- * 
- * This file describes a Function Component that creates a section with
- * a title. 
  */
 
 import React, {FC} from 'react';
+
+/**
+ * Creates a Function Component with the following interface to create a
+ * section with a title in it, and accepts className and id for the section.
+ */
 
 interface SectionProps
 {

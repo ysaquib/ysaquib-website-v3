@@ -1,8 +1,18 @@
+/*
+ * File: _functions.scss
+ * Author: Yusuf Saquib
+ *
+ * Here lay my functions, dormant until called upon.
+ */
+
+
+/* Given a key that is the name of a color in my theme, return the color */
 @function themed($key)
 {
     @return map-get($theme-map, $key);
 }
 
+/* given a key (name of color) and a theme, return the color in the theme  */
 @function get_color($themes: $themes, $key, $theme)
 {
     @return map-get(map-get($themes, $theme), $key);
