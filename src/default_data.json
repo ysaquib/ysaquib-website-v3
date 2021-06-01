@@ -1,10 +1,13 @@
 {
+    "theme" : "dark",
     "banner" : 
     {
         "prefix": "Hi! My name is",
         "name" : "Yusuf Saquib.",
         "title" : "I am a Computer Science Student.",
-        "resume" : "www.google.com"
+        "resume" : "www.google.com",
+        "resume_btn" : "See Resume",
+        "contact_btn" : "Contact Me"
     },
     "about" :
     {

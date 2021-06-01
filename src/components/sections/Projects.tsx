@@ -29,7 +29,12 @@ const Projects : FC = () =>
     useEffect(() => {
         const projectsDB = database.collection("projects").orderBy("order");
         setLoading(true);
-        projectsDB.onSnapshot((querySnapshot) => 
+        /**
+         * Using .get() on a database will get the data on page load.
+         * Using .onSnapshot() on a database will get data in real time.
+         */
+        // projectsDB.onSnapshot((querySnapshot) =>
+        projectsDB.get().then((querySnapshot) => 
         {
             const items : any = [];
             querySnapshot.forEach((doc) => 
@@ -59,6 +64,7 @@ const Projects : FC = () =>
                 return "";
         }
     }
+    
     /**
      * If the projects are currently being loaded, make sure it is known.
      */
@@ -67,7 +73,7 @@ const Projects : FC = () =>
         return(
             <Section title="My Projects" id="projects">
             <div className="projects_wrapper">
-               <h2 className="projects_loading">Loading...</h2>
+                <h2 className="projects_loading">Loading...</h2>
             </div>
             </Section>
         )
@@ -76,7 +82,7 @@ const Projects : FC = () =>
        <Section title="My Projects" id="projects">
            <div className="projects_wrapper">
                {projects && projects.map((project : any) => (
-                   <ProjectCard className={getClassName(project.order)} key={project.id} title={project.title} languages={project.languages}>
+                   <ProjectCard className={getClassName(project.order)} key={project.order} title={project.title} languages={project.languages}>
                        {project.description}
                    </ProjectCard>
                ))}
@@ -89,12 +95,3 @@ const Projects : FC = () =>
 }
 
 export default Projects
-/* <ProjectCard className="featured" title="Digital Canvas">
-    this is a brief description of the project that I have created and I can keep talking
-    about stuff that I have done in my life because this is super super super cool and 
-    this is just utter nonsense now. However I do in fact oviously clearly know what I am 
-    talking about haha.
-</ProjectCard>
-<ProjectCard className="large" title="Clock Timer">Test</ProjectCard>
-<ProjectCard className="large" title="Clock Timer2">Test</ProjectCard>
-<ProjectCard title="Clock Timer3">Test</ProjectCard> */

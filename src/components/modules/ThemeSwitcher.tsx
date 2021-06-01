@@ -1,6 +1,8 @@
 import React, { FC, useState, useEffect } from 'react';
 import Button from './Button';
 
+let default_data = require('../../default_data.json');
+
 const ThemeSwitcher: FC = () => 
 {
     const [useDarkTheme, setDarkTheme] = useState(true);
@@ -14,13 +16,13 @@ const ThemeSwitcher: FC = () =>
         setDarkTheme(!useDarkTheme);
         if (useDarkTheme)
         {
-            localStorage.setItem('theme', "Light");
+            localStorage.setItem('theme', "light");
             document.body.classList.remove("theme-dark");
             document.body.classList.add("theme-light");
         } 
         else 
         {
-            localStorage.setItem('theme', "Dark");
+            localStorage.setItem('theme', "dark");
             document.body.classList.remove("theme-light");
             document.body.classList.add("theme-dark");
         }
@@ -31,14 +33,14 @@ const ThemeSwitcher: FC = () =>
      */
     useEffect(() => 
     {
-        const getTheme = localStorage.getItem('theme');
+        const getTheme = localStorage.getItem('theme') || default_data.dark;
         switch (getTheme)
         {
-            case "Dark":
+            case "dark":
                 setDarkTheme(true);
                 document.body.classList.add("theme-dark");
                 break;
-            case "Light":
+            case "light":
                 setDarkTheme(false);
                 document.body.classList.add("theme-light");
                 break;
