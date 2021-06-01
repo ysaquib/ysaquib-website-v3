@@ -1,0 +1,62 @@
+.input_wrapper
+{
+    width: 100%;
+    height: auto;
+    margin: 0rem;
+    padding: 0rem;
+    font: $regular-weight $regular-size $sans-font, sans-serif;
+
+    grid-column: span 2;
+
+    &.half
+    {
+        grid-column: span 1;
+    }
+    
+    position: relative;
+
+    @include themify()
+    {
+        color: themed("grey-7");
+    }
+
+    .input_label
+    {
+        margin: none;
+        font: $semi-weight $little-size $sans-font, sans-serif;
+        opacity: 0%;
+        transition: 0.3s;
+        
+        &.shown
+        {
+            transition: 0.3s;
+            opacity: 100%;
+        }
+    }
+    
+    .input[type=text]
+    {
+        border: 0;
+        height: 4rem;
+        width: 100%;
+        padding: 1rem;
+
+        font: $regular-weight $regular-size $sans-font, sans-serif;
+        
+        
+        @include themify()
+        {
+            color: themed("primary-0");
+            background-color: themed("grey-1");
+            outline-color: themed("primary-0");
+        }
+        
+        &:focus
+        {
+            outline-width: 0.1rem;
+            outline-style: solid;
+            outline-offset: -0.1rem;
+        }
+    }
+
+}
