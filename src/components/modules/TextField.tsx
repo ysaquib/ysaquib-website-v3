@@ -19,7 +19,7 @@ interface TextFieldProps extends InputHTMLAttributes<HTMLInputElement>
     register: UseFormRegister<any>;
 }
 
-const TextField: FC<TextFieldProps> = ({ label, type, name, className, disabled, register, required }) => 
+const TextField: FC<TextFieldProps> = ({ label, type, name, className, disabled, register, required, ...props }) => 
 {
     const [showLabel, setShowLabel] = useState(false);
 
@@ -39,9 +39,8 @@ const TextField: FC<TextFieldProps> = ({ label, type, name, className, disabled,
        <div className={`input_wrapper ${className}`}>
             <label id={name} htmlFor={name} className="input_label">{label}</label>
             <br />
-            <input type={type} {...register(label, {required})} 
+            <input {...props} type={type} {...register(label, {required})} 
                 name={name}
-                className="input" 
                 disabled={disabled} 
                 placeholder={label}
                 onChange={(event) => event.target.value === "" ? setShowLabel(false) : setShowLabel(true)}/>

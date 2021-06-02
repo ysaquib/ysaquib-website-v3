@@ -12,10 +12,10 @@
     @include themify()
     {
         color: themed('grey-0');
-        background-color: themed('primary-0');
+        background-color: themed('primary');
         &:hover
         {
-            background-color: lighten(themed('primary-0'), $btn-lighten-amount);
+            background-color: lighten(themed('primary'), $btn-lighten-amount);
         }
     }
     

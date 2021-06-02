@@ -7,6 +7,7 @@ import React, { FC } from 'react'
 import TextField from '../modules/TextField';
 import Section from '../modules/Section';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import TextArea from '../modules/TextArea';
 
 let default_data = require('../../default_data.json');
 
@@ -30,9 +31,7 @@ const Contact : FC = () =>
                 <TextField label="Email Address" name="email" type="text" required register={register} />
                 <TextField label="Subject" name="subject" type="text" required register={register} />
 
-                <label htmlFor="message" className="contact_label">Message
-                    <textarea placeholder="placeholder" className="contact_message"/>
-                </label>
+                <TextArea label="Message" name="message" required register={register} rows={10}/>
 
 
            </div>

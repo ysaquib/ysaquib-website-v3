@@ -5,7 +5,7 @@
         "prefix": "Hi! My name is",
         "name" : "Yusuf Saquib.",
         "title" : "I am a Computer Science Student.",
-        "resume" : "www.google.com",
+        "resume_url" : "www.google.com",
         "resume_btn" : "See Resume",
         "contact_btn" : "Contact Me"
     },
@@ -30,5 +30,10 @@
     "security" :
     {
         "title" : "Security Details"
+    },
+    "footer" :
+    {
+        "text" : "Designed and Built by Yusuf Saquib",
+        "url" : "https://github.com/ysaquib/ysaquib-website-v3"
     }
 }

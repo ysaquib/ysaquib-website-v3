@@ -1,0 +1,64 @@
+::-webkit-scrollbar
+{
+    width: $scrollbar-width;
+}
+::-webkit-scrollbar-track 
+{
+    @include themify()
+    {
+        background-color: themed($scrollbar-track);
+    }
+}
+
+::-webkit-scrollbar-thumb 
+{
+    @include themify()
+    {
+        background-color: themed($scrollbar-thumb);
+        &:hover
+        {
+            background-color: themed($scrollbar-thumb-hover);
+        }
+    }
+}
+
+.theme-dark
+{
+    &::-webkit-scrollbar
+    {
+        width: $doc-scrollbar-width;
+    }
+    &::-webkit-scrollbar-track 
+    {
+        background-color: get_color($key: $doc-scrollbar-track, $theme: 'dark');
+    }
+    
+    &::-webkit-scrollbar-thumb 
+    {
+        background-color: get_color($key: $doc-scrollbar-thumb, $theme: 'dark');
+        &:hover
+        {
+            background-color: get_color($key: $doc-scrollbar-thumb-hover, $theme: 'dark');
+        }
+    }
+}
+.theme-light
+{
+    &::-webkit-scrollbar
+    {
+        width: $doc-scrollbar-width;
+    }
+    &::-webkit-scrollbar-track 
+    {
+        background-color: get_color($key: $doc-scrollbar-track, $theme: 'light');
+    }
+    
+    &::-webkit-scrollbar-thumb 
+    {
+        background-color: get_color($key: $doc-scrollbar-thumb, $theme: 'light');
+        &:hover
+        {
+            background-color: get_color($key: $doc-scrollbar-thumb-hover, $theme: 'light');
+        }
+    }
+}

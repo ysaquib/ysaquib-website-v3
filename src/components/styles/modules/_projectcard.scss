@@ -20,7 +20,7 @@
         // background-color: $primary-color;
         @include themify()
         {
-            background-color: themed('primary-0');
+            background-color: themed('primary');
         }
         z-index: 10;
         width: 16rem;

@@ -15,48 +15,72 @@
     
     position: relative;
 
-    @include themify()
-    {
-        color: themed("grey-7");
-    }
+}
 
-    .input_label
-    {
-        margin: none;
-        font: $semi-weight $little-size $sans-font, sans-serif;
-        opacity: 0%;
-        transition: 0.3s;
-        
-        &.shown
-        {
-            transition: 0.3s;
-            opacity: 100%;
-        }
-    }
+.input_label
+{
+    margin: none;
+    font: $medium-weight $Little-size $sans-font, sans-serif;
+    opacity: 0%;
+    transition: 0.3s;
+
     
-    .input[type=text]
+    &.shown
     {
-        border: 0;
-        height: 4rem;
-        width: 100%;
-        padding: 1rem;
+        transition: 0.3s;
+        opacity: 100%;
 
-        font: $regular-weight $regular-size $sans-font, sans-serif;
-        
-        
         @include themify()
         {
-            color: themed("primary-0");
-            background-color: themed("grey-1");
-            outline-color: themed("primary-0");
-        }
-        
-        &:focus
-        {
-            outline-width: 0.1rem;
-            outline-style: solid;
-            outline-offset: -0.1rem;
+            color: themed("grey-8");
         }
     }
+}
 
+textarea
+{
+    resize: none;
+}
+
+
+textarea, input[type=text]
+{
+    border: 0;
+    width: 100%;
+    padding: 1rem;
+
+    font: $regular-weight $regular-size $sans-font, sans-serif;
+    
+    transition: background-color ease 0.3s;
+    
+    @include themify()
+    {
+        color: themed("primary");
+        background-color: themed("grey-1");
+        outline-color: themed("primary");
+    }
+    
+    // &::placeholder
+    // {
+    //     @include themify()
+    //     {
+    //         color: themed("grey-4");
+    //     }
+    //     font: $regular-weight $regular-size $sans-font, sans-serif;
+    // }
+    
+    &:focus
+    {
+        outline-width: 0.1rem;
+        outline-style: solid;
+        outline-offset: -0.1rem;
+    }
+    
+    &:hover
+    {
+        @include themify()
+        {
+            background-color: mix(themed('grey-1'), themed('primary'), 97%);
+        }
+    }
 }

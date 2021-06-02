@@ -6,7 +6,7 @@
         {
             @include themify()
             {
-                color: themed('secondary-0');
+                color: themed('secondary');
             }
         }
         .label
@@ -38,7 +38,7 @@
                 flex: 1;
                 @include themify()
                 {
-                    background-color: themed('secondary-0');
+                    background-color: themed('secondary');
                 }
                 height: 1px;
                 width: 100%;
@@ -47,19 +47,23 @@
 
         .public_key
         {
+            transition: height 1s ease-in-out;
+            margin: 0rem;
             height: 0;
-            display: none;
+            overflow: hidden;
+            display: block;
+            @include themify()
+            {
+                background-color: themed('grey-1');
+            }
+            
             &.shown
             {
-                display: block;
-                height: fit-content;
-                @include themify()
-                {
-                    background-color: themed('grey-1');
-                }
+                height: 95rem;
             }
             .key
             {
+                margin: 0rem;
                 white-space: pre-wrap;
                 padding: 2rem;
                 font: $regular-weight $little-size $mono-font, monospace;

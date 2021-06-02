@@ -28,7 +28,7 @@ h2
     // color: $primary-color;
     @include themify()
     {
-        color: themed('primary-0');
+        color: themed('primary');
     }
 }
 
@@ -38,6 +38,6 @@ title
     // color: $primary-color;
     @include themify()
     {
-        color: themed('primary-0');
+        color: themed('primary');
     }
 }

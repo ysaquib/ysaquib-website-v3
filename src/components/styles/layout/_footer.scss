@@ -1,5 +1,56 @@
 #footer
 {
-    margin-top: 5rem;
+    width: 100%;
+    margin: 10rem 0rem 5rem 0rem;
     height: 5rem;
+    
+    .footer_wrapper
+    {
+        margin: auto;
+        width: 70%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+
+        @include themify()
+        {
+            color: themed('grey-5');
+        }
+        
+        &::before
+        {
+            content: "";
+            order: 1;
+            @include themify()
+            {
+                background-color: themed('grey-2');
+            }
+            height: 1px;
+            width: 70%;
+        }
+        
+        .footer_label
+        {
+            margin-top: 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            order: 2;
+            gap: 0.3rem;
+            font: $semi-weight $little-size $mono-font, monospace;
+            cursor: pointer;
+            text-decoration: none;
+            opacity: 80%;
+            transition: color 0.3s ease;
+            &:hover
+            {
+                @include themify()
+                {
+                    color: themed('primary');
+                }
+            }
+        }
+    }
 }
