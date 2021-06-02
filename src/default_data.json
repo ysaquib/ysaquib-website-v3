@@ -9,8 +9,10 @@
         "resume_btn" : "See Resume",
         "contact_btn" : "Contact Me"
     },
+
     "about" :
     {
+        "title" : "About Me",
         "description": "",
         "links" :
         {
@@ -18,5 +20,15 @@
             "github" : "",
             "email" : "yusufsaquib@gmail.com"
         }
+    },
+
+    "contact" :
+    {
+        "title" : "Contact Me"
+    },
+
+    "security" :
+    {
+        "title" : "Security Details"
     }
 }

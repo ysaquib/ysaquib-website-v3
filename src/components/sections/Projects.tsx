@@ -88,7 +88,7 @@ const Projects : FC = () =>
                ))}
            </div>
            <div className="projects_button">
-                <Button className="big" text="See All Projects"/>
+                <Button className="project" text="See All Projects"/>
            </div>
        </Section>
     );

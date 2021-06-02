@@ -19,7 +19,7 @@
         }
     }
     
-    margin-right: 1.2rem;
+    margin-right: 1.5rem;
     
     transition: background ease 0.3s, box-shadow ease 0.3s;
     
@@ -32,30 +32,19 @@
         cursor: pointer;
     }
     
-    height: 4rem;
-    width: 12rem;
+    height: 3.5rem;
+    width: fit-content;
     
-    // $ ---- Button Sizes ----
-    
-    &.small
-    {
-        font: $semi-weight $Little-size $sans-font, sans-serif;
-        height: 3rem;
-        width:  9rem;
-    }
-
-    &.big
-    {
-        font: $bold-weight $Small-size $sans-font, sans-serif;
-        height: 5rem;
-        width: 15rem;
-    }
-
     // $ ---- Button Purposes ----
+    &.project
+    {
+        width: 13rem;
+        margin-right: 0rem;
+    }
+
     &.resume
     {
         width: 11rem;
-        height: 3.5rem;
     }
     
     &.contact

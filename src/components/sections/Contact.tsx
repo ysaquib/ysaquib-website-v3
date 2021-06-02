@@ -8,6 +8,8 @@ import TextField from '../modules/TextField';
 import Section from '../modules/Section';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
+let default_data = require('../../default_data.json');
+
 interface IFormValues
 {
     "First Name" : string;
@@ -21,7 +23,7 @@ const Contact : FC = () =>
 {
     const {register, handleSubmit} = useForm<IFormValues>();
     return (
-       <Section id="contact" className="mini" title="Contact Me">
+       <Section id="contact" className="mini" title={default_data.contact.title}>
            <div className="contact_wrapper">
                 <TextField label="First Name" name="first" type="text" className="half" required register={register} />
                 <TextField label="Last Name" name="last" type="text" className="half" required register={register} />

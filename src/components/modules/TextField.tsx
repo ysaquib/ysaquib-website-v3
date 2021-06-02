@@ -1,8 +1,8 @@
 /**
- * File: Button.tsx
+ * File: TextField.tsx
  * Author: Yusuf Saquib
  */
-import React, { FC, InputHTMLAttributes, useState } from 'react';
+import React, { FC, InputHTMLAttributes, useEffect, useState } from 'react';
 import { UseFormRegister } from 'react-hook-form';
 
 
@@ -11,7 +11,7 @@ import { UseFormRegister } from 'react-hook-form';
  * but also add our own custom properties
  * 
  */
-interface TextField extends InputHTMLAttributes<HTMLInputElement> 
+interface TextFieldProps extends InputHTMLAttributes<HTMLInputElement> 
 {
     name: string;
     label: string;
@@ -19,20 +19,21 @@ interface TextField extends InputHTMLAttributes<HTMLInputElement>
     register: UseFormRegister<any>;
 }
 
-const TextField: FC<TextField> = ({ label, type, name, className, disabled, register, required }) => 
+const TextField: FC<TextFieldProps> = ({ label, type, name, className, disabled, register, required }) => 
 {
+    const [showLabel, setShowLabel] = useState(false);
 
-    function getValue(input : string)
+    useEffect(() => 
     {
-        if(input === "")
-        {
-            document.getElementById(name)?.classList.remove("shown");
-        }
-        else
+        if(showLabel)
         {
             document.getElementById(name)?.classList.add("shown");
         }
-    }
+        else
+        {
+            document.getElementById(name)?.classList.remove("shown");
+        }
+    }, [showLabel, name])
 
     return (
        <div className={`input_wrapper ${className}`}>
@@ -43,7 +44,7 @@ const TextField: FC<TextField> = ({ label, type, name, className, disabled, regi
                 className="input" 
                 disabled={disabled} 
                 placeholder={label}
-                onChange={(event) => getValue(event.target.value)}/>
+                onChange={(event) => event.target.value === "" ? setShowLabel(false) : setShowLabel(true)}/>
        </div>
     );
 }
