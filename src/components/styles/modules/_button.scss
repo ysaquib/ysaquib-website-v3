@@ -6,7 +6,7 @@
 .btn
 {
     border: none;
-    
+    border-radius: 0.3rem;
     
     font: $semi-weight $small-size $sans-font, sans-serif;
     @include themify()
@@ -15,20 +15,18 @@
         background-color: themed('primary');
         &:hover
         {
-            background-color: lighten(themed('primary'), $btn-lighten-amount);
+            background-color: mix(themed('primary'), themed('grey-9'), $color-mix-regular);
         }
     }
     
     margin-right: 1.5rem;
-    
-    transition: background ease 0.3s, box-shadow ease 0.3s;
-    
+    transition: background $trans-effect $trans-regular, box-shadow $trans-effect $trans-regular;
     position: relative;
     
     &:hover
     {
         box-shadow: 1px 1px 10px rgb(#000, 30%);
-        transition: background ease 0.3s, box-shadow ease 0.3s;
+        transition: background $trans-effect $trans-regular, box-shadow $trans-effect $trans-regular;
         cursor: pointer;
     }
     
@@ -54,7 +52,7 @@
             background-color: themed('grey-9');
             &:hover
             {
-                background-color: lighten(themed('grey-9'), $btn-lighten-amount);
+                background-color: mix(themed('grey-9'), themed('grey-0'), $color-mix-regular);
             }
         }
 

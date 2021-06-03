@@ -10,6 +10,7 @@ import Button from '../modules/Button';
 import ProjectCard from '../modules/ProjectCard';
 import Section from '../modules/Section';
 
+
 const Projects : FC = () =>
 {
     const [projects, setProjects] = useState<any>([]);
@@ -64,7 +65,7 @@ const Projects : FC = () =>
                 return "";
         }
     }
-    
+
     /**
      * If the projects are currently being loaded, make sure it is known.
      */
@@ -72,9 +73,14 @@ const Projects : FC = () =>
     {
         return(
             <Section title="My Projects" id="projects">
-            <div className="projects_wrapper">
-                <h2 className="projects_loading">Loading...</h2>
-            </div>
+                <div className="projects_wrapper">
+                    <div className="loading_card featured" />
+                    <div className="loading_card large" />
+                    <div className="loading_card large" />
+                    <div className="loading_card" />
+                    <div className="loading_card" />
+                    <div className="loading_card" />
+                </div>
             </Section>
         )
     }

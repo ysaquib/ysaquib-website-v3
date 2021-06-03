@@ -36,8 +36,8 @@
      }, [showLabel, name]);
  
      return (
-        <div className={`input_wrapper ${className}`}>
-             <label id={name} htmlFor={name} className="input_label">{label}</label>
+        <div className={`input_wrapper ${className ? className : ""}`}>
+             <label id={name} htmlFor={name} className="text_label">{label}</label>
              <br />
              <textarea {...props} {...register(label, {required})} 
                  name={name}

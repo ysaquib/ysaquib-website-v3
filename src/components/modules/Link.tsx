@@ -18,6 +18,9 @@ interface LinkProps extends AnchorHTMLAttributes<HTMLAnchorElement>
 
 const Link: FC<LinkProps> = ({url, ...props}: LinkProps) => 
 {
+    /**
+     * Only open links in new tab. Requires that a url be passed in
+     */
     function openInNewTab(url : string)
     {
         const newWindow = window.open(url, "_blank", "noopener, noreferrer");

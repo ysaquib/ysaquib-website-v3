@@ -36,8 +36,8 @@ const TextField: FC<TextFieldProps> = ({ label, type, name, className, disabled,
     }, [showLabel, name])
 
     return (
-       <div className={`input_wrapper ${className}`}>
-            <label id={name} htmlFor={name} className="input_label">{label}</label>
+       <div className={`input_wrapper ${className ? className : ""}`}>
+            <label id={name} htmlFor={name} className="text_label">{label}</label>
             <br />
             <input {...props} type={type} {...register(label, {required})} 
                 name={name}

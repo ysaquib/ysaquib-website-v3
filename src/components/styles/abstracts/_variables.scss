@@ -51,7 +51,18 @@ $black-weight:      900;
 
 // # Effect Variables ---------------------------------------------------------
 
-$btn-lighten-amount: 5%;
+$color-mix-least: 82.5%;
+$color-mix-less: 85%;
+$color-mix-regular: 90%;
+$color-mix-more: 95%;
+$color-mix-most: 97.5%;
+
+$trans-effect: ease;
+$trans-effect-drawer: ease-in-out;
+
+$trans-regular: 0.3s;
+
+$anim-long: 2s;
 
 // # Scrollbar Variables ------------------------------------------------------
 

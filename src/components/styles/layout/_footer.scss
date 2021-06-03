@@ -43,7 +43,7 @@
             cursor: pointer;
             text-decoration: none;
             opacity: 80%;
-            transition: color 0.3s ease;
+            transition: color $trans-regular $trans-effect;
             &:hover
             {
                 @include themify()

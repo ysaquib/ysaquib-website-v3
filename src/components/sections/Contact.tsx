@@ -8,6 +8,7 @@ import TextField from '../modules/TextField';
 import Section from '../modules/Section';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import TextArea from '../modules/TextArea';
+import CheckBox from '../modules/Checkbox';
 
 let default_data = require('../../default_data.json');
 
@@ -18,6 +19,7 @@ interface IFormValues
     "Email Address" : string;
     "Subject" : string;
     "Message" : string;
+    "doEncrypt" : boolean;
 }
 
 const Contact : FC = () =>
@@ -33,7 +35,7 @@ const Contact : FC = () =>
 
                 <TextArea label="Message" name="message" required register={register} rows={10}/>
 
-
+                {/* <CheckBox label="Encrypt my message before sending." name="doEncrypt" register={register} disabled/> */}
            </div>
        </Section>
     );

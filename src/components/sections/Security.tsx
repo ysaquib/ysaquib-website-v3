@@ -12,6 +12,12 @@ let security_data = require('../../security.txt');
 
 const Security : FC = () =>
 {
+
+    /**
+     * Use a state to tell if the Key Drawer is hidden or shown
+     * UseEffect to add and remove shown class from div
+     */
+
     const [showKey, setShowKey] = useState(false);
     
     useEffect(() => {
@@ -26,11 +32,16 @@ const Security : FC = () =>
         }
     }, [showKey])
 
+    /**
+     * There's probably a much better way to put the key details here but I 
+     * don't know of any that work other than this.
+     */
+
     return (
         <Section id="security" title={default_data.security.title}>
             <div className="security_wrapper">
                 <div className="label" onClick={() => setShowKey(!showKey)}>
-                    <h2>{showKey ? `Hide` : `Show`} PGP Key Details</h2>
+                    <h2>{showKey ? `Hide` : `Show`} Public Key Details</h2>
                     {showKey ? <ExpandLess className="icon"/> : <ExpandMore className="icon"/>}
                 </div>
                 <div id="public_key" className="public_key">

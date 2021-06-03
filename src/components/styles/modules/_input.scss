@@ -17,22 +17,22 @@
 
 }
 
-.input_label
+.text_label
 {
     margin: none;
     font: $medium-weight $Little-size $sans-font, sans-serif;
     opacity: 0%;
-    transition: 0.3s;
+    transition: $trans-regular;
 
     
     &.shown
     {
-        transition: 0.3s;
+        transition: $trans-regular;
         opacity: 100%;
 
         @include themify()
         {
-            color: themed("grey-8");
+            color: themed('grey-8');
         }
     }
 }
@@ -45,42 +45,128 @@ textarea
 
 textarea, input[type=text]
 {
-    border: 0;
     width: 100%;
     padding: 1rem;
+    margin-top: 0.3rem;
 
-    font: $regular-weight $regular-size $sans-font, sans-serif;
+    outline: none;
+    border-radius: 0.3rem;
+    border: 0.1rem solid;
     
-    transition: background-color ease 0.3s;
+    font: $medium-weight $regular-size $sans-font, sans-serif;
+    
+    transition: background-color $trans-effect $trans-regular;
     
     @include themify()
     {
-        color: themed("primary");
-        background-color: themed("grey-1");
-        outline-color: themed("primary");
+        color: mix(themed('primary'), themed('grey-9'), $color-mix-least);
+        background-color: themed('grey-1');
+        border-color: themed('grey-1');
+    }
+            
+    &:hover
+    {
+        @include themify()
+        {
+            background-color: mix(themed('grey-1'), themed('primary'), $color-mix-most);
+            border-color: themed('grey-1');
+        }
+    }
+    &:focus, &:active
+    {
+        @include themify()
+        {
+            border-color: themed('primary');
+        }
+    }
+}
+
+.checkbox_wrapper
+{
+    display: inline-flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1rem;
+}
+
+.checkbox_label
+{
+    
+    @include themify()
+    {
+        color: themed('grey-5');
+    }
+
+    &.disabled
+    {
+        @include themify()
+        {
+            color: themed('grey-2');
+        }
+
     }
     
-    // &::placeholder
-    // {
-    //     @include themify()
-    //     {
-    //         color: themed("grey-4");
-    //     }
-    //     font: $regular-weight $regular-size $sans-font, sans-serif;
-    // }
-    
-    &:focus
+    &.checked
     {
-        outline-width: 0.1rem;
-        outline-style: solid;
-        outline-offset: -0.1rem;
+        @include themify()
+        {
+            color: themed('grey-6');
+        }
+    }
+    font: $regular-weight $small-size $sans-font, sans-serif;
+}
+
+input[type=checkbox]
+{
+    cursor: pointer;
+    appearance: none;
+    margin: 0rem;
+    width: 1.5rem;
+    height: 1.5rem;
+
+
+    @include themify()
+    {
+        color: themed('primary');
+        background-color: themed('grey-2');
     }
     
     &:hover
     {
         @include themify()
         {
-            background-color: mix(themed('grey-1'), themed('primary'), 97%);
+            background-color: mix(themed('grey-2'), themed('primary'), $color-mix-regular);
         }
+    }
+    
+    &:checked, &:checked:active
+    {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        @include themify()
+        {
+            color: themed('primary');
+            background-color: themed('primary');
+        }
+        &::after
+        {
+            content: '\2714';
+            font-size: $regular-size;
+            @include themify()
+            {
+                color: themed('grey-0');
+            }
+        }
+    }
+    
+    &:disabled
+    {
+        cursor: default;
+        @include themify()
+        {
+            background-color: themed('grey-1');
+        }
+
     }
 }
