@@ -1,5 +1,5 @@
 /**
- * File: Link.tsx
+ * File: Anchor.tsx
  * Author: Yusuf Saquib
  */
 
@@ -11,12 +11,12 @@
   * 
   */
  
-interface LinkProps extends AnchorHTMLAttributes<HTMLAnchorElement>
+interface AnchorProps extends AnchorHTMLAttributes<HTMLAnchorElement>
 {
     url: string;
 }
 
-const Link: FC<LinkProps> = ({url, ...props}: LinkProps) => 
+const Anchor: FC<AnchorProps> = ({url, ...props}: AnchorProps) => 
 {
     /**
      * Only open links in new tab. Requires that a url be passed in
@@ -35,4 +35,4 @@ const Link: FC<LinkProps> = ({url, ...props}: LinkProps) =>
     );
 }
 
-export default Link;
+export default Anchor;

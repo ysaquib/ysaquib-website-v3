@@ -5,7 +5,7 @@
 
 import React, { FC, useEffect, useState } from 'react'
 // import {database} from '../../firebase/config';
-import { database } from '../../firebase/config';
+import { firebase } from '../../firebase/config';
 import Button from '../modules/Button';
 import ProjectCard from '../modules/ProjectCard';
 import Section from '../modules/Section';
@@ -28,7 +28,7 @@ const Projects : FC = () =>
      */
     
     useEffect(() => {
-        const projectsDB = database.collection("projects").orderBy("order");
+        const projectsDB = firebase.firestore().collection("projects").orderBy("order");
         setLoading(true);
         /**
          * Using .get() on a database will get the data on page load.

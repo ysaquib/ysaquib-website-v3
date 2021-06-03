@@ -24,16 +24,12 @@ const config : Object =
 
 const Firebase = firebase.initializeApp(config);
 
-const auth = Firebase.auth();
-const database = Firebase.firestore();
-
 // eslint-disable-next-line no-restricted-globals
 if (location.hostname === 'localhost') {
     console.log("On Localhost");
-    database.useEmulator('localhost', 8080);
-    // Firebase.auth().useEm
-    auth.useEmulator('http://localhost:9099/');
+    Firebase.firestore().useEmulator('localhost', 8080);
+    Firebase.auth().useEmulator('http://localhost:9099/');
 }
 
 export default Firebase;
-export {database, auth};
+export {firebase};

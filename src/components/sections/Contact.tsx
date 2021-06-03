@@ -8,7 +8,7 @@ import TextField from '../modules/TextField';
 import Section from '../modules/Section';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import TextArea from '../modules/TextArea';
-import CheckBox from '../modules/Checkbox';
+// import CheckBox from '../modules/Checkbox';
 
 let default_data = require('../../default_data.json');
 

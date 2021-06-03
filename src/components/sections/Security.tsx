@@ -8,7 +8,6 @@ import Section from '../modules/Section';
 import {ExpandMore, ExpandLess} from '@material-ui/icons/';
 
 let default_data = require('../../default_data.json');
-let security_data = require('../../security.txt');
 
 const Security : FC = () =>
 {

@@ -5,25 +5,25 @@
 
 import React, { FC } from 'react';
 import './components/styles/main.scss';
-import { BrowserRouter } from 'react-router-dom'; //Switch
+import { BrowserRouter, Switch } from 'react-router-dom';
 // import { Helmet } from 'react-helmet';
 
 import './firebase/config'
 
-import HomePage from './components/pages/HomePage'
+import HomePage from './pages/HomePage'
+import Header from './components/layout/Header';
+import Footer from './components/layout/Footer';
+import PublicRoute from './components/auth/PublicRoute';
 
 const App : FC = () =>
 {
   return (
     <BrowserRouter>
-      {/* <Helmet>
-        <meta charSet="utf-8" />
-        <title>Yusuf Saquib</title>
-        <html lang='en'/>
-        <meta name="description" content='Yusuf Saquib | Computer Science Senior at Carnegie Mellon University' />
-      </Helmet> */}
-
-      <HomePage />
+      <Header />
+      <Switch>
+        <PublicRoute path="/" component={HomePage} exact />
+      </Switch>
+      <Footer />
     </BrowserRouter>
   );
 }

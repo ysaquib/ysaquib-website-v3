@@ -4,7 +4,7 @@
  */
 
 import React, { FC, useEffect, useState } from 'react'
-import { database } from '../../firebase/config';
+import { firebase } from '../../firebase/config';
 import Button from '../modules/Button'
 import ThemeSwitcher from '../modules/ThemeSwitcher'
 
@@ -49,7 +49,7 @@ const Banner : FC = () =>
      * and store the information in the cache
      * 
      * Only store information in cache if the information retrieved from the
-     * database is defined.
+     * datavase is defined.
      */
     useEffect(() => {
         function setIfDefined(key: string, value: string)
@@ -59,7 +59,7 @@ const Banner : FC = () =>
             else
                 localStorage.removeItem(key);
         }
-        const banner_info = database.collection("basic_info").doc("banner_info");
+        const banner_info = firebase.firestore().collection("basic_info").doc("banner_info");
         banner_info.get().then((doc) => {
             if (doc.exists)
             {
