@@ -1,15 +1,19 @@
-import React, { FC } from 'react'
-import { Route, RouteProps } from 'react-router'
+import React, { FC } from 'react';
+import { useSelector } from 'react-redux';
+import { Redirect, Route, RouteProps } from 'react-router-dom';
+import { RootState } from '../../store';
 
 interface PrivateRouteProps extends RouteProps
 {
     component: any;
+    authRoles: string[];
 }
 
 const PrivateRoute: FC<PrivateRouteProps> = ({component : Component, ...props}) => 
 {
+    const { authenticated } = useSelector((state: RootState) => state.auth);
     return(
-        <Route {...props} render={() => <Component />}></Route>  
+        <Route {...props} render={() => authenticated ? <Component /> : <Redirect to="/" />}></Route>  
     );
 }
 

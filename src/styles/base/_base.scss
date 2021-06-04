@@ -1,0 +1,23 @@
+/*
+ * File: _base.scss
+ * Author: Yusuf Saquib
+ */
+
+#root
+{
+    height: 100%;
+    text-align: center;
+}
+
+// a
+// {
+//     height: fit-content;
+//     width: fit-content;   
+// }
+
+*, *:before, *:after
+{
+    box-sizing: border-box;
+}
+
+.firebase-emulator-warning { display: none; }

@@ -151,7 +151,7 @@ export const setSuccess = (message: string) : ThunkAction<void, RootState, null,
     return dispatch =>
     {
         dispatch({
-            type: User_SetError,
+            type: User_SetSuccess,
             payload: message
         });
     }

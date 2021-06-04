@@ -1,0 +1,69 @@
+/*
+ * File: main.scss
+ * Author: Yusuf Saquib
+ */
+
+@import './abstracts/variables';
+@import './abstracts/colorthemes';
+@import './abstracts/mixins';
+@import './abstracts/functions';
+
+@import './sections/banner';
+@import './sections/projects';
+@import './sections/about';
+@import './sections/contact';
+@import './sections/security';
+
+@import './wrappers/acwrapper';
+
+@import './modules/portals';
+
+@import './elements/button';
+@import './elements/projectcard';
+@import './elements/input';
+
+@import './layout/section';
+@import './layout/header';
+@import './layout/footer';
+
+@import './base/base';
+@import './base/typography';
+@import './base/scrollbar';
+
+.theme-dark
+{
+    background-color: red;
+}
+
+html 
+{
+    font-size: 62.5%;
+}
+  
+body
+{
+    font-family: $sans-font, sans-serif;
+    height: 100%;
+    text-align: center;
+    
+    &.theme-dark
+    {
+        background-color: get_color($key: 'grey-0', $theme: 'dark');
+    }
+    
+    &.theme-light
+    {
+        background-color: get_color($key: 'grey-0', $theme: 'light');
+
+    }
+    .theme-dark
+    {
+        background-color: get_color($key: 'grey-0', $theme: 'dark');
+    }
+    
+    .theme-light
+    {
+        background-color: get_color($key: 'grey-0', $theme: 'light');
+
+    }
+}

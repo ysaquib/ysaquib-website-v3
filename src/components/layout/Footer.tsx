@@ -5,7 +5,7 @@
 
 import { ChevronLeft, ChevronRight } from '@material-ui/icons';
 import React, { FC } from 'react';
-import Anchor from '../modules/Anchor';
+import Anchor from '../elements/Anchor';
 let default_data = require('../../default_data.json');
 
 const Footer : FC = () =>

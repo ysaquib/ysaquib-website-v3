@@ -3,13 +3,14 @@
  * Author: Yusuf Saquib
  */
 
-import React, { FC } from 'react';
-import './components/styles/main.scss';
-import { BrowserRouter, Switch } from 'react-router-dom';
-// import { Helmet } from 'react-helmet';
-
+import React, { FC, useEffect } from 'react';
+import './styles/main.scss';
 import './firebase/config'
 
+
+import { useDispatch, useSelector } from 'react-redux';
+import { BrowserRouter, Switch } from 'react-router-dom';
+// import { Helmet } from 'react-helmet';
 import HomePage from './pages/HomePage';
 import SignIn from './pages/SignInPage';
 
@@ -18,32 +19,49 @@ import Footer from './components/layout/Footer';
 
 import PublicRoute from './components/auth/PublicRoute';
 import PrivateRoute from './components/auth/PrivateRoute';
+import SignUp from './pages/SignUpPage';
+import { RootState } from './store';
+import { getUserById, setLoading, setReqVerify } from './store/actions/authActions';
+import firebase from 'firebase';
+let default_data = require('./default_data.json');
 
 const App : FC = () =>
 {
-    /**
-     * Perform Check for root id elem to ensure it has a theme-class. If not,
-     * then we add one.
-     */
-    const Root = document.getElementById("root");
-    const Body = document.body;
-    var isDark = false;
-    var isLight = false;
-    if (Root !== null)
+    const dispatch = useDispatch();
+    const { loading } = useSelector((state : RootState) => state.auth);
+
+    const getTheme = localStorage.getItem('theme') || default_data.theme;
+    switch (getTheme)
     {
-        isDark = Root!.classList.contains("theme-dark");
-        isLight = Root!.classList.contains("theme-light");
-    }
-    else
-    {
-        console.log("Error: Root component has no theme class");
+        case "dark":
+            document.body.classList.add("theme-dark");
+            break;
+        case "light":
+            document.body.classList.add("theme-light");
+            break;
     }
 
-    if(!isDark && !isLight)
-    {
-        Root!.classList.add("theme-dark");
-        Body.classList.add("theme-dark");
-    }
+    useEffect(() => {
+        dispatch(setLoading(true));
+        const unsubscribe = firebase.auth().onAuthStateChanged(async (user) => 
+        {
+          if(user) 
+          {
+            dispatch(setLoading(true));
+            await dispatch(getUserById(user.uid));
+            if(!user.emailVerified) 
+            {
+                dispatch(setReqVerify());
+            }
+          }
+          dispatch(setLoading(false));
+        });
+    
+        return () => 
+        {
+          unsubscribe();
+        };
+      }, [dispatch]);
 
     return (
         <BrowserRouter>
@@ -51,7 +69,8 @@ const App : FC = () =>
             <Switch>
                 <PublicRoute exact path="/" component={HomePage} />
                 <PublicRoute exact path="/signin" component={SignIn} />
-                <PublicRoute exact path="/signup" component={HomePage} />
+                <PublicRoute exact path="/signup" component={SignUp} />
+                <PrivateRoute path="/dashboard" authRoles={[]} component={SignIn} />
             </Switch>
             <Footer />
         </BrowserRouter>

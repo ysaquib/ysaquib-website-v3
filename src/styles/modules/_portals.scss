@@ -1,0 +1,49 @@
+#login, #register
+{
+    margin:auto;
+    margin-top: 5rem;
+    padding: 4rem;
+    width: 40%;
+    
+    @include themify()
+    {
+        background-color: themed('grey-0');
+    }
+    
+    .sec_title
+    {
+        margin-top: 0rem;
+    }
+    
+    .login_wrapper, .register_wrapper
+    {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+
+        .confirmbtn
+        {
+            margin: 0rem;
+            margin-top: 2rem;
+            justify-self: end;
+            align-self: center;
+        }
+        .leftbtn
+        {
+            text-decoration: none;
+            margin: 0rem;
+            margin-top: 2rem;
+            width: 15rem;
+            font: $semi-weight $small-size $sans-font, sans-serif;
+            justify-self: start;
+            align-self: center;
+            padding: 0rem;
+            @include themify()
+            {
+                color: themed('grey-6');
+            }
+        }
+    }
+
+    
+}

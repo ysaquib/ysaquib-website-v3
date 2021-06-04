@@ -6,9 +6,9 @@
 import React, { FC, useEffect, useState } from 'react'
 // import {database} from '../../firebase/config';
 import { firebase } from '../../firebase/config';
-import Button from '../modules/Button';
-import ProjectCard from '../modules/ProjectCard';
-import Section from '../modules/Section';
+import Button from '../elements/Button';
+import ProjectCard from '../elements/ProjectCard';
+import Section from '../elements/Section';
 
 
 const Projects : FC = () =>

@@ -4,7 +4,7 @@
  */
 
 import React, { FC } from 'react'
-import Section from '../modules/Section';
+import Section from '../elements/Section';
 
 const About : FC = () =>
 {

@@ -4,7 +4,7 @@
  */
 
 import React, { FC, useEffect, useState } from 'react'
-import Section from '../modules/Section';
+import Section from '../elements/Section';
 import {ExpandMore, ExpandLess} from '@material-ui/icons/';
 
 let default_data = require('../../default_data.json');

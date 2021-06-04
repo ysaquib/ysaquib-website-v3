@@ -4,10 +4,10 @@
  */
 
 import React, { FC } from 'react'
-import TextField from '../modules/TextField';
-import Section from '../modules/Section';
+import TextField from '../elements/TextField';
+import Section from '../elements/Section';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import TextArea from '../modules/TextArea';
+import TextArea from '../elements/TextArea';
 // import CheckBox from '../modules/Checkbox';
 
 let default_data = require('../../default_data.json');

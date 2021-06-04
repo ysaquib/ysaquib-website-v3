@@ -5,8 +5,8 @@
 
 import React, { FC, useEffect, useState } from 'react'
 import { firebase } from '../../firebase/config';
-import Button from '../modules/Button'
-import ThemeSwitcher from '../modules/ThemeSwitcher'
+import Button from '../elements/Button'
+import ThemeSwitcher from '../elements/ThemeSwitcher'
 
 let default_data = require('../../default_data.json');
 

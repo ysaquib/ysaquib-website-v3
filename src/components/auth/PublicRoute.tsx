@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { Route, RouteProps } from 'react-router'
+import { Route, RouteProps } from 'react-router-dom'
 
 interface PublicRouteProps extends RouteProps
 {

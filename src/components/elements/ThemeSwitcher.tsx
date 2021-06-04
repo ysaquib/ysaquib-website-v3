@@ -52,7 +52,7 @@ const ThemeSwitcher: FC = () =>
     }, [])
 
     return (
-        <Button className="theme_toggler" text={`Use ` + (useDarkTheme ? "Light" : "Dark") + ` Theme`} onClick={toggleTheme}/>
+        <Button className="no_background" text={`Use ` + (useDarkTheme ? "Light" : "Dark") + ` Theme`} onClick={toggleTheme}/>
     );
 }
 

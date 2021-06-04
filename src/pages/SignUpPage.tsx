@@ -1,20 +1,20 @@
 /**
- * File: SignIn.tsx
+ * File: SignUp.tsx
  * Author: Yusuf Saquib
  */
 
 import React, { FC } from 'react';
 
 import { Container } from '@material-ui/core';
-import LoginPortal from '../components/modules/LoginPortal';
+import RegisterPortal from '../components/modules/RegisterPortal';
  
- const SignIn : FC = () =>
+ const SignUp : FC = () =>
  {
      return (
          <Container>
-             <LoginPortal />
+             <RegisterPortal />
          </Container>
      );
  }
  
- export default SignIn;
+ export default SignUp;
