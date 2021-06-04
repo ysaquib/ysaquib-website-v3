@@ -1,8 +1,8 @@
 import { ThunkAction } from 'redux-thunk';
 
-import { AuthAction, AuthState, SignInData, SignUpData, User, User_SetUser, User_SignedOut, User_ReqVerify, User_SetLoading, User_SetWarning, User_SetSuccess, User_SetError } from './types';
-import { RootState } from './';
-import Firebase, { firebase } from '../firebase/config';
+import { AuthAction, AuthState, SignInData, SignUpData, User, User_SetUser, User_SignedOut, User_ReqVerify, User_SetLoading, User_SetWarning, User_SetSuccess, User_SetError } from '../types';
+import { RootState } from '..';
+import Firebase, { firebase } from '../../firebase/config';
 
 export const userSignUp = (data : SignUpData, onError: () => void) : ThunkAction<void, RootState, null, AuthAction> =>
 {

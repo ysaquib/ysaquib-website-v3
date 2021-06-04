@@ -8,9 +8,17 @@ html
     font-size: 62.5%;
 }
   
-body 
+body
 {
+    height: 100vh;
     font-family: $sans-font, sans-serif;
+    height: 100%;
+    text-align: center;
+}
+
+#root
+{
+    height: 100%;
     text-align: center;
     &.theme-dark
     {

@@ -17,12 +17,16 @@ const ThemeSwitcher: FC = () =>
         if (useDarkTheme)
         {
             localStorage.setItem('theme', "light");
+            document.getElementById("root")?.classList.remove("theme-dark");
+            document.getElementById("root")?.classList.add("theme-light");
             document.body.classList.remove("theme-dark");
             document.body.classList.add("theme-light");
         } 
         else 
         {
             localStorage.setItem('theme', "dark");
+            document.getElementById("root")?.classList.remove("theme-light");
+            document.getElementById("root")?.classList.add("theme-dark");
             document.body.classList.remove("theme-light");
             document.body.classList.add("theme-dark");
         }
