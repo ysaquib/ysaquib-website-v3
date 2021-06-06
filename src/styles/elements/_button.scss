@@ -17,6 +17,10 @@
         {
             background-color: mix(themed('primary'), themed('grey-9'), $color-mix-regular);
         }
+        &:active
+        {
+            background-color: mix(themed('secondary'), themed('grey-9'), $color-mix-least);
+        }
     }
     
     margin-right: 1.5rem;
@@ -53,6 +57,10 @@
             &:hover
             {
                 background-color: mix(themed('grey-9'), themed('grey-0'), $color-mix-regular);
+            }
+            &:active
+            {
+                background-color: mix(themed('secondary'), themed('grey-9'), $color-mix-least);
             }
         }
 

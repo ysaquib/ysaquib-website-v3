@@ -10,7 +10,7 @@ const initialState: AuthState = {
   success: ''
 }
 
-export default (state = initialState, action: AuthAction) => {
+const AuthFn = (state = initialState, action: AuthAction) => {
     switch(action.type) 
     {
         case User_SetUser:
@@ -62,3 +62,5 @@ export default (state = initialState, action: AuthAction) => {
             return state;
     }
 }
+
+export default AuthFn;

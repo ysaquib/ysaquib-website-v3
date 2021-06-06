@@ -20,10 +20,9 @@
 .text_label
 {
     margin: none;
-    font: $medium-weight $Little-size $sans-font, sans-serif;
     opacity: 0%;
+    font: $medium-weight $Little-size $sans-font, sans-serif;
     transition: $trans-regular;
-
     
     &.shown
     {
@@ -33,6 +32,13 @@
         @include themify()
         {
             color: themed('grey-8');
+        }
+    }
+    &.error
+    {
+        @include themify()
+        {
+            color: themed('error');
         }
     }
 }

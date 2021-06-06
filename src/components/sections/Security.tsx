@@ -20,7 +20,6 @@ const Security : FC = () =>
     const [showKey, setShowKey] = useState(false);
     
     useEffect(() => {
-        console.log(showKey);
         if (showKey)
         {
             return document.getElementById("public_key")?.classList.add("shown");

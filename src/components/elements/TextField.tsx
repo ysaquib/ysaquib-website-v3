@@ -3,7 +3,7 @@
  * Author: Yusuf Saquib
  */
 import React, { FC, InputHTMLAttributes, useEffect, useState } from 'react';
-import { UseFormRegister } from 'react-hook-form';
+import { RegisterOptions, UseFormRegister } from 'react-hook-form';
 
 
 /**
@@ -15,31 +15,34 @@ interface TextFieldProps extends InputHTMLAttributes<HTMLInputElement>
 {
     name: string;
     label: string;
-    required: boolean;
+    message?: string;
     register: UseFormRegister<any>;
+    registration: RegisterOptions;
 }
 
-const TextField: FC<TextFieldProps> = ({ label, type, name, className, disabled, register, required, ...props }) => 
+const TextField: FC<TextFieldProps> = ({ label, type, name, className, disabled, message, register, registration, ...props }) => 
 {
     const [showLabel, setShowLabel] = useState(false);
 
     useEffect(() => 
     {
-        if(showLabel)
-        {
-            document.getElementById(name)?.classList.add("shown");
-        }
-        else
+        if(showLabel === false && message == null)
         {
             document.getElementById(name)?.classList.remove("shown");
         }
-    }, [showLabel, name])
+        else
+        {
+            document.getElementById(name)?.classList.add("shown");
+        }
+    }, [showLabel, message])
 
     return (
        <div className={`input_wrapper ${className ? className : ""}`}>
-            <label id={name} htmlFor={name} className="text_label">{label}</label>
+            <label id={name} htmlFor={name} className={`text_label ${message ? "error" : ""}`}>
+                {message != null ? label + " " + message : label}
+            </label>
             <br />
-            <input {...props} type={type} {...register(label, {required})} 
+            <input {...props} type={type} {...register(name, registration)} 
                 name={name}
                 disabled={disabled} 
                 placeholder={label}

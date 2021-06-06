@@ -3,7 +3,7 @@
  * Author: Yusuf Saquib
  */
 
-import React, { FC, ButtonHTMLAttributes } from 'react';
+import React, { FC, ButtonHTMLAttributes, RefObject } from 'react';
 
 /**
  * Extend the ButtonHTMLAttributes Class to inherit regular button properties
@@ -15,13 +15,14 @@ import React, { FC, ButtonHTMLAttributes } from 'react';
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> 
 {
   text: string;
+//   ref?: RefObject<HTMLButtonElement>;
 }
 
-const Button: FC<ButtonProps> = (props : ButtonProps) => 
+const Button: FC<ButtonProps> = ({text, ...props} : ButtonProps) => 
 {
     return (
-        <button {...props} type={props.type} className={`btn ${props.className}`} onClick={props.onClick} disabled={props.disabled} >
-            {props.text}
+        <button {...props} className={`btn ${props.className}`}>
+            {text}
         </button>
     );
 }

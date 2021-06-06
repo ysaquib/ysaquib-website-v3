@@ -5,6 +5,7 @@
 
 #contact
 {
+    
     .sec_title
     {
         margin-bottom: 1.5rem;
@@ -14,5 +15,16 @@
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 1.5rem;
+        
+        .confirmbtn
+        {
+            width: 12rem;
+            grid-column: 2 / 3;
+            margin: 0rem;
+            margin-top: 2rem;
+            justify-self: end;
+            align-self: center;
+        }
+        
     }
 }

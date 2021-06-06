@@ -25,9 +25,6 @@ const Banner : FC = () =>
 
     const [banner, setBanner] = useState<any>([]);
 
-    console.log(default_data.banner.resume_btn);
-    console.log(localStorage.getItem("banner_resume_btn"));
-    
     /**
      * Get the banner information from the cache if it exists. Otherwise 
      * resort to default values for each field.
@@ -41,7 +38,6 @@ const Banner : FC = () =>
         resume_btn : localStorage.getItem("banner_resume_btn") || default_data.banner.resume_btn,
         contact_btn : localStorage.getItem("banner_contact_btn") || default_data.banner.contact_btn,
     };
-    console.log(init.resume_btn);
     
     /**
      * Get the banner information from the database.

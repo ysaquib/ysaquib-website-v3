@@ -61,8 +61,15 @@ const App : FC = () =>
         {
           unsubscribe();
         };
-      }, [dispatch]);
+    }, [dispatch]);
 
+    if (loading)
+    {
+        return(
+            <h1>Loading...</h1>
+        )
+    }
+    
     return (
         <BrowserRouter>
             <Header />

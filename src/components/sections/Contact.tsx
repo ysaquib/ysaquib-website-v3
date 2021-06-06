@@ -3,41 +3,115 @@
  * Author: Yusuf Saquib
  */
 
-import React, { FC } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import TextField from '../elements/TextField';
 import Section from '../elements/Section';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import TextArea from '../elements/TextArea';
-// import CheckBox from '../modules/Checkbox';
+import Button from '../elements/Button';
+
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+
 
 let default_data = require('../../default_data.json');
 
-interface IFormValues
+interface FormInputs
 {
-    "First Name" : string;
-    "Last Name" : string;
-    "Email Address" : string;
-    "Subject" : string;
-    "Message" : string;
-    "doEncrypt" : boolean;
+    "firstname" : string;
+    "lastname" : string;
+    "emailaddress" : string;
+    "subject" : string;
+    "message" : string;
 }
+
+const schema = yup.object().shape(
+{
+    firstname : yup.string().required("is required."),
+    lastname : yup.string().required("is required."),
+    emailaddress : yup.string().email("is not valid.").required("is required."),
+    subject : yup.string().required("is required."),
+    message : yup.string().required("is required.")
+});
 
 const Contact : FC = () =>
 {
-    const {register, handleSubmit} = useForm<IFormValues>();
+    const resolver = yupResolver(schema);
+    const {register, handleSubmit, reset, formState: {errors}} = useForm<FormInputs>({mode:"onBlur" ,resolver});
+    const [isMsgSent, setMsgSent] = useState(false);
+
+
+    const onSubmit : SubmitHandler<FormInputs> = (data) => 
+    {
+        console.log(JSON.stringify(data));
+        /**
+         * // TODO: Clear form on submit
+         * TODO: Add verification
+         * TODO: Send message + (save to database?)
+         * TODO: Add recaptcha
+         */
+        
+        setMsgSent(true);
+        reset();
+    }
+
+    if (isMsgSent)
+    {
+        return(
+            <Section id="contact" className="mini" title={default_data.contact.title}>
+                <h2>Your message has been sent! I will be in touch with you as soon as possible.</h2>
+            </Section>
+        );
+    }
+
     return (
-       <Section id="contact" className="mini" title={default_data.contact.title}>
-           <div className="contact_wrapper">
-                <TextField label="First Name" name="first" type="text" className="half" required register={register} />
-                <TextField label="Last Name" name="last" type="text" className="half" required register={register} />
-                <TextField label="Email Address" name="email" type="text" required register={register} />
-                <TextField label="Subject" name="subject" type="text" required register={register} />
+        <Section id="contact" className="mini" title={default_data.contact.title}>
+            <form className="contact_wrapper" onSubmit={handleSubmit(onSubmit)}>
+                <TextField 
+                    label="First Name" 
+                    name="firstname" 
+                    type="text" 
+                    className="half" 
+                    message={errors.firstname?.message} 
+                    register={register} 
+                    registration={{required: true}} />
+                           
+                <TextField 
+                    label="Last Name" 
+                    name="lastname" 
+                    type="text" 
+                    className="half" 
+                    message={errors.lastname?.message} 
+                    register={register} 
+                    registration={{required: true}} />
 
-                <TextArea label="Message" name="message" required register={register} rows={10}/>
+                <TextField 
+                    label="Email Address" 
+                    name="emailaddress" 
+                    type="text" 
+                    message={errors.emailaddress?.message} 
+                    register={register} 
+                    registration={{required: true}} />
 
-                {/* <CheckBox label="Encrypt my message before sending." name="doEncrypt" register={register} disabled/> */}
-           </div>
-       </Section>
+                <TextField 
+                    label="Subject" 
+                    name="subject" 
+                    type="text" 
+                    message={errors.subject?.message} 
+                    register={register} 
+                    registration={{required: true}} />
+
+                <TextArea 
+                    label="Message" 
+                    name="message" 
+                    rows={10} 
+                    message={errors.message?.message} 
+                    register={register} 
+                    registration={{required: true}} />
+
+                <Button text="Send Message" className="confirmbtn" />
+            </form>
+        </Section>
     );
 }
 

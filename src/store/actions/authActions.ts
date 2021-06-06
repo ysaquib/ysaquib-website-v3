@@ -1,6 +1,6 @@
 import { ThunkAction } from 'redux-thunk';
 
-import { AuthAction, AuthState, SignInData, SignUpData, User, User_SetUser, User_SignedOut, User_ReqVerify, User_SetLoading, User_SetWarning, User_SetSuccess, User_SetError } from '../types';
+import { AuthAction, SignInData, SignUpData, User, User_SetUser, User_SignedOut, User_ReqVerify, User_SetLoading, User_SetWarning, User_SetSuccess, User_SetError } from '../types';
 import { RootState } from '..';
 import Firebase, { firebase } from '../../firebase/config';
 
@@ -10,7 +10,7 @@ export const userSignUp = (data : SignUpData, onError: () => void) : ThunkAction
     {
         try
         {
-            const response = await firebase.auth().createUserWithEmailAndPassword(data.email, data.password);
+            const response = await Firebase.auth().createUserWithEmailAndPassword(data.email, data.password);
             if (response.user)
             {
                 const userData : User = 
@@ -21,7 +21,7 @@ export const userSignUp = (data : SignUpData, onError: () => void) : ThunkAction
                     id: response.user.uid,
                     createdAt: firebase.firestore.FieldValue.serverTimestamp()
                 }
-                await firebase.firestore().collection('/users').doc(response.user.uid).set(userData);
+                await Firebase.firestore().collection('/users').doc(response.user.uid).set(userData);
                 await response.user.sendEmailVerification();
                 dispatch({
                     type: User_ReqVerify
@@ -49,7 +49,7 @@ export const getUserById = (id: string) : ThunkAction<void, RootState, null, Aut
     {
         try
         {
-            const user = await firebase.firestore().collection('users').doc(id).get();
+            const user = await Firebase.firestore().collection('users').doc(id).get();
             if (user.exists)
             {
                 const userData = user.data() as User;
@@ -83,7 +83,7 @@ export const userSignIn = (data: SignInData, onError: () => void) : ThunkAction<
     {
         try
         {
-            await firebase.auth().signInWithEmailAndPassword(data.email, data.password);
+            await Firebase.auth().signInWithEmailAndPassword(data.email, data.password);
         }
         catch (err)
         {
@@ -101,7 +101,7 @@ export const userSignOut = () : ThunkAction<void, RootState, null, AuthAction> =
         try
         {
             dispatch(setLoading(true));
-            await firebase.auth().signOut();
+            await Firebase.auth().signOut();
             dispatch({
                 type: User_SignedOut
             });
@@ -163,7 +163,7 @@ export const sendPasswordResetEmail = (email: string, successMessage: string) : 
     {
         try
         {
-            await firebase.auth().sendPasswordResetEmail(email);
+            await Firebase.auth().sendPasswordResetEmail(email);
             dispatch(setSuccess(successMessage));
         }
         catch (err)
