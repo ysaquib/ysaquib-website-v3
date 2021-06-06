@@ -79,6 +79,13 @@ textarea, input[type=text], input[type=password]
             border-color: themed('grey-1');
         }
     }
+    &.error
+    {
+        @include themify()
+        {
+            border-color: themed('error');
+        }
+    }
     &:focus, &:active
     {
         @include themify()

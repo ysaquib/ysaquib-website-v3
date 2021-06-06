@@ -16,11 +16,12 @@ interface TextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement>
     name: string;
     label: string;
     message?: string;
+    replace_label?: boolean,
     register: UseFormRegister<any>;
     registration: RegisterOptions;
 }
 
-const TextArea: FC<TextAreaProps> = ({ label, name, className, disabled, message, register, registration, ...props }) => 
+const TextArea: FC<TextAreaProps> = ({ label, name, className, disabled, message, register, registration, replace_label, ...props }) => 
 {
     const [showLabel, setShowLabel] = useState(false);
 
@@ -34,16 +35,17 @@ const TextArea: FC<TextAreaProps> = ({ label, name, className, disabled, message
         {
             document.getElementById(name)?.classList.add("shown");
         }
-    }, [showLabel, message]);
+    }, [showLabel, message, name]);
 
     return (
         <div className={`input_wrapper ${className ? className : ""}`}>
             <label id={name} htmlFor={name} className={`text_label ${message ? "error" : ""}`}>
-                {message != null ? label + " " + message : label}
+                {replace_label ? `${message != null ? message : label }` : `${label} ${message != null ? message : "" }`}
             </label>
             <br />
             <textarea {...register(name, registration)} {...props}
                 name={name}
+                className={message ? "error" : ""}
                 disabled={disabled} 
                 placeholder={label}
                 onChange={(event) => event.target.value === "" ? setShowLabel(false) : setShowLabel(true)}/>

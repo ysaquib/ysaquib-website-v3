@@ -1,5 +1,16 @@
 {
     "theme" : "theme-dark",
+    "header" :
+    {
+        "sections" : 
+        [
+            ["Home", ""],
+            ["Projects", "projects"],
+            ["About", "about"],
+            ["Contact", "contact"],
+            ["Security", "security"]
+        ]
+    },
     "banner" : 
     {
         "prefix": "Hi! My name is",

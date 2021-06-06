@@ -17,6 +17,8 @@ export const userSignUp = (data : SignUpData, onError: () => void) : ThunkAction
                 {
                     email: data.email,
                     username: data.username,
+                    firstname: data.firstname,
+                    lastname: data.lastname,
                     role: 'user',
                     id: response.user.uid,
                     createdAt: firebase.firestore.FieldValue.serverTimestamp()
@@ -35,6 +37,7 @@ export const userSignUp = (data : SignUpData, onError: () => void) : ThunkAction
         catch (err)
         {
             console.log(err);
+            onError();
             dispatch({
                 type: User_SetError,
                 payload: err.message

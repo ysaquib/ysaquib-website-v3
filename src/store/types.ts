@@ -17,6 +17,8 @@ export interface User
 {
     username: string;
     email: string;
+    firstname: string;
+    lastname: string;
     role: string;
     id: string;
     createdAt: any;
@@ -36,6 +38,8 @@ export interface SignUpData
 {
     username: string;
     email: string;
+    firstname: string;
+    lastname: string;
     password: string;
 }
 

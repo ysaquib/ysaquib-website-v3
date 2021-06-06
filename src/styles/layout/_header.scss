@@ -1,0 +1,68 @@
+#header
+{
+    width: 100%;
+    height: 8rem;
+    padding: 1rem;
+
+    @include themify 
+    {
+        background-color: themed('grey-0');
+    }
+    
+    .header_wrapper
+    {
+        width: 100%;
+        height: 100%;
+        display: inline-flex;
+        flex-direction: column;
+        justify-content: center;
+
+        
+        @include themify
+        {
+            color: themed('grey-7');
+        }
+        
+        ol 
+        {
+            align-self: flex-end;
+            padding: 0rem;
+            margin: 0rem 2rem;
+            list-style-type: none;
+            overflow: hidden;           
+            
+            :not(:last-child)
+            {
+                margin-right: 3rem;
+            }
+
+            li
+            {
+                user-select: none;
+                cursor: pointer;
+                display: inline;
+                font: $regular-weight $Little-size $mono-font, monospace;
+                counter-increment: inst;
+                
+                & a
+                {
+                    @include themify
+                    {
+                        color: themed('grey-7');
+                    }
+                    text-decoration: none;
+                }
+                
+                &::before
+                {
+                    content: "0" counter(inst) ".";
+                    margin-right: 0.5rem;
+                    @include themify
+                    {
+                        color: themed('primary');
+                    }
+                }
+            }
+        }
+    }
+}

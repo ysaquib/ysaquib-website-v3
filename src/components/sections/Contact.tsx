@@ -3,7 +3,7 @@
  * Author: Yusuf Saquib
  */
 
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, useState } from 'react'
 import TextField from '../elements/TextField';
 import Section from '../elements/Section';
 import { useForm, SubmitHandler } from 'react-hook-form';
@@ -46,7 +46,7 @@ const Contact : FC = () =>
         console.log(JSON.stringify(data));
         /**
          * // TODO: Clear form on submit
-         * TODO: Add verification
+         * // TODO: Add verification
          * TODO: Send message + (save to database?)
          * TODO: Add recaptcha
          */
