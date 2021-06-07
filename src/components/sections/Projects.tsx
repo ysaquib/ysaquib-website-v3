@@ -7,9 +7,9 @@ import React, { FC, useEffect, useState } from 'react'
 // import {database} from '../../firebase/config';
 import { firebase } from '../../firebase/config';
 import Button from '../elements/Button';
+import LoadingSkeleton from '../elements/LoadingSkeleton';
 import ProjectCard from '../elements/ProjectCard';
 import Section from '../elements/Section';
-
 
 const Projects : FC = () =>
 {
@@ -74,12 +74,12 @@ const Projects : FC = () =>
         return(
             <Section title="My Projects" id="projects">
                 <div className="projects_wrapper">
-                    <div className="loading_card featured" />
-                    <div className="loading_card large" />
-                    <div className="loading_card large" />
-                    <div className="loading_card" />
-                    <div className="loading_card" />
-                    <div className="loading_card" />
+                    <LoadingSkeleton type="rectangle" className="loading_card featured" />
+                    <LoadingSkeleton type="rectangle" className="loading_card large" />
+                    <LoadingSkeleton type="rectangle" className="loading_card large" />
+                    <LoadingSkeleton type="rectangle" className="loading_card" />
+                    <LoadingSkeleton type="rectangle" className="loading_card" />
+                    <LoadingSkeleton type="rectangle" className="loading_card" />
                 </div>
             </Section>
         )
@@ -94,7 +94,7 @@ const Projects : FC = () =>
                ))}
            </div>
            <div className="projects_button">
-                <Button className="project" text="See All Projects"/>
+                <Button text="See All Projects"/>
            </div>
        </Section>
     );

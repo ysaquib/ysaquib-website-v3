@@ -15,80 +15,85 @@ export enum UserRoles
 
 export interface User 
 {
-    username: string;
-    email: string;
-    firstname: string;
-    lastname: string;
-    role: string;
-    id: string;
-    createdAt: any;
+    username:   string;
+    email:      string;
+    firstname:  string;
+    lastname:   string;
+    role:       string;
+    id:         string;
+    createdAt:  any;
 }
 export interface AuthState
 {
-    user: User | null;
-    authenticated: boolean;
-    loading: boolean;
-    error: string;
-    warning: string;
-    needVerification: boolean;
-    success: string;
+    user:               User | null;
+    authenticated:      boolean;
+    loading:            boolean;
+    error:              string;
+    warning:            string;
+    needVerification:   boolean;
+    success:            string;
 }
 
 export interface SignUpData
 {
-    username: string;
-    email: string;
-    firstname: string;
-    lastname: string;
-    password: string;
+    username:   string;
+    email:      string;
+    firstname:  string;
+    lastname:   string;
+    password:   string;
 }
 
 export interface SignInData
 {
-    username: string;
-    email: string;
-    password: string;
+    username?:  string;
+    email:      string;
+    password:   string;
+}
+
+export interface ErrorMessages
+{
+    [key : string] : string;
 }
 
 // Actions
 interface SetUserAction
 {
-    type: typeof User_SetUser;
-    payload: User;
+    type:       typeof User_SetUser;
+    payload:    User;
 }
 
 interface SetLoadingAction
 {
-    type: typeof User_SetLoading;
-    payload: boolean;
+    type:       typeof User_SetLoading;
+    payload:    boolean;
 }
 
 interface SignOutAction
 {
-    type: typeof User_SignedOut;
+    type:       typeof User_SignedOut;
 }
 
 interface SetErrorAction
 {
-    type: typeof User_SetError;
-    payload: string;
+    type:       typeof User_SetError;
+    payload:    string;
 }
 
 interface SetWarningAction
 {
-    type: typeof User_SetWarning;
-    payload: string;
+    type:       typeof User_SetWarning;
+    payload:    string;
 }
 
 interface NeedVerificationAction
 {
-    type: typeof User_ReqVerify;
+    type:       typeof User_ReqVerify;
 }
 
 interface SetSuccessAction
 {
-    type: typeof User_SetSuccess;
-    payload: string;
+    type:       typeof User_SetSuccess;
+    payload:    string;
 }
 
 export type AuthAction = SetUserAction | SetLoadingAction | SignOutAction | SetErrorAction | SetWarningAction | NeedVerificationAction | SetSuccessAction;

@@ -1,0 +1,45 @@
+/* The following code is for the loading cards only */
+
+@keyframes shine {
+    0% {
+        transform: translate(-100%);
+    } 60% {
+        transform: translate(100%);
+    } 100% {
+        transform: translate(100%);
+    }
+}
+
+.loading_skeleton
+{
+    border-radius: $radius-large;
+    @include themify()
+    {
+        background-color: themed('grey-1');
+    }
+    position: relative;
+    overflow: hidden;
+    &::before
+    {
+        &.circle
+        {
+            border-radius: 50rem;
+        }
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        content: "";
+        
+        top: 0rem;
+        left: 0rem;
+        right: 0rem;
+        bottom: 0rem;
+
+        @include themify()
+        {
+            background: linear-gradient(90deg, transparent, mix(themed('grey-2'), themed('grey-3'), 80%), transparent);
+            transform: translateX(-100%);
+            animation: $anim-long shine linear infinite;
+        }
+    }
+}

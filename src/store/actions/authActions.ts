@@ -1,6 +1,17 @@
 import { ThunkAction } from 'redux-thunk';
 
-import { AuthAction, SignInData, SignUpData, User, User_SetUser, User_SignedOut, User_ReqVerify, User_SetLoading, User_SetWarning, User_SetSuccess, User_SetError } from '../types';
+import { AuthAction, 
+         SignInData, 
+         SignUpData, 
+         User, 
+         User_SetUser, 
+         User_SignedOut, 
+         User_ReqVerify, 
+         User_SetLoading, 
+         User_SetWarning, 
+         User_SetSuccess, 
+         User_SetError, 
+         ErrorMessages} from '../types';
 import { RootState } from '..';
 import Firebase, { firebase } from '../../firebase/config';
 
@@ -34,13 +45,13 @@ export const userSignUp = (data : SignUpData, onError: () => void) : ThunkAction
                 });
             }
         }
-        catch (err)
+        catch (error)
         {
-            console.log(err);
+            console.log(error);
             onError();
             dispatch({
                 type: User_SetError,
-                payload: err.message
+                payload: error.message
             });
         }
     }
@@ -62,9 +73,9 @@ export const getUserById = (id: string) : ThunkAction<void, RootState, null, Aut
                 });
             }
         }
-        catch (err)
+        catch (error)
         {
-            console.log(err);
+            console.log(error);
         }
     }
 }
@@ -86,13 +97,15 @@ export const userSignIn = (data: SignInData, onError: () => void) : ThunkAction<
     {
         try
         {
+            console.log("Signing In");
             await Firebase.auth().signInWithEmailAndPassword(data.email, data.password);
+            console.log("Signing In");
         }
-        catch (err)
+        catch (error)
         {
-            console.log(err);
+            console.log(error);
             onError();
-            dispatch(setError(err.message));
+            dispatch(setError(error));
         }
     }
 }
@@ -109,21 +122,30 @@ export const userSignOut = () : ThunkAction<void, RootState, null, AuthAction> =
                 type: User_SignedOut
             });
         }
-        catch (err)
+        catch (error)
         {
-            console.log(err);
+            console.log(error);
             dispatch(setLoading(false));
         }
     }
 }
 
-export const setError = (message: string) : ThunkAction<void, RootState, null, AuthAction> =>
+export const setError = (error: firebase.FirebaseError) : ThunkAction<void, RootState, null, AuthAction> =>
 {
+    const error_messages : ErrorMessages =
+    {
+        "auth/invalid-email" : "Invalid email address.",
+        "auth/invalid-password" : "Invalid password.",
+        "auth/invalid-password-hash" : "Invalid password.",
+        "auth/invalid-password-salt" : "Invalid password.",
+        "auth/user-not-found" : "Email address is not associated with any user."
+    }
     return dispatch =>
     {
+        const message = error_messages[error.code];
         dispatch({
             type: User_SetError,
-            payload: message
+            payload: message != null ? message : "An unexpected error occured. Please try again later."
         });
     }
 }
@@ -169,10 +191,10 @@ export const sendPasswordResetEmail = (email: string, successMessage: string) : 
             await Firebase.auth().sendPasswordResetEmail(email);
             dispatch(setSuccess(successMessage));
         }
-        catch (err)
+        catch (error)
         {
-            console.log(err);
-            dispatch(setError(err.message));
+            console.log(error);
+            dispatch(setError(error));
         }
     }
 }

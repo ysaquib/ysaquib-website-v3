@@ -14,7 +14,7 @@
     position: relative;
 
     grid-column: span 2;
-    border-radius: 0.5rem;
+    border-radius: $radius-large;
     box-shadow: 0 0.3rem 0.8rem 0 rgba(15,15,20,.2);
     
     .featured_tag
@@ -152,20 +152,10 @@
     }    
 }
 
-/* The following code is for the loading cards only */
-
-@keyframes shine {
-    to {
-        background-position-x: -200%;
-    }
-}
-
 .loading_card
 {
-    height: 28rem;
-    border-radius: 0.5rem;
     grid-column: span 2;
-    
+    height: 28rem;
     &.featured
     {
         grid-column: span 6;
@@ -174,12 +164,5 @@
     &.large
     {
         grid-column: span 3;
-    }
-    @include themify()
-    {
-        background: linear-gradient(115deg, themed('grey-1') 18%, mix(themed('grey-1'), themed('grey-2'), 50%) 38%, themed('grey-1') 58%);
-        background-size: 200% 100%;
-        animation: $anim-long shine linear infinite;
-
     }
 }

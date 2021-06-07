@@ -57,7 +57,7 @@ textarea, input[type=text], input[type=password]
     margin-top: 0.3rem;
 
     outline: none;
-    border-radius: 0.3rem;
+    border-radius: $radius-regular;
     border: 0.1rem solid;
     
     font: $medium-weight $regular-size $sans-font, sans-serif;

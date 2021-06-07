@@ -21,6 +21,7 @@
 @import './elements/button';
 @import './elements/projectcard';
 @import './elements/input';
+@import './elements/loadingskeleton';
 
 @import './layout/section';
 @import './layout/header';
@@ -29,11 +30,6 @@
 @import './base/base';
 @import './base/typography';
 @import './base/scrollbar';
-
-.theme-dark
-{
-    background-color: red;
-}
 
 html 
 {

@@ -6,83 +6,69 @@
 .btn
 {
     border: none;
-    border-radius: 0.3rem;
+    border-radius: $radius-regular;
     
     font: $semi-weight $small-size $sans-font, sans-serif;
     @include themify()
     {
         color: themed('grey-0');
         background-color: themed('primary');
-        &:hover
+        &.secondary
         {
-            background-color: mix(themed('primary'), themed('grey-9'), $color-mix-regular);
+            background-color: themed('grey-9');
         }
-        &:active
+        &:hover, &:focus
         {
-            background-color: mix(themed('secondary'), themed('grey-9'), $color-mix-least);
+            background-color: mix(themed('secondary'), themed('grey-9'), $color-mix-regular);
+        }
+        &:active:focus
+        {
+            transition: none;
+            background-color: mix(themed('secondary'), themed('grey-0'), $color-mix-least);
+        }
+        &:disabled
+        {
+            background-color: mix(themed('grey-0'), themed('primary'), 60%);
         }
     }
     
-    margin-right: 1.5rem;
+
     transition: background $trans-effect $trans-regular, box-shadow $trans-effect $trans-regular;
     position: relative;
     
     &:hover
     {
         box-shadow: 1px 1px 10px rgb(#000, 30%);
-        transition: background $trans-effect $trans-regular, box-shadow $trans-effect $trans-regular;
         cursor: pointer;
     }
-    
-    height: 3.5rem;
-    width: 11rem;
-    
-    // $ ---- Button Purposes ----
-    &.project
+    &:disabled
     {
-        width: 13rem;
-        margin-right: 0rem;
-    }
-
-    &.resume
-    {
-        width: 11rem;
+        cursor: default;
     }
     
-    &.contact
-    {
-        @include themify()
-        {
-            background-color: themed('grey-9');
-            &:hover
-            {
-                background-color: mix(themed('grey-9'), themed('grey-0'), $color-mix-regular);
-            }
-            &:active
-            {
-                background-color: mix(themed('secondary'), themed('grey-9'), $color-mix-least);
-            }
-        }
-
-        width: 11rem;
-        height: 3.5rem;
-    }
-
+    padding: 1rem 1.3rem;
+    
     &.no_background
     {
         background: none;
+        width: fit-content;
         
+        // &.outlined
+        // {
+        //     border: 0.2rem 
+        // }
+
         @include themify()
         {
             color: themed('grey-9');
         }
-
-        width: 15rem;
-        &:hover
+        
+        &:hover, &:active:focus, &:focus
         {
             background: none;
             box-shadow: none;
         }
     }
+
 }
 

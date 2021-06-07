@@ -84,8 +84,8 @@ const Banner : FC = () =>
                 <h1 className="my_name">{banner.name || init.name}</h1>
                 <h1 className="my_title">{banner.title || init.title}</h1>
                 <div className="banner_buttons">
-                    <Button type="button" className="resume" text={init.resume_btn}/>
-                    <Button type="button" className="contact" text={init.contact_btn}/>
+                    <Button type="button" text={init.resume_btn}/>
+                    <Button type="button" className="secondary" text={init.contact_btn}/>
                     <ThemeSwitcher />
                 </div>
            </div>

@@ -3,7 +3,7 @@
     margin:auto;
     margin-top: 5rem;
     padding: 4rem;
-    width: 40%;
+    width: 45%;
     
     @include themify()
     {
@@ -20,6 +20,25 @@
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 1.5rem;
+        
+        .banner
+        {
+            border-radius: $radius-regular;
+            margin: 0rem;
+            grid-column: span 2;
+            padding: 1rem;
+            font: $semi-weight $small-size $sans-font, sans-serif;
+            line-height: 150%;
+            @include themify()
+            {
+                color: themed('grey-0');
+                background-color: themed('error');
+                &.success
+                {
+                    background-color: themed('success');
+                }
+            }
+        }
 
         .confirmbtn
         {
@@ -30,11 +49,14 @@
         }
         .leftbtn
         {
+            :nth-child(n)
+            {
+                padding-left: 0rem;
+                padding-right: 0rem;
+            }
             text-decoration: none;
             margin: 0rem;
             margin-top: 2rem;
-            width: 15rem;
-            font: $semi-weight $small-size $sans-font, sans-serif;
             justify-self: start;
             align-self: center;
             padding: 0rem;
