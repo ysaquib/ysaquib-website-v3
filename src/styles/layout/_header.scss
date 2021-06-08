@@ -2,32 +2,40 @@
 {
     width: 100%;
     height: 8rem;
-    padding: 1rem;
-
-    @include themify 
-    {
-        background-color: themed('grey-0');
-    }
+    padding: 1rem 2rem;
+    position: fixed;
+    top: 0rem;
+    width: 100%;
+    z-index: 20;
     
+    transition: all $trans-effect $trans-regular;
+    
+
     .header_wrapper
     {
         width: 100%;
         height: 100%;
-        display: inline-flex;
-        flex-direction: column;
-        justify-content: center;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
 
-        
-        @include themify
+        .header_title
         {
-            color: themed('grey-7');
+            padding: 1rem;
+            font: $bold-weight $medium-size $sans-font, sans-serif;
+            a
+            {
+                text-decoration: none;
+            }
+            
         }
         
-        ol 
+        .header_list 
         {
-            align-self: flex-end;
             padding: 0rem;
-            margin: 0rem 2rem;
+            margin: 0rem;
+            // padding: 1rem;
             list-style-type: none;
             overflow: hidden;           
             
@@ -35,34 +43,65 @@
             {
                 margin-right: 3rem;
             }
-
+            
+            padding: 1rem;
             .header_item
             {
                 user-select: none;
                 cursor: pointer;
                 display: inline;
-                font: $regular-weight $Little-size $mono-font, monospace;
+                font: $medium-weight $Little-size $mono-font, monospace;
                 counter-increment: inst;
                 
                 & .header_link
                 {
-                    @include themify
-                    {
-                        color: themed('grey-7');
-                    }
                     text-decoration: none;
-                    &::before
-                    {
-                        content: "0" counter(inst) ".";
-                        margin-right: 0.5rem;
-                        @include themify
-                        {
-                            color: themed('primary');
-                        }
-                    }
+                    // &::before
+                    // {
+                    //     content: "0" counter(inst) ".";
+                    //     margin-right: 0.5rem;
+                    //     @include themify
+                    //     {
+                    //         color: themed('primary');
+                    //     }
+                    // }
+
                 }
                 
             }
+        }
+
+    }
+    @include themify 
+    {
+        .header_wrapper .header_title a,
+        .header_wrapper .header_list .header_item .header_link
+        {
+            padding: 0.5rem;
+            color: themed('grey-7');
+            transition: color $trans-effect $trans-regular;
+            &:hover
+            {
+                color: themed('primary');
+            }
+            &:focus-visible
+            {
+                outline: themed('secondary') dashed 2px;
+            }
+            &:active:focus
+            {
+                transition: none;
+                color: themed('secondary');
+            }
+        }
+        
+        background-color: themed('grey-0');
+        box-shadow: none;
+        &.scrolling
+        {
+            box-shadow: $header-box-shadow;
+            background-color: themed('grey-2');
+            height: 5rem;
         }
     }
 }

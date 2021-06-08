@@ -15,11 +15,15 @@
         background-color: themed('primary');
         &.secondary
         {
-            background-color: themed('grey-9');
+            background-color: themed('grey-8');
         }
-        &:hover, &:focus
+        &:hover
         {
             background-color: mix(themed('secondary'), themed('grey-9'), $color-mix-regular);
+        }
+        &:focus-visible
+        {
+            outline: themed('secondary') dashed 2px;
         }
         &:active:focus
         {
@@ -38,7 +42,7 @@
     
     &:hover
     {
-        box-shadow: 1px 1px 10px rgb(#000, 30%);
+        box-shadow: $button-hover-box-shadow;
         cursor: pointer;
     }
     &:disabled

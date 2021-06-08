@@ -17,7 +17,6 @@ import { RootState } from '../../store';
 
 interface FormInputs
 {
-    "username" : string;
     "firstname" : string;
     "lastname" : string;
     "emailaddress" : string;
@@ -27,8 +26,6 @@ interface FormInputs
 
 const schema = yup.object().shape(
 {
-    username : yup.string()
-                  .required("is required."),
     firstname : yup.string()
                    .required("is required."),
     lastname : yup.string()
@@ -61,7 +58,6 @@ const RegisterPortal : FC = () =>
         setLoading(true);
         dispatch(userSignUp(
             {
-                username: data.username,
                 firstname: data.firstname,
                 lastname: data.lastname,
                 email: data.emailaddress,
@@ -112,14 +108,6 @@ const RegisterPortal : FC = () =>
                     message={errors.lastname?.message} 
                     type="text" 
                     className="half" 
-                    register={register} 
-                    registration={{required: true}} />
-
-                <TextField 
-                    label="Username" 
-                    name="username"
-                    message={errors.username?.message} 
-                    type="text" 
                     register={register} 
                     registration={{required: true}} />
 

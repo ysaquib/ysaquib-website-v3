@@ -2,9 +2,9 @@
     "theme" : "theme-dark",
     "header" :
     {
+        "title" : "Yusuf Saquib",
         "sections" : 
         [
-            ["Home", "/"],
             ["About", "/#about"],
             ["Projects", "/#projects"],
             ["Contact", "/#contact"],

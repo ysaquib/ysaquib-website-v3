@@ -8,7 +8,7 @@ import './styles/main.scss';
 import './firebase/config'
 
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux'; //useSelector
 import { BrowserRouter, Switch } from 'react-router-dom';
 // import { Helmet } from 'react-helmet';
 import HomePage from './pages/HomePage';
@@ -20,15 +20,15 @@ import Footer from './components/layout/Footer';
 import PublicRoute from './components/auth/PublicRoute';
 import PrivateRoute from './components/auth/PrivateRoute';
 import SignUp from './pages/SignUpPage';
-import { RootState } from './store';
-import { getUserById, setLoading, setReqVerify } from './store/actions/authActions';
+// import { RootState } from './store';
+import { getUserById, setLoading, setNeedVerification } from './store/actions/authActions';
 import firebase from 'firebase';
 let default_data = require('./default_data.json');
 
 const App : FC = () =>
 {
     const dispatch = useDispatch();
-    const { loading } = useSelector((state : RootState) => state.auth);
+    // const { loading } = useSelector((state : RootState) => state.auth);
 
     const getTheme = localStorage.getItem('theme') || default_data.theme;
     switch (getTheme)
@@ -51,7 +51,7 @@ const App : FC = () =>
             await dispatch(getUserById(user.uid));
             if(!user.emailVerified) 
             {
-                dispatch(setReqVerify());
+                dispatch(setNeedVerification());
             }
           }
           dispatch(setLoading(false));

@@ -15,7 +15,7 @@
 
     grid-column: span 2;
     border-radius: $radius-large;
-    box-shadow: 0 0.3rem 0.8rem 0 rgba(15,15,20,.2);
+    box-shadow: $project-card-box-shadow;
     
     .featured_tag
     {

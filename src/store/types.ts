@@ -1,6 +1,6 @@
 export const User_SetUser = 'User_SetUser';
 export const User_SignedOut = 'User_SignedOut';
-export const User_ReqVerify = 'User_ReqVerify';
+export const User_NeedVerification = 'User_ReqVerify';
 export const User_SetLoading = 'User_SetLoading';
 export const User_SetWarning = 'User_SetWarning';
 export const User_SetSuccess = 'User_SetSuccess';
@@ -15,7 +15,6 @@ export enum UserRoles
 
 export interface User 
 {
-    username:   string;
     email:      string;
     firstname:  string;
     lastname:   string;
@@ -36,7 +35,6 @@ export interface AuthState
 
 export interface SignUpData
 {
-    username:   string;
     email:      string;
     firstname:  string;
     lastname:   string;
@@ -45,7 +43,6 @@ export interface SignUpData
 
 export interface SignInData
 {
-    username?:  string;
     email:      string;
     password:   string;
 }
@@ -87,7 +84,7 @@ interface SetWarningAction
 
 interface NeedVerificationAction
 {
-    type:       typeof User_ReqVerify;
+    type:       typeof User_NeedVerification;
 }
 
 interface SetSuccessAction

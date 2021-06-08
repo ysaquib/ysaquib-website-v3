@@ -6,7 +6,7 @@ import { AuthAction,
          User, 
          User_SetUser, 
          User_SignedOut, 
-         User_ReqVerify, 
+         User_NeedVerification, 
          User_SetLoading, 
          User_SetWarning, 
          User_SetSuccess, 
@@ -27,7 +27,6 @@ export const userSignUp = (data : SignUpData, onError: () => void) : ThunkAction
                 const userData : User = 
                 {
                     email: data.email,
-                    username: data.username,
                     firstname: data.firstname,
                     lastname: data.lastname,
                     role: 'user',
@@ -37,7 +36,7 @@ export const userSignUp = (data : SignUpData, onError: () => void) : ThunkAction
                 await Firebase.firestore().collection('/users').doc(response.user.uid).set(userData);
                 await response.user.sendEmailVerification();
                 dispatch({
-                    type: User_ReqVerify
+                    type: User_NeedVerification
                 });
                 dispatch({
                     type: User_SetUser,
@@ -161,12 +160,12 @@ export const setWarning = (message: string) : ThunkAction<void, RootState, null,
     }
 }
 
-export const setReqVerify = () : ThunkAction<void, RootState, null, AuthAction> =>
+export const setNeedVerification = () : ThunkAction<void, RootState, null, AuthAction> =>
 {
     return dispatch =>
     {
         dispatch({
-            type: User_ReqVerify,
+            type: User_NeedVerification,
         });
     }
 }  

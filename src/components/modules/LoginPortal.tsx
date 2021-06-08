@@ -40,7 +40,7 @@ const LoginPortal : FC = () =>
     const [isSignedIn, setSignedIn] = useState(false);
     
     const dispatch = useDispatch();
-    const {error} = useSelector((state : RootState) => state.auth);
+    const {error, authenticated } = useSelector((state : RootState) => state.auth);
 
     const onSubmit : SubmitHandler<FormInputs> = (data) => 
     {
