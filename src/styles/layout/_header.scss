@@ -36,7 +36,7 @@
                 margin-right: 3rem;
             }
 
-            li
+            .header_item
             {
                 user-select: none;
                 cursor: pointer;
@@ -44,24 +44,24 @@
                 font: $regular-weight $Little-size $mono-font, monospace;
                 counter-increment: inst;
                 
-                & a
+                & .header_link
                 {
                     @include themify
                     {
                         color: themed('grey-7');
                     }
                     text-decoration: none;
-                }
-                
-                &::before
-                {
-                    content: "0" counter(inst) ".";
-                    margin-right: 0.5rem;
-                    @include themify
+                    &::before
                     {
-                        color: themed('primary');
+                        content: "0" counter(inst) ".";
+                        margin-right: 0.5rem;
+                        @include themify
+                        {
+                            color: themed('primary');
+                        }
                     }
                 }
+                
             }
         }
     }
