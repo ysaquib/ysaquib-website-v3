@@ -9,7 +9,7 @@ import './firebase/config'
 
 
 import { useDispatch, useSelector } from 'react-redux'; //useSelector
-import { BrowserRouter, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 // import { Helmet } from 'react-helmet';
 import HomePage from './pages/HomePage';
 import SignIn from './pages/SignInPage';
@@ -23,6 +23,7 @@ import SignUp from './pages/SignUpPage';
 import { RootState } from './store';
 import { getUserById, setLoading, setNeedVerification } from './store/actions/authActions';
 import firebase from 'firebase';
+import Error404 from './pages/ErrorPage';
 let default_data = require('./default_data.json');
 
 const App : FC = () =>
@@ -78,6 +79,7 @@ const App : FC = () =>
                 <PublicRoute exact path="/signin" component={SignIn} />
                 <PublicRoute exact path="/signup" component={SignUp} />
                 <PrivateRoute path="/account" component={SignIn} />
+                <Route component={Error404}/>
             </Switch>
             <Footer />
         </BrowserRouter>

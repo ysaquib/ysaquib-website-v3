@@ -28,7 +28,7 @@
         &:active:focus
         {
             transition: none;
-            background-color: mix(themed('secondary'), themed('grey-0'), $color-mix-least);
+            background-color: mix(themed('secondary'), themed('grey-3'), $color-mix-least);
         }
         &:disabled
         {
@@ -64,10 +64,27 @@
 
         @include themify()
         {
+            transition: color $trans-effect $trans-regular;
             color: themed('grey-9');
+            &:hover
+            {
+                color: themed('primary');
+            }
+            &:focus-visible
+            {
+                color: themed('secondary');
+            }
+            &:active:focus
+            {
+                color: mix(themed('secondary'), themed('grey-3'), $color-mix-least);
+            }
+            &:disabled
+            {
+                color: themed('grey-5');
+            }
         }
         
-        &:hover, &:active:focus, &:focus
+        &:hover, &:active:focus, &:focus, &:disabled
         {
             background: none;
             box-shadow: none;

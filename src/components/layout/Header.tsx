@@ -4,9 +4,10 @@
  */
 
 import React, { FC, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useHistory } from 'react-router-dom';
 import { RootState } from '../../store';
+import { userSignOut } from '../../store/actions/authActions';
 
 
 
@@ -14,6 +15,9 @@ let default_data = require('../../default_data.json');
 
 const Header : FC = () =>
 {
+    const history = useHistory();
+    const dispatch = useDispatch();
+    
     const [scrollPosition, setScrollPosition] = useState(0);
     const {authenticated} = useSelector((state : RootState) => state.auth);
     
@@ -45,27 +49,47 @@ const Header : FC = () =>
         }
     }, [scrollPosition]);
 
+    const handleSignOut = () =>
+    {
+        dispatch(userSignOut());
+    }
     
+    //onClick={() => history.push(path)}
 
     return (
-        <header id="header">
-            <div className="header_wrapper">
-                <p className="header_title"><Link to="/">{default_data.header.title}</Link></p>
-                <ol className="header_list">
-                    {default_data.header.sections.map(([title, path] : [string, string]) => {
-                        return (<li className="header_item" key={title}>
-                                    <a href={path} className="header_link">
-                                        {title}
-                                    </a>
-                                </li>)
-                    })}
-                    <li className="header_item">
-                        <Link to={authenticated ? `/account` : `signin`} className="header_link">
-                            Account
-                        </Link>
-                    </li>
-                </ol>
-            </div>
+        <header id="pseudo_header">
+        <div id="header">
+        <div className="header_wrapper">
+            <p className="header_title">
+                <Link to="/">
+                    {default_data.header.title}
+                </Link>
+            </p>
+
+
+            <ol className="header_list">
+                {default_data.header.sections.map(([title, path] : [string, string]) => {
+                    return (
+                    <li className="header_item" key={title} onClick={() => history.push(path)}>
+                        {title}
+                    </li>);
+                })}
+
+
+                <li className="header_item" 
+                    onClick={() => {authenticated ? history.push("/account") : history.push("/signin")}}>
+                        {authenticated ? `Account` : `Sign In`}
+                </li>
+
+
+                {authenticated ? 
+                    <li className="header_item sign_out" onClick={handleSignOut} >
+                            Sign Out
+                    </li> : <></>   
+                }
+            </ol>
+        </div>
+        </div>
         </header>
     );
     

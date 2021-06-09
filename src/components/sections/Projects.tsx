@@ -4,10 +4,7 @@
  */
 
 import React, { FC, useEffect, useState } from 'react'
-import { useSelector } from 'react-redux';
-// import {database} from '../../firebase/config';
 import { firebase } from '../../firebase/config';
-import { RootState } from '../../store';
 import Button from '../elements/Button';
 import LoadingSkeleton from '../elements/LoadingSkeleton';
 import ProjectCard from '../elements/ProjectCard';
@@ -16,7 +13,6 @@ import Section from '../elements/Section';
 const Projects : FC = () =>
 {
     const [isLoading, setLoading] = useState<boolean>(false);
-    const {loading} = useSelector((state : RootState) => state.auth);
     const [projects, setProjects] = useState<any>([]);
 
     /**

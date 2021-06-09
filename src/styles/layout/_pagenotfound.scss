@@ -1,0 +1,33 @@
+#pagenotfound
+{
+    text-align: center;
+    .title
+    {
+        font: $black-weight $gigantic-size $mono-font, monospace;
+        margin-bottom: 0;
+    }
+    
+    .subtitle
+    {
+        font: $medium-weight $large-size $mono-font, monospace;
+        margin-top: 0;
+    }
+    
+    .home_btn
+    {
+        font: $light-weight $regular-size $mono-font, monospace !important;
+    }
+    
+    @include themify()
+    {
+        .title
+        {
+            color: themed('error');
+        }
+        .subtitle
+        {
+            color: themed('warning');
+        }
+        
+    }
+}
