@@ -4,8 +4,10 @@
  */
 
 import React, { FC, useEffect, useState } from 'react'
+import { useSelector } from 'react-redux';
 // import {database} from '../../firebase/config';
 import { firebase } from '../../firebase/config';
+import { RootState } from '../../store';
 import Button from '../elements/Button';
 import LoadingSkeleton from '../elements/LoadingSkeleton';
 import ProjectCard from '../elements/ProjectCard';
@@ -13,8 +15,9 @@ import Section from '../elements/Section';
 
 const Projects : FC = () =>
 {
+    const [isLoading, setLoading] = useState<boolean>(false);
+    const {loading} = useSelector((state : RootState) => state.auth);
     const [projects, setProjects] = useState<any>([]);
-    const [loading, setLoading] = useState<boolean>(false);
 
     /**
      * Get each project doc from the projects database in ascending order with
@@ -45,6 +48,10 @@ const Projects : FC = () =>
             setProjects(items);
             setLoading(false);
         });
+        return () =>
+        {
+            setProjects([]);
+        }
     }, []);
 
     /**
@@ -69,7 +76,7 @@ const Projects : FC = () =>
     /**
      * If the projects are currently being loaded, make sure it is known.
      */
-    if(loading)
+    if(isLoading)
     {
         return(
             <Section title="My Projects" id="projects">

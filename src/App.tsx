@@ -8,7 +8,7 @@ import './styles/main.scss';
 import './firebase/config'
 
 
-import { useDispatch } from 'react-redux'; //useSelector
+import { useDispatch, useSelector } from 'react-redux'; //useSelector
 import { BrowserRouter, Switch } from 'react-router-dom';
 // import { Helmet } from 'react-helmet';
 import HomePage from './pages/HomePage';
@@ -20,7 +20,7 @@ import Footer from './components/layout/Footer';
 import PublicRoute from './components/auth/PublicRoute';
 import PrivateRoute from './components/auth/PrivateRoute';
 import SignUp from './pages/SignUpPage';
-// import { RootState } from './store';
+import { RootState } from './store';
 import { getUserById, setLoading, setNeedVerification } from './store/actions/authActions';
 import firebase from 'firebase';
 let default_data = require('./default_data.json');
@@ -28,7 +28,7 @@ let default_data = require('./default_data.json');
 const App : FC = () =>
 {
     const dispatch = useDispatch();
-    // const { loading } = useSelector((state : RootState) => state.auth);
+    const { loading } = useSelector((state : RootState) => state.auth);
 
     const getTheme = localStorage.getItem('theme') || default_data.theme;
     switch (getTheme)
@@ -45,21 +45,21 @@ const App : FC = () =>
         dispatch(setLoading(true));
         const unsubscribe = firebase.auth().onAuthStateChanged(async (user) => 
         {
-          if(user) 
-          {
-            dispatch(setLoading(true));
-            await dispatch(getUserById(user.uid));
-            if(!user.emailVerified) 
+            if(user) 
             {
-                dispatch(setNeedVerification());
+                dispatch(setLoading(true));
+                await dispatch(getUserById(user.uid));
+                if(!user.emailVerified) 
+                {
+                    dispatch(setNeedVerification());
+                }
             }
-          }
-          dispatch(setLoading(false));
+            dispatch(setLoading(false));
         });
-    
+        
         return () => 
         {
-          unsubscribe();
+            unsubscribe();
         };
     }, [dispatch]);
 
@@ -77,7 +77,7 @@ const App : FC = () =>
                 <PublicRoute exact path="/" component={HomePage} />
                 <PublicRoute exact path="/signin" component={SignIn} />
                 <PublicRoute exact path="/signup" component={SignUp} />
-                <PrivateRoute path="/dashboard" authRoles={[]} component={SignIn} />
+                <PrivateRoute path="/account" component={SignIn} />
             </Switch>
             <Footer />
         </BrowserRouter>

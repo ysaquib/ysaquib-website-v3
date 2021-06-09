@@ -11,7 +11,8 @@ import { AuthAction,
          User_SetWarning, 
          User_SetSuccess, 
          User_SetError, 
-         ErrorMessages} from '../types';
+         ErrorMessages,
+         User_SetUserRoles} from '../types';
 import { RootState } from '..';
 import Firebase, { firebase } from '../../firebase/config';
 
@@ -29,7 +30,7 @@ export const userSignUp = (data : SignUpData, onError: () => void) : ThunkAction
                     email: data.email,
                     firstname: data.firstname,
                     lastname: data.lastname,
-                    role: 'user',
+                    roles: ['user'],
                     id: response.user.uid,
                     createdAt: firebase.firestore.FieldValue.serverTimestamp()
                 }
@@ -41,6 +42,10 @@ export const userSignUp = (data : SignUpData, onError: () => void) : ThunkAction
                 dispatch({
                     type: User_SetUser,
                     payload: userData
+                });
+                dispatch({
+                    type: User_SetUserRoles,
+                    payload: userData.roles
                 });
             }
         }
@@ -70,6 +75,10 @@ export const getUserById = (id: string) : ThunkAction<void, RootState, null, Aut
                     type: User_SetUser,
                     payload: userData
                 });
+                dispatch({
+                    type: User_SetUserRoles,
+                    payload: userData.roles
+                });
             }
         }
         catch (error)
@@ -81,6 +90,7 @@ export const getUserById = (id: string) : ThunkAction<void, RootState, null, Aut
 
 export const setLoading = (value: boolean) : ThunkAction<void, RootState, null, AuthAction> => 
 {
+    console.log("is loading");
     return dispatch => 
     {
         dispatch({
@@ -98,7 +108,8 @@ export const userSignIn = (data: SignInData, onError: () => void) : ThunkAction<
         {
             console.log("Signing In");
             await Firebase.auth().signInWithEmailAndPassword(data.email, data.password);
-            console.log("Signing In");
+            // console.log(userCred.user?.uid);
+            // getUserById(userCred.user!.uid);
         }
         catch (error)
         {

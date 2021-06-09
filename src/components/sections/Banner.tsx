@@ -22,7 +22,6 @@ type InitialData =
 
 const Banner : FC = () =>
 {
-
     const [banner, setBanner] = useState<any>([]);
 
     /**
@@ -74,6 +73,10 @@ const Banner : FC = () =>
         }).catch((error) => {
             console.log("Error retrieving data %s", error);
         });
+        return () =>
+        {
+            setBanner([]);
+        }
     }, []);
     
 

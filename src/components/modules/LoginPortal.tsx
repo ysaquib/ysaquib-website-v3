@@ -40,7 +40,7 @@ const LoginPortal : FC = () =>
     const [isSignedIn, setSignedIn] = useState(false);
     
     const dispatch = useDispatch();
-    const {error, authenticated } = useSelector((state : RootState) => state.auth);
+    const {error, authenticated} = useSelector((state : RootState) => state.auth);
 
     const onSubmit : SubmitHandler<FormInputs> = (data) => 
     {
@@ -53,15 +53,15 @@ const LoginPortal : FC = () =>
             }, 
             () => {setLoading(false)}));
         setSignedIn(true);
-        console.log(isSignedIn);
     }
 
-    if (isSignedIn)
+    if (authenticated || isSignedIn)
     {
         return (
-            <Redirect to="/dashboard" />
+            <Redirect to="/account" />
         )
     }
+
     return (
         <Section id="login" title="Sign In">
             <form className="login_wrapper" onSubmit={handleSubmit(onSubmit)}>

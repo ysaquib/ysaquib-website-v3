@@ -5,6 +5,7 @@
 
 import React, { FC, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { RootState } from '../../store';
 
 
@@ -49,19 +50,19 @@ const Header : FC = () =>
     return (
         <header id="header">
             <div className="header_wrapper">
-                <p className="header_title"><a href="/">{default_data.header.title}</a></p>
+                <p className="header_title"><Link to="/">{default_data.header.title}</Link></p>
                 <ol className="header_list">
                     {default_data.header.sections.map(([title, path] : [string, string]) => {
-                        return (<li className="header_item">
+                        return (<li className="header_item" key={title}>
                                     <a href={path} className="header_link">
                                         {title}
                                     </a>
                                 </li>)
                     })}
                     <li className="header_item">
-                        <a href={authenticated ? `/account` : `signin`} className="header_link">
+                        <Link to={authenticated ? `/account` : `signin`} className="header_link">
                             Account
-                        </a>
+                        </Link>
                     </li>
                 </ol>
             </div>

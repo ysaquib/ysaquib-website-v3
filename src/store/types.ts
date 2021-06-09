@@ -5,6 +5,7 @@ export const User_SetLoading = 'User_SetLoading';
 export const User_SetWarning = 'User_SetWarning';
 export const User_SetSuccess = 'User_SetSuccess';
 export const User_SetError   = 'User_SetError';
+export const User_SetUserRoles = ['role'];
 
 export enum UserRoles
 {
@@ -18,13 +19,14 @@ export interface User
     email:      string;
     firstname:  string;
     lastname:   string;
-    role:       string;
+    roles:      [string];
     id:         string;
     createdAt:  any;
 }
 export interface AuthState
 {
     user:               User | null;
+    userRoles:          [string];
     authenticated:      boolean;
     loading:            boolean;
     error:              string;
@@ -57,6 +59,12 @@ interface SetUserAction
 {
     type:       typeof User_SetUser;
     payload:    User;
+}
+
+interface SetUserRolesAction
+{
+    type: typeof User_SetUserRoles;
+    payload: [string];
 }
 
 interface SetLoadingAction
@@ -93,5 +101,5 @@ interface SetSuccessAction
     payload:    string;
 }
 
-export type AuthAction = SetUserAction | SetLoadingAction | SignOutAction | SetErrorAction | SetWarningAction | NeedVerificationAction | SetSuccessAction;
+export type AuthAction = SetUserAction | SetLoadingAction | SignOutAction | SetErrorAction | SetWarningAction | NeedVerificationAction | SetSuccessAction | SetUserRolesAction;
 

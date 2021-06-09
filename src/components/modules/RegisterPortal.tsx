@@ -8,7 +8,7 @@ import TextField from '../elements/TextField';
 import Section from '../elements/Section';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import Button from '../elements/Button';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { userSignUp } from '../../store/actions/authActions';
@@ -67,6 +67,13 @@ const RegisterPortal : FC = () =>
         setRegistered(data.emailaddress);
     }
 
+    if(authenticated)
+    {
+        return (
+            <Redirect to="/account" />
+        );
+    }
+
     if(isRegistered !== '')
     {
         return (
@@ -88,7 +95,6 @@ const RegisterPortal : FC = () =>
             </Section>
         );
     }
-
     return (
         <Section id="register" title="Create An Account">
             <form className="register_wrapper" onSubmit={handleSubmit(onSubmit)}>

@@ -1,8 +1,9 @@
-import { AuthAction, AuthState , User_SetUser, User_SignedOut, User_NeedVerification, User_SetLoading, User_SetWarning, User_SetSuccess, User_SetError } from '../types';
+import { AuthAction, AuthState , User_SetUser, User_SignedOut, User_NeedVerification, User_SetLoading, User_SetWarning, User_SetSuccess, User_SetError, User_SetUserRoles } from '../types';
 
 const initialState: AuthState = {
   user: null,
   authenticated: false,
+  userRoles: [''],
   loading: false,
   error: '',
   warning: '',
@@ -19,6 +20,12 @@ const AuthFn = (state = initialState, action: AuthAction) => {
                 user: action.payload,
                 authenticated: true
             };
+        
+        case User_SetUserRoles:
+            return {
+                ...state,
+                userRoles: action.payload
+            }
 
         case User_SetLoading:
             return {
