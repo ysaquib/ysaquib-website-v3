@@ -6,7 +6,7 @@
 .btn
 {
     border: none;
-    border-radius: $radius-regular;
+    border-radius: $radius-small;
     
     font: $semi-weight $small-size $sans-font, sans-serif;
     @include themify()

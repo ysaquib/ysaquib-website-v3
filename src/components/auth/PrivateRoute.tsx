@@ -16,7 +16,10 @@ const PrivateRoute: FC<PrivateRouteProps> = ({component : Component, authRoles=[
     const hasRole = commonroles.length >= 1;
 
     return(
-        <Route {...props} render={comprops => (authenticated && hasRole) ? <Component {...comprops} /> : <Redirect to="/" />}></Route>  
+        <Route {...props} 
+            render={comprops => (authenticated && hasRole) ? 
+                <Component {...comprops} /> : 
+                <Redirect to="/" />} />
     );
 }
 

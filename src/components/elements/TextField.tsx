@@ -22,7 +22,7 @@ interface TextFieldProps extends InputHTMLAttributes<HTMLInputElement>
 
 const TextField: FC<TextFieldProps> = ({ label, type, name, className, disabled, message, register, registration, replace_label, ...props }) => 
 {
-    const [showLabel, setShowLabel] = useState(false);
+    const [showLabel, setShowLabel] = useState(props.value != null);
 
     useEffect(() => 
     {

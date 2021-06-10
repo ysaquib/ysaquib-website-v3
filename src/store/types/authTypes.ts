@@ -5,7 +5,7 @@ export const User_SetLoading = 'User_SetLoading';
 export const User_SetWarning = 'User_SetWarning';
 export const User_SetSuccess = 'User_SetSuccess';
 export const User_SetError   = 'User_SetError';
-export const User_SetUserRoles = ['role'];
+export const User_SetUserRoles = 'User_SetRoles';
 
 export enum UserRoles
 {

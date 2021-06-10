@@ -12,7 +12,7 @@ import { AuthAction,
          User_SetSuccess, 
          User_SetError, 
          ErrorMessages,
-         User_SetUserRoles} from '../types';
+         User_SetUserRoles} from '../types/authTypes';
 import { RootState } from '..';
 import Firebase, { firebase } from '../../firebase/config';
 

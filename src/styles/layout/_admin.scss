@@ -1,0 +1,98 @@
+#admin
+{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    width: 100%;
+    gap: 3rem;
+    padding: 0rem;
+}
+
+.admin_title
+{
+    text-align: left;
+    display: inline-flex;
+    align-items: center;
+    justify-content: left;
+    width: 100%;
+
+    margin-bottom: 5rem;
+
+    &::after, &::before
+    {
+        content: "";
+        flex: 1;
+        @include themify()
+        {
+            background-color: themed('grey-3');
+        }
+        height: 1px;
+        width: 50%;
+    }
+    &::before{margin-right: 3rem;}
+    &::after{margin-left: 3rem;}
+}
+
+#admin_banner
+{
+    width: 100%;
+    #banner
+    {
+        width: 100%;
+        margin: 0rem;
+        padding: 3rem;
+        .banner_wrapper
+        {
+            padding: 0rem; // 4rem 3rem 4rem;
+            .banner_buttons
+            {
+                :nth-child(n)
+                {
+                    padding: 0.7rem;
+                    font-size: $little-size;
+                    margin-right: 1.5rem;
+                }
+            }    
+            .pre
+            {
+                font-size: $small-size;
+            }
+            
+            .my_name
+            {
+                font-size: $large-size;
+            }
+            
+            .my_title
+            {
+                font-size: $large-size;
+                margin-bottom: 2rem;
+            }
+            
+        }
+    }
+    
+    .edit_banner
+    {
+        margin-top: 2rem;
+        padding: 3rem;
+        border-radius: $radius-regular;
+        :not(:first-child)
+        {
+            margin-bottom: 1rem;
+        }
+        h3
+        {
+            margin-top: 0rem;
+            font: $semi-weight $medium-size $sans-font, sans-serif;
+        }
+        @include themify()
+        {
+            h3 
+            {
+                color: themed('grey-9');
+            }
+            border: 0.1rem solid themed('grey-6');
+            background-color: themed('grey-0');
+        }
+    }
+}
