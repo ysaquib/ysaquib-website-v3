@@ -48,7 +48,7 @@
 
             @include themify()
             {
-                color: themed('grey-9');
+                color: themed('grey-900');
             }
         }
 
@@ -60,7 +60,7 @@
 
             @include themify()
             {
-                color: themed('grey-7');
+                color: themed('grey-700');
             }
         }
 

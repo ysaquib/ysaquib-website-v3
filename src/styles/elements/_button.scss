@@ -11,15 +11,15 @@
     font: $semi-weight $small-size $sans-font, sans-serif;
     @include themify()
     {
-        color: themed('grey-0');
+        color: themed('grey-000');
         background-color: themed('primary');
         &.secondary
         {
-            background-color: themed('grey-8');
+            background-color: themed('grey-800');
         }
         &:hover
         {
-            background-color: mix(themed('secondary'), themed('grey-9'), $color-mix-regular);
+            background-color: mix(themed('secondary'), themed('grey-900'), $color-mix-regular);
         }
         &:focus-visible
         {
@@ -28,11 +28,11 @@
         &:active:focus
         {
             transition: none;
-            background-color: mix(themed('secondary'), themed('grey-3'), $color-mix-least);
+            background-color: mix(themed('secondary'), themed('grey-300'), $color-mix-least);
         }
         &:disabled
         {
-            background-color: mix(themed('grey-0'), themed('primary'), 60%);
+            background-color: mix(themed('grey-000'), themed('primary'), 60%);
         }
     }
     
@@ -65,7 +65,7 @@
         @include themify()
         {
             transition: color $trans-effect $trans-regular;
-            color: themed('grey-9');
+            color: themed('grey-900');
             &:hover
             {
                 color: themed('primary');
@@ -76,11 +76,11 @@
             }
             &:active:focus
             {
-                color: mix(themed('secondary'), themed('grey-3'), $color-mix-least);
+                color: mix(themed('secondary'), themed('grey-300'), $color-mix-least);
             }
             &:disabled
             {
-                color: themed('grey-5');
+                color: themed('grey-500');
             }
         }
         

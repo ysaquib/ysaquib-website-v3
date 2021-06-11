@@ -23,18 +23,19 @@ const schema = yup.object().shape(
     resume_url : yup.string().url("must be a valid URL.").required("is required."),
 });
 
+
 const AdminBanner : FC = () =>
 {
     const dispatch = useDispatch();
     const BannerData = useSelector((state: RootState) => state.banner);
     const resolver = yupResolver(schema);
-    const {register, handleSubmit, formState: {errors}} = useForm<BannerData>({mode:"onBlur" ,resolver});
+    const {register, handleSubmit, formState: {errors}} = useForm<BannerData>({mode:"all" ,resolver});
     const [banner, setBanner] = useState<BannerData>(BannerData);
     
     useEffect(() => 
     {
         dispatch(getBannerData(() => {console.log("Error getting banner data")}));
-    }, []);
+    }, [dispatch]);
 
     useEffect(() => 
     {

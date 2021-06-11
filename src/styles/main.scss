@@ -46,22 +46,22 @@ body
     
     &.theme-dark
     {
-        background-color: get_color($key: 'grey-0', $theme: 'dark');
+        background-color: get_color($key: 'grey-000', $theme: 'dark');
     }
     
     &.theme-light
     {
-        background-color: get_color($key: 'grey-0', $theme: 'light');
+        background-color: get_color($key: 'grey-000', $theme: 'light');
 
     }
     .theme-dark
     {
-        background-color: get_color($key: 'grey-0', $theme: 'dark');
+        background-color: get_color($key: 'grey-000', $theme: 'dark');
     }
     
     .theme-light
     {
-        background-color: get_color($key: 'grey-0', $theme: 'light');
+        background-color: get_color($key: 'grey-000', $theme: 'light');
 
     }
 }

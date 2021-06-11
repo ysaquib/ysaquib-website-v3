@@ -3,7 +3,7 @@
  * Author: Yusuf Saquib
  */
 
-import React, { FC, useCallback, useEffect, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import TextField from '../elements/TextField';
 import Section from '../elements/Section';
 import { useForm, SubmitHandler } from 'react-hook-form';
@@ -14,7 +14,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { Prompt } from 'react-router-dom';
 
-import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 
 let default_data = require('../../default_data.json');
 
@@ -40,7 +39,7 @@ const Contact : FC = () =>
 {
 
     const resolver = yupResolver(schema);
-    const {register, handleSubmit, reset, formState: {errors}} = useForm<FormInputs>({mode:"onBlur" ,resolver});
+    const {register, handleSubmit, reset, formState: {errors}} = useForm<FormInputs>({mode:"all" ,resolver});
     const [isMsgSent, setMsgSent] = useState(false);
     const [formChanged, setFormChanged] = useState(false);
 

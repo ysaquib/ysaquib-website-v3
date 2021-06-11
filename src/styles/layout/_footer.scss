@@ -17,7 +17,7 @@
 
         @include themify()
         {
-            color: themed('grey-5');
+            color: themed('grey-500');
         }
         
         &::before
@@ -26,7 +26,7 @@
             order: 1;
             @include themify()
             {
-                background-color: themed('grey-3');
+                background-color: themed('grey-300');
             }
             height: 1px;
             width: 70%;

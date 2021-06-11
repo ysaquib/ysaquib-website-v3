@@ -69,7 +69,7 @@
         .header_wrapper .header_list .header_item
         {
             padding: 0.5rem;
-            color: themed('grey-7');
+            color: themed('grey-700');
             transition: color $trans-effect $trans-regular;
             &:hover
             {
@@ -99,12 +99,12 @@
             }
         }
         
-        background-color: themed('grey-0');
+        background-color: themed('grey-000');
         box-shadow: none;
         &.scrolling
         {
             box-shadow: $header-box-shadow;
-            background-color: themed('grey-2');
+            background-color: themed('grey-200');
             height: 5rem;
         }
     }

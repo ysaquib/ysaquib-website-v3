@@ -8,7 +8,7 @@ import './styles/main.scss';
 import './firebase/config'
 
 import { useDispatch, useSelector } from 'react-redux'; //useSelector
-import { BrowserRouter, Route, Switch, useHistory } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import Admin from './pages/AdminPage';
 import HomePage from './pages/HomePage';
@@ -25,9 +25,6 @@ import { RootState } from './store';
 import { getUserById, setLoading, setNeedVerification } from './store/actions/authActions';
 import firebase from 'firebase';
 import Error404 from './pages/ErrorPage';
-
-const noHeaderPages = ['/admin'];
-const noFooterPages = ['/admin'];
 
 let default_data = require('./default_data.json');
 

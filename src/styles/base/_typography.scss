@@ -17,7 +17,7 @@ h1
     // color: $light-foreground-color;
     @include themify()
     {
-        color: themed('grey-9');
+        color: themed('grey-900');
     }
     font: $medium-weight $large-size $serif-font, serif;
 }

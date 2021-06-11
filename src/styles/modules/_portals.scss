@@ -6,7 +6,7 @@
     
     @include themify()
     {
-        background-color: themed('grey-0');
+        background-color: themed('grey-000');
     }
     
     .sec_title
@@ -30,7 +30,7 @@
             line-height: 150%;
             @include themify()
             {
-                color: themed('grey-0');
+                color: themed('grey-000');
                 background-color: themed('error');
                 &.success
                 {
@@ -61,7 +61,7 @@
             padding: 0rem;
             @include themify()
             {
-                color: themed('grey-6');
+                color: themed('grey-600');
             }
         }
     }

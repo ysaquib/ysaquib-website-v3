@@ -31,7 +31,7 @@
 
         @include themify()
         {
-            color: themed('grey-8');
+            color: themed('grey-800');
         }
     }
     &.error
@@ -66,17 +66,17 @@ textarea, input[type=text], input[type=password]
     
     @include themify()
     {
-        color: mix(themed('primary'), themed('grey-9'), $color-mix-least);
-        background-color: themed('grey-1');
-        border-color: themed('grey-1');
+        color: mix(themed('primary'), themed('grey-900'), $color-mix-least);
+        background-color: themed('grey-100');
+        border-color: themed('grey-100');
     }
             
     &:hover
     {
         @include themify()
         {
-            background-color: mix(themed('grey-1'), themed('primary'), $color-mix-most);
-            border-color: themed('grey-1');
+            background-color: mix(themed('grey-100'), themed('primary'), $color-mix-most);
+            border-color: themed('grey-100');
         }
     }
     &.error
@@ -108,14 +108,14 @@ textarea, input[type=text], input[type=password]
     
     @include themify()
     {
-        color: themed('grey-5');
+        color: themed('grey-500');
     }
 
     &.disabled
     {
         @include themify()
         {
-            color: themed('grey-2');
+            color: themed('grey-200');
         }
 
     }
@@ -124,7 +124,7 @@ textarea, input[type=text], input[type=password]
     {
         @include themify()
         {
-            color: themed('grey-6');
+            color: themed('grey-600');
         }
     }
     font: $regular-weight $small-size $sans-font, sans-serif;
@@ -142,14 +142,14 @@ input[type=checkbox]
     @include themify()
     {
         color: themed('primary');
-        background-color: themed('grey-2');
+        background-color: themed('grey-200');
     }
     
     &:hover
     {
         @include themify()
         {
-            background-color: mix(themed('grey-2'), themed('primary'), $color-mix-regular);
+            background-color: mix(themed('grey-200'), themed('primary'), $color-mix-regular);
         }
     }
     
@@ -169,7 +169,7 @@ input[type=checkbox]
             font-size: $regular-size;
             @include themify()
             {
-                color: themed('grey-0');
+                color: themed('grey-000');
             }
         }
     }
@@ -179,7 +179,7 @@ input[type=checkbox]
         cursor: default;
         @include themify()
         {
-            background-color: themed('grey-1');
+            background-color: themed('grey-100');
         }
 
     }

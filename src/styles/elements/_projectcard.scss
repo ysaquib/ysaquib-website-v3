@@ -8,7 +8,7 @@
     // background-color: $background-color;
     @include themify()
     {
-        background-color: themed('grey-1');
+        background-color: themed('grey-100');
     }
     height: 28rem;
     position: relative;
@@ -40,7 +40,7 @@
             font: $semi-weight $small-size $mono-font, monospace;
             @include themify()
             {
-                color: themed('grey-0');
+                color: themed('grey-000');
             }
         }
     }
@@ -67,7 +67,7 @@
         // color: $light-foreground-color;
         @include themify()
         {
-            color: themed('grey-9');
+            color: themed('grey-900');
         }
     }
     
@@ -84,7 +84,7 @@
         // color: $dark-foreground-color;
         @include themify()
         {
-            color: themed('grey-7');
+            color: themed('grey-700');
         }
         
         li

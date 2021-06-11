@@ -15,7 +15,7 @@
     border-radius: $radius-large;
     @include themify()
     {
-        background-color: themed('grey-1');
+        background-color: themed('grey-100');
     }
     position: relative;
     overflow: hidden;
@@ -37,7 +37,7 @@
 
         @include themify()
         {
-            background: linear-gradient(90deg, transparent, mix(themed('grey-2'), themed('grey-3'), 80%), transparent);
+            background: linear-gradient(90deg, transparent, mix(themed('grey-200'), themed('grey-300'), 80%), transparent);
             transform: translateX(-100%);
             animation: $anim-long shine linear infinite;
         }

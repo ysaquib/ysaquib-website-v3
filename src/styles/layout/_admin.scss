@@ -23,7 +23,7 @@
         flex: 1;
         @include themify()
         {
-            background-color: themed('grey-3');
+            background-color: themed('grey-300');
         }
         height: 1px;
         width: 50%;
@@ -89,10 +89,10 @@
         {
             h3 
             {
-                color: themed('grey-9');
+                color: themed('grey-900');
             }
-            border: 0.1rem solid themed('grey-6');
-            background-color: themed('grey-0');
+            // border: 0.1rem solid themed('grey-500');
+            background-color: themed('grey-050');
         }
     }
 }
