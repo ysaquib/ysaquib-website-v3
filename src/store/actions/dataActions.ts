@@ -24,7 +24,7 @@ export const getBannerData = (onError: () => void) : ThunkAction<void, RootState
     }
 }
 
-export const setBannerData = (bannerData: BannerData, onError: () => void) : ThunkAction<void, RootState, null, BannerAction> =>
+export const setBannerData = (bannerData: BannerData, onError: (msg: any) => void) : ThunkAction<void, RootState, null, BannerAction> =>
 {
     return async dispatch =>
     {
@@ -35,7 +35,7 @@ export const setBannerData = (bannerData: BannerData, onError: () => void) : Thu
         }
         catch (error)
         {
-            onError();
+            onError(error);
             console.log(error);
         }
     }

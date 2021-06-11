@@ -5,11 +5,10 @@
 
 import React, { FC, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { firebase } from '../../firebase/config';
+import { Link, useHistory } from 'react-router-dom';
 import { RootState } from '../../store';
 import { getBannerData } from '../../store/actions/dataActions';
 import Button from '../elements/Button'
-import TextField from '../elements/TextField';
 import ThemeSwitcher from '../elements/ThemeSwitcher'
 
 let default_data = require('../../default_data.json');
@@ -66,7 +65,7 @@ const Banner : FC = () =>
                 <h1 className="my_name">{banner.name}</h1>
                 <h1 className="my_title">{banner.title}</h1>
                 <div className="banner_buttons">
-                    <Button type="button" text={resume_btn}/>
+                    <Button type="button" text={resume_btn} onClick={() => window.open(banner.resume_url, "_blank", "noopener noreferrer")} />
                     <Button type="button" className="secondary" text={contact_btn}/>
                     <ThemeSwitcher />
                 </div>

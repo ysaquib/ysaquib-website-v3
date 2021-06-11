@@ -1,4 +1,4 @@
-import {BannerData, Data_SetBannerData, BannerAction} from '../types/dataTypes'
+import {BannerData, Data_SetBannerData, BannerAction, Status_SetLoading, Status_SetError} from '../types/dataTypes'
 
 let default_data = require('../../default_data.json');
 
@@ -12,6 +12,7 @@ export const bannerReducer = (state = initialBannerState, action: BannerAction) 
         case Data_SetBannerData:
             localStorage.setItem("banner", JSON.stringify(action.payload));
             return (action.payload);
+
         default:
             return state;
     }

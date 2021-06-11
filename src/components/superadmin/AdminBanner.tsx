@@ -9,10 +9,10 @@ import Banner from '../sections/Banner';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { BannerData } from '../../store/types/dataTypes';
+import { BannerData, Data_SetBannerData } from '../../store/types/dataTypes';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
-import { getBannerData } from '../../store/actions/dataActions';
+import { getBannerData, setBannerData } from '../../store/actions/dataActions';
 import Button from '../elements/Button';
 
 const schema = yup.object().shape(
@@ -31,6 +31,10 @@ const AdminBanner : FC = () =>
     const resolver = yupResolver(schema);
     const {register, handleSubmit, formState: {errors}} = useForm<BannerData>({mode:"all" ,resolver});
     const [banner, setBanner] = useState<BannerData>(BannerData);
+
+    const [isLoading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [message, setMessage] = useState("");
     
     useEffect(() => 
     {
@@ -40,7 +44,7 @@ const AdminBanner : FC = () =>
     useEffect(() => 
     {
         setBanner(BannerData);
-
+        
         return () =>
         {
             setBanner(BannerData);
@@ -50,6 +54,10 @@ const AdminBanner : FC = () =>
     const onSubmit : SubmitHandler<BannerData> = (data) => 
     {
         console.log(data);
+        setLoading(true);
+        dispatch(setBannerData(data, (err) => {setError(err)}));
+        setLoading(false);
+        setMessage("Successfully updated banner.");
     }
 
     return (
@@ -60,6 +68,7 @@ const AdminBanner : FC = () =>
                 <TextField label="Prefix Title" 
                            name="prefix"
                            type="text"
+                           className="half"
                            defaultValue={banner.prefix}
                            message={errors.prefix?.message} 
                            register={register} 
@@ -68,6 +77,7 @@ const AdminBanner : FC = () =>
                 <TextField label="Name" 
                            name="name"
                            type="text"
+                           className="half"
                            defaultValue={banner.name}
                            message={errors.name?.message} 
                            register={register} 
@@ -89,6 +99,9 @@ const AdminBanner : FC = () =>
                            register={register} 
                            registration={{required: true}} />
 
+                <p className={`message ${error != null && !isLoading ? "error" : ""}`}>
+                    {error != null && !isLoading ? error : message}
+                </p>
                 <Button text="Update Banner" className="confirmbtn" />
            </form>
         </section>

@@ -73,23 +73,51 @@
     
     .edit_banner
     {
+        display: grid;
+        grid-template-rows: repeat(2, 1fr);
+        grid-template-rows: 0.5fr repeat(4, 1fr);
+        gap: 1.5rem;
         margin-top: 2rem;
         padding: 3rem;
         border-radius: $radius-regular;
-        :not(:first-child)
-        {
-            margin-bottom: 1rem;
-        }
+
         h3
         {
             margin-top: 0rem;
+            margin-bottom: 2rem;
+            grid-column: span 2;
             font: $semi-weight $medium-size $sans-font, sans-serif;
+            justify-self: start;
         }
+        .confirmbtn
+        {
+            margin: 2rem 0rem 0rem 0rem;
+            justify-self: end;
+            align-self: center;
+        }
+        
+        .message
+        {
+            justify-self: start;
+            align-self: center;
+            margin: 2rem 0rem 0rem 0rem;
+            font: $regular-weight $regular-size $sans-font, sans-serif;
+        }
+
         @include themify()
         {
             h3 
             {
                 color: themed('grey-900');
+            }
+            .message
+            {
+                color: themed('success');
+                &.error 
+                {
+                    color: themed('error');
+                }
+                
             }
             // border: 0.1rem solid themed('grey-500');
             background-color: themed('grey-050');

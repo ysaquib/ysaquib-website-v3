@@ -4,6 +4,7 @@
  */
 
 import React, { FC, ButtonHTMLAttributes } from 'react';
+import { Link } from 'react-router-dom';
 
 /**
  * Extend the ButtonHTMLAttributes Class to inherit regular button properties
@@ -15,7 +16,6 @@ import React, { FC, ButtonHTMLAttributes } from 'react';
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> 
 {
     text: string;
-//   ref?: RefObject<HTMLButtonElement>;
 }
 
 const Button: FC<ButtonProps> = ({text, ...props} : ButtonProps) => 
