@@ -1,6 +1,5 @@
 export const Data_SetBannerData = 'Data_SetBannerData';
-export const Status_SetLoading = 'Status_SetLoading';
-export const Status_SetError = 'Status_SetError';
+export const Data_SetAboutData = 'Data_SetAboutData';
 
 export interface BannerData
 {
@@ -16,4 +15,18 @@ interface SetBannerDataAction
     payload: BannerData;
 }
 
-export type BannerAction = SetBannerDataAction ;
+export interface AboutData
+{
+    title: string;
+    description: string;
+    links: {[key: string]: string};
+}
+
+interface SetAboutDataAction
+{
+    type: typeof Data_SetAboutData;
+    payload: AboutData;
+}
+
+export type BannerAction = SetBannerDataAction;
+export type AboutAction = SetAboutDataAction;

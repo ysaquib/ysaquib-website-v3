@@ -5,7 +5,6 @@
 
 import React, { FC, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
 import { RootState } from '../../store';
 import { getBannerData } from '../../store/actions/dataActions';
 import Button from '../elements/Button'
@@ -13,22 +12,13 @@ import ThemeSwitcher from '../elements/ThemeSwitcher'
 
 let default_data = require('../../default_data.json');
 
-type InitialData =
-{
-    name : string;
-    title : string;
-    prefix : string;
-    resume_url : string;
-}
 
 
 const Banner : FC = () =>
 {
     const BannerData = useSelector((state: RootState) => state.banner);
     const dispatch = useDispatch();
-
-    // console.log("STATE", name, prefix, title, resume_url);
-
+    
     const [banner, setBanner] = useState<any>(BannerData);
 
     const resume_btn = default_data.banner.resume_btn;

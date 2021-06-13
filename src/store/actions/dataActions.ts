@@ -1,7 +1,7 @@
 import { ThunkAction } from 'redux-thunk';
 import { RootState } from '..';
 import Firebase from '../../firebase/config';
-import { BannerData, Data_SetBannerData, BannerAction } from '../types/dataTypes';
+import { BannerData, Data_SetBannerData, BannerAction, AboutData, AboutAction, Data_SetAboutData } from '../types/dataTypes';
 
 export const getBannerData = (onError: () => void) : ThunkAction<void, RootState, null, BannerAction> =>
 {
@@ -32,6 +32,44 @@ export const setBannerData = (bannerData: BannerData, onError: (msg: any) => voi
         {
             await Firebase.firestore().collection("basic_info").doc("banner_info").set(bannerData);
             dispatch({type: Data_SetBannerData, payload: bannerData});
+        }
+        catch (error)
+        {
+            onError(error);
+            console.log(error);
+        }
+    }
+}
+
+export const getAboutData = (onError: () => void) : ThunkAction<void, RootState, null, AboutAction> =>
+{
+    return async dispatch =>
+    {
+        try 
+        {
+            const aboutInfo = await Firebase.firestore().collection("basic_info").doc("about_info").get();
+            if (aboutInfo.exists)
+            {
+                const aboutData = aboutInfo.data() as AboutData;
+                dispatch({type: Data_SetAboutData, payload: aboutData});
+            }
+        }
+        catch (error)
+        {
+            onError();
+            console.log(error);
+        }
+    }
+}
+
+export const setAboutData = (aboutData: AboutData, onError: (msg: any) => void) : ThunkAction<void, RootState, null, AboutAction> =>
+{
+    return async dispatch =>
+    {
+        try 
+        {
+            await Firebase.firestore().collection("basic_info").doc("about_info").set(aboutData);
+            dispatch({type: Data_SetAboutData, payload: aboutData});
         }
         catch (error)
         {
