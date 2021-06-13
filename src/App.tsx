@@ -25,6 +25,7 @@ import { RootState } from './store';
 import { getUserById, setLoading, setNeedVerification } from './store/actions/authActions';
 import firebase from 'firebase';
 import Error404 from './pages/ErrorPage';
+import Loader from './components/layout/Loader';
 
 let default_data = require('./default_data.json');
 
@@ -66,10 +67,10 @@ const App : FC = () =>
         };
     }, [dispatch]);
 
-    if (loading)
+    if (loading )
     {
         return(
-            <h1>Loading...</h1>
+            <Loader />
         )
     }
     

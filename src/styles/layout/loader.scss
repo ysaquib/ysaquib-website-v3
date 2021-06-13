@@ -1,0 +1,134 @@
+/* Not my code 
+ * This is from
+ * https://codepen.io/jenning/pen/LYWJdWz
+ */
+
+.theme-light #loader .loader_wrapper .loader
+{
+    --light-color: rgba(0, 0, 0, 0.3);
+}
+.theme-dark #loader .loader_wrapper .loader
+{
+    --light-color: rgba(255, 255, 255, 0.3);
+}
+
+#loader
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 90vmin;
+
+    .loading_text
+    {
+        margin-top: 3rem;
+        font: $light-weight $large-size $sans-font, sans-serif;
+        cursor: default;
+        user-select: none;
+    }
+
+    .loader_wrapper
+    {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        
+
+        .loader {
+            --block-size: 60vmin;
+            --loader-size: calc(var(--block-size) / 2);
+            --loader-size-half: calc(var(--loader-size) / 2);
+            --loader-size-half-neg: calc(var(--loader-size-half) * -1);
+            --dot-size: 20px;
+            --dot-size-half: calc(var(--dot-size) / 2);
+            --dot-size-half-neg: calc(var(--dot-size-half) * -1);
+            
+            display: block;
+            position: relative;
+            width: var(--loader-size);
+            display: grid;
+            place-items: center;
+            @include themify()
+            {
+                color: themed('grey-900');
+            }
+        }
+        
+        .loader::before,
+        .loader::after {
+            content: '';
+            position: absolute;
+        }
+        
+        width: 50%;
+        height: 10rem;
+        .loader-ball 
+        {
+            --loader-size: calc(var(--block-size) / 6);
+            --anim-duration: 0.7s;
+            aspect-ratio: 1 / 1;
+            border-radius: 50%;
+            background-color: currentColor;
+            box-shadow: 0 0 var(--loader-size) var(--light-color);
+            animation: loader calc(var(--anim-duration) * 6) linear infinite;
+        }
+        
+        .loader-ball::before,
+        .loader-ball::after
+        {
+            width: var(--dot-size);
+            aspect-ratio: 1 / 1;
+            background: currentColor;
+            border-radius: 50%;
+            animation: loader-1 var(--anim-duration) cubic-bezier(0.27, 0.08, 0.26, 0.7) infinite;
+        }
+        
+        .loader-ball::before
+        {
+            --x-dist: 0;
+            --y-dist: var(--loader-size-half);
+            bottom: calc(100% + var(--loader-size));
+            left: calc(50% - var(--dot-size-half));
+            transform-origin: center var(--loader-size);
+        }
+        
+        .loader-ball::after
+        {
+            --x-dist: var(--loader-size-half);
+            --y-dist: 0;
+            top: calc(50% - var(--dot-size-half));
+            right: calc(100% + var(--loader-size));
+            transform-origin: var(--loader-size) center;
+            animation-delay: calc(var(--anim-duration) / 2 * -1);
+        }
+        
+        @keyframes loader
+        {
+            100% {
+                transform: rotate(1turn);
+            }
+        }
+        
+        @keyframes loader-1
+        {
+            0%, 100% {
+                opacity: 0;
+            }
+            
+            33% {
+                opacity: 1;
+            }
+            
+            0% {
+                transform: scale(1.1);
+            }
+            
+            88% {
+                transform: rotate(180deg) translate(var(--x-dist), var(--y-dist));
+            }
+        }
+    }
+}
+
