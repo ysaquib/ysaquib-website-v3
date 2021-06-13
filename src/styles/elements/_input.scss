@@ -66,17 +66,17 @@ textarea, input[type=text], input[type=password]
     
     @include themify()
     {
-        color: mix(themed('primary'), themed('grey-900'), $color-mix-least);
-        background-color: themed('grey-100');
-        border-color: themed('grey-100');
+        color: themed('grey-800');
+        background-color: themed('grey-200');
+        border-color: themed('grey-200');
     }
             
     &:hover
     {
         @include themify()
         {
-            background-color: mix(themed('grey-100'), themed('primary'), $color-mix-most);
-            border-color: themed('grey-100');
+            background-color: mix(themed('grey-200'), themed('primary'), $color-mix-most);
+            border-color: themed('grey-200');
         }
     }
     &.error

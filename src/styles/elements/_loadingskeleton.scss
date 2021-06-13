@@ -15,7 +15,7 @@
     border-radius: $radius-large;
     @include themify()
     {
-        background-color: themed('grey-100');
+        background-color: themed('grey-150');
     }
     position: relative;
     overflow: hidden;

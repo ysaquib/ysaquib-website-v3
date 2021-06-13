@@ -15,7 +15,7 @@
             // color: $light-foreground-color;
             @include themify()
             {
-                color: themed('grey-900');
+                color: themed('grey-700');
             }
         }
     }

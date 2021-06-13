@@ -8,7 +8,7 @@
     // background-color: $background-color;
     @include themify()
     {
-        background-color: themed('grey-100');
+        background-color: themed('grey-150');
     }
     height: 28rem;
     position: relative;
