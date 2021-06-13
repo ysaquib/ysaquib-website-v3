@@ -3,10 +3,10 @@ export const Data_SetAboutData = 'Data_SetAboutData';
 
 export interface BannerData
 {
-    name : string;
-    title : string;
-    prefix : string;
-    resume_url : string;
+    banner_name : string;
+    banner_title : string;
+    banner_prefix : string;
+    banner_resume_url : string;
 }
 
 interface SetBannerDataAction
@@ -17,9 +17,9 @@ interface SetBannerDataAction
 
 export interface AboutData
 {
-    title: string;
-    description: string;
-    links: {[key: string]: string};
+    about_title: string;
+    about_description: string;
+    about_links: {[key: string]: string};
 }
 
 interface SetAboutDataAction

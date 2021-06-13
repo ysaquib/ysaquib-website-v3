@@ -23,7 +23,7 @@ interface TextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement>
 
 const TextArea: FC<TextAreaProps> = ({ label, name, className, disabled, message, register, registration, replace_label, ...props }) => 
 {
-    const [showLabel, setShowLabel] = useState(false);
+    const [showLabel, setShowLabel] = useState(props.defaultValue != null);
 
     useEffect(() => 
     {

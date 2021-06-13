@@ -17,6 +17,7 @@
 @import './wrappers/acwrapper';
 
 @import './modules/portals';
+@import './modules/admin';
 
 @import './elements/button';
 @import './elements/projectcard';
@@ -27,7 +28,8 @@
 @import './layout/header';
 @import './layout/footer';
 @import './layout/pagenotfound';
-@import './layout/admin';
+@import './layout/loader';
+
 
 @import './base/base';
 @import './base/typography';

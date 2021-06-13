@@ -5,7 +5,14 @@
 
 #contact
 {
-    
+    .message_sent
+    {
+        white-space: pre-line;
+        @include themify()
+        {
+            color: themed('success');
+        }
+    }
     .sec_title
     {
         margin-bottom: 1.5rem;

@@ -13,19 +13,19 @@
     },
     "banner" : 
     {
-        "prefix": "Hi! My name is",
-        "name" : "Yusuf Saquib.",
-        "title" : "I am a Computer Science Student.",
-        "resume_url" : "www.google.com",
-        "resume_btn" : "See Resume",
-        "contact_btn" : "Contact Me"
+        "banner_prefix": "Hi! My name is",
+        "banner_name" : "Yusuf Saquib.",
+        "banner_title" : "I am a Computer Science Student.",
+        "banner_resume_url" : "www.google.com",
+        "banner_resume_btn" : "See Resume",
+        "banner_contact_btn" : "Contact Me"
     },
 
     "about" :
     {
-        "title" : "About Me",
-        "description": "",
-        "links" :
+        "about_title" : "About Me",
+        "about_description": "",
+        "about_links" :
         {
             "linkedin" : "",
             "github" : "",

@@ -3,11 +3,12 @@ import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 import authReducer from './reducers/authReducer';
-import {bannerReducer} from './reducers/dataReducer';
+import {aboutReducer, bannerReducer} from './reducers/dataReducer';
 
 const rootReducer = combineReducers({
     auth: authReducer,
-    banner: bannerReducer
+    banner: bannerReducer,
+    about: aboutReducer
 });
 
 const store = createStore(

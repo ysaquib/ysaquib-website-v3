@@ -9,7 +9,7 @@ import Banner from '../sections/Banner';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { BannerData, Data_SetBannerData } from '../../store/types/dataTypes';
+import { BannerData } from '../../store/types/dataTypes';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import { getBannerData, setBannerData } from '../../store/actions/dataActions';
@@ -17,10 +17,10 @@ import Button from '../elements/Button';
 
 const schema = yup.object().shape(
 {
-    prefix : yup.string().required("is required."),
-    name : yup.string().required("is required."),
-    title : yup.string().required("is required."),
-    resume_url : yup.string().url("must be a valid URL.").required("is required."),
+    banner_prefix : yup.string().required("is required."),
+    banner_name : yup.string().required("is required."),
+    banner_title : yup.string().required("is required."),
+    banner_resume_url : yup.string().url("must be a valid URL.").required("is required."),
 });
 
 
@@ -66,36 +66,36 @@ const AdminBanner : FC = () =>
             <form className="edit_banner" onSubmit={handleSubmit(onSubmit)}>
                 <h3>Edit Banner</h3>
                 <TextField label="Prefix Title" 
-                           name="prefix"
+                           name="banner_prefix"
                            type="text"
                            className="half"
-                           defaultValue={banner.prefix}
-                           message={errors.prefix?.message} 
+                           defaultValue={banner.banner_prefix}
+                           message={errors.banner_prefix?.message} 
                            register={register} 
                            registration={{required: true}} />
 
                 <TextField label="Name" 
-                           name="name"
+                           name="banner_name"
                            type="text"
                            className="half"
-                           defaultValue={banner.name}
-                           message={errors.name?.message} 
+                           defaultValue={banner.banner_name}
+                           message={errors.banner_name?.message} 
                            register={register} 
                            registration={{required: true}} />
 
                 <TextField label="Title" 
-                           name="title"
+                           name="banner_title"
                            type="text"
-                           defaultValue={banner.title}
-                           message={errors.title?.message} 
+                           defaultValue={banner.banner_title}
+                           message={errors.banner_title?.message} 
                            register={register} 
                            registration={{required: true}} />
 
                 <TextField label="Resume URL" 
-                           name="resume_url"
+                           name="banner_resume_url"
                            type="text"
-                           defaultValue={banner.resume_url}
-                           message={errors.resume_url?.message} 
+                           defaultValue={banner.banner_resume_url}
+                           message={errors.banner_resume_url?.message} 
                            register={register} 
                            registration={{required: true}} />
 

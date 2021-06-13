@@ -49,10 +49,16 @@ const Contact : FC = () =>
         {
             window.onbeforeunload = () => true;
         }
+
+        if (isMsgSent)
+        {
+            window.onbeforeunload = () => undefined;
+        }
+        
         return () => {
             window.onbeforeunload = () => undefined;
         };
-    }, [formChanged]);
+    }, [formChanged, isMsgSent]);
     
 
     const onSubmit : SubmitHandler<FormInputs> = (data) => 
@@ -74,7 +80,7 @@ const Contact : FC = () =>
     {
         return(
             <Section id="contact" className="mini" title={default_data.contact.title}>
-                <h2>Your message has been sent! I will be in touch with you as soon as possible.</h2>
+                <h2 className="message_sent">Your message has been sent!<br />I will be in touch with you as soon as possible.</h2>
             </Section>
         );
     }
