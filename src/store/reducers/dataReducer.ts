@@ -1,4 +1,4 @@
-import {BannerData, Data_SetBannerData, BannerAction, Data_SetAboutData, AboutAction, AboutData } from '../types/dataTypes'
+import {BannerData, Data_SetBannerData, BannerAction, Data_SetAboutData, AboutAction, AboutData, ProjectData, ProjectAction, Data_SetProjectData } from '../types/dataTypes'
 
 let default_data = require('../../default_data.json');
 
@@ -29,6 +29,18 @@ export const aboutReducer = (state = initialAboutState, action: AboutAction) =>
             localStorage.setItem("about", JSON.stringify(action.payload));
             return (action.payload);
             
+        default:
+            return state;
+    }
+}
+
+const initialProjectsState : ProjectData[] = [];
+export const projectReducer = (state = initialProjectsState, action: ProjectAction) =>
+{
+    switch (action.type)
+    {
+        case Data_SetProjectData:
+            return (action.payload);
         default:
             return state;
     }
