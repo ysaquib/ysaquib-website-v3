@@ -38,7 +38,7 @@ const Banner : FC = () =>
     useEffect(() => 
     {
         dispatch(getBannerData(() => {console.log("Error getting banner data")}));
-    }, []);
+    }, [dispatch]);
 
     useEffect(() => 
     {

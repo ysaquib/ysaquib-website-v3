@@ -67,7 +67,7 @@ const App : FC = () =>
         };
     }, [dispatch]);
 
-    if (loading )
+    if (loading)
     {
         return(
             <Loader />

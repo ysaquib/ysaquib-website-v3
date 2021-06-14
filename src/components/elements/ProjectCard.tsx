@@ -7,34 +7,63 @@ import React, {FC} from 'react';
 
 interface CardProps
 {
-    className?: string;
     title: string;
+    order: number;
+    className?: string;
+    languages?: string[];
     children?: string;
+    
     image?: string;
     github?: string;
     url?: string;
-    languages?: string[];
+    
+    inProgress?: boolean;
+    progress?: number;
 }
 
-const ProjectCard : FC<CardProps> = ({children, title, className, image, github, url, languages}) => 
+const ProjectCard : FC<CardProps> = ({children, title, className, image, github, url, languages, order, inProgress}) => 
 {
     /**
      * Create the "Featured Project" tag that will only be applied to the 
      * featured project (any project with the 'featured' className)
      */
-    var tag: JSX.Element = (
+    const featured_tag: JSX.Element = order === 1 ?(
         <div className="featured_tag">
             <h3 className="label">Featured Project</h3>
-        </div>);
+        </div>) : (<></>);
 
-    if (className !== "featured")
+    const wip_tag: JSX.Element = inProgress ? (
+        <div className="wip_tag">
+            <h3 className="label">Work In Progress</h3>
+        </div>) : (<></>);
+
+    const wip_bar: JSX.Element = inProgress ? (
+        <div className="wip_bar"><div className="wip_progress"></div></div>
+        ) : (<></>);
+
+    /**
+     * Given an order number, return the respective className.
+     * This is to ensure that the project with order 1 is always featured,
+     * projects with orders 2 and 3 are large, and everything else is small.
+     */
+    function getClassName(order : number)
     {
-        tag = (<></>);
+        switch (order)
+        {
+            case 1:
+                return "featured";
+            case 2:
+            case 3:
+                return "large";
+            default:
+                return "";
+        }
     }
     
     return (
-        <div className={`project_card_wrapper ${className}`}>
-            {tag}
+        <div className={`project_card_wrapper ${getClassName(order)} ${inProgress ? "wip" : ""} ${className}`}>
+            {featured_tag}
+            {wip_tag}
             <div className="project_card">
                 <h1 className="project_title">
                     {title}

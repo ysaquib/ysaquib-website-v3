@@ -15,9 +15,6 @@ const About : FC = () =>
     const dispatch = useDispatch();
     const AboutData = useSelector((state: RootState) => state.about);
     const [about, setAbout] = useState<AboutData>(AboutData)
-    const [isLoading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-    const [message, setMessage] = useState("");
     
     useEffect(() => 
     {

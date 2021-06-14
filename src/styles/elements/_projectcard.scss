@@ -10,7 +10,7 @@
     {
         background-color: themed('grey-150');
     }
-    height: 28rem;
+    height: 30rem;
     position: relative;
 
     grid-column: span 2;
@@ -45,9 +45,50 @@
         }
     }
 
+    .wip_tag
+    {
+        align-self: right;
+        @include themify()
+        {
+            background-color: themed('secondary');
+        }
+        z-index: 1;
+        width: 16rem;
+        height: 2.5rem;
+        padding: 1rem;
+        position: absolute;
+        right: 0rem;
+        top: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .label
+        {
+            font: $semi-weight $small-size $mono-font, monospace;
+            @include themify()
+            {
+                color: themed('grey-000');
+            }
+        }
+    }
+
+    .wip_bar
+    {
+        width: 100%;
+        background-color:white;
+        .wip_progress
+        {
+            padding: 1rem;
+            background-color:yellow;
+            width: 50%;
+            height: 100%;
+        }
+    }
+
     .project_card
     {
-        padding: 4rem;
+        padding: 3rem;
         display: flex;
         flex-direction: column;
         border: none;
@@ -155,7 +196,7 @@
 .loading_card
 {
     grid-column: span 2;
-    height: 28rem;
+    height: 30rem;
     &.featured
     {
         grid-column: span 6;

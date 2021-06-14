@@ -33,60 +33,50 @@
     &::after{margin-left: 3rem;}
 }
 
-#admin_banner
+
+.admin
 {
     width: 100%;
     height: 100%;
     margin: 0rem;
-    #banner
-    {
-        @include themify(){border: 0.1rem solid themed('grey-900');}
 
-        border-radius: $radius-regular;
-        width: 100%;
-        margin: 0rem;
-        padding: 3rem;
-        .banner_wrapper
-        {
-            padding: 0rem; // 4rem 3rem 4rem;
-            .banner_buttons
-            {
-                :nth-child(n)
-                {
-                    padding: 0.7rem;
-                    font-size: $little-size;
-                    margin-right: 1.5rem;
-                }
-            }    
-            .pre
-            {
-                font-size: $small-size;
-            }
-            
-            .my_name
-            {
-                font-size: $large-size;
-            }
-            
-            .my_title
-            {
-                font-size: $large-size;
-                margin-bottom: 2rem;
-            }
-            
-        }
-    }
-    
-    .edit_banner
+    &.projects
     {
-        height: auto;
+        grid-column: span 2;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 3rem;
+    }
+
+    .edit
+    {
+        height: 100%;
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: 0.5fr repeat(4, 0.5fr);
+        grid-template-rows: 0.5fr repeat(7, 0.5fr);
+
         gap: 1.5rem;
-        margin-top: 2rem;
         padding: 3rem;
         border-radius: $radius-regular;
+
+        &.banner
+        {
+            height: auto;
+            grid-template-rows: 0.5fr repeat(4, 0.5fr);
+            margin-top: 2rem;
+        }
+        &.about
+        {
+            .about_desc
+            {
+                grid-row: span 5 !important;
+                margin: auto !important;
+            }
+        }
+        &.projects
+        {
+            grid-column: span 2;
+        }
 
         h3
         {
@@ -95,6 +85,7 @@
             grid-column: span 2;
             font: $semi-weight $medium-size $sans-font, sans-serif;
             justify-self: start;
+            
         }
         .confirmbtn
         {
@@ -132,69 +123,33 @@
     }
 }
 
-#admin_about
+#admin_banner
 {
-    width: 100%;
-    height: 100%;
-    margin: 0rem;
-
-    .edit_about
+    #banner
     {
-        height: 100%;
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: 0.5fr repeat(7, 0.5fr);
+        @include themify(){border: 0.1rem solid themed('grey-900');}
 
-        gap: 1.5rem;
-        padding: 3rem;
         border-radius: $radius-regular;
-
-        h3
+        width: 100%;
+        margin: 0rem;
+        padding: 3rem;
+        .banner_wrapper
         {
-            margin-top: 0rem;
-            margin-bottom: 2rem;
-            grid-column: span 2;
-            font: $semi-weight $medium-size $sans-font, sans-serif;
-            justify-self: start;
-        }
-        .confirmbtn
-        {
-            margin: 2rem 0rem 0rem 0rem;
-            justify-self: end;
-            align-self: center;
-        }
-        
-        .message
-        {
-            justify-self: start;
-            align-self: center;
-            margin: 2rem 0rem 0rem 0rem;
-            font: $regular-weight $regular-size $sans-font, sans-serif;
-        }
-
-        .about_desc
-        {
-            grid-row: span 5 !important;
-            margin: auto !important;
-        }
-
-        @include themify()
-        {
-            h3 
+            padding: 0rem; // 4rem 3rem 4rem;
+            .banner_buttons
             {
-                color: themed('grey-900');
-            }
-            .message
-            {
-                color: themed('success');
-                &.error 
+                :nth-child(n)
                 {
-                    color: themed('error');
+                    padding: 0.7rem;
+                    font-size: $little-size;
+                    margin-right: 1.5rem;
                 }
-                
-            }
-            // border: 0.1rem solid themed('grey-500');
-            background-color: themed('grey-150');
+            }    
+            .pre { font-size: $small-size; }
+            
+            .my_name{ font-size: $large-size; }
+            
+            .my_title { font-size: $large-size; margin-bottom: 2rem; } 
         }
     }
 }

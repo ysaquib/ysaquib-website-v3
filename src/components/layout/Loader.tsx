@@ -3,7 +3,6 @@
  * Author: Yusuf Saquib
  */
 
-import { ChevronLeft, ChevronRight } from '@material-ui/icons';
 import React, { FC } from 'react';
 
 const Loader : FC = () =>

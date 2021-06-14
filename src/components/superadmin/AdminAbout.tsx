@@ -59,8 +59,8 @@ const AdminAbout : FC = () =>
     }
 
     return (
-        <section id="admin_about" >
-            <form className="edit_about" onSubmit={handleSubmit(onSubmit)}>
+        <section id="admin_about" className="admin" >
+            <form className="edit about" onSubmit={handleSubmit(onSubmit)}>
                 <h3>Edit About Information</h3>
                 <TextField label="Title" 
                            name="about_title"

@@ -22,7 +22,6 @@ const Projects : FC = () =>
      * used to update the projects state. Each item in the projects state holds
      * a single project with their associated fields.
      * 
-     * Todo: Possibly remove realtime features to allow for cache storage
      * Todo: Possibly store a certain number of projects in the cache
      */
     
@@ -50,24 +49,7 @@ const Projects : FC = () =>
         }
     }, []);
 
-    /**
-     * Given an order number, return the respective className.
-     * This is to ensure that the project with order 1 is always featured,
-     * projects with orders 2 and 3 are large, and everything else is small.
-     */
-    function getClassName(order : number)
-    {
-        switch (order)
-        {
-            case 1:
-                return "featured";
-            case 2:
-            case 3:
-                return "large";
-            default:
-                return "";
-        }
-    }
+    
 
     /**
      * If the projects are currently being loaded, make sure it is known.
@@ -88,18 +70,23 @@ const Projects : FC = () =>
         )
     }
     return (
-       <Section title="My Projects" id="projects">
-           <div className="projects_wrapper">
-               {projects && projects.map((project : any) => (
-                   <ProjectCard className={getClassName(project.order)} key={project.order} title={project.title} languages={project.languages}>
-                       {project.description}
-                   </ProjectCard>
-               ))}
-           </div>
-           <div className="projects_button">
+        <Section title="My Projects" id="projects">
+            <div className="projects_wrapper">
+                {projects && projects.map((project : any) => (
+                    <ProjectCard key={project.order}
+                                 order={project.order}
+                                 title={project.title}
+                                 languages={project.languages}
+                                 inProgress={true}>
+                        {project.description}
+                    </ProjectCard>
+                ))}
+            </div>
+
+            <div className="projects_button">
                 <Button text="See All Projects"/>
-           </div>
-       </Section>
+            </div>
+        </Section>
     );
 }
 
