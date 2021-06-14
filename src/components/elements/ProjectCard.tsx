@@ -10,7 +10,7 @@ interface CardProps
     title: string;
     order: number;
     className?: string;
-    languages?: string[];
+    languages?: string;
     children?: string;
     
     image?: string;
@@ -72,7 +72,7 @@ const ProjectCard : FC<CardProps> = ({children, title, className, image, github,
                     {children}
                 </p>
                 <ul className="project_languages">
-                    {languages?.map(lang => {return(<li key={lang}>{lang}</li>);})}
+                    {(languages?.split(","))?.map(lang => {return(<li key={lang.trim()}>{lang.trim()}</li>);})}
                 </ul>
             </div>
         </div>

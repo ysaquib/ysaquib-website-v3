@@ -34,7 +34,7 @@ export interface ProjectData
     project_id: string;
     project_title: string;
     project_description: string;
-    project_languages: string[];
+    project_languages: string;
     project_order: number;
     project_image?: string;
     project_github?: string;

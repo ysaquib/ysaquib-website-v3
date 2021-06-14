@@ -118,7 +118,7 @@ textarea, input[type=text], input[type=password]
     {
         @include themify()
         {
-            color: themed('grey-200');
+            color: themed('grey-500');
         }
 
     }
@@ -182,7 +182,9 @@ input[type=checkbox]
         cursor: default;
         @include themify()
         {
-            background-color: themed('grey-100');
+            border: 1px solid;
+            border-color: themed('grey-300');
+            background-color: themed('grey-150');
         }
 
     }

@@ -31,7 +31,7 @@ const Projects : FC = () =>
         
         return () =>
         {
-            setProjects(ProjectsData);
+            setProjects([]);
         }
     }, [ProjectsData]);
 

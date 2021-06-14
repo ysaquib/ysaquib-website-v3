@@ -19,8 +19,22 @@ import CheckBox from '../elements/Checkbox';
 
 const schema = yup.object().shape(
 {
+    project_id: yup.string(),
     project_title : yup.string().required("is required."),
-    project_description : yup.string().required("is required."),
+    project_description: yup.string().required("is required."),
+    project_languages: yup.string().required("is required."),
+    project_image: yup.string().url("must be a valid URL"),
+    project_github: yup.string().url("must be a valid URL"),
+    project_url: yup.string().url("must be a valid URL"),
+    project_inProgress: yup.boolean(),
+    project_progress: yup.number().typeError("must be a valid number.")
+                         .when('project_inProgress', {
+                             is: true, 
+                             then: yup.number()
+                                      .typeError("must be a valid number.")
+                                      .min(0, "must be at least 0")
+                                      .max(100, "must be at most 100.")
+                                      .required("is required.")})
 });
 
 const AdminProjects : FC = () =>
@@ -28,19 +42,24 @@ const AdminProjects : FC = () =>
     const dispatch = useDispatch();
     const ProjectsData = useSelector((state: RootState) => state.projects);
     const resolver = yupResolver(schema);
-    const {register, handleSubmit, formState: {errors}} = useForm<ProjectData>({mode:"all" ,resolver});
+    const {register, handleSubmit, formState: {errors}, setValue} = useForm<ProjectData>({mode:"onChange", resolver});
     const [projects, setProjects] = useState<ProjectData[]>(ProjectsData);
     const [project, setProject] = useState<ProjectData>();
 
     const [isLoading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [message, setMessage] = useState("");
+    const [message, setMessage] = useState<string>("");
+
+    
     
     useEffect(() => 
     {
         if (project)
         {
-            document.getElementById("project_title_input")?.setAttribute("defaultValue", project!.project_title);
+            setValue("project_title", project.project_title);
+            setValue("project_description", project.project_description);
+            
+            setMessage("");
             console.log(project);
         }
         return () => {
@@ -65,6 +84,7 @@ const AdminProjects : FC = () =>
     function changeProject(id: string)
     {
         setProject(projects.find((proj) => {return proj.project_id === id}));
+        
     }
     // export interface ProjectData
     // {
@@ -76,8 +96,12 @@ const AdminProjects : FC = () =>
     const onSubmit : SubmitHandler<ProjectData> = (data) => 
     {
         console.log(data);
-        console.log(data);
         setLoading(true);
+        if(project)
+        {
+            console.log(data.project_languages);
+            setProject(data);
+        }
         // dispatch(setProjectData(data, (err) => {setError(err)}));
         setLoading(false);
         setMessage("Successfully updated project" + project?.project_id +".");
@@ -94,6 +118,7 @@ const AdminProjects : FC = () =>
                             <ChevronRight className="chevron"/>
                         </li>
                     )}
+                    <li className="project_item" key="add"></li>
                 </ul>
             </div>
             <form className="edit projects" onSubmit={handleSubmit(onSubmit)}>
@@ -102,7 +127,6 @@ const AdminProjects : FC = () =>
                            name="project_title"
                            type="text"
                            className="half"
-                           defaultValue={project?.project_title}
                            message={errors.project_title?.message} 
                            register={register} 
                            registration={{required: true}} 
@@ -183,12 +207,10 @@ const AdminProjects : FC = () =>
                 <TextField label="Languages" 
                            name="project_languages"
                            type="text"
-                           className="half"
                            defaultValue={project?.project_languages}
-                        //    message="undef"
-                        //    message={errors.project_languages?.message} 
+                           message={errors.project_languages?.message} 
                            register={register} 
-                           registration={{required: false}} 
+                           registration={{required: true}} 
                            disabled={project == null}
                            show_label />
 
