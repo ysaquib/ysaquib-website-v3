@@ -2,7 +2,7 @@
 {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr) 0.5fr;
     width: 100%;
     gap: 2rem;
     padding: 0rem;
@@ -45,6 +45,7 @@
         grid-column: span 2;
         display: grid;
         grid-template-columns: repeat(3, 1fr);
+        grid-row: span 2;
         gap: 3rem;
     }
 
@@ -75,7 +76,15 @@
         }
         &.projects
         {
+            grid-template-rows: 0.5fr repeat(6, 0.5fr);
             grid-column: span 2;
+            // align-items: start;
+            // justify-items: start;
+            align-content: start;
+            .desc_textarea
+            {
+                grid-row: span 2;
+            }
         }
 
         h3
@@ -151,5 +160,61 @@
             
             .my_title { font-size: $large-size; margin-bottom: 2rem; } 
         }
+    }
+}
+
+#admin_projects_list
+{
+    .projects_list
+    {
+        padding: 0rem;
+        margin: 0rem;
+        :not(:last-child)
+        {
+            margin-bottom: 1.5rem;
+        }
+    }
+    .project_item
+    {
+        border-radius: $radius-regular;
+        list-style-type: none;
+        padding: 1.5rem;
+        display: inline-flex;
+        flex-direction: row;
+        width: 100%;
+        align-items: center;
+        justify-content: space-between;
+
+        &:hover
+        {
+            cursor: pointer;
+        }
+
+        .project_item_title
+        {
+            margin: 0rem;
+            font: $regular-weight $regular-size $sans-font, sans-serif;
+        }
+        .chevron
+        {
+            width: $medium-size;
+            height: $medium-size;
+        }
+    }
+    
+    @include themify()
+    {
+        .project_item
+        {
+            transition: background $trans-effect $trans-regular;
+            background-color: themed('grey-150');
+            color: themed('grey-900');
+            &:hover
+            {
+                background-color: themed('grey-200');
+                color: themed('primary');
+            }
+        }
+
     }
 }

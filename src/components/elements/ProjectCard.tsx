@@ -52,11 +52,11 @@ const ProjectCard : FC<CardProps> = ({children, title, className, image, github,
         {
             case 1:
                 return "featured";
-            case 2:
-            case 3:
-                return "large";
+            // case 2:
+            // case 3:
             default:
-                return "";
+                return "large";
+                //return "";
         }
     }
     

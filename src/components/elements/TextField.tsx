@@ -18,11 +18,12 @@ interface TextFieldProps extends InputHTMLAttributes<HTMLInputElement>
     replace_label?: boolean,
     register: UseFormRegister<any>;
     registration: RegisterOptions;
+    show_label?: boolean;
 }
 
-const TextField: FC<TextFieldProps> = ({ label, type, name, className, disabled, message, register, registration, replace_label, ...props }) => 
+const TextField: FC<TextFieldProps> = ({ label, type, name, className, disabled, message, register, registration, replace_label, show_label=false, ...props }) => 
 {
-    const [showLabel, setShowLabel] = useState(props.defaultValue != null);
+    const [showLabel, setShowLabel] = useState(props.defaultValue != null || show_label);
 
     useEffect(() => 
     {
@@ -42,7 +43,8 @@ const TextField: FC<TextFieldProps> = ({ label, type, name, className, disabled,
                 {replace_label ? `${message != null ? message : label }` : `${label} ${message != null ? message : "" }`}
             </label>
             <br />
-            <input {...props} type={type} {...register(name, registration)} 
+            <input {...props} type={type} {...register(name, registration)}
+                id={`${name}_input`}
                 name={name}
                 className={message ? "error" : ""}
                 disabled={disabled} 

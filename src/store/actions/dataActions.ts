@@ -79,19 +79,20 @@ export const setAboutData = (aboutData: AboutData, onError: (msg: any) => void) 
     }
 }
 
-export const getProjectData = (onError: () => void) : ThunkAction<void, RootState, null, ProjectAction> =>
+export const getProjectData = (onComplete: () => void, onError: () => void) : ThunkAction<void, RootState, null, ProjectAction> =>
 {
     return async dispatch =>
     {
         try 
         {
-            const projects = await Firebase.firestore().collection("projects").orderBy("order").get();
+            const projects = await Firebase.firestore().collection("projects").orderBy("project_order").get();
             var project_items: ProjectData[] = [];
             projects.forEach((doc) => {
                 project_items.push({...doc.data(), project_id: doc.id} as ProjectData);
             })
             console.log(project_items);
             dispatch({type: Data_SetProjectData, payload: project_items});
+            onComplete();
             // if (projectInfo.exists)
             // {
             //     const projectData = projectInfo.data() as ProjectData;
@@ -115,6 +116,7 @@ export const setProjectData = (projectData: ProjectData, allProjects: ProjectDat
         {
             const project_index = allProjects.findIndex((proj) => {return proj.project_id === projectData.project_id});
             allProjects[project_index] = projectData;
+            await Firebase.firestore().collection("basic_info").doc(projectData.project_id).set(projectData as Omit<ProjectData, 'project_id'>);
             dispatch({type: Data_SetProjectData, payload: allProjects});
             console.log("Success", allProjects);
         }

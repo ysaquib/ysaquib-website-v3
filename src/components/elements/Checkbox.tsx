@@ -3,7 +3,7 @@
  * Author: Yusuf Saquib
  */
 import React, { FC, InputHTMLAttributes, useEffect, useState } from 'react';
-import { UseFormRegister } from 'react-hook-form';
+import { RegisterOptions, UseFormRegister } from 'react-hook-form';
 
 
 /**
@@ -15,10 +15,11 @@ interface CheckBoxProps extends InputHTMLAttributes<HTMLInputElement>
     name: string;
     label: string;
     register: UseFormRegister<any>;
+    registration: RegisterOptions;
     isChecked?: boolean;   
 }
 
-const CheckBox: FC<CheckBoxProps> = ({ isChecked, label, name, className, disabled, register, required, ...props }) => 
+const CheckBox: FC<CheckBoxProps> = ({ isChecked, label, name, className, disabled, register, required, registration, ...props }) => 
 {
     /**
      * Use a state for the checked status of the checkbox. Fairly standard.
@@ -40,8 +41,9 @@ const CheckBox: FC<CheckBoxProps> = ({ isChecked, label, name, className, disabl
     
     return (
        <div className={`input_wrapper checkbox_wrapper ${className ? className : ""}`}>
-            <input {...props} type="checkbox" {...register(label, {required})} 
+            <input {...props} type="checkbox" {...register(name, registration)}
                 name={name}
+                id={`${name}_input`}
                 disabled={disabled}
                 defaultChecked={checked}
                 onClick={() => setChecked(!checked)} />

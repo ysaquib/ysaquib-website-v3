@@ -33,12 +33,12 @@ const AdminBanner : FC = () =>
     const [banner, setBanner] = useState<BannerData>(BannerData);
 
     const [isLoading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const [error, setError] = useState("");
     const [message, setMessage] = useState("");
     
     useEffect(() => 
     {
-        dispatch(getBannerData(() => {console.log("Error getting banner data")}));
+        dispatch(getBannerData(() => setError("Error getting Banner Data")));
     }, [dispatch]);
 
     useEffect(() => 
@@ -99,8 +99,8 @@ const AdminBanner : FC = () =>
                            register={register} 
                            registration={{required: true}} />
 
-                <p className={`message ${error != null && !isLoading ? "error" : ""}`}>
-                    {error != null && !isLoading ? error : message}
+                <p className={`message ${error !== "" && !isLoading ? "error" : ""}`}>
+                    {error !== "" && !isLoading ? error : message}
                 </p>
                 <Button text="Update Banner" className="confirmbtn" />
            </form>

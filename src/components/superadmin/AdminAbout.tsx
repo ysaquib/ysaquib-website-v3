@@ -31,12 +31,12 @@ const AdminAbout : FC = () =>
     const [about, setAbout] = useState<AboutData>(AboutData);
 
     const [isLoading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const [error, setError] = useState("");
     const [message, setMessage] = useState("");
     
     useEffect(() => 
     {
-        dispatch(getAboutData(() => {console.log("Error getting about data")}));
+        dispatch(getAboutData(() => setError("Error getting About Data")));
     }, [dispatch]);
 
     useEffect(() => 
@@ -79,8 +79,8 @@ const AdminAbout : FC = () =>
                            register={register} 
                            registration={{required: true}} />
 
-                <p className={`message ${error != null && !isLoading ? "error" : ""}`}>
-                    {error != null && !isLoading ? error : message}
+                <p className={`message ${error !== "" && !isLoading ? "error" : ""}`}>
+                    {error !== "" && !isLoading ? error : message}
                 </p>
                 <Button text="Update About" className="confirmbtn" />
            </form>

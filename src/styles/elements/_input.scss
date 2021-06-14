@@ -69,28 +69,29 @@ textarea, input[type=text], input[type=password]
         color: themed('grey-800');
         background-color: themed('grey-200');
         border-color: themed('grey-200');
-    }
+    
             
-    &:hover
-    {
-        @include themify()
+        &:hover
         {
+            
             background-color: mix(themed('grey-200'), themed('primary'), $color-mix-most);
             border-color: themed('grey-200');
         }
-    }
-    &.error
-    {
-        @include themify()
+        &.error
         {
+            
             border-color: themed('error');
         }
-    }
-    &:focus, &:active
-    {
-        @include themify()
+        &:focus, &:active
         {
+            
             border-color: themed('primary');
+        }
+        &:disabled, &:disabled:focus, &:disabled:active
+        {
+            color: themed('grey-500');
+            border-color: themed('grey-300');
+            background-color: themed('grey-150');
         }
     }
 }
@@ -98,6 +99,8 @@ textarea, input[type=text], input[type=password]
 .checkbox_wrapper
 {
     display: inline-flex;
+    height: 100%;
+    width: 100%;
     justify-content: flex-start;
     align-items: center;
     gap: 1rem;
@@ -135,8 +138,8 @@ input[type=checkbox]
     cursor: pointer;
     appearance: none;
     margin: 0rem;
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 1.75rem;
+    height: 1.75rem;
 
 
     @include themify()
