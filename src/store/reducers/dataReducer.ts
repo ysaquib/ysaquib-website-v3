@@ -1,4 +1,4 @@
-import {BannerData, Data_SetBannerData, BannerAction, Data_SetAboutData, AboutAction, AboutData, ProjectData, ProjectAction, Data_SetProjectData } from '../types/dataTypes'
+import {BannerData, Data_SetBannerData, BannerAction, Data_SetAboutData, AboutAction, AboutData, ProjectData, ProjectAction, Data_SetProjectData, BlogData, BlogAction, Data_SetBlogData } from '../types/dataTypes'
 
 let default_data = require('../../default_data.json');
 
@@ -41,6 +41,18 @@ export const projectReducer = (state = initialProjectsState, action: ProjectActi
     {
         case Data_SetProjectData:
             return (action.payload);
+        default:
+            return state;
+    }
+}
+
+const initialBlogsState : BlogData[] = [];
+export const blogReducer = (state = initialBlogsState, action: BlogAction) =>
+{
+    switch (action.type)
+    {
+        case Data_SetBlogData:
+            return action.payload;
         default:
             return state;
     }

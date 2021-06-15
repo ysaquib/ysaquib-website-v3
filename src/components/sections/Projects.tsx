@@ -65,7 +65,7 @@ const Projects : FC = () =>
                     <ProjectCard key={project.project_order}
                                  order={project.project_order}
                                  title={project.project_title}
-                                 languages={project.project_languages}
+                                 tags={project.project_tags}
                                  inProgress={project.project_inProgress}>
                         {project.project_description}
                     </ProjectCard>

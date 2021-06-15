@@ -26,6 +26,7 @@ import { getUserById, setLoading, setNeedVerification } from './store/actions/au
 import firebase from 'firebase';
 import Error404 from './pages/ErrorPage';
 import Loader from './components/layout/Loader';
+import BlogsPage from './pages/BlogsPage';
 
 let default_data = require('./default_data.json');
 
@@ -81,8 +82,9 @@ const App : FC = () =>
                 <PublicRoute exact path="/" component={HomePage} />
                 <PublicRoute exact path="/signin" component={SignIn} />
                 <PublicRoute exact path="/signup" component={SignUp} />
-                <PublicRoute path="/admin" component={Admin} />
+                <PublicRoute path="/blog" component={BlogsPage} />
                 <PrivateRoute path="/account" component={SignIn} />
+                <PublicRoute path="/admin" component={Admin} />
                 <Route component={Error404}/>
             </Switch>
             <Footer />

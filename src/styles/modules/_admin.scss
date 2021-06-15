@@ -10,10 +10,11 @@
 
 .admin_title
 {
-    text-align: left;
+    // font: $regular-weight $regular-size $sans-font, sans-serif;
+    text-align: center;
     display: inline-flex;
     align-items: center;
-    justify-content: left;
+    justify-content: center;
     width: 100%;
 
     margin-bottom: 5rem;
@@ -27,7 +28,7 @@
             background-color: themed('grey-300');
         }
         height: 1px;
-        width: 50%;
+        width: 100%;
     }
     &::before{margin-right: 3rem;}
     &::after{margin-left: 3rem;}

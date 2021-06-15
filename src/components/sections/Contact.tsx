@@ -66,8 +66,7 @@ const Contact : FC = () =>
         window.onbeforeunload = () => undefined;
         console.log(JSON.stringify(data));
         /**
-         * // TODO: Clear form on submit
-         * // TODO: Add verification
+
          * TODO: Send message + (save to database?)
          * TODO: Add recaptcha
          */

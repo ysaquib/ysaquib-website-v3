@@ -1,7 +1,8 @@
+import firebase from 'firebase';
 import { ThunkAction } from 'redux-thunk';
 import { RootState } from '..';
 import Firebase from '../../firebase/config';
-import { BannerData, Data_SetBannerData, BannerAction, AboutData, AboutAction, Data_SetAboutData, ProjectData, Data_SetProjectData, ProjectAction } from '../types/dataTypes';
+import { BannerData, Data_SetBannerData, BannerAction, AboutData, AboutAction, Data_SetAboutData, ProjectData, Data_SetProjectData, ProjectAction, BlogAction, Data_SetBlogData, BlogData } from '../types/dataTypes';
 
 export const getBannerData = (onError: () => void) : ThunkAction<void, RootState, null, BannerAction> =>
 {
@@ -86,18 +87,13 @@ export const getProjectData = (onComplete: () => void, onError: () => void) : Th
         try 
         {
             const projects = await Firebase.firestore().collection("projects").orderBy("project_order").get();
-            var project_items: ProjectData[] = [];
+            const project_items: ProjectData[] = [];
             projects.forEach((doc) => {
                 project_items.push({...doc.data(), project_id: doc.id} as ProjectData);
             })
             console.log(project_items);
             dispatch({type: Data_SetProjectData, payload: project_items});
             onComplete();
-            // if (projectInfo.exists)
-            // {
-            //     const projectData = projectInfo.data() as ProjectData;
-            //     dispatch({type: Data_SetProjectData, payload: projectData});
-            // }
         }
         catch (error)
         {
@@ -209,6 +205,30 @@ export const deleteProject = (project : ProjectData, allProjects: ProjectData[],
         catch (error)
         {
             onError(error);
+            console.log(error);
+        }
+    }
+}
+
+
+export const getBlogData = (onComplete: () => void, onError: () => void) : ThunkAction<void, RootState, null, BlogAction> =>
+{
+    return async dispatch =>
+    {
+        try 
+        {
+            const blogs = await Firebase.firestore().collection("blogs").orderBy("blog_createdAt", "desc").get();
+            const blog_items: BlogData[] = [];
+            blogs.forEach((doc) => {
+                blog_items.push({...doc.data(), blog_id: doc.id, blog_createdAt: doc.get("blog_createdAt").toDate()} as BlogData);
+            })
+            console.log(blog_items);
+            dispatch({type: Data_SetBlogData, payload: blog_items});
+            onComplete();
+        }
+        catch (error)
+        {
+            onError();
             console.log(error);
         }
     }

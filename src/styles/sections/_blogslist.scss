@@ -1,0 +1,84 @@
+#blogslist
+{
+    .blogs_list_wrapper
+    {
+        .blogs_list
+        {
+            display: grid;
+            // grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+
+            padding: 0rem;
+
+            .blogs_list_item
+            {
+                &.loading
+                {
+                    height: 6.4rem;
+                }
+                display: inline-flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+
+                list-style-type: none;
+                padding: 2rem;
+                border-radius: $radius-regular;
+
+                &:hover
+                {
+                    cursor: pointer;
+                }
+
+                .blogs_list_date
+                {
+                    font: $regular-weight $Small-size $mono-font, monospace;
+                    margin: 0rem;
+                }
+
+                .blogs_list_title
+                {
+                    width: 70%;
+                    font: $medium-weight $medium-size $sans-font, sans-serif;
+                    margin: 0rem;
+                }
+            }
+        }
+    }
+    
+    @include themify()
+    {
+        .blogs_list_wrapper
+        {
+            .blogs_list
+            {
+                .blogs_list_item
+                {
+                    .blogs_list_title
+                    {
+                        color: themed('grey-800');
+                        transition: color $trans-regular $trans-effect;
+                    }
+
+                    .blogs_list_date
+                    {
+                        color: themed('grey-700');
+                        transition: color $trans-regular $trans-effect;
+                    }
+
+                    background-color: themed('grey-150');
+                    transition: background $trans-regular $trans-effect;
+                    
+                    &:hover
+                    {    
+                        background-color: themed('grey-200');
+                        .blogs_list_title, .blogs_list_date 
+                        {
+                            color: themed('primary') !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,6 +1,7 @@
 export const Data_SetBannerData = 'Data_SetBannerData';
 export const Data_SetAboutData = 'Data_SetAboutData';
 export const Data_SetProjectData = 'Data_SetProjectData';
+export const Data_SetBlogData = 'Data_SetBlogData';
 
 export interface BannerData
 {
@@ -34,7 +35,7 @@ export interface ProjectData
     project_id: string;
     project_title: string;
     project_description: string;
-    project_languages: string;
+    project_tags: string;
     project_order: number;
     project_image?: string;
     project_github?: string;
@@ -50,7 +51,26 @@ interface SetProjectDataAction
     payload: ProjectData[];
 }
 
-export type ProjectAction = SetProjectDataAction;
+export interface BlogData
+{
+    blog_id: string;
+    blog_url: string;
+    blog_title: string;
+    blog_content: string;
+    blog_createdAt: Date;
+    blog_tags: string;
+    blog_isHidden?: boolean;
+    blog_inProgress?: boolean;
+    blog_isFeatured?: boolean;
+}
+
+interface SetBlogDataAction
+{
+    type: typeof Data_SetBlogData;
+    payload: BlogData[];
+}
 
 export type BannerAction = SetBannerDataAction;
 export type AboutAction = SetAboutDataAction;
+export type ProjectAction = SetProjectDataAction;
+export type BlogAction = SetBlogDataAction;

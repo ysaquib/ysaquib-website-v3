@@ -23,7 +23,7 @@ const schema = yup.object().shape(
     project_title : yup.string().required("is required."),
     project_description: yup.string().required("is required."),
     project_id: yup.string(),
-    project_languages: yup.string().required("is required."),
+    project_tags: yup.string().required("is required."),
     project_image: yup.string().url("must be a valid URL"),
     project_github: yup.string().url("must be a valid URL"),
     project_url: yup.string().url("must be a valid URL"),
@@ -65,7 +65,7 @@ const AdminProjects : FC = () =>
             setValue("project_title", project.project_title);
             setValue("project_description", project.project_description);
             setValue("project_id", project.project_id);
-            setValue("project_languages", project.project_languages);
+            setValue("project_tags", project.project_tags);
             setValue("project_image", project.project_image);
             setValue("project_github", project.project_github);
             setValue("project_url", project.project_url);
@@ -140,7 +140,7 @@ const AdminProjects : FC = () =>
             project_title: "",
             project_id: "",
             project_order: -1,
-            project_languages: "",
+            project_tags: "",
             project_progress: 0
         }
         setNewProject(true);
@@ -157,7 +157,12 @@ const AdminProjects : FC = () =>
         setProject(projects[0]);
         setMessage("Successfully Deleted");
     }
-
+    /**
+     * handleOnDragEnd handles the result when the project list is reordered 
+     * using drag and drop features. In this case, the orders of all projects
+     * are updated by index in the array and the dispatch is sent to update
+     * the projects in the database. 
+     */
     function handleOnDragEnd (result: any)
     {
         if (!result.destination) return;
@@ -197,7 +202,11 @@ const AdminProjects : FC = () =>
         setMessage("Successfully updated '" + data.project_title +"'.");
     }
     
-
+    /**
+     * TODO: Add isHidden checkbox to dashboard
+     * TODO: Improve the CSS
+     * TODO: Protect Admin dashboard behind Auth logic
+     */
     return (
         <section id="admin_project" className="admin projects" >
             <div id="admin_projects_list">
@@ -318,11 +327,11 @@ const AdminProjects : FC = () =>
                           disabled={project == null} 
                           onChange={() => setInProgress(!isInProgress)}/>
 
-                <TextField label="Languages" 
-                           name="project_languages"
+                <TextField label="Tags" 
+                           name="project_tags"
                            type="text"
-                           defaultValue={project?.project_languages}
-                           message={errors.project_languages?.message} 
+                           defaultValue={project?.project_tags}
+                           message={errors.project_tags?.message} 
                            register={register} 
                            registration={{required: true}} 
                            disabled={project == null}

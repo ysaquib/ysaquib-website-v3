@@ -10,7 +10,7 @@ interface CardProps
     title: string;
     order: number;
     className?: string;
-    languages?: string;
+    tags?: string;
     children?: string;
     
     image?: string;
@@ -21,7 +21,7 @@ interface CardProps
     progress?: number;
 }
 
-const ProjectCard : FC<CardProps> = ({children, title, className, image, github, url, languages, order, inProgress=false}) => 
+const ProjectCard : FC<CardProps> = ({children, title, className, image, github, url, tags, order, inProgress=false}) => 
 {
     const featured_order : number = 0;
     /**
@@ -73,7 +73,7 @@ const ProjectCard : FC<CardProps> = ({children, title, className, image, github,
                     {children}
                 </p>
                 <ul className="project_languages">
-                    {(languages?.split(","))?.map(lang => {return(<li key={lang.trim()}>{lang.trim()}</li>);})}
+                    {(tags?.split(","))?.map(tag => {return(<li key={tag.trim()}>{tag.trim()}</li>);})}
                 </ul>
             </div>
         </div>
