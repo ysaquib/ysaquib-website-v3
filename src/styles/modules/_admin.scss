@@ -189,6 +189,13 @@
         {
             cursor: pointer;
         }
+        
+        .add
+        {
+            width: $large-size;
+            height: $large-size;
+            flex-grow: 3;
+        }
 
         .project_item_title
         {
@@ -206,13 +213,23 @@
     {
         .project_item
         {
-            transition: background $trans-effect $trans-regular;
+            transition: background $trans-effect $trans-regular, color $trans-effect $trans-regular;
             background-color: themed('grey-150');
             color: themed('grey-900');
             &:hover
             {
                 background-color: themed('grey-200');
                 color: themed('primary');
+            }
+            &.add
+            {
+                color: themed('grey-500');
+                background-color: themed('grey-100');
+                &:hover 
+                {
+                    color: themed('secondary');
+                    background-color: themed('grey-150');
+                }
             }
         }
 

@@ -114,11 +114,13 @@ export const setProjectData = (projectData: ProjectData, allProjects: ProjectDat
     {
         try 
         {
+            const {project_id, ...project} = projectData;
+            
             const project_index = allProjects.findIndex((proj) => {return proj.project_id === projectData.project_id});
             allProjects[project_index] = projectData;
-            await Firebase.firestore().collection("basic_info").doc(projectData.project_id).set(projectData as Omit<ProjectData, 'project_id'>);
+            await Firebase.firestore().collection("projects").doc(projectData.project_id).set(project as ProjectData);
             dispatch({type: Data_SetProjectData, payload: allProjects});
-            console.log("Success", allProjects);
+            console.log("Success");
         }
         catch (error)
         {

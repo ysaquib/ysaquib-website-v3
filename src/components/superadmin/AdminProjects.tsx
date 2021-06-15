@@ -11,17 +11,17 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { ProjectData } from '../../store/types/dataTypes';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
-import { getProjectData } from '../../store/actions/dataActions';
+import { getProjectData, setProjectData } from '../../store/actions/dataActions';
 import Button from '../elements/Button';
 import TextArea from '../elements/TextArea';
-import { ChevronRight } from '@material-ui/icons';
+import { Add, ChevronRight } from '@material-ui/icons';
 import CheckBox from '../elements/Checkbox';
 
 const schema = yup.object().shape(
 {
-    project_id: yup.string(),
     project_title : yup.string().required("is required."),
     project_description: yup.string().required("is required."),
+    project_id: yup.string(),
     project_languages: yup.string().required("is required."),
     project_image: yup.string().url("must be a valid URL"),
     project_github: yup.string().url("must be a valid URL"),
@@ -58,6 +58,13 @@ const AdminProjects : FC = () =>
         {
             setValue("project_title", project.project_title);
             setValue("project_description", project.project_description);
+            setValue("project_id", project.project_id);
+            setValue("project_languages", project.project_languages);
+            setValue("project_image", project.project_image);
+            setValue("project_github", project.project_github);
+            setValue("project_url", project.project_url);
+            setValue("project_inProgress", project.project_inProgress);
+            setValue("project_progress", project.project_progress);
             
             setMessage("");
             console.log(project);
@@ -95,16 +102,17 @@ const AdminProjects : FC = () =>
     // }
     const onSubmit : SubmitHandler<ProjectData> = (data) => 
     {
+        console.log("submit");
         console.log(data);
         setLoading(true);
         if(project)
         {
-            console.log(data.project_languages);
-            setProject(data);
+            const new_project = {...project, ...data};
+            console.log(new_project);
+            dispatch(setProjectData(new_project, projects, (err) => {setError(err)}));
         }
-        // dispatch(setProjectData(data, (err) => {setError(err)}));
         setLoading(false);
-        setMessage("Successfully updated project" + project?.project_id +".");
+        setMessage("Successfully updated '" + project?.project_title +"'.");
     }
     //
     return (
@@ -118,7 +126,7 @@ const AdminProjects : FC = () =>
                             <ChevronRight className="chevron"/>
                         </li>
                     )}
-                    <li className="project_item" key="add"></li>
+                    <li className="project_item add" key="add"><Add className="add"/></li>
                 </ul>
             </div>
             <form className="edit projects" onSubmit={handleSubmit(onSubmit)}>
@@ -217,7 +225,7 @@ const AdminProjects : FC = () =>
                 <p className={`message ${error != null && !isLoading ? "error" : ""}`}>
                     {error != null && !isLoading ? error : message}
                 </p>
-                <Button text="Update About" className="confirmbtn" />
+                <Button text="Update Project" className="confirmbtn" />
             </form>
         </section>
 
