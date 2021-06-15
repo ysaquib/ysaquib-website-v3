@@ -11,7 +11,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { ProjectData } from '../../store/types/dataTypes';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
-import { getProjectData, setProjectData } from '../../store/actions/dataActions';
+import { addNewProject, getProjectData, setProjectData } from '../../store/actions/dataActions';
 import Button from '../elements/Button';
 import TextArea from '../elements/TextArea';
 import { Add, ChevronRight } from '@material-ui/icons';
@@ -49,7 +49,6 @@ const AdminProjects : FC = () =>
     const [isLoading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [message, setMessage] = useState<string>("");
-
     
     
     useEffect(() => 
@@ -93,17 +92,15 @@ const AdminProjects : FC = () =>
         setProject(projects.find((proj) => {return proj.project_id === id}));
         
     }
-    // export interface ProjectData
-    // {
-    //     project_languages: string[];
-    //     project_order: number;
-    //     project_inProgress: boolean;
-    //     project_progress?: number;
-    // }
+
+    function createNewProject()
+    {
+        dispatch(addNewProject(projects, (err) => {setError(err)}));
+        setProject(projects[projects.length - 1]);
+    }
+    
     const onSubmit : SubmitHandler<ProjectData> = (data) => 
     {
-        console.log("submit");
-        console.log(data);
         setLoading(true);
         if(project)
         {
@@ -126,7 +123,7 @@ const AdminProjects : FC = () =>
                             <ChevronRight className="chevron"/>
                         </li>
                     )}
-                    <li className="project_item add" key="add"><Add className="add"/></li>
+                    <li className="project_item add" key="add" onClick={() => {createNewProject()}}><Add className="add"/></li>
                 </ul>
             </div>
             <form className="edit projects" onSubmit={handleSubmit(onSubmit)}>

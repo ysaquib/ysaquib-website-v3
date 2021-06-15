@@ -119,7 +119,42 @@ export const setProjectData = (projectData: ProjectData, allProjects: ProjectDat
             const project_index = allProjects.findIndex((proj) => {return proj.project_id === projectData.project_id});
             allProjects[project_index] = projectData;
             await Firebase.firestore().collection("projects").doc(projectData.project_id).set(project as ProjectData);
-            dispatch({type: Data_SetProjectData, payload: allProjects});
+            dispatch({
+                type: Data_SetProjectData, 
+                payload: allProjects
+            });
+            console.log("Success");
+        }
+        catch (error)
+        {
+            onError(error);
+            console.log(error);
+        }
+    }
+}
+
+export const addNewProject = (allProjects: ProjectData[], onError: (msg: any) => void) : ThunkAction<void, RootState, null, ProjectAction> =>
+{
+    return async dispatch =>
+    {
+        try 
+        {
+            const project = 
+            {
+                project_description: "", 
+                project_title: "", 
+                project_languages: "",
+                project_inProgress: false
+            }
+            
+            const nextOrder = (allProjects.map((proj) => {return proj.project_order})).reduce((a,b) =>{return Math.max(a,b)}) + 1;
+            const newProject = {...project, project_order: nextOrder};
+            const storedProject = await Firebase.firestore().collection("projects").add(newProject as ProjectData);
+            allProjects.push({...newProject, project_id: storedProject.id});
+            dispatch({
+                type: Data_SetProjectData,
+                payload: allProjects
+            });
             console.log("Success");
         }
         catch (error)
