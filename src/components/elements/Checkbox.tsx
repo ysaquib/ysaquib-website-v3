@@ -46,7 +46,8 @@ const CheckBox: FC<CheckBoxProps> = ({ isChecked, label, name, className, disabl
                 id={`${name}_input`}
                 disabled={disabled}
                 defaultChecked={checked}
-                onClick={() => setChecked(!checked)} />
+                onClick={() => setChecked(!checked)}
+                onChange={props?.onChange} />
             <label id={name} htmlFor={name} className={`checkbox_label ${disabled ? "disabled" : ""}`}>{label}</label>
        </div>
     );

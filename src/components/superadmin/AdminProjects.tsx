@@ -11,11 +11,12 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { ProjectData } from '../../store/types/dataTypes';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
-import { addNewProject, getProjectData, setProjectData } from '../../store/actions/dataActions';
+import { addNewProject, deleteProject, getProjectData, setProjectData, updateAllProjects, updateProjectsOrder } from '../../store/actions/dataActions';
 import Button from '../elements/Button';
 import TextArea from '../elements/TextArea';
 import { Add, ChevronRight } from '@material-ui/icons';
 import CheckBox from '../elements/Checkbox';
+import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd';
 
 const schema = yup.object().shape(
 {
@@ -49,8 +50,14 @@ const AdminProjects : FC = () =>
     const [isLoading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [message, setMessage] = useState<string>("");
+
+    const [isNewProject, setNewProject] = useState<boolean>(false);
+    const [isInProgress, setInProgress] = useState<boolean>(project?.project_inProgress ?? false);
     
-    
+    /**
+     * This useEffect sets the initial values of all the fields when a project
+     * is selected (or when the current project is changed)
+     */
     useEffect(() => 
     {
         if (project)
@@ -66,17 +73,28 @@ const AdminProjects : FC = () =>
             setValue("project_progress", project.project_progress);
             
             setMessage("");
-            console.log(project);
         }
-        return () => {
-        }
+        return () => {}
     }, [project]);
 
+    /**
+     * When the message is updated, we get the data again and set the list 
+     * accordingly
+     */
     useEffect(() => 
     {
-        dispatch(getProjectData(() => {setLoading(false)}, () => {console.log("Error getting about data")}));
-    }, [dispatch]);
+        dispatch(getProjectData(() => {
+            setLoading(false)
+        }, () => {
+            console.log("Error getting about data")}
+        ));
+    }, [dispatch, message]);
 
+
+    /**
+     * When projects is updated or when we first get the ProjectData, 
+     * set the projects accordingly
+     */
     useEffect(() => 
     {
         setProjects(ProjectsData);
@@ -87,44 +105,134 @@ const AdminProjects : FC = () =>
         }
     }, [ProjectsData]);
 
+    /**
+     * This function takes an id of a project and sets the current selected 
+     * projects for visual purposes and removes the selected class from any
+     * previously selected projects.
+     * 
+     * Also it makes sure that if a new project was being created before, it
+     * cancels its creation.
+     */
     function changeProject(id: string)
     {
-        setProject(projects.find((proj) => {return proj.project_id === id}));
-        
+        setNewProject(false);
+        const collection = document.getElementsByClassName("project_item");
+
+        for (var i = 0; i < collection.length; i++)
+        {
+            collection.item(i)?.classList.remove("selected");
+        }
+
+        document.getElementById(id)?.classList.add("selected");
+        setProject(projects.find((proj) => {return proj.project_id === id})); 
     }
 
-    function createNewProject()
+    /**
+     * createNewProject will create an empty project and set it as the current
+     * project such that when the form is submitted, the current project will
+     * be created in the database
+     */
+    const createNewProject = () =>
     {
-        dispatch(addNewProject(projects, (err) => {setError(err)}));
-        setProject(projects[projects.length - 1]);
+        const new_project = 
+        {
+            project_description: "", 
+            project_title: "",
+            project_id: "",
+            project_order: -1,
+            project_languages: "",
+            project_progress: 0
+        }
+        setNewProject(true);
+        setProject(new_project);
+    }
+
+    /**
+     * dispatches a project to be deleted from the database.
+     */
+    const delProject = () =>
+    {
+        if(project)
+            dispatch(deleteProject(project, projects, (err) => {setError(err)}));
+        setProject(projects[0]);
+        setMessage("Successfully Deleted");
+    }
+
+    function handleOnDragEnd (result: any)
+    {
+        if (!result.destination) return;
+
+        const reorderedProjects = Array.from(projects);
+        const [reorderedItem] = reorderedProjects.splice(result.source.index, 1);
+        reorderedProjects.splice(result.destination.index, 0, reorderedItem);
+
+        updateProjectsOrder(reorderedProjects);
+        setProjects(reorderedProjects);
+        dispatch(updateAllProjects(reorderedProjects, () => {}));
     }
     
+    /**
+     * Upon form submission, check if we are creating a new project or updating
+     * an existing one. Perform the appropriate function.
+     * 
+     * We assume project is not null since we cannot submit the form if the 
+     * project does not exist.
+     */
     const onSubmit : SubmitHandler<ProjectData> = (data) => 
     {
+        console.log("TEST");
         setLoading(true);
-        if(project)
+        const new_project = {...project, ...data};
+        if(isNewProject && project)
         {
-            const new_project = {...project, ...data};
-            console.log(new_project);
+            dispatch(addNewProject(new_project, projects, (err) => {setError(err)}));
+        }
+        else if(project)
+        {
             dispatch(setProjectData(new_project, projects, (err) => {setError(err)}));
         }
         setLoading(false);
-        setMessage("Successfully updated '" + project?.project_title +"'.");
+        setNewProject(false);
+
+        setMessage("Successfully updated '" + data.project_title +"'.");
     }
-    //
+    
+
     return (
         <section id="admin_project" className="admin projects" >
             <div id="admin_projects_list">
-                <ul className="projects_list">
-                    {projects && projects.map((project: ProjectData) =>
-                        <li className="project_item" key={project.project_id}
-                            onClick={() => changeProject(project.project_id)}>
-                            <h3 className="project_item_title">{project.project_title}</h3>
-                            <ChevronRight className="chevron"/>
-                        </li>
-                    )}
-                    <li className="project_item add" key="add" onClick={() => {createNewProject()}}><Add className="add"/></li>
-                </ul>
+                <DragDropContext onDragEnd={handleOnDragEnd}>
+                <Droppable droppableId="projects_list">
+                {
+                    (provided) => (
+                    <ul className="projects_list" {...provided.droppableProps} ref={provided.innerRef}>
+                        {projects && projects.map((project: ProjectData, index: number) =>
+                        {return (
+                            <Draggable key={project.project_id} draggableId={project.project_id} index={index} >
+                                {(provided) => (
+                                        <li ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}
+                                            className="project_item"
+                                            key={project.project_id} 
+                                            id={project.project_id}
+                                            onClick={() => changeProject(project.project_id)}>
+                                            
+                                            <h3 className="project_item_title">{project.project_title}</h3>
+                                            <ChevronRight className="chevron"/>
+                                        
+                                        </li>
+                                    )
+                                }
+                            </Draggable>
+                        );})}
+                        {provided.placeholder}
+                    </ul>
+
+                )}
+                </Droppable>
+                </DragDropContext>                
+
+                <li className="project_item add" key="add" onClick={createNewProject}><Add className="add"/></li>
+                <li className="project_item delete" key="delete" onClick={delProject}>Delete Project</li>
             </div>
             <form className="edit projects" onSubmit={handleSubmit(onSubmit)}>
                 <h3>Edit Project Information</h3>
@@ -199,7 +307,7 @@ const AdminProjects : FC = () =>
                            message={errors.project_progress?.message} 
                            register={register} 
                            registration={{required: false}} 
-                           disabled={project == null}
+                           disabled={!isInProgress}
                            show_label />
                 
                 <CheckBox label="Work In Progress"
@@ -207,7 +315,8 @@ const AdminProjects : FC = () =>
                           className="half"
                           register={register} 
                           registration={{required: false}} 
-                          disabled={project == null} />
+                          disabled={project == null} 
+                          onChange={() => setInProgress(!isInProgress)}/>
 
                 <TextField label="Languages" 
                            name="project_languages"
@@ -224,6 +333,7 @@ const AdminProjects : FC = () =>
                 </p>
                 <Button text="Update Project" className="confirmbtn" />
             </form>
+            
         </section>
 
     );

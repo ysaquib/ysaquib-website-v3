@@ -133,29 +133,78 @@ export const setProjectData = (projectData: ProjectData, allProjects: ProjectDat
     }
 }
 
-export const addNewProject = (allProjects: ProjectData[], onError: (msg: any) => void) : ThunkAction<void, RootState, null, ProjectAction> =>
+export const updateProjectsOrder = (allProjects: ProjectData[]) =>
+{
+    return allProjects.forEach((project, index) => {project.project_order = index});
+}
+
+export const updateAllProjects = (allProjects: ProjectData[], onError: (msg: any) => void) : ThunkAction<void, RootState, null, ProjectAction> =>
 {
     return async dispatch =>
     {
         try 
         {
-            const project = 
+            for (var i = 0; i < allProjects.length; i++)
             {
-                project_description: "", 
-                project_title: "", 
-                project_languages: "",
-                project_inProgress: false
+                const {project_id, ...project} = allProjects[i];
+                await Firebase.firestore().collection("projects").doc(allProjects[i].project_id).set(project as ProjectData);
             }
+            dispatch({
+                type: Data_SetProjectData, 
+                payload: allProjects
+            });
+        }
+        catch (error)
+        {
+            onError(error);
+            console.log(error);
+        }
+    }
+}
+
+
+export const addNewProject = (projectData: ProjectData, allProjects: ProjectData[], onError: (msg: any) => void) : ThunkAction<void, RootState, null, ProjectAction> =>
+{
+    return async dispatch =>
+    {
+        try 
+        {
+            const {project_id, project_order, ...project} = projectData;
             
-            const nextOrder = (allProjects.map((proj) => {return proj.project_order})).reduce((a,b) =>{return Math.max(a,b)}) + 1;
-            const newProject = {...project, project_order: nextOrder};
+            const newProject = {...project, project_order: allProjects.length};
             const storedProject = await Firebase.firestore().collection("projects").add(newProject as ProjectData);
             allProjects.push({...newProject, project_id: storedProject.id});
+            updateProjectsOrder(allProjects);
             dispatch({
                 type: Data_SetProjectData,
                 payload: allProjects
             });
             console.log("Success");
+        }
+        catch (error)
+        {
+            onError(error);
+            console.log(error);
+        }
+    }
+}
+
+
+export const deleteProject = (project : ProjectData, allProjects: ProjectData[], onError: (msg: any) => void) : ThunkAction<void, RootState, null, ProjectAction> =>
+{
+    return async dispatch =>
+    {
+        try 
+        {
+            const newAllProjects = allProjects.filter((proj) => {return proj.project_id !== project.project_id});
+            await Firebase.firestore().collection("projects").doc(project.project_id).delete()
+            updateProjectsOrder(newAllProjects);
+            console.log(newAllProjects);
+            console.log("Successfully Deleted");
+            dispatch({
+                type: Data_SetProjectData,
+                payload: newAllProjects
+            });
         }
         catch (error)
         {

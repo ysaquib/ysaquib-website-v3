@@ -221,6 +221,14 @@
                 background-color: themed('grey-200');
                 color: themed('primary');
             }
+            &.selected
+            {
+                border: 1px solid;
+                border-color: themed('primary');
+                background-color: themed('grey-200');
+                color: themed('primary');    
+            }
+
             &.add
             {
                 color: themed('grey-500');

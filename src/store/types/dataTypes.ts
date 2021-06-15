@@ -39,8 +39,9 @@ export interface ProjectData
     project_image?: string;
     project_github?: string;
     project_url?: string;
-    project_inProgress: boolean;
+    project_inProgress?: boolean;
     project_progress?: number;
+    project_isHidden?: boolean;
 }
 
 interface SetProjectDataAction

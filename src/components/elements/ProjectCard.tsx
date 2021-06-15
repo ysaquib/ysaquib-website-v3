@@ -21,13 +21,14 @@ interface CardProps
     progress?: number;
 }
 
-const ProjectCard : FC<CardProps> = ({children, title, className, image, github, url, languages, order, inProgress}) => 
+const ProjectCard : FC<CardProps> = ({children, title, className, image, github, url, languages, order, inProgress=false}) => 
 {
+    const featured_order : number = 0;
     /**
      * Create the "Featured Project" tag that will only be applied to the 
      * featured project (any project with the 'featured' className)
      */
-    const featured_tag: JSX.Element = order === 1 ?(
+    const featured_tag: JSX.Element = order === featured_order ? (
         <div className="featured_tag">
             <h3 className="label">Featured Project</h3>
         </div>) : (<></>);
@@ -50,7 +51,7 @@ const ProjectCard : FC<CardProps> = ({children, title, className, image, github,
     {
         switch (order)
         {
-            case 1:
+            case featured_order:
                 return "featured";
             // case 2:
             // case 3:

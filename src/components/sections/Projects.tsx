@@ -58,7 +58,10 @@ const Projects : FC = () =>
     return (
         <Section title="My Projects" id="projects">
             <div className="projects_wrapper">
-                {projects && projects.map((project : ProjectData) => (
+                {projects && 
+                (projects
+                    .filter((project) => {return !(project.project_isHidden) ?? true}))
+                    .map((project : ProjectData) => (
                     <ProjectCard key={project.project_order}
                                  order={project.project_order}
                                  title={project.project_title}
