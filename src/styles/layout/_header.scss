@@ -98,8 +98,9 @@
                 color: mix(themed('error'), themed('warning'), 50%) !important;
             }
         }
+
         
-        background-color: themed('grey-000');
+        background-color: transparent;
         box-shadow: none;
         &.scrolling
         {

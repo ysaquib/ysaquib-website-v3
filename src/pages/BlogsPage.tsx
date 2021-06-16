@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store';
 import { BlogData } from '../store/types/dataTypes';
 import { getBlogData } from '../store/actions/dataActions';
+import BlogPage from './BlogPage';
  
 const BlogsPage : FC = () =>
 {
@@ -43,10 +44,12 @@ const BlogsPage : FC = () =>
                         <BlogsList isLoading={isLoading} blogs={blogs} />
                     </Route>
 
-                    <Route path="/blog/:blogurl">
-                        <BlogsList isLoading={isLoading} blogs={blogs}/>
-                    </Route>
-
+                    <Route path="/blog/:blogurl" children={
+                        ({match}) => (
+                        <BlogPage isLoading={isLoading} {...(blogs.find((blog) => {return blog.blog_url === match?.params.blogurl}) as BlogData)}/>
+                        )} 
+                    />
+                        
                 </Switch>
             </Container>
         </Router>

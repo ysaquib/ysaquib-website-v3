@@ -19,6 +19,7 @@
 
 @import './modules/portals';
 @import './modules/admin';
+@import './modules/blog';
 
 @import './elements/button';
 @import './elements/projectcard';
@@ -55,7 +56,7 @@ body
     &.theme-light
     {
         background-color: get_color($key: 'grey-000', $theme: 'light');
-
+        
     }
     .theme-dark
     {
