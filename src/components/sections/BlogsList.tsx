@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC } from 'react'
 import { useHistory } from 'react-router';
 import { BlogData } from '../../store/types/dataTypes';
 import LoadingSkeleton from '../elements/LoadingSkeleton';

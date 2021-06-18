@@ -37,7 +37,7 @@ const CheckBox: FC<CheckBoxProps> = ({ isChecked, label, name, className, disabl
         {
             document.getElementById(name)?.classList.remove("checked");
         }
-    }, [checked])
+    }, [checked, name])
     
     return (
        <div className={`input_wrapper checkbox_wrapper ${className ? className : ""}`}>

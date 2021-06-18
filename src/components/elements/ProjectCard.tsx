@@ -75,6 +75,7 @@ const ProjectCard : FC<CardProps> = ({children, title, className, image, github,
                 <ul className="project_languages">
                     {(tags?.split(","))?.map(tag => {return(<li key={tag.trim()}>{tag.trim()}</li>);})}
                 </ul>
+                {wip_bar}
             </div>
         </div>
     );

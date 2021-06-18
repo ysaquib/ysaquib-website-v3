@@ -1,4 +1,3 @@
-import firebase from 'firebase';
 import { ThunkAction } from 'redux-thunk';
 import { RootState } from '..';
 import Firebase from '../../firebase/config';

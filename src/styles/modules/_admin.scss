@@ -214,7 +214,7 @@
     {
         .project_item
         {
-            transition: background $trans-effect $trans-regular, color $trans-effect $trans-regular;
+            transition: background-color $trans-effect $trans-fast, color $trans-effect $trans-fast;
             background-color: themed('grey-150');
             color: themed('grey-900');
             &:hover
@@ -224,10 +224,8 @@
             }
             &.selected
             {
-                border: 1px solid;
-                border-color: themed('primary');
                 background-color: themed('grey-200');
-                color: themed('primary');    
+                color: themed('secondary');    
             }
 
             &.add

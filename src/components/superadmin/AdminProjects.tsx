@@ -75,7 +75,7 @@ const AdminProjects : FC = () =>
             setMessage("");
         }
         return () => {}
-    }, [project]);
+    }, [project, setValue]);
 
     /**
      * When the message is updated, we get the data again and set the list 

@@ -5,10 +5,11 @@
 
 import React, { FC } from 'react';
 
-import { Container } from '@material-ui/core';
 import { BlogData } from '../store/types/dataTypes';
 import PageNotFound from '../components/layout/PageNotFound';
 import LoadingSkeleton from '../components/elements/LoadingSkeleton';
+
+import { Editor } from '@tinymce/tinymce-react'; 
 
 interface BlogPageProps extends BlogData
 {
@@ -16,6 +17,10 @@ interface BlogPageProps extends BlogData
 }
 const BlogPage : FC<BlogPageProps> = ({isLoading, ...blogData}) =>
 {
+    const handleEditorChange = (e : any) => 
+    {
+        console.log('Content was updated:', e.target.getContent());
+    }
     
     if (isLoading)
     {
@@ -26,16 +31,38 @@ const BlogPage : FC<BlogPageProps> = ({isLoading, ...blogData}) =>
             </section>
         )
     }
-    else if(blogData.blog_id == null)
+    else if (blogData.blog_id == null)
     {
         return (
             <PageNotFound />
         )
     }
+    // else if (true)
+    // {
+        
+    // }
 
     return (
         <section id="blog">
             <h1 className="blog_title">{blogData.blog_title}</h1>
+            <Editor
+            initialValue="<p>Initial content</p>"
+            apiKey={process.env.REACT_APP_TINYMCE_KEY}
+            init={{
+                height: 500,
+                menubar: false,
+                plugins: [
+                    'advlist autolink lists link image', 
+                    'charmap print preview anchor help',
+                    'searchreplace visualblocks code',
+                    'insertdatetime media table paste wordcount'
+                ],
+                toolbar:
+                    'undo redo | formatselect | bold italic | \
+                    alignleft aligncenter alignright | \
+                    bullist numlist outdent indent | help'
+            }}
+            onChange={handleEditorChange} />
         </section>
     );
 }
