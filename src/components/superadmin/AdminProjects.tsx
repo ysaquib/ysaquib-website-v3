@@ -14,7 +14,7 @@ import { RootState } from '../../store';
 import { addNewProject, deleteProject, getProjectData, setProjectData, updateAllProjects, updateProjectsOrder } from '../../store/actions/dataActions';
 import Button from '../elements/Button';
 import TextArea from '../elements/TextArea';
-import { Add, ChevronRight } from '@material-ui/icons';
+import { Add, ChevronRight, Remove } from '@material-ui/icons';
 import CheckBox from '../elements/Checkbox';
 import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd';
 
@@ -69,8 +69,8 @@ const AdminProjects : FC = () =>
             setValue("project_image", project.project_image ?? "");
             setValue("project_github", project.project_github ?? "");
             setValue("project_url", project.project_url ?? "");
-            setValue("project_inProgress", project.project_inProgress);
-            setValue("project_progress", project.project_progress);
+            setValue("project_inProgress", project.project_inProgress ?? false);
+            setValue("project_progress", project.project_progress ?? 0);
             
             setMessage("");
             setInProgress(project.project_inProgress ?? false);
@@ -192,10 +192,11 @@ const AdminProjects : FC = () =>
         setLoading(true);
 
         const proj_id = project?.project_id ?? "";
-        const proj_prog = project?.project_progress ?? 0;
+        const proj_prog = data.project_progress ?? project?.project_progress ?? 0;
 
+        const {project_id, ...project_data} = data;
         const new_project = {...project, 
-                             ...data, 
+                             ...project_data,
                             project_id: proj_id,
                             project_progress: proj_prog,
                             project_inProgress: isInProgress};
@@ -250,10 +251,13 @@ const AdminProjects : FC = () =>
 
                 )}
                 </Droppable>
-                </DragDropContext>                
+                </DragDropContext>  
 
-                <li className="project_item add" key="add" onClick={createNewProject}><Add className="add"/></li>
-                <li className="project_item delete" key="delete" onClick={delProject}>Delete Project</li>
+                <div className="project_buttons">
+                    <li className="project_item button_add" key="add" onClick={createNewProject}><Add className="add"/></li>
+                    <li className="project_item button_delete" key="delete" onClick={delProject}><Remove className="add"/></li>
+                </div>
+
             </div>
             <form className="edit projects" onSubmit={handleSubmit(onSubmit)}>
                 <h3>Edit Project Information</h3>

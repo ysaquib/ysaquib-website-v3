@@ -21,7 +21,7 @@ interface CardProps
     progress?: number;
 }
 
-const ProjectCard : FC<CardProps> = ({children, title, className, image, github, url, tags, order, inProgress=false}) => 
+const ProjectCard : FC<CardProps> = ({children, title, className, image, github, url, tags, order, progress=100, inProgress=false}) => 
 {
     const featured_order : number = 0;
     /**
@@ -39,7 +39,12 @@ const ProjectCard : FC<CardProps> = ({children, title, className, image, github,
         </div>) : (<></>);
 
     const wip_bar: JSX.Element = inProgress ? (
-        <div className="wip_bar"><div className="wip_progress"></div></div>
+        <div className="wip_bar_wrapper">
+        <label className="wip_label">Progress: {progress}%</label>
+        <div className="wip_bar">
+            <div className="wip_progress" style={{width: `${progress}%`}} />
+        </div>
+        </div>
         ) : (<></>);
 
     /**
@@ -62,7 +67,7 @@ const ProjectCard : FC<CardProps> = ({children, title, className, image, github,
     }
     
     return (
-        <div className={`project_card_wrapper ${getClassName(order)} ${inProgress ? "wip" : ""} ${className}`}>
+        <div className={`project_card_wrapper ${getClassName(order)} ${inProgress ? "wip" : ""} ${className ?? ""}`}>
             {featured_tag}
             {wip_tag}
             <div className="project_card">

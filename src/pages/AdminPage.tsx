@@ -1,5 +1,5 @@
 /**
- * File: SignUp.tsx
+ * File: AdminPage.tsx
  * Author: Yusuf Saquib
  */
 
