@@ -66,13 +66,15 @@ const AdminProjects : FC = () =>
             setValue("project_description", project.project_description);
             setValue("project_id", project.project_id);
             setValue("project_tags", project.project_tags);
-            setValue("project_image", project.project_image);
-            setValue("project_github", project.project_github);
-            setValue("project_url", project.project_url);
+            setValue("project_image", project.project_image ?? "");
+            setValue("project_github", project.project_github ?? "");
+            setValue("project_url", project.project_url ?? "");
             setValue("project_inProgress", project.project_inProgress);
             setValue("project_progress", project.project_progress);
             
             setMessage("");
+            setInProgress(project.project_inProgress ?? false);
+            console.log(project);
         }
         return () => {}
     }, [project, setValue]);
@@ -174,6 +176,7 @@ const AdminProjects : FC = () =>
         updateProjectsOrder(reorderedProjects);
         setProjects(reorderedProjects);
         dispatch(updateAllProjects(reorderedProjects, () => {}));
+        console.log(reorderedProjects,projects);
     }
     
     /**
@@ -185,9 +188,18 @@ const AdminProjects : FC = () =>
      */
     const onSubmit : SubmitHandler<ProjectData> = (data) => 
     {
-        console.log("TEST");
+        console.log(data);
         setLoading(true);
-        const new_project = {...project, ...data};
+
+        const proj_id = project?.project_id ?? "";
+        const proj_prog = project?.project_progress ?? 0;
+
+        const new_project = {...project, 
+                             ...data, 
+                            project_id: proj_id,
+                            project_progress: proj_prog,
+                            project_inProgress: isInProgress};
+        console.log(new_project);
         if(isNewProject && project)
         {
             dispatch(addNewProject(new_project, projects, (err) => {setError(err)}));

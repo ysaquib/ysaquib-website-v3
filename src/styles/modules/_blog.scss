@@ -14,3 +14,94 @@
     }
 
 }
+
+#blog
+{
+
+    @include themify()
+    {
+        .blog_editor_wrapper
+        {
+            background-color: themed('grey-150');
+            border-radius: $radius-regular;
+        }
+        .blog_editor
+        {
+            border-radius: $radius-regular;
+            padding: 1rem;
+            color: themed('grey-900');
+            background-color: themed('grey-150');
+        }
+        .blog_editor_toolbar
+        {
+            border-radius: $radius-regular;
+            border: none;
+            background-color: themed('grey-200');
+            border-radius: $radius-regular;
+            
+            padding: 1rem;
+
+            .toolbar_inline, 
+            .toolbar_list,
+            .toolbar_textalign, 
+            .toolbar_link, 
+            .toolbar_history
+            {
+                gap: 1rem;
+                margin-bottom: 1rem;
+                .rdw-option-active
+                {
+                    background-color: themed('grey-300');
+                    box-shadow: none;
+                }
+                .rdw-option-wrapper
+                {
+                    margin: 0;
+                    color: themed('grey-900');
+                    background-color: themed('grey-200');
+                    border: none;
+                    height: 3rem;
+                    width: 3rem;
+                    &:hover
+                    {
+                        background-color: themed('grey-300');
+                        box-shadow: none;
+                    }
+                    &:active
+                    {
+                        background-color: themed('grey-400');
+                        box-shadow: none;
+                    }
+                }
+            }
+            .toolbar_colorpicker,
+            .toolbar_embedded, 
+            .toolbar_fontfamily,
+            .toolbar_fontsize,
+            .toolbar_blocktype
+            {
+                height: 3rem;
+                min-width: 3rem;
+                color: themed('grey-900');
+                background-color: themed('grey-200');
+                border: none;
+                &:hover
+                {
+                    background-color: themed('grey-300');
+                    box-shadow: none;
+                }
+                
+                &:active
+                {
+                    background-color: themed('grey-400');
+                    box-shadow: none;
+                }
+            }
+            .toolbar_fontsize
+            {
+                width: 5rem;
+            }
+        }
+    }
+}
+

@@ -70,9 +70,7 @@ const App : FC = () =>
 
     if (loading)
     {
-        return(
-            <Loader />
-        )
+        return(<Loader />)
     }
     
     return (
