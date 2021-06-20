@@ -15,12 +15,13 @@ import React, { FC, ButtonHTMLAttributes } from 'react';
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> 
 {
     text: string;
+    className?: string;
 }
 
-const Button: FC<ButtonProps> = ({text, ...props} : ButtonProps) => 
+const Button: FC<ButtonProps> = ({text, className="", ...props} : ButtonProps) => 
 {
     return (
-        <button {...props} className={`btn ${props.className}`}>
+        <button {...props} className={`btn ${className}`}>
             {text}
         </button>
     );
