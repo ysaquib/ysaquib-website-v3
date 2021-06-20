@@ -5,82 +5,159 @@
 
 .project_card_wrapper
 {
-    // background-color: $background-color;
-    @include themify()
-    {
-        background-color: themed('grey-150');
-    }
+
     height: 35rem;
     position: relative;
-
+    
     grid-column: span 2;
     border-radius: $radius-large;
     box-shadow: $project-card-box-shadow;
     
-    .featured_tag
-    {
-        align-self: right;
-        @include themify()
-        {
-            background-color: themed('primary');
-        }
-        z-index: 1;
-        width: 16rem;
-        height: 2.5rem;
-        padding: 1rem;
-        position: absolute;
-        right: 0rem;
-        top: 2rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        .label
-        {
-            font: $semi-weight $small-size $mono-font, monospace;
-            @include themify()
-            {
-                color: themed('grey-000');
-            }
-        }
-    }
-
-    .wip_tag
-    {
-        align-self: right;
-        @include themify()
-        {
-            background-color: themed('secondary');
-        }
-        z-index: 1;
-        width: 16rem;
-        height: 2.5rem;
-        padding: 1rem;
-        position: absolute;
-        right: 0rem;
-        top: 2rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        .label
-        {
-            font: $semi-weight $small-size $mono-font, monospace;
-            @include themify()
-            {
-                color: themed('grey-000');
-            }
-        }
-    }
-
-    
     .project_card
     {
-        padding: 3rem;
+        padding: $padding-card-regular;
+        padding-top: $padding-card-regular;
         display: flex;
         flex-direction: column;
         border: none;
         margin: 0rem;
+    }
+
+    .project_links
+    {
+        margin-top: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        user-select: none;
+        
+        .links_list
+        {
+            cursor: pointer;
+            margin: 0rem;
+            padding: 0rem;
+            list-style-type: none;
+            font: $semi-weight $Little-size $mono-font, monospace;
+
+            :not(:last-child)::after
+            {
+                cursor: default;
+                content: '•';
+                padding: 0rem 1rem;
+            }
+            
+            :last-child::after
+            {
+                cursor: default;
+                padding: 0rem 1rem;
+            }
+
+            .links_item
+            {
+                display: inline;
+                margin: 0rem;
+            }
+        }
+
+    }
+
+    @include themify()
+    {
+        background-color: themed('grey-150');
+
+        .project_links .links_list .links_item
+        {
+            color: themed('grey-500');
+            &:hover
+            {
+                color: themed('grey-900');
+            }
+            &::after
+            {
+                color: themed('grey-500');
+            }
+        }
+
+        &.wip .project_links .links_list .links_item
+        {
+            
+            color: themed('secondary');
+            &:hover
+            {
+                color: themed('grey-900');
+            }
+            &::after
+            {
+                color: themed('secondary');
+            }
+        }
+        
+        &.featured .project_links .links_list .links_item
+        {
+            &:hover
+            {
+                color: themed('grey-900');
+            }
+            color: themed('primary');
+            &::after
+            {
+                color: themed('primary');
+            }
+        }
+
+        .featured_tag, .wip_tag
+        {
+            background-color: themed('primary');
+            .label
+            {
+                color: themed('grey-000');
+            }
+        }
+        .wip_tag
+        {
+            background-color: themed('secondary');
+        }
+        .project_description
+        {
+            color: themed('grey-800');
+        }
+        .project_languages
+        {
+            color: themed('grey-700');
+        }
+        .wip_bar_wrapper
+        {
+            .wip_label
+            {
+                color: themed('secondary');
+            }
+            .wip_bar
+            {
+                background-color: themed('grey-300');
+                .wip_progress
+                {
+                    background-color: themed('secondary');
+                }
+            }
+        }
+    }
+
+    .featured_tag, .wip_tag
+    {
+        align-self: left;
+        min-width: 11rem;
+        height: 2.5rem;
+        padding: 0.4rem 1rem;
+        border-radius: $radius-small;
+        display: grid;
+        place-items: center;
+
+        .label
+        {
+            margin: 0rem;
+            padding: 0rem;
+            font: $semi-weight $Little-size $mono-font, monospace;
+        }
     }
     
     .project_title
@@ -93,11 +170,6 @@
     {
         width: 100%;
         font: $regular-weight $small-size $sans-font, sans-serif;
-        // color: $light-foreground-color;
-        @include themify()
-        {
-            color: themed('grey-800');
-        }
     }
 
     .project_languages, .wip_bar_wrapper
@@ -106,26 +178,20 @@
         margin: 0rem;
         padding: 0rem;
         position: absolute;
-        bottom: 3rem;
-        left: 3rem;
-        right: 3rem;
+        inset: auto $padding-card-regular $padding-card-regular $padding-card-regular;
         width: auto;
     }
     
     .project_languages
     {
-        overflow: hidden;
-        margin: 0rem;
-        padding: 0rem;
-        position: absolute;
+        // overflow: hidden;
+        // margin: 0rem;
+        // padding: 0rem;
+        // position: absolute;
 
         list-style-type: none;
         font: $regular-weight $Little-size $mono-font, monospace;
-        // color: $dark-foreground-color;
-        @include themify()
-        {
-            color: themed('grey-700');
-        }
+
         
         li
         {
@@ -140,7 +206,7 @@
             }
         }
         
-        :nth-last-child(1)
+        :last-child
         {
             &::after
             {
@@ -176,23 +242,6 @@
                 height: 100%;
             }
         }
-        
-        @include themify()
-        {
-            .wip_label
-            {
-                color: themed('secondary');
-            }
-            .wip_bar
-            {
-                background-color: themed('grey-300');
-                .wip_progress
-                {
-                    background-color: themed('secondary');
-                }
-            }
-            
-        }
     }
     
     &.featured
@@ -206,7 +255,7 @@
 
         .project_description
         {
-            width: 70%;
+            // width: 70%;
             font-size: $regular-size;
         }
         .project_languages

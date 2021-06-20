@@ -42,7 +42,7 @@
         margin: 0rem;
         margin-bottom: 2rem;
         text-align: center;
-        font: $semi-weight $medium-size $serif-font, serif;
+        font: $regular-weight $Medium-size $serif-font, serif;
     }
 
     .dialog_box_message
@@ -50,6 +50,7 @@
         padding: 0.5rem;
         border-radius: $radius-regular;
         margin: 0rem;
+        margin-bottom: 0.8rem;
         text-align: left;
         font: $regular-weight $regular-size $sans-font, sans-serif;
     }

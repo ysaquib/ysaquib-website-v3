@@ -15,11 +15,11 @@ const Admin : FC = () =>
 {
     return (
         <Container>
-            <DialogBox 
+            {/* <DialogBox 
                 title="Confrim Delete Project" 
                 message="Are you sure you want to delete this project?"
                 messageWarning="Warning: this action cannot be undone."
-                optionConfirm="Yes"/>
+                optionConfirm="Yes"/> */}
             
             <h1 className="admin_title">Admin Dashboard</h1>
             <section id="admin">

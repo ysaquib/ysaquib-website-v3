@@ -35,7 +35,7 @@ const schema = yup.object().shape(
 const LoginPortal : FC = () =>
 {
     const resolver = yupResolver(schema);
-    const {register, handleSubmit, formState: {errors}} = useForm<FormInputs>({mode: "onBlur", resolver});
+    const {register, handleSubmit, formState: {errors}} = useForm<FormInputs>({mode: "all", resolver});
     const [isLoading, setLoading] = useState(false);
     const [isSignedIn, setSignedIn] = useState(false);
     

@@ -3,9 +3,9 @@
  * Author: Yusuf Saquib
  */
 
+@import './abstracts/mixins';
 @import './abstracts/variables';
 @import './abstracts/colorthemes';
-@import './abstracts/mixins';
 @import './abstracts/functions';
 
 @import './sections/banner';

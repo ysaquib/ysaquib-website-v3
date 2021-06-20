@@ -75,11 +75,11 @@ const Header : FC = () =>
                     </li>);
                 })}
 
-
-                <li className="header_item" 
-                    onClick={() => {authenticated ? history.push("/account") : history.push("/signin")}}>
-                        {authenticated ? `Account` : `Sign In`}
-                </li>
+                {!authenticated ? 
+                    <li className="header_item" onClick={() => {history.push("/signin")}} >
+                            Sign In
+                    </li> : <></>   
+                }
 
 
                 {authenticated ? 

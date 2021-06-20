@@ -35,8 +35,9 @@ const ProjectCard : FC<CardProps> = ({children, title, className, image, github,
 
     const wip_tag: JSX.Element = inProgress ? (
         <div className="wip_tag">
-            <h3 className="label">Work In Progress</h3>
+            <h3 className="label">In Progress</h3>
         </div>) : (<></>);
+
 
     const wip_bar: JSX.Element = inProgress ? (
         <div className="wip_bar_wrapper">
@@ -68,12 +69,20 @@ const ProjectCard : FC<CardProps> = ({children, title, className, image, github,
     
     return (
         <div className={`project_card_wrapper ${getClassName(order)} ${inProgress ? "wip" : ""} ${className ?? ""}`}>
-            {featured_tag}
-            {wip_tag}
             <div className="project_card">
+                
                 <h1 className="project_title">
                     {title}
                 </h1>
+                <div className="project_links">
+                    {featured_tag}
+                    {wip_tag}
+                    <ul className="links_list">
+                        <li className="links_item">Read More</li>
+                        <li className="links_item">Open Demo</li>
+                        <li className="links_item">View Code </li>
+                    </ul>
+                </div>
                 <p className="project_description">
                     {children}
                 </p>
