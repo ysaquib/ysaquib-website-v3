@@ -13,7 +13,7 @@ interface CardProps
     tags?: string;
     children?: string;
     
-    image?: string;
+    blog?: string;
     github?: string;
     url?: string;
     
@@ -21,7 +21,7 @@ interface CardProps
     progress?: number;
 }
 
-const ProjectCard : FC<CardProps> = ({children, title, className, image, github, url, tags, order, progress=100, inProgress=false}) => 
+const ProjectCard : FC<CardProps> = ({children, title, className, blog, github, url, tags, order, progress=100, inProgress=false}) => 
 {
     const featured_order : number = 0;
     /**
@@ -78,9 +78,9 @@ const ProjectCard : FC<CardProps> = ({children, title, className, image, github,
                     {featured_tag}
                     {wip_tag}
                     <ul className="links_list">
-                        <li className="links_item">Read More</li>
-                        <li className="links_item">Open Demo</li>
-                        <li className="links_item">View Code </li>
+                        {blog && <li className="links_item">Read More</li>}
+                        {url && <li className="links_item">Open Demo</li>}
+                        {github && <li className="links_item">View Code </li>}
                     </ul>
                 </div>
                 <p className="project_description">

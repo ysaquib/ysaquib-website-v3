@@ -229,7 +229,11 @@
     {
         .project_item
         {
-            transition: color $trans-effect $trans-regular, background-color $trans-effect $trans-regular;
+            transition: color $trans-regular $trans-effect , background-color $trans-regular $trans-effect;
+            * {
+                transition: none;
+            }
+            
             background-color: themed('grey-150');
             color: themed('grey-900');
             &:hover

@@ -67,15 +67,15 @@ textarea, input[type=text], input[type=password]
     @include themify()
     {
         color: themed('grey-800');
-        background-color: themed('grey-200');
-        border-color: themed('grey-200');
-    
-            
+
+        background-color: themed('grey-150');
+        border-color: themed('grey-150');
+        
         &:hover
         {
             
-            background-color: mix(themed('grey-200'), themed('primary'), $color-mix-most);
-            border-color: themed('grey-200');
+            background-color: mix(themed('grey-150'), themed('primary'), $color-mix-most);
+            border-color: themed('grey-150');
         }
         &.error
         {
@@ -91,7 +91,36 @@ textarea, input[type=text], input[type=password]
         {
             color: themed('grey-500');
             border-color: themed('grey-300');
-            background-color: themed('grey-150');
+            background-color: themed('grey-100');
+        }
+        
+        &.elevated
+        {
+            background-color: themed('grey-200');
+            border-color: themed('grey-200');
+            &:hover
+            {
+                
+                background-color: mix(themed('grey-200'), themed('primary'), $color-mix-most);
+                border-color: themed('grey-200');
+            }
+            &.error
+            {
+                
+                border-color: themed('error');
+            }
+            &:focus, &:active
+            {
+                
+                border-color: themed('primary');
+            }
+            &:disabled, &:disabled:focus, &:disabled:active
+            {
+                color: themed('grey-500');
+                border-color: themed('grey-300');
+                background-color: themed('grey-150');
+            }
+
         }
     }
 }

@@ -24,7 +24,7 @@ const schema = yup.object().shape(
     project_description: yup.string().required("is required."),
     project_id: yup.string(),
     project_tags: yup.string().required("is required."),
-    project_image: yup.string().url("must be a valid URL"),
+    project_blog: yup.string().url("must be a valid URL"),
     project_github: yup.string().url("must be a valid URL"),
     project_url: yup.string().url("must be a valid URL"),
     project_inProgress: yup.boolean(),
@@ -66,7 +66,7 @@ const AdminProjects : FC = () =>
             setValue("project_description", project.project_description);
             setValue("project_id", project.project_id);
             setValue("project_tags", project.project_tags);
-            setValue("project_image", project.project_image ?? "");
+            setValue("project_blog", project.project_blog ?? "");
             setValue("project_github", project.project_github ?? "");
             setValue("project_url", project.project_url ?? "");
             setValue("project_inProgress", project.project_inProgress ?? false);
@@ -264,6 +264,7 @@ const AdminProjects : FC = () =>
                 <TextField label="Project Title" 
                            name="project_title"
                            type="text"
+                           classNameInner="elevated"
                            className="half"
                            message={errors.project_title?.message} 
                            register={register} 
@@ -274,6 +275,7 @@ const AdminProjects : FC = () =>
                 <TextField label="Project ID" 
                            name="project_id"
                            type="text"
+                           classNameInner="elevated"
                            className="half"
                            defaultValue={project?.project_id}
                            message={errors.project_id?.message} 
@@ -284,6 +286,7 @@ const AdminProjects : FC = () =>
                 <TextField label="Github Repository URL" 
                            name="project_github"
                            type="text"
+                           classNameInner="elevated"
                            className="half"
                            defaultValue={project?.project_github}
                            message={errors.project_github?.message} 
@@ -295,6 +298,7 @@ const AdminProjects : FC = () =>
                 <TextField label="Project Demo URL" 
                            name="project_url"
                            type="text"
+                           classNameInner="elevated"
                            className="half"
                            defaultValue={project?.project_url}
                            message={errors.project_url?.message} 
@@ -304,10 +308,11 @@ const AdminProjects : FC = () =>
                            show_label />
 
                 <TextField label="Image URL" 
-                           name="project_image"
+                           name="project_blog"
                            type="text"
-                           defaultValue={project?.project_image}
-                           message={errors.project_image?.message} 
+                           classNameInner="elevated"
+                           defaultValue={project?.project_blog}
+                           message={errors.project_blog?.message} 
                            register={register} 
                            registration={{required: false}} 
                            disabled={project == null}
@@ -315,6 +320,7 @@ const AdminProjects : FC = () =>
 
                 <TextArea label="Project Description" 
                            name="project_description"
+                           classNameInner="elevated"
                            className="desc_textarea"
                            rows={10}
                            defaultValue={project?.project_description}
@@ -327,6 +333,7 @@ const AdminProjects : FC = () =>
                 <TextField label="Progress" 
                            name="project_progress"
                            type="text"
+                           classNameInner="elevated"
                            className="half"
                            defaultValue={project?.project_progress}
                            message={errors.project_progress?.message} 
@@ -346,6 +353,7 @@ const AdminProjects : FC = () =>
                 <TextField label="Tags" 
                            name="project_tags"
                            type="text"
+                           classNameInner="elevated"
                            defaultValue={project?.project_tags}
                            message={errors.project_tags?.message} 
                            register={register} 

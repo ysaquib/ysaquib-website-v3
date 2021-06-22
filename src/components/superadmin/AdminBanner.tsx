@@ -68,6 +68,7 @@ const AdminBanner : FC = () =>
                 <TextField label="Prefix Title" 
                            name="banner_prefix"
                            type="text"
+                           classNameInner="elevated"
                            className="half"
                            defaultValue={banner.banner_prefix}
                            message={errors.banner_prefix?.message} 
@@ -77,6 +78,7 @@ const AdminBanner : FC = () =>
                 <TextField label="Name" 
                            name="banner_name"
                            type="text"
+                           classNameInner="elevated"
                            className="half"
                            defaultValue={banner.banner_name}
                            message={errors.banner_name?.message} 
@@ -85,6 +87,7 @@ const AdminBanner : FC = () =>
 
                 <TextField label="Title" 
                            name="banner_title"
+                           classNameInner="elevated"
                            type="text"
                            defaultValue={banner.banner_title}
                            message={errors.banner_title?.message} 
@@ -93,6 +96,7 @@ const AdminBanner : FC = () =>
 
                 <TextField label="Resume URL" 
                            name="banner_resume_url"
+                           classNameInner="elevated"
                            type="text"
                            defaultValue={banner.banner_resume_url}
                            message={errors.banner_resume_url?.message} 

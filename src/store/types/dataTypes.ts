@@ -37,7 +37,7 @@ export interface ProjectData
     project_description: string;
     project_tags: string;
     project_order: number;
-    project_image?: string;
+    project_blog?: string;
     project_github?: string;
     project_url?: string;
     project_inProgress?: boolean;

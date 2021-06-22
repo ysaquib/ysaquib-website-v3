@@ -65,6 +65,7 @@ const AdminAbout : FC = () =>
                 <TextField label="Title" 
                            name="about_title"
                            type="text"
+                           classNameInner="elevated"
                            defaultValue={about.about_title}
                            message={errors.about_title?.message} 
                            register={register} 
@@ -74,6 +75,7 @@ const AdminAbout : FC = () =>
                            name="about_description"
                            defaultValue={about.about_description}
                            message={errors.about_description?.message}
+                           classNameInner="elevated"
                            className="about_desc"
                            rows={15}
                            register={register} 

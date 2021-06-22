@@ -1,0 +1,107 @@
+.toolbar
+{
+
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: $radius-regular;
+    margin-bottom: 1rem;
+
+    display: flex;
+
+    .toolbar_button
+    {
+        margin: 0.2rem;
+        padding: 0.3rem;
+        border: 0.1rem solid;
+        border-radius: $radius-regular;
+        width: fit-content;
+        * {
+            transition: none;
+        }
+        transition: background-color ease $trans-regular;
+        
+        &:hover
+        {
+            cursor: pointer;
+        }
+        
+        .button_icon, svg
+        {
+            display: inline-block;
+            font-size: 1.5rem;
+            transition: none;
+            flex-shrink: 0;
+            user-select: none;
+            fill: currentColor;
+            vertical-align: middle;
+            width: $medium-size;
+            height: $medium-size;
+        }
+    }
+
+    .toolbar_divider
+    {
+        padding: 0.04rem;
+        margin: 0.2rem 0.5rem;
+    }
+
+
+    @include themify()
+    {
+
+        background-color: themed('grey-200');
+        
+        .toolbar_button
+        {
+            border-color: themed('grey-200');
+            color: themed('grey-800');
+            &:hover
+            {
+                border-color: themed('grey-300');
+                background-color: themed('grey-300');
+            }
+            &:active
+            {
+                border-color: themed('primary');
+                color: themed('primary');
+                background-color: themed('grey-300');
+            }
+            
+            &.selected
+            {
+                border-color: themed('secondary');
+                color: themed('secondary');
+                &:hover
+                {
+                    background-color: themed('grey-300');
+                }
+                &:active
+                {
+                    border-color: themed('grey-600');
+                    color: themed('grey-600');
+                    background-color: themed('grey-300');
+                }
+            }
+        }
+        
+        .toolbar_divider
+        {
+            background-color: themed('grey-600');
+        }
+    }
+}
+
+.editor_wrapper
+{
+    .editor_area 
+    {
+        padding: 2rem;
+        resize: vertical;
+        font: $regular-weight $regular-size $mono-font, monospace;
+        &:hover
+        {
+            @include themify() {background-color: themed('grey-150');}
+        }
+        
+    }
+}

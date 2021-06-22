@@ -12,9 +12,6 @@
 
 h1 
 {
-    font-weight: $black-weight;
-    font-family: $serif-font, serif;
-    // color: $light-foreground-color;
     @include themify()
     {
         color: themed('grey-900');
