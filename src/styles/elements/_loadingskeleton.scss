@@ -13,10 +13,6 @@
 .loading_skeleton
 {
     border-radius: $radius-large;
-    @include themify()
-    {
-        background-color: themed('grey-150');
-    }
     position: relative;
     overflow: hidden;
     &::before
@@ -35,9 +31,15 @@
         right: 0rem;
         bottom: 0rem;
 
-        @include themify()
+    }
+    @include themify()
+    {
+        color: themed('grey-150');
+        background-color: currentColor;
+        &::before
         {
-            background: linear-gradient(90deg, transparent, mix(themed('grey-200'), themed('grey-300'), 80%), transparent);
+            color: mix(themed('grey-200'), themed('grey-300'), 80%);
+            background: linear-gradient(90deg, transparent, currentColor, transparent);
             transform: translateX(-100%);
             animation: $anim-long shine linear infinite;
         }

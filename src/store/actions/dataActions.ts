@@ -1,3 +1,4 @@
+import firebase from 'firebase';
 import { ThunkAction } from 'redux-thunk';
 import { RootState } from '..';
 import Firebase from '../../firebase/config';
@@ -210,7 +211,7 @@ export const deleteProject = (project : ProjectData, allProjects: ProjectData[],
 }
 
 
-export const getBlogData = (onComplete: () => void, onError: () => void) : ThunkAction<void, RootState, null, BlogAction> =>
+export const getBlogData = (onComplete?: () => void, onError?: () => void) : ThunkAction<void, RootState, null, BlogAction> =>
 {
     return async dispatch =>
     {
@@ -223,12 +224,108 @@ export const getBlogData = (onComplete: () => void, onError: () => void) : Thunk
             })
             console.log(blog_items);
             dispatch({type: Data_SetBlogData, payload: blog_items});
-            onComplete();
+            onComplete && onComplete();
         }
         catch (error)
         {
-            onError();
+            onError && onError();
             console.log(error);
         }
     }
 }
+
+export const setBlogData = (blogData: BlogData, allBlogs: BlogData[], update?: boolean, onComplete?: () => void, onError?: () => void) : ThunkAction<void, RootState, null, BlogAction> =>
+{
+    return async dispatch =>
+    {
+        try
+        {
+            const currentTime = new Date(Date.now());
+            const updatedAt = firebase.firestore.Timestamp.fromDate(currentTime);
+            const {blog_id, ...blog} = blogData;
+
+            if (update)
+            {
+                blogData.blog_updatedAt = currentTime;
+                await Firebase.firestore().collection("blogs").doc(blogData.blog_id).set({...blog, blog_updatedAt: updatedAt});
+            }
+            else 
+            {
+                await Firebase.firestore().collection("blogs").doc(blogData.blog_id).set(blog as BlogData);
+            }
+            
+            const index = allBlogs.findIndex((blogItem) => {return blogItem.blog_id === blogData.blog_id});
+            allBlogs[index] = blogData;
+            
+            onComplete && onComplete();
+            
+            dispatch({
+                type: Data_SetBlogData, 
+                payload: allBlogs
+            });
+            console.log("Success");
+        }
+        catch (error)
+        {
+            onError && onError();
+            console.log(error);
+        }
+    }
+}
+
+export const addNewBlog = (blogData: BlogData, allBlogs: BlogData[], onComplete?: () => void, onError?: () => void) : ThunkAction<void, RootState, null, BlogAction> =>
+{
+    return async dispatch =>
+    {
+        try
+        {
+            const currentTime = new Date(Date.now());
+            const createdAt = firebase.firestore.Timestamp.fromDate(currentTime);
+
+            blogData.blog_createdAt = currentTime;
+            const {blog_id, ...blog} = blogData;
+            await Firebase.firestore().collection("blogs").doc(blogData.blog_id).set({...blog, blog_createdAt: createdAt});
+            
+            allBlogs.push(blogData);
+            
+            onComplete && onComplete();
+
+            dispatch({
+                type: Data_SetBlogData, 
+                payload: allBlogs
+            });
+            console.log("Success");
+        }
+        catch (error)
+        {
+            onError && onError();
+            console.log(error);
+        }
+    }
+}
+
+
+export const deleteBlog = (blogData: BlogData, allBlogs: BlogData[], onError: (msg: any) => void) : ThunkAction<void, RootState, null, BlogAction> =>
+{
+    return async dispatch =>
+    {
+        try
+        {
+            const newAllBlogs = allBlogs.filter((blog) => {return blog.blog_id !== blogData.blog_id});
+            await Firebase.firestore().collection("blogs").doc(blogData.blog_id).delete();
+            
+            dispatch({
+                type: Data_SetBlogData, 
+                payload: newAllBlogs
+            });
+            console.log("Successfully deleted Blog");
+            console.log(newAllBlogs);
+        }
+        catch (error)
+        {
+            onError(error);
+            console.log(error);
+        }
+    }
+}
+

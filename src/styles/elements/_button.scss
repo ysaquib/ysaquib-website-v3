@@ -179,6 +179,28 @@
                 background-color:  mix(themed('grey-300'), themed('grey-000'), 30%);
             }
         }
+        &.neutral
+        {
+            transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
+            background-color: themed('grey-800');
+            color: themed('grey-100');
+            &:hover
+            {
+                background-color: mix(themed('grey-800'), themed('grey-100'), 85%);
+            }
+            &:focus-visible
+            {
+                outline: themed('primary') dashed 2px;
+            }
+            &:active:focus
+            {
+                background-color: mix(themed('grey-800'), themed('grey-100'), 70%);
+            }
+            &:disabled
+            {
+                background-color:  mix(themed('grey-800'), themed('grey-100'), 30%);
+            }
+        }
     }
 
 }

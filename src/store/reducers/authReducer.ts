@@ -4,7 +4,7 @@ const initialState: AuthState = {
   user: null,
   authenticated: false,
   userRoles: [''],
-  loading: false,
+  loading: true,
   error: '',
   warning: '',
   needVerification: false,

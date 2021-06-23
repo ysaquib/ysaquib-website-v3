@@ -33,7 +33,7 @@ let default_data = require('./default_data.json');
 const App : FC = () =>
 {
     const dispatch = useDispatch();
-    const { loading } = useSelector((state : RootState) => state.auth);
+    const AuthState = useSelector((state : RootState) => state.auth);
 
     const getTheme = localStorage.getItem('theme') || default_data.theme;
     switch (getTheme)
@@ -68,9 +68,9 @@ const App : FC = () =>
         };
     }, [dispatch]);
 
-    if (loading)
+    if (AuthState.loading)
     {
-        return(<Loader />)
+        return(<Loader />);
     }
     
     return (
@@ -81,8 +81,7 @@ const App : FC = () =>
                 <PublicRoute exact path="/signin" component={SignIn} />
                 <PublicRoute exact path="/signup" component={SignUp} />
                 <PublicRoute path="/blog" component={BlogsPage} />
-                <PrivateRoute path="/account" component={SignIn} />
-                <PublicRoute path="/admin" component={Admin} />
+                <PrivateRoute path="/admin" component={Admin} authRoles={["superadmin"]}/>
                 <Route component={Error404}/>
             </Switch>
             <Footer />

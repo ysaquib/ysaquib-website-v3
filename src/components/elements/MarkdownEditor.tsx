@@ -3,9 +3,9 @@
  * Author: Yusuf Saquib
  */
 
-import React, { FC, LegacyRef, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 // import { RegisterOptions, UseFormRegister } from 'react-hook-form';
-import { IconAsterisk, IconBold, IconBulletList, IconCheckedList, IconCheckedListAlt, IconCode, IconCodeBlock, IconFunction, IconHashtag, IconHeader1, IconHeader2, IconHeader3, IconHeader4, IconHeader5, IconHeader6, IconImage, IconItalic, IconLink, IconNumberedList, IconQuote, IconSeparator, IconStrikethrough, IconTable } from './Icons';
+import { IconAsterisk, IconBold, IconBulletList, IconCheckedList, IconCheckedListAlt, IconCode, IconCodeBlock, IconHeader1, IconHeader2, IconHeader3, IconHeader4, IconHeader5, IconHeader6, IconImage, IconItalic, IconLink, IconNumberedList, IconQuote, IconSeparator, IconStrikethrough, IconTable } from './Icons';
 
 interface ToolbarProps
 {
@@ -129,7 +129,7 @@ const Editor: FC<EditorProps> = ({className="", setContent, name, ...props}) =>
 
     useEffect(() => {
         setContent && setContent(editorContent);
-    }, [editorContent, editorRef]);
+    }, [editorContent, editorRef, setContent]);
 
     useEffect(() => {
         editorRef.current?.focus();

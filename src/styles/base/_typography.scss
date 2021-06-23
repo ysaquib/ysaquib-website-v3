@@ -38,3 +38,10 @@ title
         color: themed('primary');
     }
 }
+
+*, *::before, *::after
+{
+    -webkit-font-feature-settings: "lnum";
+    -moz-font-feature-settings: "lnum";
+    font-feature-settings: "lnum";
+}

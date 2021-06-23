@@ -4,7 +4,7 @@
  */
 
 import React, {FC} from 'react';
-import { IconArrowCircleRight, IconArticle, IconBookmark, IconBookRead, IconGithub, IconLaunch, IconMore, IconNewspaper } from './Icons';
+import { IconArticle, IconGithub, IconLaunch } from './Icons';
 
 interface CardProps
 {
