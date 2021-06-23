@@ -36,7 +36,7 @@ const BlogsList : FC<BlogsListProps> = ({isLoading, blogs}) =>
             <div className="blogs_list_wrapper">
                 <ul className="blogs_list">
                     {blogs && (blogs
-                    .filter((blog) => {return blog.blog_isHidden ?? true})
+                    .filter((blog) => {return (!blog.blog_isHidden) ?? true})
                     .map((blog) =>{return (
                         <li className="blogs_list_item"
                             id={blog.blog_id} 

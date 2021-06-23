@@ -13,6 +13,7 @@ import { RootState } from '../store';
 import { BlogData } from '../store/types/dataTypes';
 import { getBlogData } from '../store/actions/dataActions';
 import BlogPage from './BlogPage';
+import LoadingSkeleton from '../components/elements/LoadingSkeleton';
  
 const BlogsPage : FC = () =>
 {
@@ -36,6 +37,12 @@ const BlogsPage : FC = () =>
         }
     }, [BlogData]);
 
+    const Loader: JSX.Element = (
+        <section id="blog_loader">
+                <LoadingSkeleton type="rectangle" className="title_loader"/>
+                <LoadingSkeleton type="rectangle" className="content_loader"/>
+        </section>);
+
     return (
         <Router history={history}>
             <Container>
@@ -45,9 +52,18 @@ const BlogsPage : FC = () =>
                     </Route>
 
                     <Route path="/blog/:blogurl" children={
-                        ({match}) => (
-                        <BlogPage isLoading={isLoading} {...(blogs.find((blog) => {return blog.blog_url === match?.params.blogurl}) as BlogData)}/>
-                        )} 
+                        ({match}) => {
+                            if (isLoading)
+                            {
+                                return Loader;
+                            }
+                            else
+                            {
+                                return (
+                                    <BlogPage {...(blogs.find((blog) => {return blog.blog_url === match?.params.blogurl}) as BlogData)} allBlogs={blogs}/>
+                                );
+                            }
+                        }} 
                     />
                         
                 </Switch>
