@@ -169,52 +169,66 @@ input[type=checkbox]
     margin: 0rem;
     width: 1.75rem;
     height: 1.75rem;
+    border: 1px solid;
+    // margin-right: 1.5rem;
 
 
     @include themify()
     {
         color: themed('primary');
         background-color: themed('grey-200');
-    }
-    
-    &:hover
-    {
-        @include themify()
+        border-color: themed('grey-400');
+        &:hover
         {
             background-color: mix(themed('grey-200'), themed('primary'), $color-mix-regular);
+            border-color: mix(themed('grey-400'), themed('primary'), $color-mix-regular);
         }
-    }
-    
-    &:checked, &:checked:active
-    {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        @include themify()
+        &:checked, &:checked:active
         {
             color: themed('primary');
             background-color: themed('primary');
-        }
-        &::after
-        {
-            content: '\2714';
-            font-size: $regular-size;
-            @include themify()
+            border-color: themed('primary');
+            
+            &::after
             {
                 color: themed('grey-000');
             }
         }
+        &:disabled
+        {
+            border-color: themed('grey-300');
+            background-color: themed('grey-150');
+        }
+        &:read-only
+        {
+            border-color: themed('grey-300');
+        }
     }
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &::after
+    {
+        content: '\2714';
+        font-size: $regular-size;
+        color: transparent;
+    }
+    
+    &:checked, &:checked:active
+    {
+        &::after
+        {
+            content: '\2714';
+            font-size: $regular-size;
+        }
+    }
+
     
     &:disabled
     {
         cursor: default;
-        @include themify()
-        {
-            border: 1px solid;
-            border-color: themed('grey-300');
-            background-color: themed('grey-150');
-        }
-
+        border: 1px solid;
     }
 }

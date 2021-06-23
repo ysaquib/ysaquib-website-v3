@@ -13,61 +13,13 @@
     border-radius: $radius-large;
     box-shadow: $project-card-box-shadow;
     
-    .project_card
-    {
-        padding: $padding-card-regular;
-        padding-top: $padding-card-regular;
-        display: flex;
-        flex-direction: column;
-        border: none;
-        margin: 0rem;
-    }
-
-    .project_links
-    {
-        margin-top: 1rem;
-        display: flex;
-        align-items: center;
-        gap: 2rem;
-        user-select: none;
-        
-        .links_list
-        {
-            cursor: pointer;
-            margin: 0rem;
-            padding: 0rem;
-            list-style-type: none;
-            font: $semi-weight $Little-size $mono-font, monospace;
-
-            :not(:last-child)::after
-            {
-                cursor: default;
-                content: '•';
-                padding: 0rem 1rem;
-            }
-            
-            :last-child::after
-            {
-                cursor: default;
-                padding: 0rem 1rem;
-            }
-
-            .links_item
-            {
-                display: inline;
-                margin: 0rem;
-            }
-        }
-
-    }
-
     @include themify()
     {
         background-color: themed('grey-150');
 
         .project_links .links_list .links_item
         {
-            color: themed('grey-500');
+            color: themed('grey-600');
             &:hover
             {
                 color: themed('grey-900');
@@ -141,6 +93,43 @@
             }
         }
     }
+    
+    .project_card
+    {
+        padding: $padding-card-regular;
+        padding-top: $padding-card-regular;
+        display: flex;
+        flex-direction: column;
+        border: none;
+        margin: 0rem;
+    }
+
+    .project_links
+    {
+        margin-top: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        user-select: none;
+        
+        .links_list
+        {
+            margin: 0rem;
+            padding: 0rem;
+            list-style-type: none;
+            font: $semi-weight $Little-size $mono-font, monospace;
+            
+            .links_item
+            {
+                cursor: pointer;
+                display: inline;
+                margin: 0rem;
+                margin-right: 1.5rem;
+            }
+        }
+
+    }
+
 
     .featured_tag, .wip_tag
     {
@@ -151,6 +140,22 @@
         border-radius: $radius-small;
         display: grid;
         place-items: center;
+        position: relative;
+
+        // &::after
+        // {
+        //     content: '';
+        //     height: 2.5rem;
+        //     position: absolute;
+        //     top: 0rem;
+        //     right: -1.5rem;
+        //     width: 2rem;
+        //     @include themify()
+        //     {
+        //         border: 1.2rem solid themed('secondary');
+        //         border-right: 1.2rem solid transparent;
+        //     }
+        // }
 
         .label
         {

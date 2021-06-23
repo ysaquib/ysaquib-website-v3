@@ -67,7 +67,10 @@ const Projects : FC = () =>
                                  title={project.project_title}
                                  tags={project.project_tags}
                                  inProgress={project.project_inProgress}
-                                 progress={project.project_progress} >
+                                 progress={project.project_progress}
+                                 github={project.project_github}
+                                 blog={project.project_blog}
+                                 url={project.project_url} >
                         {project.project_description}
                     </ProjectCard>
                 ))}

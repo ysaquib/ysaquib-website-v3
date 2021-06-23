@@ -12,10 +12,15 @@
 
             .blogs_list_item
             {
+                box-shadow: $blog-list-box-shadow;
+
                 &.loading
                 {
                     height: 6.4rem;
+                    box-shadow: none;
                 }
+
+
                 display: inline-flex;
                 flex-direction: row;
                 justify-content: space-between;

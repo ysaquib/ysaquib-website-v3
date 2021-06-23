@@ -4,6 +4,7 @@
  */
 
 import React, {FC} from 'react';
+import { IconArrowCircleRight, IconArticle, IconBookmark, IconBookRead, IconGithub, IconLaunch, IconMore, IconNewspaper } from './Icons';
 
 interface CardProps
 {
@@ -78,9 +79,9 @@ const ProjectCard : FC<CardProps> = ({children, title, className, blog, github, 
                     {featured_tag}
                     {wip_tag}
                     <ul className="links_list">
-                        {blog && <li className="links_item">Read More</li>}
-                        {url && <li className="links_item">Open Demo</li>}
-                        {github && <li className="links_item">View Code </li>}
+                        {blog && <li className="links_item svg_icon" title="Read More">{IconArticle}</li>}
+                        {github && <li className="links_item svg_icon" title="View Github Repo">{IconGithub}</li>}
+                        {url && <li className="links_item svg_icon" title="View Demo">{IconLaunch}</li>}
                     </ul>
                 </div>
                 <p className="project_description">

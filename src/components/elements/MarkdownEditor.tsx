@@ -18,7 +18,7 @@ interface ToolbarProps
 const Formatting = 
 {
     bold:               ["**", "**"],
-    italic:             ["*", "*"],
+    italic:             ["_", "_"],
     strikethrough:      ["~~", "~~"],
     h1:                 ["# ", ""],
     h2:                 ["## ", ""],
@@ -30,8 +30,8 @@ const Formatting =
     ol:                 ["1. ", ""],
     ul:                 ["- ", ""],
     deflist:            [": ", ""],
-    tasklist:           ["- [ ] ",""],
-    tasklist_checked:   ["- [x] ",""],
+    tasklist:           ["[ ] ",""],
+    tasklist_checked:   ["[x] ",""],
     math:               ["$", "$"],
     code:               ["`", "`"],
     codeblock:          ["```\n", "\n```"],
@@ -46,7 +46,10 @@ const Formatting =
 
 const Toolbar : FC<ToolbarProps> = ({editorContent, setEditorContent, editorSelection, setEditorSelection}) =>
 {
-
+    /**
+     * TODO: Add basic keyboard shortcuts.
+     * TODO: Add auto continue list functionality?
+     */
     function formatMarkdown (options: string[])
     {
         const prefix = options[0];
@@ -66,44 +69,44 @@ const Toolbar : FC<ToolbarProps> = ({editorContent, setEditorContent, editorSele
 
     return (
         <div className="toolbar">
-            <div className="toolbar_button" onClick={() => formatMarkdown(Formatting.bold)}>{IconBold}</div>
-            <div className="toolbar_button" onClick={() => formatMarkdown(Formatting.italic)}>{IconItalic}</div>
-            <div className="toolbar_button" onClick={() => formatMarkdown(Formatting.strikethrough)}>{IconStrikethrough}</div>
+            <div className="toolbar_button svg_icon" onClick={() => formatMarkdown(Formatting.bold)}>{IconBold}</div>
+            <div className="toolbar_button svg_icon" onClick={() => formatMarkdown(Formatting.italic)}>{IconItalic}</div>
+            <div className="toolbar_button svg_icon" onClick={() => formatMarkdown(Formatting.strikethrough)}>{IconStrikethrough}</div>
 
             <div className="toolbar_divider" />
 
-            <div className="toolbar_button" onClick={() => formatMarkdown(Formatting.h1)}>{IconHeader1}</div>
-            <div className="toolbar_button" onClick={() => formatMarkdown(Formatting.h2)}>{IconHeader2}</div>
-            <div className="toolbar_button" onClick={() => formatMarkdown(Formatting.h3)}>{IconHeader3}</div>
-            <div className="toolbar_button" onClick={() => formatMarkdown(Formatting.h4)}>{IconHeader4}</div>
-            <div className="toolbar_button" onClick={() => formatMarkdown(Formatting.h5)}>{IconHeader5}</div>
-            <div className="toolbar_button" onClick={() => formatMarkdown(Formatting.h6)}>{IconHeader6}</div>
+            <div className="toolbar_button svg_icon" onClick={() => formatMarkdown(Formatting.h1)}>{IconHeader1}</div>
+            <div className="toolbar_button svg_icon" onClick={() => formatMarkdown(Formatting.h2)}>{IconHeader2}</div>
+            <div className="toolbar_button svg_icon" onClick={() => formatMarkdown(Formatting.h3)}>{IconHeader3}</div>
+            <div className="toolbar_button svg_icon" onClick={() => formatMarkdown(Formatting.h4)}>{IconHeader4}</div>
+            <div className="toolbar_button svg_icon" onClick={() => formatMarkdown(Formatting.h5)}>{IconHeader5}</div>
+            <div className="toolbar_button svg_icon" onClick={() => formatMarkdown(Formatting.h6)}>{IconHeader6}</div>
             
             <div className="toolbar_divider" />
 
-            <div className="toolbar_button" onClick={() => formatMarkdown(Formatting.blockquote)}>{IconQuote}</div>
-            <div className="toolbar_button" onClick={() => formatMarkdown(Formatting.math)}>{IconFunction}</div>
-            <div className="toolbar_button" onClick={() => formatMarkdown(Formatting.code)}>{IconCode}</div>
-            <div className="toolbar_button" onClick={() => formatMarkdown(Formatting.codeblock)}>{IconCodeBlock}</div>
+            <div className="toolbar_button svg_icon" onClick={() => formatMarkdown(Formatting.blockquote)}>{IconQuote}</div>
+            {/* <div className="toolbar_button svg_icon" onClick={() => formatMarkdown(Formatting.math)}>{IconFunction}</div> */}
+            <div className="toolbar_button svg_icon" onClick={() => formatMarkdown(Formatting.code)}>{IconCode}</div>
+            <div className="toolbar_button svg_icon" onClick={() => formatMarkdown(Formatting.codeblock)}>{IconCodeBlock}</div>
         
             <div className="toolbar_divider" />
 
-            <div className="toolbar_button" onClick={() => formatMarkdown(Formatting.ul)}>{IconBulletList}</div>
-            <div className="toolbar_button" onClick={() => formatMarkdown(Formatting.ol)}>{IconNumberedList}</div>
-            <div className="toolbar_button" onClick={() => formatMarkdown(Formatting.tasklist)}>{IconCheckedList}</div>
-            <div className="toolbar_button" onClick={() => formatMarkdown(Formatting.deflist)}>{IconCheckedListAlt}</div>
+            <div className="toolbar_button svg_icon" onClick={() => formatMarkdown(Formatting.ul)}>{IconBulletList}</div>
+            <div className="toolbar_button svg_icon" onClick={() => formatMarkdown(Formatting.ol)}>{IconNumberedList}</div>
+            <div className="toolbar_button svg_icon" onClick={() => formatMarkdown(Formatting.tasklist)}>{IconCheckedList}</div>
+            <div className="toolbar_button svg_icon" onClick={() => formatMarkdown(Formatting.deflist)}>{IconCheckedListAlt}</div>
             
             <div className="toolbar_divider" />
             
-            <div className="toolbar_button" onClick={() => formatMarkdown(Formatting.separator)}>{IconSeparator}</div>
-            <div className="toolbar_button" onClick={() => formatMarkdown(Formatting.link)}>{IconLink}</div>
-            <div className="toolbar_button" onClick={() => formatMarkdown(Formatting.image)}>{IconImage}</div>
-            <div className="toolbar_button" onClick={() => formatMarkdown(Formatting.table)}>{IconTable}</div>
+            <div className="toolbar_button svg_icon" onClick={() => formatMarkdown(Formatting.separator)}>{IconSeparator}</div>
+            <div className="toolbar_button svg_icon" onClick={() => formatMarkdown(Formatting.link)}>{IconLink}</div>
+            <div className="toolbar_button svg_icon" onClick={() => formatMarkdown(Formatting.image)}>{IconImage}</div>
+            <div className="toolbar_button svg_icon" onClick={() => formatMarkdown(Formatting.table)}>{IconTable}</div>
             
             <div className="toolbar_divider" />
             
-            <div className="toolbar_button" onClick={() => formatMarkdown(Formatting.headerid)}>{IconHashtag}</div>
-            <div className="toolbar_button" onClick={() => formatMarkdown(Formatting.footnote)}>{IconAsterisk}</div>
+            {/* <div className="toolbar_button svg_icon" onClick={() => formatMarkdown(Formatting.headerid)}>{IconHashtag}</div> */}
+            <div className="toolbar_button svg_icon" onClick={() => formatMarkdown(Formatting.footnote)}>{IconAsterisk}</div>
 
         </div>
     );
@@ -125,12 +128,12 @@ const Editor: FC<EditorProps> = ({className="", setContent, name, ...props}) =>
     const editorRef = React.useRef<HTMLTextAreaElement>(null);
 
     useEffect(() => {
-        console.log(editorContent);
+        setContent && setContent(editorContent);
     }, [editorContent, editorRef]);
 
     useEffect(() => {
         editorRef.current?.focus();
-        console.log(editorSelection);
+        // console.log(editorSelection);
         editorRef.current?.setSelectionRange(editorSelection[0], editorSelection[1]);
 
     }, [editorSelection, editorRef]);
@@ -141,8 +144,7 @@ const Editor: FC<EditorProps> = ({className="", setContent, name, ...props}) =>
         getEditorSelection();
         const content: string = editorRef.current?.value ?? "";
         setEditorContent(content);
-        console.log(content);
-        setContent && setContent(content);
+        // console.log(content);
     }
 
     const getEditorSelection = () =>
@@ -150,7 +152,7 @@ const Editor: FC<EditorProps> = ({className="", setContent, name, ...props}) =>
         const start : number = editorRef.current?.selectionStart ?? 0;
         const end : number = editorRef.current?.selectionEnd ?? 0;
         setEditorSelection([start, end]);
-        console.log(start,end);
+        // console.log(start,end);
     }
     
     return (

@@ -6,6 +6,8 @@
     border-radius: $radius-regular;
     margin-bottom: 1rem;
 
+    // box-shadow: 0.1rem 0.1rem 0.5rem 0.0rem rgba(#000, 20%);
+
     display: flex;
 
     .toolbar_button
@@ -23,19 +25,6 @@
         &:hover
         {
             cursor: pointer;
-        }
-        
-        .button_icon, svg
-        {
-            display: inline-block;
-            font-size: 1.5rem;
-            transition: none;
-            flex-shrink: 0;
-            user-select: none;
-            fill: currentColor;
-            vertical-align: middle;
-            width: $medium-size;
-            height: $medium-size;
         }
     }
 
@@ -57,30 +46,14 @@
             color: themed('grey-800');
             &:hover
             {
-                border-color: themed('grey-300');
-                background-color: themed('grey-300');
+                border-color: themed('grey-400');
+                background-color: themed('grey-150');
             }
             &:active
             {
-                border-color: themed('primary');
-                color: themed('primary');
-                background-color: themed('grey-300');
-            }
-            
-            &.selected
-            {
                 border-color: themed('secondary');
                 color: themed('secondary');
-                &:hover
-                {
-                    background-color: themed('grey-300');
-                }
-                &:active
-                {
-                    border-color: themed('grey-600');
-                    color: themed('grey-600');
-                    background-color: themed('grey-300');
-                }
+                background-color: themed('grey-150');
             }
         }
         
