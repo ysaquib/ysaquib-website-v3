@@ -29,11 +29,14 @@
     {
         font: $medium-weight $regular-size $mono-font, monospace;
         display: inline-flex;
+        width: fit-content;
         align-items: center;
         justify-content: center;
         padding: 1rem;
-        margin-bottom: 2rem;
+        margin: auto 0rem 2rem auto;
+        
         border-radius: $radius-regular;
+
 
         
 
@@ -77,18 +80,18 @@
     {
         #blog_edit_button
         {
-            color: themed('grey-900');
-            background-color: themed('grey-200');
+            color: themed('secondary');
+            background-color: themed('grey-150');
             &:hover
             {
-                background-color: themed('grey-300');
+                background-color: themed('grey-200');
                 cursor: pointer;
             }
 
             &:active
             {
                 transition: none;
-                background-color: themed('grey-400');
+                background-color: themed('grey-300');
             }
         }
 
@@ -127,9 +130,27 @@
         margin: 0.5rem 0rem;
     }
     
-    p > code, pre > code
+    p > code
     {
         font: $regular-weight $Small-size $mono-font, monospace;
+        border-radius: $radius-regular;
+        padding: 0.15rem 0.3rem;
+    }
+    
+    hr 
+    {
+        border: transparent;
+        border-top: 1px solid;
+        margin: 0rem;
+    }
+
+    pre
+    {
+        > code 
+        {
+            font: $medium-weight $Small-size $mono-font, monospace;
+        }
+        border-radius: $radius-regular;
     }
     
     h1
@@ -165,17 +186,6 @@
     h1, h2, h3, h4, h5, h6
     {
         margin: 3.5rem 0rem;
-    }
-
-    p > code, pre
-    {
-        border-radius: $radius-regular;
-        padding: 0.15rem 0.3rem;
-    }
-    
-    pre 
-    {
-        padding: 0.45rem 0.6rem;
     }
 
 
@@ -239,16 +249,21 @@
         
         // background-color: themed('grey-150');
         
+        hr 
+        {
+            border-color: themed('grey-900');
+        }
+
         p > code, pre
         {
-            background-color: themed('grey-200');
+            background-color: themed('grey-150') !important;
         }
 
         
         blockquote
         {
             border-left: 0.4rem solid themed('primary');
-            background-color: themed('grey-200');
+            background-color: themed('grey-150');
         }
         
         a 

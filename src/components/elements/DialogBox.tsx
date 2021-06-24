@@ -8,10 +8,10 @@ import Button from './Button';
 
 interface DialogProps
 {
-    onConfirm?: () => {};
-    onReject?: () => {};
-    onClose?: () => {};
-    onWarning?: () => {};
+    onConfirm?: () => void;
+    onReject?: () => void;
+    onClose?: () => void;
+    onWarning?: () => void;
 
     title: string;
 

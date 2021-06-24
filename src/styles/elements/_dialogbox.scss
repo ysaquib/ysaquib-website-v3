@@ -59,6 +59,9 @@
     {
         position: absolute;
         inset: auto 3rem 3rem 3rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
         :nth-child(n)
         {
             min-width: 9rem;

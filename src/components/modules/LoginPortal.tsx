@@ -58,7 +58,7 @@ const LoginPortal : FC = () =>
     if (authenticated || isSignedIn)
     {
         return (
-            <Redirect to="/account" />
+            <Redirect to="/" />
         )
     }
 

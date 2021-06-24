@@ -17,6 +17,7 @@ import TextArea from '../elements/TextArea';
 import { Add, ChevronRight, Remove } from '@material-ui/icons';
 import CheckBox from '../elements/Checkbox';
 import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd';
+import DialogBox from '../elements/DialogBox';
 
 const schema = yup.object().shape(
 {
@@ -43,7 +44,7 @@ const AdminProjects : FC = () =>
     const dispatch = useDispatch();
     const ProjectsData = useSelector((state: RootState) => state.projects);
     const resolver = yupResolver(schema);
-    const {register, handleSubmit, formState: {errors}, setValue} = useForm<ProjectData>({mode:"onChange", resolver});
+    const {register, handleSubmit, formState: {errors}, setValue, setFocus} = useForm<ProjectData>({mode:"onChange", resolver});
     const [projects, setProjects] = useState<ProjectData[]>(ProjectsData);
     const [project, setProject] = useState<ProjectData>();
 
@@ -53,6 +54,8 @@ const AdminProjects : FC = () =>
 
     const [isNewProject, setNewProject] = useState<boolean>(false);
     const [isInProgress, setInProgress] = useState<boolean>(project?.project_inProgress ?? false);
+
+    const [dialog, setDialog] = useState(<></>);
     
     /**
      * This useEffect sets the initial values of all the fields when a project
@@ -75,9 +78,10 @@ const AdminProjects : FC = () =>
             setMessage("");
             setInProgress(project.project_inProgress ?? false);
             console.log(project);
+            setFocus("project_title");
         }
         return () => {}
-    }, [project, setValue]);
+    }, [project, setValue, setFocus]);
 
     /**
      * When the message is updated, we get the data again and set the list 
@@ -158,7 +162,28 @@ const AdminProjects : FC = () =>
             dispatch(deleteProject(project, projects, (err) => {setError(err)}));
         setProject(projects[0]);
         setMessage("Successfully Deleted");
+        setDialog(<></>);
     }
+
+    const handleDeleteDialog = () =>
+    {
+        if (project)
+        {
+            setDialog(
+                <DialogBox 
+                    title="Confrim Delete Project" 
+                    message={`Are you sure you want to delete '${project?.project_title ?? "undefined" }' ?`}
+                    messageError="Warning: this action cannot be undone."
+                    optionConfirm="Delete Project"
+                    onConfirm={delProject}
+                    optionReject="Keep Project"
+                    onReject={() => {setDialog(<></>)}}/>
+            );
+        }
+    }
+
+
+
     /**
      * handleOnDragEnd handles the result when the project list is reordered 
      * using drag and drop features. In this case, the orders of all projects
@@ -212,16 +237,16 @@ const AdminProjects : FC = () =>
         setLoading(false);
         setNewProject(false);
 
-        setMessage("Successfully updated '" + data.project_title +"'.");
+        setMessage(`Successfully ${isNewProject ? "created" : "updated"} '` + data.project_title +"'.");
     }
     
     /**
      * TODO: Add isHidden checkbox to dashboard
      * TODO: Improve the CSS
-     * TODO: Protect Admin dashboard behind Auth logic
      */
     return (
         <section id="admin_project" className="admin projects" >
+            {dialog}
             <div id="admin_projects_list">
                 <DragDropContext onDragEnd={handleOnDragEnd}>
                 <Droppable droppableId="projects_list">
@@ -255,7 +280,7 @@ const AdminProjects : FC = () =>
 
                 <div className="project_buttons">
                     <li className="project_item button_add" key="add" onClick={createNewProject}><Add className="add"/></li>
-                    <li className="project_item button_delete" key="delete" onClick={delProject}><Remove className="add"/></li>
+                    <li className="project_item button_delete" key="delete" onClick={handleDeleteDialog}><Remove className="add"/></li>
                 </div>
 
             </div>
@@ -322,7 +347,7 @@ const AdminProjects : FC = () =>
                            name="project_description"
                            classNameInner="elevated"
                            className="desc_textarea"
-                           rows={10}
+                           rows={5}
                            defaultValue={project?.project_description}
                            message={errors.project_description?.message} 
                            register={register} 
@@ -364,7 +389,7 @@ const AdminProjects : FC = () =>
                 <p className={`message ${error != null && !isLoading ? "error" : ""}`}>
                     {error != null && !isLoading ? error : message}
                 </p>
-                <Button text="Update Project" className="confirmbtn" />
+                <Button text={isNewProject ? "Create Project" : "Update Project"} className="confirmbtn" />
             </form>
             
         </section>

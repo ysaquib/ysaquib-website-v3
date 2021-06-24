@@ -62,17 +62,7 @@ const Projects : FC = () =>
                 (projects
                     .filter((project) => {return !(project.project_isHidden) ?? true}))
                     .map((project : ProjectData) => (
-                    <ProjectCard key={project.project_order}
-                                 order={project.project_order}
-                                 title={project.project_title}
-                                 tags={project.project_tags}
-                                 inProgress={project.project_inProgress}
-                                 progress={project.project_progress}
-                                 github={project.project_github}
-                                 blog={project.project_blog}
-                                 url={project.project_url} >
-                        {project.project_description}
-                    </ProjectCard>
+                    <ProjectCard key={project.project_order} {...project} />
                 ))}
             </div>
 
