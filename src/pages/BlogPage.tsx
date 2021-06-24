@@ -156,7 +156,7 @@ const BlogPage : FC<BlogPageProps> = ({isNewBlog=false, allBlogs, ...blogData}) 
                     <p className="info_item">Written by Yusuf Saquib</p>
                     <p className="info_item">
                         Created on {blogData.blog_createdAt.toLocaleDateString(undefined , {year: 'numeric', month: 'long', day: 'numeric'})} 
-                    {blogData.blog_updatedAt && <span className="emph"> &#8212; Updated on {blogData.blog_updatedAt.toLocaleDateString(undefined , {year: 'numeric', month: 'long', day: 'numeric'})}</span>}</p>
+                        {blogData.blog_updatedAt && <span className="emph"> &#8212; Updated on {blogData.blog_updatedAt.toLocaleDateString(undefined , {year: 'numeric', month: 'long', day: 'numeric'})}</span>}</p>
                 </div>
             </div>
 
@@ -164,6 +164,7 @@ const BlogPage : FC<BlogPageProps> = ({isNewBlog=false, allBlogs, ...blogData}) 
             <div id="blog_content">
             <Markdown
                       options={{
+                            disableParsingRawHTML: true,
                             overrides: 
                             {
                                 img: ImageEnv,
