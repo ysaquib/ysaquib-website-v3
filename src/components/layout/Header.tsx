@@ -19,7 +19,7 @@ const Header : FC = () =>
     const dispatch = useDispatch();
     
     const [scrollPosition, setScrollPosition] = useState(0);
-    const {authenticated} = useSelector((state : RootState) => state.auth);
+    const {authenticated, userRoles} = useSelector((state : RootState) => state.auth);
     
     const handleScroll = () => 
     {
@@ -81,6 +81,11 @@ const Header : FC = () =>
                     </li> : <></>   
                 }
 
+                {authenticated && userRoles.includes("superadmin") ? 
+                    <li className="header_item" onClick={() => {history.push("/admin")}} >
+                        Admin Dashboard
+                    </li> : <></>   
+                }
 
                 {authenticated ? 
                     <li className="header_item sign_out" onClick={handleSignOut} >

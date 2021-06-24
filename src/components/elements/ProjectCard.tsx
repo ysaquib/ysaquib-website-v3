@@ -4,47 +4,37 @@
  */
 
 import React, {FC} from 'react';
+import { ProjectData } from '../../store/types/dataTypes';
 import { IconArticle, IconGithub, IconLaunch } from './Icons';
 
-interface CardProps
+interface CardProps extends ProjectData
 {
-    title: string;
-    order: number;
     className?: string;
-    tags?: string;
-    children?: string;
-    
-    blog?: string;
-    github?: string;
-    url?: string;
-    
-    inProgress?: boolean;
-    progress?: number;
 }
 
-const ProjectCard : FC<CardProps> = ({children, title, className, blog, github, url, tags, order, progress=100, inProgress=false}) => 
+const ProjectCard : FC<CardProps> = ({children, className, ...projectData}) => 
 {
     const featured_order : number = 0;
     /**
      * Create the "Featured Project" tag that will only be applied to the 
      * featured project (any project with the 'featured' className)
      */
-    const featured_tag: JSX.Element = order === featured_order ? (
+    const featured_tag: JSX.Element = projectData.project_order === featured_order ? (
         <div className="featured_tag">
             <h3 className="label">Featured Project</h3>
         </div>) : (<></>);
 
-    const wip_tag: JSX.Element = inProgress ? (
+    const wip_tag: JSX.Element = projectData.project_inProgress ? (
         <div className="wip_tag">
             <h3 className="label">In Progress</h3>
         </div>) : (<></>);
 
 
-    const wip_bar: JSX.Element = inProgress ? (
+    const wip_bar: JSX.Element = projectData.project_inProgress ? (
         <div className="wip_bar_wrapper">
-        <label className="wip_label">Progress: {progress}%</label>
+        <label className="wip_label">Progress: {projectData.project_progress}%</label>
         <div className="wip_bar">
-            <div className="wip_progress" style={{width: `${progress}%`}} />
+            <div className="wip_progress" style={{width: `${projectData.project_progress}%`}} />
         </div>
         </div>
         ) : (<></>);
@@ -69,26 +59,26 @@ const ProjectCard : FC<CardProps> = ({children, title, className, blog, github, 
     }
     
     return (
-        <div className={`project_card_wrapper ${getClassName(order)} ${inProgress ? "wip" : ""} ${className ?? ""}`}>
+        <div className={`project_card_wrapper ${getClassName(projectData.project_order)} ${projectData.project_inProgress ? "wip" : ""} ${className ?? ""}`}>
             <div className="project_card">
                 
                 <h1 className="project_title">
-                    {title}
+                    {projectData.project_title}
                 </h1>
                 <div className="project_links">
                     {featured_tag}
                     {wip_tag}
                     <ul className="links_list">
-                        {blog && <li className="links_item svg_icon" title="Read More">{IconArticle}</li>}
-                        {github && <li className="links_item svg_icon" title="View Github Repo">{IconGithub}</li>}
-                        {url && <li className="links_item svg_icon" title="View Demo">{IconLaunch}</li>}
+                        {projectData.project_blog && <li className="links_item svg_icon" title="Read More">{IconArticle}</li>}
+                        {projectData.project_github && <li className="links_item svg_icon" title="View Github Repo">{IconGithub}</li>}
+                        {projectData.project_url && <li className="links_item svg_icon" title="View Demo">{IconLaunch}</li>}
                     </ul>
                 </div>
                 <p className="project_description">
-                    {children}
+                    {projectData.project_description}
                 </p>
                 <ul className="project_languages">
-                    {(tags?.split(","))?.map(tag => {return(<li key={tag.trim()}>{tag.trim()}</li>);})}
+                    {(projectData.project_tags?.split(","))?.map(tag => {return(<li key={tag.trim()}>{tag.trim()}</li>);})}
                 </ul>
                 {wip_bar}
             </div>

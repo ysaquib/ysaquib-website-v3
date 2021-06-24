@@ -13,6 +13,7 @@ interface ToolbarProps
     setEditorContent: React.Dispatch<React.SetStateAction<string>>;
     editorSelection: number[];
     setEditorSelection: React.Dispatch<React.SetStateAction<number[]>>;
+    onMouseEnter: () => void;
 }
 
 const Formatting = 
@@ -44,7 +45,7 @@ const Formatting =
 
 }
 
-const Toolbar : FC<ToolbarProps> = ({editorContent, setEditorContent, editorSelection, setEditorSelection}) =>
+const Toolbar : FC<ToolbarProps> = ({editorContent, setEditorContent, editorSelection, setEditorSelection, onMouseEnter}) =>
 {
     /**
      * TODO: Add basic keyboard shortcuts.
@@ -68,7 +69,7 @@ const Toolbar : FC<ToolbarProps> = ({editorContent, setEditorContent, editorSele
     }
 
     return (
-        <div className="toolbar">
+        <div className="toolbar" onMouseEnter={onMouseEnter}>
             <div className="toolbar_button svg_icon" onClick={() => formatMarkdown(Formatting.bold)}>{IconBold}</div>
             <div className="toolbar_button svg_icon" onClick={() => formatMarkdown(Formatting.italic)}>{IconItalic}</div>
             <div className="toolbar_button svg_icon" onClick={() => formatMarkdown(Formatting.strikethrough)}>{IconStrikethrough}</div>
@@ -117,12 +118,13 @@ interface EditorProps
     name: string;
     className?: string;
     setContent?: React.Dispatch<React.SetStateAction<string>>;
+    content?: string;
 }
 
-const Editor: FC<EditorProps> = ({className="", setContent, name, ...props}) => 
+const Editor: FC<EditorProps> = ({className="", content, setContent, name, ...props}) => 
 {
 
-    const [editorContent, setEditorContent] = useState("");
+    const [editorContent, setEditorContent] = useState(content ?? "");
     const [editorSelection, setEditorSelection] = useState([0,0]);
 
     const editorRef = React.useRef<HTMLTextAreaElement>(null);
@@ -163,6 +165,7 @@ const Editor: FC<EditorProps> = ({className="", setContent, name, ...props}) =>
             setEditorContent={setEditorContent}
             editorSelection={editorSelection}
             setEditorSelection={setEditorSelection}
+            onMouseEnter={getEditorSelection}
             />
         <textarea 
             ref={editorRef}
@@ -172,7 +175,6 @@ const Editor: FC<EditorProps> = ({className="", setContent, name, ...props}) =>
             name={name} 
             className="editor_area" 
             onChange={handleEditorChange}
-            onMouseLeave={getEditorSelection} 
             rows={50}/>
         </div>
     );

@@ -59,7 +59,7 @@ export interface BlogData
     blog_content: string;
     blog_createdAt: Date;
     blog_updatedAt?: Date;
-    blog_tags: string;
+    blog_tags?: string;
     blog_isHidden?: boolean;
     blog_inProgress?: boolean;
     blog_isFeatured?: boolean;

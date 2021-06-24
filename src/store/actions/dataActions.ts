@@ -134,7 +134,7 @@ export const updateProjectsOrder = (allProjects: ProjectData[]) =>
     return allProjects.forEach((project, index) => {project.project_order = index});
 }
 
-export const updateAllProjects = (allProjects: ProjectData[], onError: (msg: any) => void) : ThunkAction<void, RootState, null, ProjectAction> =>
+export const updateAllProjects = (allProjects: ProjectData[], onError?: (msg: any) => void) : ThunkAction<void, RootState, null, ProjectAction> =>
 {
     return async dispatch =>
     {
@@ -152,7 +152,7 @@ export const updateAllProjects = (allProjects: ProjectData[], onError: (msg: any
         }
         catch (error)
         {
-            onError(error);
+            onError && onError(error);
             console.log(error);
         }
     }
@@ -171,10 +171,7 @@ export const addNewProject = (projectData: ProjectData, allProjects: ProjectData
             const storedProject = await Firebase.firestore().collection("projects").add(newProject as ProjectData);
             allProjects.push({...newProject, project_id: storedProject.id});
             updateProjectsOrder(allProjects);
-            dispatch({
-                type: Data_SetProjectData,
-                payload: allProjects
-            });
+            updateAllProjects(allProjects)
             console.log("Success");
         }
         catch (error)
@@ -195,12 +192,9 @@ export const deleteProject = (project : ProjectData, allProjects: ProjectData[],
             const newAllProjects = allProjects.filter((proj) => {return proj.project_id !== project.project_id});
             await Firebase.firestore().collection("projects").doc(project.project_id).delete()
             updateProjectsOrder(newAllProjects);
+            updateAllProjects(allProjects)
             console.log(newAllProjects);
             console.log("Successfully Deleted");
-            dispatch({
-                type: Data_SetProjectData,
-                payload: newAllProjects
-            });
         }
         catch (error)
         {
@@ -220,7 +214,14 @@ export const getBlogData = (onComplete?: () => void, onError?: () => void) : Thu
             const blogs = await Firebase.firestore().collection("blogs").orderBy("blog_createdAt", "desc").get();
             const blog_items: BlogData[] = [];
             blogs.forEach((doc) => {
-                blog_items.push({...doc.data(), blog_id: doc.id, blog_createdAt: doc.get("blog_createdAt").toDate()} as BlogData);
+                if (doc.get("blog_updatedAt") != null)
+                {
+                    blog_items.push({...doc.data(), blog_id: doc.id, blog_createdAt: doc.get("blog_createdAt").toDate(), blog_updatedAt: doc.get("blog_updatedAt").toDate()} as BlogData);
+                }
+                else
+                {
+                    blog_items.push({...doc.data(), blog_id: doc.id, blog_createdAt: doc.get("blog_createdAt").toDate()} as BlogData);
+                }
             })
             console.log(blog_items);
             dispatch({type: Data_SetBlogData, payload: blog_items});
