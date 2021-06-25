@@ -53,7 +53,6 @@ const Toolbar : FC<ToolbarProps> = ({editorContent, setEditorContent, editorSele
      */
     function formatMarkdown (options: string[])
     {
-        getEditorSelection();
         const prefix = options[0];
         const suffix = options[1];
 
@@ -70,7 +69,7 @@ const Toolbar : FC<ToolbarProps> = ({editorContent, setEditorContent, editorSele
     }
 
     return (
-        <div className="toolbar">
+        <div className="toolbar" onMouseDown={getEditorSelection}>
             <div className="toolbar_button svg_icon" onClick={() => formatMarkdown(Formatting.bold)}>{IconBold}</div>
             <div className="toolbar_button svg_icon" onClick={() => formatMarkdown(Formatting.italic)}>{IconItalic}</div>
             <div className="toolbar_button svg_icon" onClick={() => formatMarkdown(Formatting.strikethrough)}>{IconStrikethrough}</div>
