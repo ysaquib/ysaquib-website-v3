@@ -306,7 +306,7 @@ export const addNewBlog = (blogData: BlogData, allBlogs: BlogData[], onComplete?
 
             blogData.blog_createdAt = currentTime;
             const {blog_id, ...blog} = blogData;
-            await Firebase.firestore().collection("blogs").doc(blogData.blog_id).set({...blog, blog_createdAt: createdAt});
+            await Firebase.firestore().collection("blogs").add({...blog, blog_createdAt: createdAt});
             
             allBlogs.push(blogData);
             
