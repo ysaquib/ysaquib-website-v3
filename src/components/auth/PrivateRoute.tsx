@@ -5,21 +5,21 @@ import { RootState } from '../../store';
 
 interface PrivateRouteProps extends RouteProps
 {
-    component: any;
     authRoles?: string[];
+    redirect?: string;
 }
 
-const PrivateRoute: FC<PrivateRouteProps> = ({component : Component, authRoles=['user'], ...props}) => 
+const PrivateRoute: FC<PrivateRouteProps> = ({children, redirect="", authRoles=['user'], ...props}) => 
 {
     const { authenticated, userRoles} = useSelector((state: RootState) => state.auth);
     const commonroles = authRoles.filter(role => userRoles.includes(role));
     const hasRole = commonroles.length >= 1;
 
     return(
-        <Route {...props} 
+        <Route {...props}
             render={comprops => (authenticated && hasRole) ? 
-                <Component {...comprops} /> : 
-                <Redirect to="/" />} />
+                children : 
+                <Redirect to={redirect} />} />
     );
 }
 

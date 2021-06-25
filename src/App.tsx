@@ -79,12 +79,12 @@ const App : FC = () =>
         <BrowserRouter>
             <Header />
             <Switch>
-                <PublicRoute exact path="/" component={HomePage} />
-                <PublicRoute exact path="/signin" component={SignIn} />
-                <PublicRoute exact path="/signup" component={SignUp} />
-                <PublicRoute path="/blog" component={BlogsPage} />
-                <PrivateRoute path="/admin" component={Admin} authRoles={["superadmin"]}/>
-                <Route component={Error404}/>
+                <PublicRoute exact path="/"> <HomePage /> </PublicRoute>
+                <PublicRoute exact path="/signin"> <SignIn /> </PublicRoute>
+                <PublicRoute exact path="/signup"> <SignUp /> </PublicRoute>
+                <PublicRoute path="/blog"> <BlogsPage /> </PublicRoute>
+                <PrivateRoute path="/admin" authRoles={["superadmin"]}> <Admin /> </PrivateRoute>
+                <Route component={Error404} />
             </Switch>
             <Footer />
         </BrowserRouter>

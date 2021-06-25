@@ -1,15 +1,12 @@
 import React, { FC } from 'react'
 import { Route, RouteProps } from 'react-router-dom'
 
-interface PublicRouteProps extends RouteProps
-{
-    component: any;
-}
 
-const PublicRoute: FC<PublicRouteProps> = ({component : Component, ...props}) => 
+
+const PublicRoute: FC<RouteProps> = ({children, ...props}) => 
 {
     return(
-        <Route {...props} render={() => <Component />}></Route>  
+        <Route {...props} render={() => children} />  
     );
 }
 
