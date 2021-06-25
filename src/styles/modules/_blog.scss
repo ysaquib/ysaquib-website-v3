@@ -313,14 +313,26 @@
         display: inline-flex;
         align-items: center;
         justify-content: space-between;
-        margin-top: 1.5rem;
-
+        
         .button_group
         {
             display: inline;
             :first-child
             {
                 margin-right: 1.5rem;
+            }
+        }
+    }
+    
+    .blog_field
+    {
+        margin: 2rem auto;
+        &:hover
+        {
+            @include themify() 
+            {
+                color: themed('grey-800');
+                background-color: themed('grey-150');
             }
         }
     }

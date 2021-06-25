@@ -20,10 +20,6 @@
                     margin-right: 0.75rem;
                 }
 
-                &.create_new
-                {
-                    justify-content: center;
-                }
             }
 
             .blogs_list_item_button
@@ -62,6 +58,13 @@
                 list-style-type: none;
                 padding: 2rem;
                 border-radius: $radius-regular;
+                
+                &.create_new
+                {
+                    padding: 1.2rem;
+                    justify-content: center;
+                    font: $medium-weight $Small-size $mono-font, monospace;
+                }
 
                 &:hover
                 {
@@ -127,7 +130,7 @@
                         color: themed('grey-700');
                         transition: color $trans-regular $trans-effect;
                     }
-
+                    
                     background-color: themed('grey-150');
                     transition: background $trans-regular $trans-effect;
                     
@@ -139,7 +142,21 @@
                             color: themed('primary') !important;
                         }
                     }
+                    
+                    &.create_new
+                    {
+                        color: themed('grey-000') !important;
+                        background-color: mix(themed('grey-150'), themed('success'), 50%);
+                        transition: background $trans-regular $trans-effect, color $trans-regular $trans-effect;
+                        &:hover
+                        {
+                            color: themed('grey-900') !important;
+                            background-color: mix(themed('grey-150'), themed('success'), 30%);
+                            // background-color: mix(themed('success'), themed('grey-900'), $color-mix-least);
+                        }
+                    }
                 }
+
             }
         }
     }

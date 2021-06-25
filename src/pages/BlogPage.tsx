@@ -3,7 +3,7 @@
  * Author: Yusuf Saquib
  */
 
-import React, { FC, HTMLAttributes, ImgHTMLAttributes, useState } from 'react';
+import React, { FC, HTMLAttributes, ImgHTMLAttributes, useEffect, useState } from 'react';
 
 import { BlogData } from '../store/types/dataTypes';
 import PageNotFound from '../components/layout/PageNotFound';
@@ -16,14 +16,10 @@ import { IconEditBox } from '../components/elements/Icons';
 
 import { Light as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomOneDark, atomOneLight } from 'react-syntax-highlighter/dist/esm/styles/hljs';
-import { setBlogData } from '../store/actions/dataActions';
+import { addNewBlog, setBlogData } from '../store/actions/dataActions';
+import { useHistory } from 'react-router-dom';
 
 
-interface BlogPageProps extends BlogData
-{
-    isNewBlog?: boolean;
-    allBlogs: BlogData[];
-}
 
 const ImageEnv: FC<ImgHTMLAttributes<HTMLImageElement>> = ({...props}) => (
     <span className="blog_image">
@@ -53,24 +49,38 @@ const CodeEnv: FC<CodeEnvProps> = ({className, children, theme}) =>
         <code>{children}</code>
     );
 }
+    
+interface BlogPageProps extends BlogData
+{
+    allBlogs: BlogData[];
+    isNewBlog?: boolean;
+    isEditing?: boolean;
+}
 
-
-const BlogPage : FC<BlogPageProps> = ({isNewBlog=false, allBlogs, ...blogData}) =>
+const BlogPage : FC<BlogPageProps> = ({isNewBlog=false, isEditing=false, allBlogs, ...blogData}) =>
 {
     const { authenticated, userRoles } = useSelector((state : RootState) => state.auth);
     
     /** User Auth and Role Check to ensure that only superuser can edit */
     const canUserEdit: boolean = authenticated && userRoles.includes("superadmin");
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const [blogTitle, setBlogTitle] = useState<string>(blogData.blog_title);
+    const [blogTags, setBlogTags] = useState<string>(blogData.blog_tags ?? "");
+    const [blogURL, setBlogURL] = useState<string>(blogData.blog_url);
     const [blogContent, setBlogContent] = useState<string>(blogData.blog_content);
-    const [editingBlog, setEditingBlog] = useState<boolean>(false);
+
+    const [editingBlog, setEditingBlog] = useState<boolean>(isEditing);
     const [isLoading, setLoading] = useState<boolean>(false);
+    const [isNew, setIsNew] = useState<boolean>(isNewBlog);
+    const [isButtonDisabled, setButtonDisabled] = useState<boolean>(true);
 
     const codeTheme = document.body.classList.contains('theme-dark') ? atomOneDark : atomOneLight;
 
     const blogTitleRef = React.useRef<HTMLInputElement>(null);
+    const blogTagsRef = React.useRef<HTMLInputElement>(null);
+    const blogURLRef = React.useRef<HTMLInputElement>(null);
 
     const handleClickEditBlog = () =>
     {
@@ -90,8 +100,23 @@ const BlogPage : FC<BlogPageProps> = ({isNewBlog=false, allBlogs, ...blogData}) 
 
     const handleTitleChange = () =>
     {
-        const title: string = blogTitleRef.current?.value ?? ""; 
+        const title: string = blogTitleRef.current?.value ?? "";
+        const url: string = title.toLowerCase().replaceAll(/[\W_]+/g, "-");
         setBlogTitle(title);
+        setBlogURL(url);
+    }
+
+    const handleTagsChange = () =>
+    {
+        const tags: string = blogTagsRef.current?.value ?? ""; 
+        setBlogTags(tags);
+    }
+
+    const handleURLChange = () =>
+    {
+        const url_initial: string = blogURLRef.current?.value ?? "";
+        const url: string = url_initial.toLowerCase().replaceAll(/[\W_]+/g, "-");
+        setBlogURL(url);
     }
 
     const handlePreview = () =>
@@ -103,8 +128,24 @@ const BlogPage : FC<BlogPageProps> = ({isNewBlog=false, allBlogs, ...blogData}) 
     {
         setLoading(true);
 
-        dispatch(setBlogData({...blogData, blog_title: blogTitle, blog_content: blogContent}, allBlogs, true));
+        const blogPayload = {
+            ...blogData, 
+            blog_title: blogTitle, 
+            blog_content: blogContent, 
+            blog_tags: blogTags, 
+            blog_url: blogURL 
+        }
 
+        if(isNew)
+        {
+            dispatch(addNewBlog(blogPayload, allBlogs, () => {history.push(`/blog/${blogURL}`)}));
+        }
+        else
+        {
+            dispatch(setBlogData(blogPayload, allBlogs, true));
+        }
+
+        setIsNew(false);
         setEditingBlog(false);
         setLoading(false);
     }
@@ -114,8 +155,19 @@ const BlogPage : FC<BlogPageProps> = ({isNewBlog=false, allBlogs, ...blogData}) 
         setBlogTitle(blogData.blog_title);
         setBlogContent(blogData.blog_content);
         setEditingBlog(false);
+
+        if (isNew)
+            history.push("/blog");
     }
 
+    useEffect(() => 
+    {
+        setButtonDisabled(isLoading || blogTitle === "" || blogContent === "" || blogURL == "");
+        return () => 
+        {
+            setButtonDisabled(false);
+        }
+    }, [isLoading, blogTitle, blogContent, blogURL]);
 
     if (blogData.blog_id == null)
     {
@@ -128,18 +180,39 @@ const BlogPage : FC<BlogPageProps> = ({isNewBlog=false, allBlogs, ...blogData}) 
         return (
             <section id="edit_blog">
                 <input
+                    ref={blogURLRef}
+                    placeholder="Blog URL"
+                    className="blog_field"
+                    value={blogURL}
+                    onChange={handleURLChange}
+                    type="text" />
+                
+                <input
                     ref={blogTitleRef}
                     placeholder="Blog Title"
                     className="blog_title_field"
                     value={blogTitle}
                     onChange={handleTitleChange}
                     type="text" />
+
+
                 <Editor name="blog_editor" content={blogContent} setContent={setBlogContent}/>
+                
+
+                <input
+                    ref={blogTagsRef}
+                    placeholder="Blog Tags"
+                    className="blog_field"
+                    value={blogTags}
+                    onChange={handleTagsChange}
+                    type="text" />
+                
+
                 <div id="editor_buttons">
                     <Button text="Cancel" className="reject" onClick={handleCancel} disabled={isLoading}/>
                     <div className="button_group">
-                        <Button text="Preview" className="neutral" onClick={handlePreview} disabled={isLoading}/>
-                        <Button text={isLoading ? "Saving" : "Save"} className="confirm" onClick={handleSave} disabled={isLoading}/>
+                        <Button text="Preview" className="neutral" onClick={handlePreview} disabled={isButtonDisabled}/>
+                        <Button text={isLoading ? "Saving" : "Save"} className="confirm" onClick={handleSave} disabled={isButtonDisabled}/>
                     </div>
                 </div>
             </section>

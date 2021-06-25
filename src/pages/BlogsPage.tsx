@@ -14,28 +14,41 @@ import { BlogData } from '../store/types/dataTypes';
 import { getBlogData } from '../store/actions/dataActions';
 import BlogPage from './BlogPage';
 import LoadingSkeleton from '../components/elements/LoadingSkeleton';
+import PrivateRoute from '../components/auth/PrivateRoute';
  
 const BlogsPage : FC = () =>
 {
     const history = useHistory();
     const dispatch = useDispatch();
     const BlogData = useSelector((state: RootState) => state.blogs);
-    
+
     const [blogs, setBlogs] = useState<BlogData[]>(BlogData);
     const [isLoading, setLoading] = useState<boolean>(true);
 
 
-    useEffect(() => {
+    useEffect(() => 
+    {
         dispatch(getBlogData(() => setLoading(false), () => {console.log("Error getting Blog data.")}));
         return () => {}
     }, [dispatch]);
     
-    useEffect(() => {
+    useEffect(() => 
+    {
         setBlogs(BlogData);
-        return () => {
+        return () => 
+        {
             setBlogs([]);
         }
     }, [BlogData]);
+
+    const new_blog: BlogData = 
+    {
+        blog_id: "",
+        blog_url: "", 
+        blog_title: "", 
+        blog_content: "", 
+        blog_createdAt: new Date(Date.now()),
+    }
 
     const Loader: JSX.Element = (
         <section id="blog_loader">
@@ -50,6 +63,10 @@ const BlogsPage : FC = () =>
                     <Route exact path="/blog">
                         <BlogsList isLoadingInitial={isLoading} setLoadingInitial={setLoading} allBlogs={blogs} />
                     </Route>
+
+                    <PrivateRoute exact path="/blog/create_new"> 
+                        <BlogPage {...new_blog} allBlogs={blogs} isNewBlog={true} isEditing={true}/>
+                    </PrivateRoute>
 
                     <Route path="/blog/:blogurl" children={
                         ({match}) => {

@@ -52,7 +52,6 @@ const BlogsList : FC<BlogsListProps> = ({isLoadingInitial, setLoadingInitial, al
     {
         dispatch(hideBlog(blogData, blogs));
         dispatch(getBlogData(() => setLoadingInitial(false), () => {console.log("Error getting Blog data.")}));
-
     }
 
     function handleClickDelete (blogData: BlogData)
@@ -107,9 +106,10 @@ const BlogsList : FC<BlogsListProps> = ({isLoadingInitial, setLoadingInitial, al
                 <ul className="blogs_list">
 
                     {(authenticated && userRoles.includes("superadmin")) && 
-                        <li className="blogs_list_item_wrapper create_new"
+                        <li className="blogs_list_item_wrapper"
                         id="create_new_blog" 
-                        key="create_new_blog">
+                        key="create_new_blog"
+                        onClick={() => history.push("/blog/create_new")}>
                             <div className="blogs_list_item create_new">
                                 Create New Blog
                             </div>
