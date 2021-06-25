@@ -8,6 +8,7 @@ import { BlogData } from '../../store/types/dataTypes';
 import DialogBox from '../elements/DialogBox';
 import { IconEye, IconEyeOff, IconGarbageDelete } from '../elements/Icons';
 import LoadingSkeleton from '../elements/LoadingSkeleton';
+import Pagination from '../elements/Pagination';
 
 
 interface HideButtonProps
@@ -156,6 +157,7 @@ const BlogsList : FC<BlogsListProps> = ({isLoadingInitial, setLoadingInitial, al
                     );}))}
 
                 </ul>
+                <Pagination pageMin={1} pageMax={30} />
             </div>
         </section>
     );

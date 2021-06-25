@@ -161,7 +161,7 @@ const BlogPage : FC<BlogPageProps> = ({isNewBlog=false, isEditing=false, allBlog
 
     useEffect(() => 
     {
-        setButtonDisabled(isLoading || blogTitle === "" || blogContent === "" || blogURL == "");
+        setButtonDisabled(isLoading || blogTitle === "" || blogContent === "" || blogURL === "");
         return () => 
         {
             setButtonDisabled(false);
