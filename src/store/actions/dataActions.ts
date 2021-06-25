@@ -245,6 +245,8 @@ export const setBlogData = (blogData: BlogData, allBlogs: BlogData[], update?: b
             const updatedAt = firebase.firestore.Timestamp.fromDate(currentTime);
             const {blog_id, ...blog} = blogData;
 
+            console.log(blogData);
+
             if (update)
             {
                 blogData.blog_updatedAt = currentTime;
@@ -264,6 +266,25 @@ export const setBlogData = (blogData: BlogData, allBlogs: BlogData[], update?: b
                 type: Data_SetBlogData, 
                 payload: allBlogs
             });
+            console.log("Success");
+        }
+        catch (error)
+        {
+            onError && onError();
+            console.log(error);
+        }
+    }
+}
+
+export const hideBlog = (blogData: BlogData, allBlogs: BlogData[], onComplete?: () => void, onError?: () => void) : ThunkAction<void, RootState, null, BlogAction> =>
+{
+    return async dispatch =>
+    {
+        try
+        {
+            const isHidden = blogData.blog_isHidden ?? false;
+            console.log(blogData);
+            dispatch(setBlogData({...blogData, blog_isHidden: !isHidden}, allBlogs, false, onComplete, onError));
             console.log("Success");
         }
         catch (error)
