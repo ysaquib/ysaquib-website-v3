@@ -38,11 +38,13 @@ const App : FC = () =>
     const getTheme = localStorage.getItem('theme') || default_data.theme;
     switch (getTheme)
     {
-        case "dark":
-            document.body.classList.add("theme-dark");
-            break;
         case "light":
+            document.body.classList.remove("theme-dark");
             document.body.classList.add("theme-light");
+            break;
+            default:
+            document.body.classList.remove("theme-light");
+            document.body.classList.add("theme-dark");
             break;
     }
 

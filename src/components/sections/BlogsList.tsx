@@ -33,17 +33,17 @@ const HideButton : FC<HideButtonProps> = ({blog, toggleHidden}) =>
 interface BlogsListProps
 {
     isLoadingInitial: boolean;
+    setLoadingInitial: React.Dispatch<React.SetStateAction<boolean>>;
     allBlogs: BlogData[];
 }
 
-const BlogsList : FC<BlogsListProps> = ({isLoadingInitial, allBlogs}) =>
+const BlogsList : FC<BlogsListProps> = ({isLoadingInitial, setLoadingInitial, allBlogs}) =>
 {
     const history = useHistory();
     const dispatch = useDispatch();
     const BlogData = useSelector((state: RootState) => state.blogs);
     
     const [blogs, setBlogs] = useState<BlogData[]>(allBlogs);
-    const [isLoading, setLoading] = useState<boolean>(isLoadingInitial);
 
     const { authenticated, userRoles } = useSelector((state : RootState) => state.auth);
     const [dialog, setDialog] = useState<JSX.Element>(<></>);
@@ -51,7 +51,7 @@ const BlogsList : FC<BlogsListProps> = ({isLoadingInitial, allBlogs}) =>
     function toggleHidden(blogData: BlogData)
     {
         dispatch(hideBlog(blogData, blogs));
-        dispatch(getBlogData(() => setLoading(false), () => {console.log("Error getting Blog data.")}));
+        dispatch(getBlogData(() => setLoadingInitial(false), () => {console.log("Error getting Blog data.")}));
 
     }
 
@@ -78,13 +78,12 @@ const BlogsList : FC<BlogsListProps> = ({isLoadingInitial, allBlogs}) =>
 
     useEffect(() => {
         setBlogs(BlogData);
-        setLoading(false);
         return () => {
             setBlogs([]);
         }
     }, [BlogData]);
 
-    if (isLoading)
+    if (isLoadingInitial)
     {
         return(
             <section id="blogslist" className="">
@@ -106,6 +105,17 @@ const BlogsList : FC<BlogsListProps> = ({isLoadingInitial, allBlogs}) =>
             <h1 className="admin_title blogs_title">Blog</h1>
             <div className="blogs_list_wrapper">
                 <ul className="blogs_list">
+
+                    {(authenticated && userRoles.includes("superadmin")) && 
+                        <li className="blogs_list_item_wrapper create_new"
+                        id="create_new_blog" 
+                        key="create_new_blog">
+                            <div className="blogs_list_item create_new">
+                                Create New Blog
+                            </div>
+                        </li>
+                    }
+
                     {blogs && (blogs
                     .filter((blog) => {return (!blog.blog_isHidden ?? true) || (authenticated && userRoles.includes("superadmin"))})
                     .map((blog) =>{return (

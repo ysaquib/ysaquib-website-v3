@@ -48,7 +48,7 @@ const BlogsPage : FC = () =>
             <Container>
                 <Switch>
                     <Route exact path="/blog">
-                        <BlogsList isLoadingInitial={isLoading} allBlogs={blogs} />
+                        <BlogsList isLoadingInitial={isLoading} setLoadingInitial={setLoading} allBlogs={blogs} />
                     </Route>
 
                     <Route path="/blog/:blogurl" children={
