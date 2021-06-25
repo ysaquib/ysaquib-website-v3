@@ -10,9 +10,37 @@
 
             padding: 0rem;
 
+            .blogs_list_item_wrapper
+            {
+                display: inline-flex;
+                justify-content: flex-start;
+                align-items: center;
+                :not(:last-child)
+                {
+                    margin-right: 0.75rem;
+                }
+            }
+
+            .blogs_list_item_button
+            {
+                border-radius: $radius-regular;
+                flex: 1 1;
+                height: 100%;
+                display: grid;
+                place-items: center;
+                box-shadow: $blog-list-box-shadow;
+
+                &:hover
+                {
+                    cursor: pointer;
+                }
+            }
+
             .blogs_list_item
             {
                 box-shadow: $blog-list-box-shadow;
+                width: 100%;
+                flex: 10 6;
 
                 &.loading
                 {
@@ -57,6 +85,30 @@
         {
             .blogs_list
             {
+                .blogs_list_item_button
+                {
+                    color: themed('grey-700');
+                    background-color: themed('grey-150');
+                    transition: background $trans-regular $trans-effect, color $trans-regular $trans-effect;
+                    
+                    * { transition: none; }
+
+                    &:hover
+                    {    
+                        background-color: themed('grey-200');
+                        color: themed('secondary') !important;
+                    }
+                    
+                    &.delete 
+                    {
+                        &:hover
+                        {    
+                            background-color: mix(themed('grey-200'), themed('error'), $color-mix-least);
+                            color: adjust-color(themed('error'), $saturation: 90%) !important;
+                        }
+
+                    }
+                }
                 .blogs_list_item
                 {
                     .blogs_list_title

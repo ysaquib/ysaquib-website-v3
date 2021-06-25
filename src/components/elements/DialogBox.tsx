@@ -59,7 +59,7 @@ const DialogBox: FC<DialogProps> = ({overlay=true, className="", ...props}) =>
                 <div className="dialog_box_buttons">
                     
                     {props.optionClose && 
-                    <Button text={props.optionClose} className="close" onClick={props.onClose}/>}
+                    <Button text={props.optionClose} className="neutral" onClick={props.onClose}/>}
 
                     {props.optionReject && 
                     <Button text={props.optionReject} className="reject" onClick={props.onReject}/>}

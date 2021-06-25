@@ -174,10 +174,10 @@ const AdminProjects : FC = () =>
                     title="Confrim Delete Project" 
                     message={`Are you sure you want to delete '${project?.project_title ?? "undefined" }' ?`}
                     messageError="Warning: this action cannot be undone."
-                    optionConfirm="Delete Project"
-                    onConfirm={delProject}
-                    optionReject="Keep Project"
-                    onReject={() => {setDialog(<></>)}}/>
+                    optionReject="Delete Project"
+                    onReject={delProject}
+                    optionClose="Keep Project"
+                    onClose={() => {setDialog(<></>)}}/>
             );
         }
     }
