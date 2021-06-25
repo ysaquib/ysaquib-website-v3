@@ -17,7 +17,7 @@ import { IconEditBox } from '../components/elements/Icons';
 import { Light as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomOneDark, atomOneLight } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import { addNewBlog, setBlogData } from '../store/actions/dataActions';
-import { useHistory } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 
 
 
@@ -93,7 +93,6 @@ const BlogPage : FC<BlogPageProps> = ({isNewBlog=false, isEditing=false, allBlog
 
     const editBlogButton: JSX.Element = (
         <div id="blog_edit_button" onClick={handleClickEditBlog}>
-            <span className="svg_icon">{IconEditBox}</span>
             Edit Blog
         </div>);
     
@@ -173,6 +172,12 @@ const BlogPage : FC<BlogPageProps> = ({isNewBlog=false, isEditing=false, allBlog
     {
         return (
             <PageNotFound />
+        )
+    }
+    else if (blogData.blog_isHidden && !canUserEdit)
+    {
+        return (
+            <Redirect to="/blog" />
         )
     }
     else if (editingBlog)

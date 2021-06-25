@@ -27,13 +27,14 @@
 {
     #blog_edit_button
     {
-        font: $medium-weight $regular-size $mono-font, monospace;
+        font: $medium-weight $Small-size $mono-font, monospace;
+
         display: inline-flex;
-        width: fit-content;
         align-items: center;
         justify-content: center;
         padding: 1rem;
-        margin: auto 0rem 2rem auto;
+        margin-bottom: 2rem;
+        width: 100%;
         
         border-radius: $radius-regular;
 
@@ -80,18 +81,19 @@
     {
         #blog_edit_button
         {
-            color: themed('secondary');
-            background-color: themed('grey-150');
+            color: themed('grey-000');
+            background-color: mix(themed('grey-150'), themed('primary'), 50%);
             &:hover
             {
-                background-color: themed('grey-200');
+                color: themed('grey-900');
+                background-color: mix( themed('primary'),themed('grey-150'), $color-mix-less);
                 cursor: pointer;
             }
-
+            
             &:active
             {
                 transition: none;
-                background-color: themed('grey-300');
+                background-color: mix( themed('primary'),themed('grey-150'), $color-mix-least);
             }
         }
 

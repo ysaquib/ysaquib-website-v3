@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
+import { useLocation } from 'react-router-dom';
 import { RootState } from '../../store';
 import { deleteBlog, hideBlog, getBlogData } from '../../store/actions/dataActions';
 import { BlogData } from '../../store/types/dataTypes';
@@ -30,6 +31,11 @@ const HideButton : FC<HideButtonProps> = ({blog, toggleHidden}) =>
     );
 }
 
+function useQuery () 
+{
+    return new URLSearchParams(useLocation().search);
+}
+
 interface BlogsListProps
 {
     isLoadingInitial: boolean;
@@ -39,6 +45,14 @@ interface BlogsListProps
 
 const BlogsList : FC<BlogsListProps> = ({isLoadingInitial, setLoadingInitial, allBlogs}) =>
 {
+
+    const BlogsPerPage = 2;
+
+    const currentPage = parseInt(useQuery().get("page") ?? "1");
+
+    const pageNumbersToRender = 20;
+
+    console.log(currentPage);
     const history = useHistory();
     const dispatch = useDispatch();
     const BlogData = useSelector((state: RootState) => state.blogs);
@@ -46,7 +60,7 @@ const BlogsList : FC<BlogsListProps> = ({isLoadingInitial, setLoadingInitial, al
     const [blogs, setBlogs] = useState<BlogData[]>(allBlogs);
 
     const { authenticated, userRoles } = useSelector((state : RootState) => state.auth);
-    const [dialog, setDialog] = useState<JSX.Element>(<></>);
+    const [ dialog, setDialog ] = useState<JSX.Element>(<></>);
 
     function toggleHidden(blogData: BlogData)
     {
@@ -76,7 +90,11 @@ const BlogsList : FC<BlogsListProps> = ({isLoadingInitial, setLoadingInitial, al
     }
 
     useEffect(() => {
-        setBlogs(BlogData);
+        const blogsList = BlogData
+            .filter((blog) => {return (!blog.blog_isHidden ?? true) || (authenticated && userRoles.includes("superadmin"))})
+            .slice(0 + BlogsPerPage * (currentPage - 1), BlogsPerPage + BlogsPerPage * (currentPage - 1));
+
+        setBlogs(blogsList);
         return () => {
             setBlogs([]);
         }
@@ -117,13 +135,13 @@ const BlogsList : FC<BlogsListProps> = ({isLoadingInitial, setLoadingInitial, al
                     }
 
                     {blogs && (blogs
-                    .filter((blog) => {return (!blog.blog_isHidden ?? true) || (authenticated && userRoles.includes("superadmin"))})
-                    .map((blog) =>{return (
+                    .map((blog) =>{
+                        return (
                         <li className="blogs_list_item_wrapper"
                             id={blog.blog_id} 
                             key={blog.blog_id}>
-                            <div className="blogs_list_item">
-                                <h1 className="blogs_list_title" onClick={() => history.push(`/blog/${blog.blog_url}`)}>
+                            <div className="blogs_list_item" onClick={() => history.push(`/blog/${blog.blog_url}`)}>
+                                <h1 className="blogs_list_title">
                                     {blog.blog_title}
                                 </h1>
                                 <p className="blogs_list_date">
@@ -136,6 +154,7 @@ const BlogsList : FC<BlogsListProps> = ({isLoadingInitial, setLoadingInitial, al
                             </>)}
                         </li>
                     );}))}
+
                 </ul>
             </div>
         </section>

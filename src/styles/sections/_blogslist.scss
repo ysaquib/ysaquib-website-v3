@@ -151,8 +151,12 @@
                         &:hover
                         {
                             color: themed('grey-900') !important;
-                            background-color: mix(themed('grey-150'), themed('success'), 30%);
-                            // background-color: mix(themed('success'), themed('grey-900'), $color-mix-least);
+                            background-color: mix(themed('success'), themed('grey-150'), $color-mix-less);
+                        }
+                        &:active
+                        {
+                            transition: none;
+                            background-color: mix(themed('success'), themed('grey-150'), $color-mix-least);
                         }
                     }
                 }

@@ -15,6 +15,7 @@ import { getBlogData } from '../store/actions/dataActions';
 import BlogPage from './BlogPage';
 import LoadingSkeleton from '../components/elements/LoadingSkeleton';
 import PrivateRoute from '../components/auth/PrivateRoute';
+import PublicRoute from '../components/auth/PublicRoute';
  
 const BlogsPage : FC = () =>
 {
@@ -60,11 +61,11 @@ const BlogsPage : FC = () =>
         <Router history={history}>
             <Container>
                 <Switch>
-                    <Route exact path="/blog">
+                    <PublicRoute exact path="/blog">
                         <BlogsList isLoadingInitial={isLoading} setLoadingInitial={setLoading} allBlogs={blogs} />
-                    </Route>
+                    </PublicRoute>
 
-                    <PrivateRoute exact path="/blog/create_new"> 
+                    <PrivateRoute exact path="/blog/create_new" authRoles={["superadmin"]}> 
                         <BlogPage {...new_blog} allBlogs={blogs} isNewBlog={true} isEditing={true}/>
                     </PrivateRoute>
 
