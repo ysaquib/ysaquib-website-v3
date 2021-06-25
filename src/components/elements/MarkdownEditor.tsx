@@ -13,7 +13,7 @@ interface ToolbarProps
     setEditorContent: React.Dispatch<React.SetStateAction<string>>;
     editorSelection: number[];
     setEditorSelection: React.Dispatch<React.SetStateAction<number[]>>;
-    onMouseEnter: () => void;
+    getEditorSelection: () => void;
 }
 
 const Formatting = 
@@ -45,7 +45,7 @@ const Formatting =
 
 }
 
-const Toolbar : FC<ToolbarProps> = ({editorContent, setEditorContent, editorSelection, setEditorSelection, onMouseEnter}) =>
+const Toolbar : FC<ToolbarProps> = ({editorContent, setEditorContent, editorSelection, setEditorSelection, getEditorSelection}) =>
 {
     /**
      * TODO: Add basic keyboard shortcuts.
@@ -53,6 +53,7 @@ const Toolbar : FC<ToolbarProps> = ({editorContent, setEditorContent, editorSele
      */
     function formatMarkdown (options: string[])
     {
+        getEditorSelection();
         const prefix = options[0];
         const suffix = options[1];
 
@@ -69,7 +70,7 @@ const Toolbar : FC<ToolbarProps> = ({editorContent, setEditorContent, editorSele
     }
 
     return (
-        <div className="toolbar" onMouseEnter={onMouseEnter}>
+        <div className="toolbar">
             <div className="toolbar_button svg_icon" onClick={() => formatMarkdown(Formatting.bold)}>{IconBold}</div>
             <div className="toolbar_button svg_icon" onClick={() => formatMarkdown(Formatting.italic)}>{IconItalic}</div>
             <div className="toolbar_button svg_icon" onClick={() => formatMarkdown(Formatting.strikethrough)}>{IconStrikethrough}</div>
@@ -165,7 +166,7 @@ const Editor: FC<EditorProps> = ({className="", content, setContent, name, ...pr
             setEditorContent={setEditorContent}
             editorSelection={editorSelection}
             setEditorSelection={setEditorSelection}
-            onMouseEnter={getEditorSelection}
+            getEditorSelection={getEditorSelection}
             />
         <textarea 
             ref={editorRef}
