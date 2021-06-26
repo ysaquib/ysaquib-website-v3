@@ -47,8 +47,6 @@ const HideButton : FC<HideButtonProps> = ({blog, toggleHidden}) =>
 const BlogsList : FC<BlogsListProps> = ({isLoadingInitial, setLoadingInitial, allBlogs}) =>
 {
 
-    const BlogsPerPage = 2;
-
     const currentPage = parseInt(useQuery().get("page") ?? "1");
 
     const history = useHistory();
@@ -58,6 +56,7 @@ const BlogsList : FC<BlogsListProps> = ({isLoadingInitial, setLoadingInitial, al
     const { authenticated, userRoles } = useSelector((state : RootState) => state.auth);
     const [ dialog, setDialog ] = useState<JSX.Element>(<></>);
 
+    const [ blogsPerPage, setBlogsPerPage] = useState<number>(2);
     const [ blogs, setBlogs ] = useState<BlogData[]>(allBlogs);
     const [ pageBlogs, setPageBlogs ] = useState<BlogData[]>([]);
 
@@ -65,7 +64,7 @@ const BlogsList : FC<BlogsListProps> = ({isLoadingInitial, setLoadingInitial, al
     const [ totalPages, setTotalPages] = useState<number>(10);
 
     
-    const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) =>
+    const handlePageChange = (_event: React.ChangeEvent<unknown>, value: number) =>
     {
         history.push(`/blog?page=${value}`);
         setPage(value);
@@ -106,7 +105,7 @@ const BlogsList : FC<BlogsListProps> = ({isLoadingInitial, setLoadingInitial, al
     }
 
     useEffect(() => {
-        const total = Math.ceil(blogs.length / BlogsPerPage);
+        const total = Math.ceil(blogs.length / blogsPerPage);
         console.log(blogs.length, total);
         setTotalPages(total);
         return () => {
@@ -119,7 +118,7 @@ const BlogsList : FC<BlogsListProps> = ({isLoadingInitial, setLoadingInitial, al
             .filter((blog) => {return (!blog.blog_isHidden ?? true) || (authenticated && userRoles.includes("superadmin"))});
         
         const pageBlogsList = blogsList
-            .slice(0 + BlogsPerPage * (currentPage - 1), BlogsPerPage + BlogsPerPage * (currentPage - 1));
+            .slice(0 + blogsPerPage * (currentPage - 1), blogsPerPage + blogsPerPage * (currentPage - 1));
 
         setBlogs(blogsList);
         setPageBlogs(pageBlogsList);
