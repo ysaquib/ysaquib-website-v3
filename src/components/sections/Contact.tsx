@@ -13,6 +13,9 @@ import Button from '../elements/Button';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { Prompt } from 'react-router-dom';
+import { MessageData } from '../../store/types/dataTypes';
+import { useDispatch } from 'react-redux';
+import { addNewMessage } from '../../store/actions/dataActions';
 
 
 let default_data = require('../../default_data.json');
@@ -28,19 +31,19 @@ interface FormInputs
 
 const schema = yup.object().shape(
 {
-    firstname : yup.string().required("is required."),
-    lastname : yup.string().required("is required."),
+    firstname : yup.string().max(20, "cannot exceed ${max} characters.").required("is required."),
+    lastname : yup.string().max(20, "cannot exceed ${max} characters.").required("is required."),
     emailaddress : yup.string().email("is not valid.").required("is required."),
-    subject : yup.string().required("is required."),
-    message : yup.string().required("is required.")
+    subject : yup.string().max(60, "cannot exceed ${max} characters.").required("is required."),
+    message : yup.string().max(1000, "cannot exceed ${max} caracters.").required("is required.")
 });
 
 const Contact : FC = () =>
 {
-
+    const dispatch = useDispatch();
     const resolver = yupResolver(schema);
     const {register, handleSubmit, reset, formState: {errors}} = useForm<FormInputs>({mode:"all" ,resolver});
-    const [isMsgSent, setMsgSent] = useState(false);
+    const [isMsgSent, setMsgSent] = useState("");
     const [formChanged, setFormChanged] = useState(false);
 
 
@@ -50,7 +53,7 @@ const Contact : FC = () =>
             window.onbeforeunload = () => true;
         }
 
-        if (isMsgSent)
+        if (isMsgSent.includes("sent!"))
         {
             window.onbeforeunload = () => undefined;
         }
@@ -59,27 +62,51 @@ const Contact : FC = () =>
             window.onbeforeunload = () => undefined;
         };
     }, [formChanged, isMsgSent]);
+
+    const messageSuccess = () =>
+    {
+        setMsgSent(`Your message has successfully been sent!\nI will be in touch with you as soon as possible.`);
+        reset();
+    }
+    
+    const messageError = (err: any) =>
+    {
+        setMsgSent(`An unknown error has occured. Please try again later.`);
+    }
     
 
     const onSubmit : SubmitHandler<FormInputs> = (data) => 
     {
         window.onbeforeunload = () => undefined;
         console.log(JSON.stringify(data));
+        const message: MessageData = 
+        {
+            msg_id: "",
+            msg_firstname: data.firstname,
+            msg_lastname: data.lastname,
+            msg_emailaddress: data.emailaddress,
+            msg_subject: data.subject,
+            msg_message: data.message,
+            msg_seen: false,
+            msg_sentAt: new Date(Date.now())
+        }
+
+        dispatch(addNewMessage(message, messageSuccess, messageError));
         /**
 
          * TODO: Send message + (save to database?)
          * TODO: Add recaptcha
          */
         
-        setMsgSent(true);
         reset();
     }
 
-    if (isMsgSent)
+    if (isMsgSent !== "")
     {
         return(
             <Section id="contact" className="mini" title={default_data.contact.title}>
                 <h2 className="message_sent">Your message has been sent!<br />I will be in touch with you as soon as possible.</h2>
+                <Button text="Okay" className="neutral" onClick={() => setMsgSent("")}/>
             </Section>
         );
     }
