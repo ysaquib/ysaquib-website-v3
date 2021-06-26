@@ -1,0 +1,108 @@
+.pagination
+{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    margin-top: 5rem;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    
+    
+    li
+    {
+        margin: 0rem .8rem;
+    }
+
+    .pagination_icon,
+    .pagination_button
+    {
+        font: $medium-weight $small-size $sans-font, sans-serif;
+        user-select: none;
+        border: none;
+
+        
+        display: grid;
+        place-content: center;
+        
+        width: 3.3rem;
+        height: 3.3rem;
+        border-radius: 5rem;
+
+        &:hover
+        {
+            cursor: pointer;
+            font-weight: $semi-weight;
+        }
+        
+        &.selected
+        {
+            font-weight: $semi-weight;
+        }
+
+        &.with_icon
+        {
+            * {transition: none;}
+        }
+    }
+
+    .pagination_icon, .pagination_icon:hover
+    {
+        cursor: default;
+    }
+
+    @include themify()
+    {
+        .pagination_icon
+        {
+            color: themed('grey-900');    
+        }
+        
+        .pagination_button
+        {
+            color: themed('grey-900');
+            background-color: themed('grey-150');    
+            
+            &.with_icon
+            {
+                background-color: themed('grey-000');
+            }
+            
+            &:hover
+            {
+                color: themed('primary');
+                background-color: themed('grey-200');    
+            }
+            &:active
+            {
+                transition: none;
+                background-color: themed('grey-300');    
+            }
+            
+            &.selected
+            {
+                color: themed('grey-150');
+                background-color: themed('primary');
+                &:hover
+                {
+                    background-color: mix(themed('primary'), themed('grey-900'), $color-mix-less);
+                }
+                &:active
+                {
+                    transition: none;
+                    background-color: mix(themed('primary'), themed('grey-900'), $color-mix-least);
+                }
+            }
+            
+            &:disabled
+            {
+                color: themed('grey-500');
+                background-color: themed('grey-000');
+                cursor: default;
+            }
+
+        }
+
+    }
+}

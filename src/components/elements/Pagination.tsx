@@ -4,78 +4,63 @@
  */
 
 import React, { FC, useState } from 'react';
+import { usePagination, UsePaginationItem } from '@material-ui/lab/Pagination';
+import { IconChevronLeft, IconChevronRight, IconMore, IconSkipBackward, IconSkipForward } from './Icons';
 
-interface PaginationProps 
+interface PaginationProps
 {
-    pageMin: number;
-    pageMax: number;
-    initialPage?: number;
-    pageNeighbors?: 0 | 1 | 2 | 3;
-    onPageChange?: (page: number) => void; //TODO: Make this required
+    items: UsePaginationItem[];
 }
 
-const Pagination: FC<PaginationProps> = ({pageMin, pageMax, initialPage=6, pageNeighbors=2, onPageChange}) => 
+const Pagination : FC<PaginationProps> = ({items}) =>
 {
-    const [currentPage, setCurrentPage] = useState<number>(initialPage > 0 ? initialPage : 1);
 
-    
-    const getPageNumbers = () =>
+    function buttonIcon(type: "first" | "last" | "next" | "previous")
     {
-
-        const totalNumbers = (pageNeighbors * 2) + 3;
-        const totalBlocks = totalNumbers + 2;
-        let pages = []
-
-        if (pageMax > totalBlocks)
+        switch(type)
         {
-            const startPage = Math.max(2, currentPage - pageNeighbors);
-            const endPage = Math.min(pageMax - 1, currentPage + pageNeighbors);
-            let extraPages = []
-    
-            for (var i = startPage; i <= endPage; i++) { pages.push(i); }
-            
-            const hasRightSpill = startPage > 2;
-            const hasLeftSpill = (pageMax - endPage) > 1;
-            const spillOffset = totalNumbers - (pages.length + 1);
-    
-            if(hasRightSpill && !hasLeftSpill)
-            {
-                for (var j = endPage + 1; j <= endPage + spillOffset; j++) { extraPages.push(j); }
-                return [...pages, ...extraPages, -2];
-            }
-            else if(hasLeftSpill && !hasRightSpill)
-            {
-                for (var k = endPage + 1; k <= endPage + spillOffset; k++) { extraPages.push(k); }
-                return [-1, ...extraPages, ...pages];
-            }
-            return [-1, ...pages, -2];
+            case "previous": 
+                return (<span className="svg_icon button_icon">{IconChevronLeft}</span>);
+            case "next": 
+                return (<span className="svg_icon button_icon">{IconChevronRight}</span>);
+            case "first":
+                return (<span className="svg_icon button_icon">{IconSkipBackward}</span>);
+            case "last":
+                return (<span className="svg_icon button_icon">{IconSkipForward}</span>);
         }
-
-        for (var l = pageMin; l <= pageMax; l++) { pages.push(l); }
-        return pages;
     }
-
-    const handleMoveLeft = () =>
-    {
-        return;
-    }
-
-    const handleMoveRight = () =>
-    {
-        return;
-    }
-
-    const handleGoTo = () =>
-    {
-        return;
-    }
-
-    const inBetween = getPageNumbers();
-    console.log(inBetween);
 
     return (
-        <></>
-    );
+        <nav>
+            <ul className="pagination">
+                {items.map(({ page, type, selected, ...item }, index) => {
+                let children = null;
+
+                if (type === 'start-ellipsis' || type === 'end-ellipsis') {
+                    children = (
+                        <div className="pagination_icon svg_icon">{IconMore}</div>
+                    );
+                } else if (type === 'page') {
+                    children = (
+                    <button className={`pagination_button ${selected ? "selected" : ""}`} {...item}>
+                        {page}
+                    </button>
+                    );
+                } else {
+                    children = (
+                    <button className="pagination_button with_icon" {...item}>
+                        {
+                            buttonIcon(type)
+                        }
+                    </button>
+                    );
+                }
+
+                return <li key={index}>{children}</li>;
+                })}
+            </ul>
+        </nav>
+    )
 }
 
 export default Pagination;
