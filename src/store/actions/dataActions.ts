@@ -2,7 +2,7 @@ import firebase from 'firebase';
 import { ThunkAction } from 'redux-thunk';
 import { RootState } from '..';
 import Firebase from '../../firebase/config';
-import { BannerData, Data_SetBannerData, BannerAction, AboutData, AboutAction, Data_SetAboutData, ProjectData, Data_SetProjectData, ProjectAction, BlogAction, Data_SetBlogData, BlogData } from '../types/dataTypes';
+import { BannerData, Data_SetBannerData, BannerAction, AboutData, AboutAction, Data_SetAboutData, ProjectData, Data_SetProjectData, ProjectAction, BlogAction, Data_SetBlogData, BlogData, MessageData, MessageAction, Data_AddMessageData } from '../types/dataTypes';
 
 export const getBannerData = (onError: () => void) : ThunkAction<void, RootState, null, BannerAction> =>
 {
@@ -351,3 +351,24 @@ export const deleteBlog = (blogData: BlogData, allBlogs: BlogData[], onError: (m
     }
 }
 
+export const addNewMessage = (messageData: MessageData, onComplete?: () => void, onError?: (err: any) => void) : ThunkAction<void, RootState, null, MessageAction> =>
+{
+    return async dispatch =>
+    {
+        try
+        {
+            const currentTime = new Date(Date.now());
+            const createdAt = firebase.firestore.Timestamp.fromDate(currentTime);
+            const {msg_id, ...message} = messageData;
+            await Firebase.firestore().collection("messages").add({...message, msg_sentAt: createdAt});
+            dispatch({type: Data_AddMessageData, payload: messageData});
+            onComplete && onComplete();
+            
+        }
+        catch (error)
+        {
+            onError && onError(error);
+            console.log(error);
+        }
+    }
+}

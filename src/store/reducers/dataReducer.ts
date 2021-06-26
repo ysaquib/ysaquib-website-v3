@@ -1,4 +1,4 @@
-import {BannerData, Data_SetBannerData, BannerAction, Data_SetAboutData, AboutAction, AboutData, ProjectData, ProjectAction, Data_SetProjectData, BlogData, BlogAction, Data_SetBlogData } from '../types/dataTypes'
+import {BannerData, Data_SetBannerData, BannerAction, Data_SetAboutData, AboutAction, AboutData, ProjectData, ProjectAction, Data_SetProjectData, BlogData, BlogAction, Data_SetBlogData, MessageData, MessageAction, Data_AddMessageData, MessageState, Data_IncrementNew, Data_DecrementNew, Data_DelMessageData } from '../types/dataTypes'
 
 let default_data = require('../../default_data.json');
 
@@ -53,6 +53,28 @@ export const blogReducer = (state = initialBlogsState, action: BlogAction) =>
     {
         case Data_SetBlogData:
             return action.payload;
+        default:
+            return state;
+    }
+}
+
+const initialMessagesState : MessageState = {
+    messages: [],
+    hasNewMessages: false,
+    newMessagesCount: 0
+};
+export const messageReducer = (state = initialMessagesState, action: MessageAction) => 
+{
+    switch (action.type)
+    {
+        case Data_AddMessageData:
+            return {...state, messages: state.messages.push(action.payload)};
+        case Data_DelMessageData:
+            return {...state, messages: state.messages.filter((msg) => {return action.payload.msg_id !== msg.msg_id})};
+        case Data_IncrementNew:
+            return {...state, newMessagesCount: state.newMessagesCount + 1}
+        case Data_DecrementNew:
+            return {...state, hasNewMessages: state.newMessagesCount - 1}
         default:
             return state;
     }

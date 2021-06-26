@@ -2,6 +2,11 @@ export const Data_SetBannerData = 'Data_SetBannerData';
 export const Data_SetAboutData = 'Data_SetAboutData';
 export const Data_SetProjectData = 'Data_SetProjectData';
 export const Data_SetBlogData = 'Data_SetBlogData';
+export const Data_AddMessageData = 'Data_AddMessageData';
+export const Data_DelMessageData = 'Data_DelMessageData';
+export const Data_SetHasNew = 'Data_SetHasNew';
+export const Data_IncrementNew = 'Data_IncrementNew';
+export const Data_DecrementNew = 'Data_DecrementNew';
 
 export interface BannerData
 {
@@ -71,7 +76,53 @@ interface SetBlogDataAction
     payload: BlogData[];
 }
 
+export interface MessageData
+{
+    msg_id: string;
+    msg_firstname: string;
+    msg_lastname: string;
+    msg_emailaddress: string;
+    msg_subject: string;
+    msg_message: string;
+    msg_sentAt: Date;
+    msg_seen: boolean;
+}
+
+interface AddMessageDataAction
+{
+    type: typeof Data_AddMessageData;
+    payload: MessageData;
+}
+
+interface DelMessageDataAction
+{
+    type: typeof Data_DelMessageData;
+    payload: MessageData;
+}
+
+interface SetHasNewDataAction
+{
+    type: typeof Data_SetHasNew;
+    payload: boolean;
+}
+interface IncrementNewDataAction
+{
+    type: typeof Data_IncrementNew;
+}
+interface DecrementNewDataAction
+{
+    type: typeof Data_DecrementNew;
+}
+
+export interface MessageState 
+{
+    messages: MessageData[];
+    hasNewMessages: boolean;
+    newMessagesCount: number;
+}
+
 export type BannerAction = SetBannerDataAction;
 export type AboutAction = SetAboutDataAction;
 export type ProjectAction = SetProjectDataAction;
 export type BlogAction = SetBlogDataAction;
+export type MessageAction = AddMessageDataAction | DelMessageDataAction | SetHasNewDataAction | IncrementNewDataAction | DecrementNewDataAction;
