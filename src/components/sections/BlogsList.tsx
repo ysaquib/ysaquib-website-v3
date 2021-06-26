@@ -1,3 +1,4 @@
+import { usePagination } from '@material-ui/lab/Pagination';
 import React, { FC, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
@@ -10,11 +11,22 @@ import { IconEye, IconEyeOff, IconGarbageDelete } from '../elements/Icons';
 import LoadingSkeleton from '../elements/LoadingSkeleton';
 import Pagination from '../elements/Pagination';
 
+function useQuery() 
+{
+    return new URLSearchParams(useLocation().search);
+}
 
 interface HideButtonProps
 {
     blog: BlogData;
     toggleHidden: () => void;
+}
+
+interface BlogsListProps
+{
+    isLoadingInitial: boolean;
+    setLoadingInitial: React.Dispatch<React.SetStateAction<boolean>>;
+    allBlogs: BlogData[];
 }
 
 const HideButton : FC<HideButtonProps> = ({blog, toggleHidden}) => 
@@ -32,18 +44,6 @@ const HideButton : FC<HideButtonProps> = ({blog, toggleHidden}) =>
     );
 }
 
-function useQuery () 
-{
-    return new URLSearchParams(useLocation().search);
-}
-
-interface BlogsListProps
-{
-    isLoadingInitial: boolean;
-    setLoadingInitial: React.Dispatch<React.SetStateAction<boolean>>;
-    allBlogs: BlogData[];
-}
-
 const BlogsList : FC<BlogsListProps> = ({isLoadingInitial, setLoadingInitial, allBlogs}) =>
 {
 
@@ -51,18 +51,33 @@ const BlogsList : FC<BlogsListProps> = ({isLoadingInitial, setLoadingInitial, al
 
     const currentPage = parseInt(useQuery().get("page") ?? "1");
 
-    const pageNumbersToRender = 20;
-
-    console.log(currentPage);
     const history = useHistory();
     const dispatch = useDispatch();
     const BlogData = useSelector((state: RootState) => state.blogs);
     
-    const [blogs, setBlogs] = useState<BlogData[]>(allBlogs);
-
     const { authenticated, userRoles } = useSelector((state : RootState) => state.auth);
     const [ dialog, setDialog ] = useState<JSX.Element>(<></>);
 
+    const [ blogs, setBlogs ] = useState<BlogData[]>(allBlogs);
+    const [ pageBlogs, setPageBlogs ] = useState<BlogData[]>([]);
+
+    const [ page, setPage] = useState<number>(currentPage);
+    const [ totalPages, setTotalPages] = useState<number>(10);
+
+    
+    const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) =>
+    {
+        history.push(`/blog?page=${value}`);
+        setPage(value);
+    }
+
+    const { items } = usePagination(
+    {
+        count: totalPages,
+        page: page,
+        onChange: handlePageChange
+    });
+    
     function toggleHidden(blogData: BlogData)
     {
         dispatch(hideBlog(blogData, blogs));
@@ -91,15 +106,28 @@ const BlogsList : FC<BlogsListProps> = ({isLoadingInitial, setLoadingInitial, al
     }
 
     useEffect(() => {
+        const total = Math.ceil(blogs.length / BlogsPerPage);
+        console.log(blogs.length, total);
+        setTotalPages(total);
+        return () => {
+            setTotalPages(0);
+        }
+    }, [blogs])
+
+    useEffect(() => {
         const blogsList = BlogData
-            .filter((blog) => {return (!blog.blog_isHidden ?? true) || (authenticated && userRoles.includes("superadmin"))})
+            .filter((blog) => {return (!blog.blog_isHidden ?? true) || (authenticated && userRoles.includes("superadmin"))});
+        
+        const pageBlogsList = blogsList
             .slice(0 + BlogsPerPage * (currentPage - 1), BlogsPerPage + BlogsPerPage * (currentPage - 1));
 
         setBlogs(blogsList);
+        setPageBlogs(pageBlogsList);
         return () => {
             setBlogs([]);
+            setPageBlogs([]);
         }
-    }, [BlogData]);
+    }, [BlogData, page, setBlogs, setPageBlogs]);
 
     if (isLoadingInitial)
     {
@@ -135,7 +163,7 @@ const BlogsList : FC<BlogsListProps> = ({isLoadingInitial, setLoadingInitial, al
                         </li>
                     }
 
-                    {blogs && (blogs
+                    {pageBlogs && (pageBlogs
                     .map((blog) =>{
                         return (
                         <li className="blogs_list_item_wrapper"
@@ -155,9 +183,9 @@ const BlogsList : FC<BlogsListProps> = ({isLoadingInitial, setLoadingInitial, al
                             </>)}
                         </li>
                     );}))}
-
                 </ul>
-                <Pagination pageMin={1} pageMax={30} />
+
+                <Pagination items={items} />
             </div>
         </section>
     );
