@@ -3,8 +3,8 @@
  * Author: Yusuf Saquib
  */
 
-import React, { FC, useState } from 'react';
-import { usePagination, UsePaginationItem } from '@material-ui/lab/Pagination';
+import React, { FC } from 'react';
+import { UsePaginationItem } from '@material-ui/lab/Pagination';
 import { IconChevronLeft, IconChevronRight, IconMore, IconSkipBackward, IconSkipForward } from './Icons';
 
 interface PaginationProps

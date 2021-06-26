@@ -111,7 +111,7 @@ const BlogsList : FC<BlogsListProps> = ({isLoadingInitial, setLoadingInitial, al
         return () => {
             setTotalPages(0);
         }
-    }, [blogs])
+    }, [blogs, blogsPerPage])
 
     useEffect(() => {
         const blogsList = BlogData
@@ -126,7 +126,7 @@ const BlogsList : FC<BlogsListProps> = ({isLoadingInitial, setLoadingInitial, al
             setBlogs([]);
             setPageBlogs([]);
         }
-    }, [BlogData, page, setBlogs, setPageBlogs]);
+    }, [BlogData, page, setBlogs, setPageBlogs, blogsPerPage, authenticated, userRoles, currentPage]);
 
     if (isLoadingInitial)
     {
