@@ -33,6 +33,7 @@ export interface AuthState
     warning:            string;
     needVerification:   boolean;
     success:            string;
+    newMessages?:       number;
 }
 
 export interface SignUpData
