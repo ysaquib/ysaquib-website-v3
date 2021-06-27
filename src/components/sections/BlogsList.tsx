@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { useLocation } from 'react-router-dom';
 import { RootState } from '../../store';
-import { deleteBlog, hideBlog, getBlogData } from '../../store/actions/dataActions';
+import { deleteBlog, getBlogData, setBlogData } from '../../store/actions/dataActions';
 import { BlogData } from '../../store/types/dataTypes';
 import DialogBox from '../elements/DialogBox';
 import { IconEye, IconEyeOff, IconGarbageDelete } from '../elements/Icons';
@@ -79,8 +79,7 @@ const BlogsList : FC<BlogsListProps> = ({isLoadingInitial, setLoadingInitial, al
     
     function toggleHidden(blogData: BlogData)
     {
-        dispatch(hideBlog(blogData));
-        dispatch(getBlogData(() => setLoadingInitial(false), () => {console.log("Error getting Blog data.")}));
+        dispatch(setBlogData({...blogData, blog_isHidden: !(blogData.blog_isHidden ?? false)}));
     }
 
     function handleClickDelete (blogData: BlogData)

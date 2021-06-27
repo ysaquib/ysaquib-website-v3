@@ -2,7 +2,7 @@ import firebase from 'firebase';
 import { ThunkAction } from 'redux-thunk';
 import { RootState } from '..';
 import Firebase from '../../firebase/config';
-import { BannerData, Data_SetBannerData, BannerAction, AboutData, AboutAction, Data_SetAboutData, ProjectData, Data_SetProjectData, ProjectAction, BlogAction, Data_SetBlogData, BlogData, MessageData, MessageAction, Data_AddMessageData, Data_IncrementNew, Data_DelMessageData, Data_SeenMessageData, Data_DecrementNew, Data_HideBlog, Data_SetAllBlogsData, Data_DelBlog, Data_AddBlog } from '../types/dataTypes';
+import { BannerData, Data_SetBannerData, BannerAction, AboutData, AboutAction, Data_SetAboutData, ProjectData, Data_SetProjectData, ProjectAction, BlogAction, Data_SetBlogData, BlogData, MessageData, MessageAction, Data_AddMessageData, Data_IncrementNew, Data_DelMessageData, Data_SeenMessageData, Data_DecrementNew, Data_SetAllBlogsData, Data_DelBlog, Data_AddBlog } from '../types/dataTypes';
 
 export const getBannerData = (onError: () => void) : ThunkAction<void, RootState, null, BannerAction> =>
 {
@@ -224,7 +224,11 @@ export const getBlogData = (onComplete?: () => void, onError?: () => void) : Thu
                 }
             })
             console.log(blog_items);
-            dispatch({type: Data_SetAllBlogsData, payload: blog_items});
+
+            dispatch({
+                type: Data_SetAllBlogsData, 
+                payload: blog_items
+            });
             onComplete && onComplete();
         }
         catch (error)
@@ -257,34 +261,13 @@ export const setBlogData = (blogData: BlogData, update?: boolean, onComplete?: (
                 await Firebase.firestore().collection("blogs").doc(blogData.blog_id).set(blog as BlogData);
             }
             
-            onComplete && onComplete();
             
             dispatch({
                 type: Data_SetBlogData, 
                 payload: blogData
             });
-            console.log("Success");
-        }
-        catch (error)
-        {
-            onError && onError();
-            console.log(error);
-        }
-    }
-}
 
-export const hideBlog = (blogData: BlogData, onComplete?: () => void, onError?: () => void) : ThunkAction<void, RootState, null, BlogAction> =>
-{
-    return async dispatch =>
-    {
-        try
-        {
-            console.log(blogData);
-            blogData.blog_isHidden = !(blogData.blog_isHidden ?? false);
-            const {blog_id, ...blog} = blogData;
-            await Firebase.firestore().collection("blogs").doc(blogData.blog_id).set(blog as BlogData);
-
-            dispatch({type: Data_HideBlog, payload: blogData});
+            onComplete && onComplete();
             console.log("Success");
         }
         catch (error)

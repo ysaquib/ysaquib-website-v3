@@ -1,21 +1,22 @@
-export const Data_SetBannerData = 'Data_SetBannerData';
+export const Data_SetBannerData = "Data_SetBannerData";
 
-export const Data_SetAboutData = 'Data_SetAboutData';
+export const Data_SetAboutData = "Data_SetAboutData";
 
-export const Data_SetProjectData = 'Data_SetProjectData';
+export const Data_SetProjectData = "Data_SetProjectData";
+export const Data_AddProject = "Data_AddProject";
+export const Data_DelProject = "Data_DelProject";
 
-export const Data_SetBlogData = 'Data_SetBlogData';
-export const Data_SetAllBlogsData = 'Data_SetAllBlogData';
-export const Data_HideBlog = 'Data_HideBlog';
-export const Data_AddBlog = 'Data_AddBlog';
-export const Data_DelBlog = 'Data_DelBlog';
+export const Data_SetBlogData = "Data_SetBlogData";
+export const Data_SetAllBlogsData = "Data_SetAllBlogData";
+export const Data_AddBlog = "Data_AddBlog";
+export const Data_DelBlog = "Data_DelBlog";
 
-export const Data_AddMessageData = 'Data_AddMessageData';
-export const Data_DelMessageData = 'Data_DelMessageData';
-export const Data_SeenMessageData = 'Data_SeenMessageData';
-export const Data_SetHasNew = 'Data_SetHasNew';
-export const Data_IncrementNew = 'Data_IncrementNew';
-export const Data_DecrementNew = 'Data_DecrementNew';
+export const Data_AddMessageData = "Data_AddMessageData";
+export const Data_DelMessageData = "Data_DelMessageData";
+export const Data_SeenMessageData = "Data_SeenMessageData";
+export const Data_SetHasNew = "Data_SetHasNew";
+export const Data_IncrementNew = "Data_IncrementNew";
+export const Data_DecrementNew = "Data_DecrementNew";
 
 export interface BannerData
 {
@@ -91,12 +92,6 @@ interface SetBlogDataAction
     payload: BlogData;
 }
 
-interface HideBlogAction
-{
-    type: typeof Data_HideBlog;
-    payload: BlogData;
-}
-
 interface AddBlogAction
 {
     type: typeof Data_AddBlog;
@@ -163,5 +158,5 @@ export interface MessageState
 export type BannerAction = SetBannerDataAction;
 export type AboutAction = SetAboutDataAction;
 export type ProjectAction = SetProjectDataAction;
-export type BlogAction = SetBlogDataAction | HideBlogAction | SetAllBlogsAction | AddBlogAction | DelBlogAction;
+export type BlogAction = SetBlogDataAction | SetAllBlogsAction | AddBlogAction | DelBlogAction;
 export type MessageAction = AddMessageDataAction | DelMessageDataAction | SeenMessageDataAction | SetHasNewDataAction | IncrementNewDataAction | DecrementNewDataAction;

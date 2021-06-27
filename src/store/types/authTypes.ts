@@ -1,17 +1,17 @@
-export const User_SetUser = 'User_SetUser';
-export const User_SignedOut = 'User_SignedOut';
-export const User_NeedVerification = 'User_ReqVerify';
-export const User_SetLoading = 'User_SetLoading';
-export const User_SetWarning = 'User_SetWarning';
-export const User_SetSuccess = 'User_SetSuccess';
-export const User_SetError   = 'User_SetError';
-export const User_SetUserRoles = 'User_SetRoles';
+export const User_SetUser = "User_SetUser";
+export const User_SignedOut = "User_SignedOut";
+export const User_NeedVerification = "User_ReqVerify";
+export const User_SetLoading = "User_SetLoading";
+export const User_SetWarning = "User_SetWarning";
+export const User_SetSuccess = "User_SetSuccess";
+export const User_SetError   = "User_SetError";
+export const User_SetUserRoles = "User_SetRoles";
 
 export enum UserRoles
 {
-    superadmin = 'superadmin',
-    admin = 'admin',
-    user = 'user'
+    superadmin = "superadmin",
+    admin = "admin",
+    user = "user"
 }
 
 export interface User 
