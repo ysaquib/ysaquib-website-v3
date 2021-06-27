@@ -27,6 +27,7 @@ import firebase from 'firebase';
 import Error404 from './pages/ErrorPage';
 import Loader from './components/layout/Loader';
 import BlogsPage from './pages/BlogsPage';
+import InboxPage from './pages/InboxPage';
 
 let default_data = require('./default_data.json');
 
@@ -84,6 +85,7 @@ const App : FC = () =>
                 <PublicRoute exact path="/signup"> <SignUp /> </PublicRoute>
                 <PublicRoute path="/blog"> <BlogsPage /> </PublicRoute>
                 <PrivateRoute path="/admin" authRoles={["superadmin"]}> <Admin /> </PrivateRoute>
+                <PrivateRoute path="/inbox" authRoles={["superadmin"]}> <InboxPage /> </PrivateRoute>
                 <Route component={Error404} />
             </Switch>
             <Footer />
