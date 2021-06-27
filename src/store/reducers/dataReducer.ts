@@ -1,4 +1,4 @@
-import {BannerData, Data_SetBannerData, BannerAction, Data_SetAboutData, AboutAction, AboutData, ProjectData, ProjectAction, Data_SetProjectData, BlogData, BlogAction, Data_SetBlogData, MessageData, MessageAction, Data_AddMessageData, MessageState, Data_IncrementNew, Data_DecrementNew, Data_DelMessageData, Data_SeenMessageData, Data_SetAllBlogsData, Data_DelBlog, Data_AddBlog } from '../types/dataTypes'
+import {BannerData, Data_SetBannerData, BannerAction, Data_SetAboutData, AboutAction, AboutData, ProjectData, ProjectAction, Data_SetProjectData, BlogData, BlogAction, Data_SetBlogData, MessageData, MessageAction, Data_AddMessageData, MessageState, Data_IncrementNew, Data_DecrementNew, Data_DelMessageData, Data_SeenMessageData, Data_SetAllBlogsData, Data_DelBlog, Data_AddBlog, Data_SetAllProjectsData, Data_AddProject, Data_DelProject, Data_UpdateAllProjects, } from '../types/dataTypes'
 
 let default_data = require('../../default_data.json');
 
@@ -39,8 +39,28 @@ export const projectReducer = (state = initialProjectsState, action: ProjectActi
 {
     switch (action.type)
     {
+        case Data_SetAllProjectsData:
+            return action.payload;
+
         case Data_SetProjectData:
-            return (action.payload);
+            const project_index = state.findIndex((proj) => {return proj.project_id === action.payload.project_id});
+            state[project_index] = action.payload;
+            return state;
+            
+        case Data_AddProject:
+            state.push(action.payload);
+            return state;
+
+        case Data_UpdateAllProjects:
+            action.payload.forEach((project, index) => {project.project_order = index});
+            console.log(action.payload);
+            return action.payload;
+        
+        case Data_DelProject:
+            const newAllProjects = state.filter((proj) => {return proj.project_id !== action.payload.project_id});
+            newAllProjects.forEach((project, index) => {project.project_order = index});
+            return newAllProjects;
+            
         default:
             return state;
     }

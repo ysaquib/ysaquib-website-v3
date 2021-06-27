@@ -2,9 +2,9 @@ import firebase from 'firebase';
 import { ThunkAction } from 'redux-thunk';
 import { RootState } from '..';
 import Firebase from '../../firebase/config';
-import { BannerData, Data_SetBannerData, BannerAction, AboutData, AboutAction, Data_SetAboutData, ProjectData, Data_SetProjectData, ProjectAction, BlogAction, Data_SetBlogData, BlogData, MessageData, MessageAction, Data_AddMessageData, Data_IncrementNew, Data_DelMessageData, Data_SeenMessageData, Data_DecrementNew, Data_SetAllBlogsData, Data_DelBlog, Data_AddBlog } from '../types/dataTypes';
+import { BannerData, Data_SetBannerData, BannerAction, AboutData, AboutAction, Data_SetAboutData, ProjectData, Data_SetProjectData, ProjectAction, BlogAction, Data_SetBlogData, BlogData, MessageData, MessageAction, Data_AddMessageData, Data_IncrementNew, Data_DelMessageData, Data_SeenMessageData, Data_DecrementNew, Data_SetAllBlogsData, Data_DelBlog, Data_AddBlog, Data_SetAllProjectsData, Data_AddProject, Data_DelProject, Data_UpdateAllProjects } from '../types/dataTypes';
 
-export const getBannerData = (onError: () => void) : ThunkAction<void, RootState, null, BannerAction> =>
+export const getBannerData = (onError?: () => void) : ThunkAction<void, RootState, null, BannerAction> =>
 {
     return async dispatch =>
     {
@@ -19,13 +19,13 @@ export const getBannerData = (onError: () => void) : ThunkAction<void, RootState
         }
         catch (error)
         {
-            onError();
+            onError && onError();
             console.log(error);
         }
     }
 }
 
-export const setBannerData = (bannerData: BannerData, onError: (msg: any) => void) : ThunkAction<void, RootState, null, BannerAction> =>
+export const setBannerData = (bannerData: BannerData, onError?: (msg: any) => void) : ThunkAction<void, RootState, null, BannerAction> =>
 {
     return async dispatch =>
     {
@@ -36,13 +36,13 @@ export const setBannerData = (bannerData: BannerData, onError: (msg: any) => voi
         }
         catch (error)
         {
-            onError(error);
+            onError && onError(error);
             console.log(error);
         }
     }
 }
 
-export const getAboutData = (onError: () => void) : ThunkAction<void, RootState, null, AboutAction> =>
+export const getAboutData = (onError?: () => void) : ThunkAction<void, RootState, null, AboutAction> =>
 {
     return async dispatch =>
     {
@@ -57,13 +57,13 @@ export const getAboutData = (onError: () => void) : ThunkAction<void, RootState,
         }
         catch (error)
         {
-            onError();
+            onError && onError();
             console.log(error);
         }
     }
 }
 
-export const setAboutData = (aboutData: AboutData, onError: (msg: any) => void) : ThunkAction<void, RootState, null, AboutAction> =>
+export const setAboutData = (aboutData: AboutData, onError?: (msg: any) => void) : ThunkAction<void, RootState, null, AboutAction> =>
 {
     return async dispatch =>
     {
@@ -74,13 +74,13 @@ export const setAboutData = (aboutData: AboutData, onError: (msg: any) => void) 
         }
         catch (error)
         {
-            onError(error);
+            onError && onError(error);
             console.log(error);
         }
     }
 }
 
-export const getProjectData = (onComplete: () => void, onError: () => void) : ThunkAction<void, RootState, null, ProjectAction> =>
+export const getProjectData = (onComplete?: () => void, onError?: () => void) : ThunkAction<void, RootState, null, ProjectAction> =>
 {
     return async dispatch =>
     {
@@ -92,19 +92,20 @@ export const getProjectData = (onComplete: () => void, onError: () => void) : Th
                 project_items.push({...doc.data(), project_id: doc.id} as ProjectData);
             })
             console.log(project_items);
-            dispatch({type: Data_SetProjectData, payload: project_items});
-            onComplete();
+            dispatch({type: Data_SetAllProjectsData, payload: project_items});
+            onComplete && onComplete();
+
         }
         catch (error)
         {
-            onError();
+            onError && onError();
             console.log(error);
         }
     }
 }
 
 
-export const setProjectData = (projectData: ProjectData, allProjects: ProjectData[], onError: (msg: any) => void) : ThunkAction<void, RootState, null, ProjectAction> =>
+export const setProjectData = (projectData: ProjectData, onComplete?: () => void, onError?: (msg: any) => void) : ThunkAction<void, RootState, null, ProjectAction> =>
 {
     return async dispatch =>
     {
@@ -112,43 +113,57 @@ export const setProjectData = (projectData: ProjectData, allProjects: ProjectDat
         {
             const {project_id, ...project} = projectData;
             
-            const project_index = allProjects.findIndex((proj) => {return proj.project_id === projectData.project_id});
-            allProjects[project_index] = projectData;
+            // const project_index = allProjects.findIndex((proj) => {return proj.project_id === projectData.project_id});
+            // allProjects[project_index] = projectData;
             await Firebase.firestore().collection("projects").doc(projectData.project_id).set(project as ProjectData);
+
             dispatch({
                 type: Data_SetProjectData, 
-                payload: allProjects
+                payload: projectData
             });
+
+            onComplete && onComplete();
+
             console.log("Success");
         }
         catch (error)
         {
-            onError(error);
+            onError && onError(error);
             console.log(error);
         }
     }
 }
 
-export const updateProjectsOrder = (allProjects: ProjectData[]) =>
+const updateProjectsOrders = (allProjects: ProjectData[]) =>
 {
-    return allProjects.forEach((project, index) => {project.project_order = index});
+    const promises: any[] = [] 
+    for (var i = 0; i < allProjects.length; i++)
+    {
+        promises.push(Firebase.firestore().collection("projects").doc(allProjects[i].project_id).update({project_order: i}));
+    }
+    Promise.all(promises);
 }
 
-export const updateAllProjects = (allProjects: ProjectData[], onError?: (msg: any) => void) : ThunkAction<void, RootState, null, ProjectAction> =>
+export const updateAllProjects = (allProjects: ProjectData[], onComplete?: () => void, onError?: (msg: any) => void) : ThunkAction<void, RootState, null, ProjectAction> =>
 {
     return async dispatch =>
     {
         try 
         {
-            for (var i = 0; i < allProjects.length; i++)
-            {
-                const {project_id, ...project} = allProjects[i];
-                await Firebase.firestore().collection("projects").doc(allProjects[i].project_id).set(project as ProjectData);
-            }
+            
+            // for (var i = 0; i < allProjects.length; i++)
+            // {
+            //     const {project_id, ...project} = allProjects[i];
+            //     await Firebase.firestore().collection("projects").doc(allProjects[i].project_id).set(project as ProjectData);
+            // }
+
+            updateProjectsOrders(allProjects);
+
             dispatch({
-                type: Data_SetProjectData, 
+                type: Data_UpdateAllProjects,
                 payload: allProjects
             });
+            onComplete && onComplete();
         }
         catch (error)
         {
@@ -159,46 +174,56 @@ export const updateAllProjects = (allProjects: ProjectData[], onError?: (msg: an
 }
 
 
-export const addNewProject = (projectData: ProjectData, allProjects: ProjectData[], onError: (msg: any) => void) : ThunkAction<void, RootState, null, ProjectAction> =>
+export const addNewProject = (projectData: ProjectData, onComplete?: () => void, onError?: (msg: any) => void) : ThunkAction<void, RootState, null, ProjectAction> =>
 {
     return async dispatch =>
     {
         try 
         {
-            const {project_id, project_order, ...project} = projectData;
+            const {project_id, ...project} = projectData;
             
-            const newProject = {...project, project_order: allProjects.length};
-            const storedProject = await Firebase.firestore().collection("projects").add(newProject as ProjectData);
-            allProjects.push({...newProject, project_id: storedProject.id});
-            updateProjectsOrder(allProjects);
-            updateAllProjects(allProjects)
+            const storedProject = await Firebase.firestore().collection("projects").add(project as ProjectData);
+
+            dispatch({
+                type: Data_AddProject,
+                payload: {...project, project_id: storedProject.id}
+            });
+
             console.log("Success");
+            onComplete && onComplete();
         }
         catch (error)
         {
-            onError(error);
+            onError && onError(error);
             console.log(error);
         }
     }
 }
 
 
-export const deleteProject = (project : ProjectData, allProjects: ProjectData[], onError: (msg: any) => void) : ThunkAction<void, RootState, null, ProjectAction> =>
+export const deleteProject = (projectData: ProjectData, allProjects: ProjectData[], onComplete?: () => void, onError?: (msg: any) => void) : ThunkAction<void, RootState, null, ProjectAction> =>
 {
     return async dispatch =>
     {
-        try 
+        try
         {
-            const newAllProjects = allProjects.filter((proj) => {return proj.project_id !== project.project_id});
-            await Firebase.firestore().collection("projects").doc(project.project_id).delete()
-            updateProjectsOrder(newAllProjects);
-            updateAllProjects(allProjects)
-            console.log(newAllProjects);
+            await Firebase.firestore().collection("projects").doc(projectData.project_id).delete();
+
+            updateProjectsOrders(allProjects.filter((proj) => {return proj.project_id !== projectData.project_id}));
+
+            dispatch({
+                type: Data_DelProject,
+                payload: projectData
+            });
+            
+
+            // console.log(newAllProjects);
+            onComplete && onComplete();
             console.log("Successfully Deleted");
         }
         catch (error)
         {
-            onError(error);
+            onError && onError(error);
             console.log(error);
         }
     }
@@ -321,6 +346,7 @@ export const deleteBlog = (blogData: BlogData, onComplete?: () => void, onError?
                 type: Data_DelBlog, 
                 payload: blogData
             });
+
             onComplete && onComplete();
             console.log("Successfully deleted Blog");
         }

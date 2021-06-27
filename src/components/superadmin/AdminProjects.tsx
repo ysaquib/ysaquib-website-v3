@@ -11,7 +11,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { ProjectData } from '../../store/types/dataTypes';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
-import { addNewProject, deleteProject, getProjectData, setProjectData, updateAllProjects, updateProjectsOrder } from '../../store/actions/dataActions';
+import { addNewProject, deleteProject, getProjectData, setProjectData, updateAllProjects } from '../../store/actions/dataActions';
 import Button from '../elements/Button';
 import TextArea from '../elements/TextArea';
 import { Add, ChevronRight, Remove } from '@material-ui/icons';
@@ -104,6 +104,7 @@ const AdminProjects : FC = () =>
     useEffect(() => 
     {
         setProjects(ProjectsData);
+        console.log(ProjectsData);
         
         return () =>
         {
@@ -159,8 +160,10 @@ const AdminProjects : FC = () =>
     const delProject = () =>
     {
         if(project)
-            dispatch(deleteProject(project, projects, (err) => {setError(err)}));
-        setProject(projects[0]);
+        {
+            dispatch(deleteProject(project, projects, undefined, (err) => {setError(err)}));
+        }
+        setProject(undefined);
         setMessage("Successfully Deleted");
         setDialog(<></>);
     }
@@ -198,10 +201,9 @@ const AdminProjects : FC = () =>
         const [reorderedItem] = reorderedProjects.splice(result.source.index, 1);
         reorderedProjects.splice(result.destination.index, 0, reorderedItem);
 
-        updateProjectsOrder(reorderedProjects);
         setProjects(reorderedProjects);
         dispatch(updateAllProjects(reorderedProjects, () => {}));
-        console.log(reorderedProjects,projects);
+        console.log(reorderedProjects, projects);
     }
     
     /**
@@ -220,21 +222,25 @@ const AdminProjects : FC = () =>
         const proj_prog = data.project_progress ?? project?.project_progress ?? 0;
 
         const {project_id, ...project_data} = data;
-        const new_project = {...project, 
-                             ...project_data,
-                            project_id: proj_id,
-                            project_progress: proj_prog,
-                            project_inProgress: isInProgress};
+        const new_project = {
+            ...project, 
+            ...project_data,
+            project_order: projects.length,
+            project_id: proj_id,
+            project_progress: proj_prog,
+            project_inProgress: isInProgress
+        };
+
         console.log(new_project);
         if(isNewProject && project)
         {
-            dispatch(addNewProject(new_project, projects, (err) => {setError(err)}));
+            dispatch(addNewProject(new_project, undefined, (err) => {setError(err)}));
         }
         else if(project)
         {
-            dispatch(setProjectData(new_project, projects, (err) => {setError(err)}));
+            dispatch(setProjectData(new_project, () => setLoading(false), (err) => {setError(err)}));
         }
-        setLoading(false);
+        
         setNewProject(false);
 
         setMessage(`Successfully ${isNewProject ? "created" : "updated"} '` + data.project_title +"'.");

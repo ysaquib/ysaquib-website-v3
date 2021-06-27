@@ -56,7 +56,7 @@ const BlogsList : FC<BlogsListProps> = ({isLoadingInitial, setLoadingInitial, al
     const { authenticated, userRoles } = useSelector((state : RootState) => state.auth);
     const [ dialog, setDialog ] = useState<JSX.Element>(<></>);
 
-    const [ blogsPerPage, setBlogsPerPage] = useState<number>(2);
+    const [ blogsPerPage, setBlogsPerPage] = useState<number>(4);
     const [ blogs, setBlogs ] = useState<BlogData[]>(allBlogs);
     const [ pageBlogs, setPageBlogs ] = useState<BlogData[]>([]);
 
