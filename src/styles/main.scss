@@ -16,7 +16,6 @@
 
 @import './wrappers/acwrapper';
 
-
 @import './elements/button';
 @import './elements/projectcard';
 @import './elements/input';
@@ -52,6 +51,7 @@ body
     font-family: $sans-font, sans-serif;
     height: 100%;
     text-align: center;
+    transition: none;
     
     &.theme-dark
     {
