@@ -31,11 +31,11 @@ interface FormInputs
 
 const schema = yup.object().shape(
 {
-    firstname : yup.string().max(20, "cannot exceed ${max} characters.").required("is required."),
-    lastname : yup.string().max(20, "cannot exceed ${max} characters.").required("is required."),
+    firstname : yup.string().max(20, "cannot exceed 20 characters.").required("is required."),
+    lastname : yup.string().max(20, "cannot exceed 20 characters.").required("is required."),
     emailaddress : yup.string().email("is not valid.").required("is required."),
-    subject : yup.string().max(60, "cannot exceed ${max} characters.").required("is required."),
-    message : yup.string().max(1000, "cannot exceed ${max} caracters.").required("is required.")
+    subject : yup.string().max(60, "cannot exceed 60 characters.").required("is required."),
+    message : yup.string().max(1000, "cannot exceed 1000 caracters.").required("is required.")
 });
 
 const Contact : FC = () =>

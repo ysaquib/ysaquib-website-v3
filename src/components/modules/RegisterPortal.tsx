@@ -34,8 +34,8 @@ const schema = yup.object().shape(
                       .email("is not valid.")
                       .required("is required."),
     password : yup.string()
-                   .min(8, "must be at least ${min} characters.")
-                  .max(100, "cannot exceed ${max} characters.")
+                   .min(8, "must be at least 8 characters.")
+                  .max(100, "cannot exceed 100 characters.")
                   .required("is required."),
     confirmpassword : yup.string()
                          .equals([yup.ref("password")], "Passwords must match.")
