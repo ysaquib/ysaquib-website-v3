@@ -1,4 +1,4 @@
-import {BannerData, Data_SetBannerData, BannerAction, Data_SetAboutData, AboutAction, AboutData, ProjectData, ProjectAction, Data_SetProjectData, BlogData, BlogAction, Data_SetBlogData, MessageData, MessageAction, Data_AddMessageData, MessageState, Data_IncrementNew, Data_DecrementNew, Data_DelMessageData, Data_SeenMessageData } from '../types/dataTypes'
+import {BannerData, Data_SetBannerData, BannerAction, Data_SetAboutData, AboutAction, AboutData, ProjectData, ProjectAction, Data_SetProjectData, BlogData, BlogAction, Data_SetBlogData, MessageData, MessageAction, Data_AddMessageData, MessageState, Data_IncrementNew, Data_DecrementNew, Data_DelMessageData, Data_SeenMessageData, Data_HideBlog, Data_SetAllBlogsData, Data_DelBlog, Data_AddBlog } from '../types/dataTypes'
 
 let default_data = require('../../default_data.json');
 
@@ -51,8 +51,28 @@ export const blogReducer = (state = initialBlogsState, action: BlogAction) =>
 {
     switch (action.type)
     {
-        case Data_SetBlogData:
+        case Data_SetAllBlogsData:
             return action.payload;
+
+        case Data_SetBlogData:
+            const indexToSet = state.findIndex((blogItem) => {return blogItem.blog_id === action.payload.blog_id});
+            state[indexToSet] = action.payload;
+            return state;
+
+        case Data_HideBlog:
+            const indexToHide = state.findIndex((blogItem) => {return blogItem.blog_id === action.payload.blog_id});
+            state[indexToHide] = action.payload;
+            return state;
+
+        case Data_DelBlog:
+            const newAllBlogs = state.filter((blog) => {return blog.blog_id !== action.payload.blog_id});
+            return newAllBlogs;
+
+        case Data_AddBlog:
+            state.unshift(action.payload);
+            console.log(state);
+            return state;
+
         default:
             return state;
     }

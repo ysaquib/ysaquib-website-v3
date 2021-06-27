@@ -137,11 +137,11 @@ const BlogPage : FC<BlogPageProps> = ({isNewBlog=false, isEditing=false, allBlog
 
         if(isNew)
         {
-            dispatch(addNewBlog(blogPayload, allBlogs, () => {history.push(`/blog/${blogURL}`)}));
+            dispatch(addNewBlog(blogPayload, () => {history.push(`/blog/${blogURL}`)}));
         }
         else
         {
-            dispatch(setBlogData(blogPayload, allBlogs, true));
+            dispatch(setBlogData(blogPayload, true));
         }
 
         setIsNew(false);

@@ -79,7 +79,7 @@ const BlogsList : FC<BlogsListProps> = ({isLoadingInitial, setLoadingInitial, al
     
     function toggleHidden(blogData: BlogData)
     {
-        dispatch(hideBlog(blogData, blogs));
+        dispatch(hideBlog(blogData));
         dispatch(getBlogData(() => setLoadingInitial(false), () => {console.log("Error getting Blog data.")}));
     }
 
@@ -95,7 +95,7 @@ const BlogsList : FC<BlogsListProps> = ({isLoadingInitial, setLoadingInitial, al
                     optionClose="Keep Blog"
                     optionReject="Delete Blog"
                     onClose={() => setDialog(<></>)}
-                    onReject={() => dispatch(deleteBlog(blogData, allBlogs, (err) => console.log(err)))}/>
+                    onReject={() => dispatch(deleteBlog(blogData, () => setDialog(<></>), (err) => console.log(err)))}/>
             );
         }
         else

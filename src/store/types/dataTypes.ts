@@ -1,7 +1,15 @@
 export const Data_SetBannerData = 'Data_SetBannerData';
+
 export const Data_SetAboutData = 'Data_SetAboutData';
+
 export const Data_SetProjectData = 'Data_SetProjectData';
+
 export const Data_SetBlogData = 'Data_SetBlogData';
+export const Data_SetAllBlogsData = 'Data_SetAllBlogData';
+export const Data_HideBlog = 'Data_HideBlog';
+export const Data_AddBlog = 'Data_AddBlog';
+export const Data_DelBlog = 'Data_DelBlog';
+
 export const Data_AddMessageData = 'Data_AddMessageData';
 export const Data_DelMessageData = 'Data_DelMessageData';
 export const Data_SeenMessageData = 'Data_SeenMessageData';
@@ -71,10 +79,34 @@ export interface BlogData
     blog_isFeatured?: boolean;
 }
 
+interface SetAllBlogsAction
+{
+    type: typeof Data_SetAllBlogsData;
+    payload: BlogData[];
+}
+
 interface SetBlogDataAction
 {
     type: typeof Data_SetBlogData;
-    payload: BlogData[];
+    payload: BlogData;
+}
+
+interface HideBlogAction
+{
+    type: typeof Data_HideBlog;
+    payload: BlogData;
+}
+
+interface AddBlogAction
+{
+    type: typeof Data_AddBlog;
+    payload: BlogData;
+}
+
+interface DelBlogAction
+{
+    type: typeof Data_DelBlog;
+    payload: BlogData;
 }
 
 export interface MessageData
@@ -131,5 +163,5 @@ export interface MessageState
 export type BannerAction = SetBannerDataAction;
 export type AboutAction = SetAboutDataAction;
 export type ProjectAction = SetProjectDataAction;
-export type BlogAction = SetBlogDataAction;
+export type BlogAction = SetBlogDataAction | HideBlogAction | SetAllBlogsAction | AddBlogAction | DelBlogAction;
 export type MessageAction = AddMessageDataAction | DelMessageDataAction | SeenMessageDataAction | SetHasNewDataAction | IncrementNewDataAction | DecrementNewDataAction;

@@ -2,7 +2,7 @@ import firebase from 'firebase';
 import { ThunkAction } from 'redux-thunk';
 import { RootState } from '..';
 import Firebase from '../../firebase/config';
-import { BannerData, Data_SetBannerData, BannerAction, AboutData, AboutAction, Data_SetAboutData, ProjectData, Data_SetProjectData, ProjectAction, BlogAction, Data_SetBlogData, BlogData, MessageData, MessageAction, Data_AddMessageData, Data_IncrementNew, Data_DelMessageData, Data_SeenMessageData, Data_DecrementNew } from '../types/dataTypes';
+import { BannerData, Data_SetBannerData, BannerAction, AboutData, AboutAction, Data_SetAboutData, ProjectData, Data_SetProjectData, ProjectAction, BlogAction, Data_SetBlogData, BlogData, MessageData, MessageAction, Data_AddMessageData, Data_IncrementNew, Data_DelMessageData, Data_SeenMessageData, Data_DecrementNew, Data_HideBlog, Data_SetAllBlogsData, Data_DelBlog, Data_AddBlog } from '../types/dataTypes';
 
 export const getBannerData = (onError: () => void) : ThunkAction<void, RootState, null, BannerAction> =>
 {
@@ -224,7 +224,7 @@ export const getBlogData = (onComplete?: () => void, onError?: () => void) : Thu
                 }
             })
             console.log(blog_items);
-            dispatch({type: Data_SetBlogData, payload: blog_items});
+            dispatch({type: Data_SetAllBlogsData, payload: blog_items});
             onComplete && onComplete();
         }
         catch (error)
@@ -235,7 +235,7 @@ export const getBlogData = (onComplete?: () => void, onError?: () => void) : Thu
     }
 }
 
-export const setBlogData = (blogData: BlogData, allBlogs: BlogData[], update?: boolean, onComplete?: () => void, onError?: () => void) : ThunkAction<void, RootState, null, BlogAction> =>
+export const setBlogData = (blogData: BlogData, update?: boolean, onComplete?: () => void, onError?: () => void) : ThunkAction<void, RootState, null, BlogAction> =>
 {
     return async dispatch =>
     {
@@ -257,14 +257,11 @@ export const setBlogData = (blogData: BlogData, allBlogs: BlogData[], update?: b
                 await Firebase.firestore().collection("blogs").doc(blogData.blog_id).set(blog as BlogData);
             }
             
-            const index = allBlogs.findIndex((blogItem) => {return blogItem.blog_id === blogData.blog_id});
-            allBlogs[index] = blogData;
-            
             onComplete && onComplete();
             
             dispatch({
                 type: Data_SetBlogData, 
-                payload: allBlogs
+                payload: blogData
             });
             console.log("Success");
         }
@@ -276,18 +273,18 @@ export const setBlogData = (blogData: BlogData, allBlogs: BlogData[], update?: b
     }
 }
 
-export const hideBlog = (blogData: BlogData, allBlogs: BlogData[], onComplete?: () => void, onError?: () => void) : ThunkAction<void, RootState, null, BlogAction> =>
+export const hideBlog = (blogData: BlogData, onComplete?: () => void, onError?: () => void) : ThunkAction<void, RootState, null, BlogAction> =>
 {
     return async dispatch =>
     {
         try
         {
-            const isHidden = blogData.blog_isHidden ?? false;
             console.log(blogData);
-            // const {blog_id, ...blog} = blogData;
-            // await Firebase.firestore().collection("blogs").doc(blogData.blog_id).set(blog as BlogData);
+            blogData.blog_isHidden = !(blogData.blog_isHidden ?? false);
+            const {blog_id, ...blog} = blogData;
+            await Firebase.firestore().collection("blogs").doc(blogData.blog_id).set(blog as BlogData);
 
-            dispatch(setBlogData({...blogData, blog_isHidden: !isHidden}, allBlogs, false, onComplete, onError));
+            dispatch({type: Data_HideBlog, payload: blogData});
             console.log("Success");
         }
         catch (error)
@@ -298,7 +295,7 @@ export const hideBlog = (blogData: BlogData, allBlogs: BlogData[], onComplete?: 
     }
 }
 
-export const addNewBlog = (blogData: BlogData, allBlogs: BlogData[], onComplete?: () => void, onError?: () => void) : ThunkAction<void, RootState, null, BlogAction> =>
+export const addNewBlog = (blogData: BlogData, onComplete?: () => void, onError?: () => void) : ThunkAction<void, RootState, null, BlogAction> =>
 {
     return async dispatch =>
     {
@@ -309,16 +306,15 @@ export const addNewBlog = (blogData: BlogData, allBlogs: BlogData[], onComplete?
 
             blogData.blog_createdAt = currentTime;
             const {blog_id, ...blog} = blogData;
-            await Firebase.firestore().collection("blogs").add({...blog, blog_createdAt: createdAt});
+            const DocRef = await Firebase.firestore().collection("blogs").add({...blog, blog_createdAt: createdAt});
+                        
             
-            allBlogs.push(blogData);
+            dispatch({
+                type: Data_AddBlog, 
+                payload: {...blogData, blog_id: DocRef.id}
+            });
             
             onComplete && onComplete();
-
-            dispatch({
-                type: Data_SetBlogData, 
-                payload: allBlogs
-            });
             console.log("Success");
         }
         catch (error)
@@ -330,25 +326,24 @@ export const addNewBlog = (blogData: BlogData, allBlogs: BlogData[], onComplete?
 }
 
 
-export const deleteBlog = (blogData: BlogData, allBlogs: BlogData[], onError: (msg: any) => void) : ThunkAction<void, RootState, null, BlogAction> =>
+export const deleteBlog = (blogData: BlogData, onComplete?: () => void, onError?: (msg: any) => void) : ThunkAction<void, RootState, null, BlogAction> =>
 {
     return async dispatch =>
     {
         try
         {
-            const newAllBlogs = allBlogs.filter((blog) => {return blog.blog_id !== blogData.blog_id});
             await Firebase.firestore().collection("blogs").doc(blogData.blog_id).delete();
             
             dispatch({
-                type: Data_SetBlogData, 
-                payload: newAllBlogs
+                type: Data_DelBlog, 
+                payload: blogData
             });
+            onComplete && onComplete();
             console.log("Successfully deleted Blog");
-            console.log(newAllBlogs);
         }
         catch (error)
         {
-            onError(error);
+            onError && onError(error);
             console.log(error);
         }
     }
