@@ -82,10 +82,17 @@ const Header : FC = () =>
                 }
 
                 {authenticated && userRoles.includes("superadmin") ? 
+                    <li className="header_item" onClick={() => {history.push("/inbox")}} >
+                        Messages
+                    </li> : <></>   
+                }
+
+                {authenticated && userRoles.includes("superadmin") ? 
                     <li className="header_item" onClick={() => {history.push("/admin")}} >
                         Admin Dashboard
                     </li> : <></>   
                 }
+
 
                 {authenticated ? 
                     <li className="header_item sign_out" onClick={handleSignOut} >

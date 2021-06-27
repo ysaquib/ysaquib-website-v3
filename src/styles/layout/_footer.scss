@@ -45,6 +45,9 @@
             text-decoration: none;
             opacity: 80%;
             transition: color $trans-regular $trans-effect;
+            
+            * { transition: none; }
+            
             &:hover
             {
                 @include themify()

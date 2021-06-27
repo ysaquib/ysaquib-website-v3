@@ -13,13 +13,9 @@
 @import './sections/about';
 @import './sections/contact';
 @import './sections/security';
-@import './sections/blogslist';
 
 @import './wrappers/acwrapper';
 
-@import './modules/portals';
-@import './modules/admin';
-@import './modules/blog';
 
 @import './elements/button';
 @import './elements/projectcard';
@@ -35,6 +31,10 @@
 @import './layout/pagenotfound';
 @import './layout/loader';
 
+@import './modules/portals';
+@import './modules/admin';
+@import './modules/blogslist';
+@import './modules/blog';
 
 @import './base/base';
 @import './base/typography';
