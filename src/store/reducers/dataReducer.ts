@@ -1,4 +1,4 @@
-import {BannerData, Data_SetBannerData, BannerAction, Data_SetAboutData, AboutAction, AboutData, ProjectData, ProjectAction, Data_SetProjectData, BlogData, BlogAction, Data_SetBlogData, MessageData, MessageAction, Data_AddMessageData, MessageState, Data_IncrementNew, Data_DecrementNew, Data_DelMessageData, Data_SeenMessageData, Data_SetAllBlogsData, Data_DelBlog, Data_AddBlog, Data_SetAllProjectsData, Data_AddProject, Data_DelProject, Data_UpdateAllProjects, } from '../types/dataTypes'
+import {BannerData, Data_SetBannerData, BannerAction, Data_SetAboutData, AboutAction, AboutData, ProjectData, ProjectAction, Data_SetProjectData, BlogData, BlogAction, Data_SetBlogData, MessageData, MessageAction, Data_AddMessageData, MessageState, Data_IncrementNew, Data_DecrementNew, Data_DelMessageData, Data_SeenMessageData, Data_SetAllBlogsData, Data_DelBlog, Data_AddBlog, Data_SetAllProjectsData, Data_AddProject, Data_DelProject, Data_UpdateAllProjects, ProjectState, Data_isLoadingProjects, BlogState, Data_isLoadingBlogs, } from '../types/dataTypes'
 
 let default_data = require('../../default_data.json');
 
@@ -34,59 +34,76 @@ export const aboutReducer = (state = initialAboutState, action: AboutAction) =>
     }
 }
 
-const initialProjectsState : ProjectData[] = [];
-export const projectReducer = (state = initialProjectsState, action: ProjectAction) =>
+const initialProjectsState: ProjectState =
+{
+    allProjects: [],
+    isLoadingProjects: true,
+}
+export const projectReducer = (state = initialProjectsState, action: ProjectAction) : ProjectState =>
 {
     switch (action.type)
     {
         case Data_SetAllProjectsData:
-            return action.payload;
+            return {...state, allProjects: action.payload};
 
         case Data_SetProjectData:
-            const project_index = state.findIndex((proj) => {return proj.project_id === action.payload.project_id});
-            state[project_index] = action.payload;
-            return state;
+            const newProjects = state.allProjects;
+            const project_index = newProjects.findIndex((proj) => {return proj.project_id === action.payload.project_id});
+            newProjects[project_index] = action.payload;
+            return {...state, allProjects: newProjects};
             
         case Data_AddProject:
-            state.push(action.payload);
-            return state;
+            const allProjects = state.allProjects;
+            allProjects.push(action.payload);
+            return {...state, allProjects};
 
         case Data_UpdateAllProjects:
             action.payload.forEach((project, index) => {project.project_order = index});
-            console.log(action.payload);
-            return action.payload;
+            return {...state, allProjects: action.payload};
         
         case Data_DelProject:
-            const newAllProjects = state.filter((proj) => {return proj.project_id !== action.payload.project_id});
+            const newAllProjects = state.allProjects.filter((proj) => {return proj.project_id !== action.payload.project_id});
             newAllProjects.forEach((project, index) => {project.project_order = index});
-            return newAllProjects;
+            return {...state, allProjects: newAllProjects};
+        
+        case Data_isLoadingProjects:
+            return {...state, isLoadingProjects: action.payload};
             
         default:
             return state;
     }
 }
 
-const initialBlogsState : BlogData[] = [];
-export const blogReducer = (state = initialBlogsState, action: BlogAction) =>
+const initialBlogsState: BlogState =
+{
+    allBlogs: [],
+    isLoadingBlogs: true,
+}
+export const blogReducer = (state = initialBlogsState, action: BlogAction) : BlogState =>
 {
     switch (action.type)
     {
         case Data_SetAllBlogsData:
-            return action.payload;
+            return {...state, allBlogs: action.payload};
 
         case Data_SetBlogData:
-            const indexToSet = state.findIndex((blogItem) => {return blogItem.blog_id === action.payload.blog_id});
-            state[indexToSet] = action.payload;
-            return state;
+            const allBlogs = state.allBlogs;
+            const indexToSet = allBlogs.findIndex((blogItem) => {return blogItem.blog_id === action.payload.blog_id});
+            allBlogs[indexToSet] = action.payload;
+            return {...state, allBlogs};
 
         case Data_DelBlog:
-            const newAllBlogs = state.filter((blog) => {return blog.blog_id !== action.payload.blog_id});
-            return newAllBlogs;
+            const newAllBlogs = state.allBlogs.filter((blog) => {return blog.blog_id !== action.payload.blog_id});
+            return {...state, allBlogs: newAllBlogs};
 
         case Data_AddBlog:
-            state.unshift(action.payload);
+            const allBlogsAdd = state.allBlogs;
+            allBlogsAdd.unshift(action.payload);
             console.log(state);
-            return state;
+            return {...state, allBlogs: allBlogsAdd};
+
+        case Data_isLoadingBlogs:
+            return {...state, isLoadingBlogs: action.payload};
 
         default:
             return state;
@@ -94,22 +111,25 @@ export const blogReducer = (state = initialBlogsState, action: BlogAction) =>
 }
 
 const initialMessagesState : MessageState = {
-    messages: [],
+    allMessages: [],
     hasNewMessages: false,
-    newMessagesCount: 0
+    newMessagesCount: 0,
+    isLoadingMessages: true,
 };
-export const messageReducer = (state = initialMessagesState, action: MessageAction) => 
+export const messageReducer = (state = initialMessagesState, action: MessageAction) : MessageState => 
 {
     switch (action.type)
     {
         case Data_AddMessageData:
-            return {...state, messages: state.messages.push(action.payload)};
+            const allMessages = state.allMessages;
+            allMessages.push(action.payload);
+            return {...state, allMessages};
 
         case Data_DelMessageData:
-            return {...state, messages: state.messages.filter((msg) => {return action.payload.msg_id !== msg.msg_id})};
+            return {...state, allMessages: state.allMessages.filter((msg) => {return action.payload.msg_id !== msg.msg_id})};
         
         case Data_SeenMessageData:
-            const msgToUpdate = state.messages.find((msg) => (msg.msg_id === action.payload.msg_id));
+            const msgToUpdate = state.allMessages.find((msg) => (msg.msg_id === action.payload.msg_id));
             msgToUpdate && (msgToUpdate.msg_seen = true);
             return state;
 

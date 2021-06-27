@@ -2,7 +2,7 @@ import firebase from 'firebase';
 import { ThunkAction } from 'redux-thunk';
 import { RootState } from '..';
 import Firebase from '../../firebase/config';
-import { BannerData, Data_SetBannerData, BannerAction, AboutData, AboutAction, Data_SetAboutData, ProjectData, Data_SetProjectData, ProjectAction, BlogAction, Data_SetBlogData, BlogData, MessageData, MessageAction, Data_AddMessageData, Data_IncrementNew, Data_DelMessageData, Data_SeenMessageData, Data_DecrementNew, Data_SetAllBlogsData, Data_DelBlog, Data_AddBlog, Data_SetAllProjectsData, Data_AddProject, Data_DelProject, Data_UpdateAllProjects } from '../types/dataTypes';
+import { BannerData, Data_SetBannerData, BannerAction, AboutData, AboutAction, Data_SetAboutData, ProjectData, Data_SetProjectData, ProjectAction, BlogAction, Data_SetBlogData, BlogData, MessageData, MessageAction, Data_AddMessageData, Data_IncrementNew, Data_DelMessageData, Data_SeenMessageData, Data_DecrementNew, Data_SetAllBlogsData, Data_DelBlog, Data_AddBlog, Data_SetAllProjectsData, Data_AddProject, Data_DelProject, Data_UpdateAllProjects, Data_isLoadingBlogs, Data_isLoadingProjects, Data_isLoadingMessages } from '../types/dataTypes';
 
 export const getBannerData = (onError?: () => void) : ThunkAction<void, RootState, null, BannerAction> =>
 {
@@ -91,8 +91,8 @@ export const getProjectData = (onComplete?: () => void, onError?: () => void) : 
             projects.forEach((doc) => {
                 project_items.push({...doc.data(), project_id: doc.id} as ProjectData);
             })
-            console.log(project_items);
             dispatch({type: Data_SetAllProjectsData, payload: project_items});
+            dispatch(setProjectsLoading(false));
             onComplete && onComplete();
 
         }
@@ -124,6 +124,8 @@ export const setProjectData = (projectData: ProjectData, onComplete?: () => void
 
             onComplete && onComplete();
 
+            dispatch(setProjectsLoading(false));
+
             console.log("Success");
         }
         catch (error)
@@ -151,12 +153,6 @@ export const updateAllProjects = (allProjects: ProjectData[], onComplete?: () =>
         try 
         {
             
-            // for (var i = 0; i < allProjects.length; i++)
-            // {
-            //     const {project_id, ...project} = allProjects[i];
-            //     await Firebase.firestore().collection("projects").doc(allProjects[i].project_id).set(project as ProjectData);
-            // }
-
             updateProjectsOrders(allProjects);
 
             dispatch({
@@ -229,6 +225,16 @@ export const deleteProject = (projectData: ProjectData, allProjects: ProjectData
     }
 }
 
+export const setProjectsLoading = (isLoading: boolean) : ThunkAction<void, RootState, null, ProjectAction> =>
+{
+    return async dispatch =>
+    {
+        dispatch({
+            type: Data_isLoadingProjects, 
+            payload: isLoading
+        });
+    }
+}
 
 export const getBlogData = (onComplete?: () => void, onError?: () => void) : ThunkAction<void, RootState, null, BlogAction> =>
 {
@@ -248,12 +254,12 @@ export const getBlogData = (onComplete?: () => void, onError?: () => void) : Thu
                     blog_items.push({...doc.data(), blog_id: doc.id, blog_createdAt: doc.get("blog_createdAt").toDate()} as BlogData);
                 }
             })
-            console.log(blog_items);
 
             dispatch({
                 type: Data_SetAllBlogsData, 
                 payload: blog_items
             });
+            dispatch(setBlogsLoading(false));
             onComplete && onComplete();
         }
         catch (error)
@@ -358,6 +364,19 @@ export const deleteBlog = (blogData: BlogData, onComplete?: () => void, onError?
     }
 }
 
+export const setBlogsLoading = (isLoading: boolean) : ThunkAction<void, RootState, null, BlogAction> =>
+{
+    return async dispatch =>
+    {
+        dispatch({
+            type: Data_isLoadingBlogs, 
+            payload: isLoading
+        });
+    }
+}
+
+// export const getMessages = 
+
 export const addNewMessage = (messageData: MessageData, onComplete?: () => void, onError?: (err: any) => void) : ThunkAction<void, RootState, null, MessageAction> =>
 {
     return async dispatch =>
@@ -419,5 +438,16 @@ export const seenMessage = (messageData: MessageData, onComplete?: () => void, o
             onError && onError(error);
             console.log(error);
         }
+    }
+}
+
+export const setMessagesLoading = (isLoading: boolean) : ThunkAction<void, RootState, null, MessageAction> =>
+{
+    return async dispatch =>
+    {
+        dispatch({
+            type: Data_isLoadingMessages, 
+            payload: isLoading
+        });
     }
 }

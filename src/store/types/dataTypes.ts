@@ -7,11 +7,13 @@ export const Data_SetAllProjectsData = "Data_SetAllProjectsData";
 export const Data_AddProject = "Data_AddProject";
 export const Data_DelProject = "Data_DelProject";
 export const Data_UpdateAllProjects = "Data_UpdateAllProjects";
+export const Data_isLoadingProjects = "Data_isLoadingProjects";
 
 export const Data_SetBlogData = "Data_SetBlogData";
 export const Data_SetAllBlogsData = "Data_SetAllBlogData";
 export const Data_AddBlog = "Data_AddBlog";
 export const Data_DelBlog = "Data_DelBlog";
+export const Data_isLoadingBlogs = "Data_isLoadingBlogs";
 
 export const Data_AddMessageData = "Data_AddMessageData";
 export const Data_DelMessageData = "Data_DelMessageData";
@@ -19,6 +21,7 @@ export const Data_SeenMessageData = "Data_SeenMessageData";
 export const Data_SetHasNew = "Data_SetHasNew";
 export const Data_IncrementNew = "Data_IncrementNew";
 export const Data_DecrementNew = "Data_DecrementNew";
+export const Data_isLoadingMessages = "Data_isLoadingMessages";
 
 export interface BannerData
 {
@@ -92,6 +95,18 @@ interface UpdateAllProjectsAction
     payload: ProjectData[];
 }
 
+interface SetLoadingProjectsAction
+{
+    type: typeof Data_isLoadingProjects;
+    payload: boolean;
+}
+
+export interface ProjectState
+{
+    allProjects: ProjectData[];
+    isLoadingProjects: boolean;
+}
+
 export interface BlogData
 {
     blog_id: string;
@@ -128,6 +143,18 @@ interface DelBlogAction
 {
     type: typeof Data_DelBlog;
     payload: BlogData;
+}
+
+interface SetLoadingBlogsAction
+{
+    type: typeof Data_isLoadingBlogs;
+    payload: boolean;
+}
+
+export interface BlogState
+{
+    allBlogs: BlogData[];
+    isLoadingBlogs: boolean;
 }
 
 export interface MessageData
@@ -174,15 +201,22 @@ interface DecrementNewDataAction
     type: typeof Data_DecrementNew;
 }
 
+interface SetLoadingMessagesAction
+{
+    type: typeof Data_isLoadingMessages;
+    payload: boolean;
+}
+
 export interface MessageState 
 {
-    messages: MessageData[];
+    allMessages: MessageData[];
     hasNewMessages: boolean;
     newMessagesCount: number;
+    isLoadingMessages: boolean;
 }
 
 export type BannerAction = SetBannerDataAction;
 export type AboutAction = SetAboutDataAction;
-export type ProjectAction = SetProjectDataAction | SetAllProjectsDataAction | AddProjectAction | DelProjectAction | UpdateAllProjectsAction;
-export type BlogAction = SetBlogDataAction | SetAllBlogsAction | AddBlogAction | DelBlogAction;
-export type MessageAction = AddMessageDataAction | DelMessageDataAction | SeenMessageDataAction | SetHasNewDataAction | IncrementNewDataAction | DecrementNewDataAction;
+export type ProjectAction = SetProjectDataAction | SetLoadingProjectsAction | SetAllProjectsDataAction | AddProjectAction | DelProjectAction | UpdateAllProjectsAction;
+export type BlogAction = SetBlogDataAction | SetAllBlogsAction | AddBlogAction | DelBlogAction | SetLoadingBlogsAction;
+export type MessageAction = AddMessageDataAction | DelMessageDataAction | SeenMessageDataAction | SetHasNewDataAction | SetLoadingMessagesAction | IncrementNewDataAction | DecrementNewDataAction;
