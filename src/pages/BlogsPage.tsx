@@ -21,7 +21,7 @@ const BlogsPage : FC = () =>
 {
     const history = useHistory();
     const dispatch = useDispatch();
-    const {allBlogs, isLoadingBlogs} = useSelector((state: RootState) => state.blogs);
+    const {allBlogs} = useSelector((state: RootState) => state.blogs);
 
     const [blogs, setBlogs] = useState<BlogData[]>(allBlogs);
     const [isLoading, setLoading] = useState<boolean>(true);

@@ -5,9 +5,7 @@
         "title" : "Yusuf Saquib",
         "sections" : 
         [
-            ["Projects", "/#projects"],
-            ["About", "/#about"],
-            ["Contact", "/#contact"],
+            ["Projects", "/projects"],
             ["Blog", "/blog"]
         ]
     },

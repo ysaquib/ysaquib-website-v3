@@ -3,7 +3,7 @@
  * Author: Yusuf Saquib
  */
 
-import React, { FC, HTMLAttributes, ImgHTMLAttributes, useEffect, useState } from 'react';
+import React, { FC, ImgHTMLAttributes, useEffect, useState } from 'react';
 
 import { BlogData } from '../store/types/dataTypes';
 import PageNotFound from '../components/layout/PageNotFound';
@@ -12,7 +12,6 @@ import Markdown from 'markdown-to-jsx';
 import Button from '../components/elements/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store';
-import { IconEditBox } from '../components/elements/Icons';
 
 import { Light as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomOneDark, atomOneLight } from 'react-syntax-highlighter/dist/esm/styles/hljs';
