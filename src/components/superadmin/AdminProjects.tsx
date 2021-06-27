@@ -11,7 +11,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { ProjectData } from '../../store/types/dataTypes';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
-import { addNewProject, deleteProject, getProjectData, setProjectData, updateAllProjects } from '../../store/actions/dataActions';
+import { addNewProject, deleteProject, getProjectData, setProjectData, setProjectsLoading, updateAllProjects } from '../../store/actions/dataActions';
 import Button from '../elements/Button';
 import TextArea from '../elements/TextArea';
 import { Add, ChevronRight, Remove } from '@material-ui/icons';
@@ -42,13 +42,12 @@ const schema = yup.object().shape(
 const AdminProjects : FC = () =>
 {
     const dispatch = useDispatch();
-    const ProjectsData = useSelector((state: RootState) => state.projects);
+    const {allProjects, isLoadingProjects} = useSelector((state: RootState) => state.projects);
     const resolver = yupResolver(schema);
     const {register, handleSubmit, formState: {errors}, setValue, setFocus} = useForm<ProjectData>({mode:"onChange", resolver});
-    const [projects, setProjects] = useState<ProjectData[]>(ProjectsData);
+    const [projects, setProjects] = useState<ProjectData[]>(allProjects);
     const [project, setProject] = useState<ProjectData>();
 
-    const [isLoading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [message, setMessage] = useState<string>("");
 
@@ -89,9 +88,7 @@ const AdminProjects : FC = () =>
      */
     useEffect(() => 
     {
-        dispatch(getProjectData(() => {
-            setLoading(false)
-        }, () => {
+        dispatch(getProjectData(undefined, () => {
             console.log("Error getting about data")}
         ));
     }, [dispatch, message]);
@@ -103,14 +100,12 @@ const AdminProjects : FC = () =>
      */
     useEffect(() => 
     {
-        setProjects(ProjectsData);
-        console.log(ProjectsData);
-        
+        setProjects(allProjects);
         return () =>
         {
             setProjects([]);
         }
-    }, [ProjectsData]);
+    }, [allProjects]);
 
     /**
      * This function takes an id of a project and sets the current selected 
@@ -203,7 +198,6 @@ const AdminProjects : FC = () =>
 
         setProjects(reorderedProjects);
         dispatch(updateAllProjects(reorderedProjects, () => {}));
-        console.log(reorderedProjects, projects);
     }
     
     /**
@@ -216,7 +210,7 @@ const AdminProjects : FC = () =>
     const onSubmit : SubmitHandler<ProjectData> = (data) => 
     {
         console.log(data);
-        setLoading(true);
+        dispatch(setProjectsLoading(true));
 
         const proj_id = project?.project_id ?? "";
         const proj_prog = data.project_progress ?? project?.project_progress ?? 0;
@@ -238,7 +232,7 @@ const AdminProjects : FC = () =>
         }
         else if(project)
         {
-            dispatch(setProjectData(new_project, () => setLoading(false), (err) => {setError(err)}));
+            dispatch(setProjectData(new_project, undefined, (err) => {setError(err)}));
         }
         
         setNewProject(false);
@@ -392,8 +386,8 @@ const AdminProjects : FC = () =>
                            disabled={project == null}
                            show_label />
 
-                <p className={`message ${error != null && !isLoading ? "error" : ""}`}>
-                    {error != null && !isLoading ? error : message}
+                <p className={`message ${error != null && !isLoadingProjects ? "error" : ""}`}>
+                    {error != null && !isLoadingProjects ? error : message}
                 </p>
                 <Button text={isNewProject ? "Create Project" : "Update Project"} className="confirmbtn" />
             </form>

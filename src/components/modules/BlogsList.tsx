@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { useLocation } from 'react-router-dom';
 import { RootState } from '../../store';
-import { deleteBlog, getBlogData, setBlogData } from '../../store/actions/dataActions';
+import { deleteBlog, setBlogData } from '../../store/actions/dataActions';
 import { BlogData } from '../../store/types/dataTypes';
 import DialogBox from '../elements/DialogBox';
 import { IconEye, IconEyeOff, IconGarbageDelete } from '../elements/Icons';
@@ -22,13 +22,6 @@ interface HideButtonProps
     toggleHidden: () => void;
 }
 
-interface BlogsListProps
-{
-    isLoadingInitial: boolean;
-    setLoadingInitial: React.Dispatch<React.SetStateAction<boolean>>;
-    allBlogs: BlogData[];
-}
-
 const HideButton : FC<HideButtonProps> = ({blog, toggleHidden}) => 
 {
     const [isBlogHidden, setBlogHidden] = useState(blog.blog_isHidden ?? false);
@@ -44,20 +37,21 @@ const HideButton : FC<HideButtonProps> = ({blog, toggleHidden}) =>
     );
 }
 
-const BlogsList : FC<BlogsListProps> = ({isLoadingInitial, setLoadingInitial, allBlogs}) =>
+const BlogsList : FC = () =>
 {
 
     const currentPage = parseInt(useQuery().get("page") ?? "1");
 
     const history = useHistory();
     const dispatch = useDispatch();
-    const BlogData = useSelector((state: RootState) => state.blogs);
+    const {allBlogs, isLoadingBlogs} = useSelector((state: RootState) => state.blogs);
     
     const { authenticated, userRoles } = useSelector((state : RootState) => state.auth);
     const [ dialog, setDialog ] = useState<JSX.Element>(<></>);
 
     const [ blogsPerPage, setBlogsPerPage] = useState<number>(4);
     const [ blogs, setBlogs ] = useState<BlogData[]>(allBlogs);
+
     const [ pageBlogs, setPageBlogs ] = useState<BlogData[]>([]);
 
     const [ page, setPage] = useState<number>(currentPage);
@@ -113,7 +107,7 @@ const BlogsList : FC<BlogsListProps> = ({isLoadingInitial, setLoadingInitial, al
     }, [blogs, blogsPerPage])
 
     useEffect(() => {
-        const blogsList = BlogData
+        const blogsList = allBlogs
             .filter((blog) => {return (!blog.blog_isHidden ?? true) || (authenticated && userRoles.includes("superadmin"))});
         
         const pageBlogsList = blogsList
@@ -125,9 +119,9 @@ const BlogsList : FC<BlogsListProps> = ({isLoadingInitial, setLoadingInitial, al
             setBlogs([]);
             setPageBlogs([]);
         }
-    }, [BlogData, page, setBlogs, setPageBlogs, blogsPerPage, authenticated, userRoles, currentPage]);
+    }, [allBlogs, page, setBlogs, setPageBlogs, blogsPerPage, authenticated, userRoles, currentPage]);
 
-    if (isLoadingInitial)
+    if (isLoadingBlogs)
     {
         return(
             <section id="blogslist" className="">

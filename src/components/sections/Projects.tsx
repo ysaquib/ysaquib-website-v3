@@ -15,32 +15,31 @@ import Section from '../elements/Section';
 
 const Projects : FC = () =>
 {
-    const [isLoading, setLoading] = useState<boolean>(true);
     const dispatch = useDispatch();
-    const ProjectsData = useSelector((state: RootState) => state.projects);
-    const [projects, setProjects] = useState<ProjectData[]>(ProjectsData);
+    const {allProjects, isLoadingProjects} = useSelector((state: RootState) => state.projects);
+    const [projects, setProjects] = useState<ProjectData[]>(allProjects);
 
     useEffect(() => 
     {
-        dispatch(getProjectData(() => {setLoading(false)}, () => {console.log("Error getting about data")}));
+        dispatch(getProjectData(undefined, () => {console.log("Error getting about data")}));
     }, [dispatch]);
     
     useEffect(() => 
     {
-        setProjects(ProjectsData);
+        setProjects(allProjects);
         
         return () =>
         {
             setProjects([]);
         }
-    }, [ProjectsData]);
+    }, [allProjects]);
 
     
 
     /**
      * If the projects are currently being loaded, make sure it is known.
      */
-    if(isLoading)
+    if(isLoadingProjects)
     {
         return(
             <Section title="My Projects" id="projects">

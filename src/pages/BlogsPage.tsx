@@ -21,9 +21,9 @@ const BlogsPage : FC = () =>
 {
     const history = useHistory();
     const dispatch = useDispatch();
-    const BlogData = useSelector((state: RootState) => state.blogs);
+    const {allBlogs, isLoadingBlogs} = useSelector((state: RootState) => state.blogs);
 
-    const [blogs, setBlogs] = useState<BlogData[]>(BlogData);
+    const [blogs, setBlogs] = useState<BlogData[]>(allBlogs);
     const [isLoading, setLoading] = useState<boolean>(true);
 
 
@@ -35,12 +35,12 @@ const BlogsPage : FC = () =>
     
     useEffect(() => 
     {
-        setBlogs(BlogData);
+        setBlogs(allBlogs);
         return () => 
         {
             setBlogs([]);
         }
-    }, [BlogData]);
+    }, [allBlogs]);
 
     const new_blog: BlogData = 
     {
@@ -62,7 +62,7 @@ const BlogsPage : FC = () =>
             <Container>
                 <Switch>
                     <PublicRoute exact path="/blog">
-                        <BlogsList isLoadingInitial={isLoading} setLoadingInitial={setLoading} allBlogs={blogs} />
+                        <BlogsList />
                     </PublicRoute>
 
                     <PrivateRoute exact path="/blog/create_new" authRoles={["superadmin"]}> 
