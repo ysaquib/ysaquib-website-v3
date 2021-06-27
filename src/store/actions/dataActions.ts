@@ -2,7 +2,7 @@ import firebase from 'firebase';
 import { ThunkAction } from 'redux-thunk';
 import { RootState } from '..';
 import Firebase from '../../firebase/config';
-import { BannerData, Data_SetBannerData, BannerAction, AboutData, AboutAction, Data_SetAboutData, ProjectData, Data_SetProjectData, ProjectAction, BlogAction, Data_SetBlogData, BlogData, MessageData, MessageAction, Data_AddMessageData } from '../types/dataTypes';
+import { BannerData, Data_SetBannerData, BannerAction, AboutData, AboutAction, Data_SetAboutData, ProjectData, Data_SetProjectData, ProjectAction, BlogAction, Data_SetBlogData, BlogData, MessageData, MessageAction, Data_AddMessageData, Data_IncrementNew, Data_DelMessageData, Data_SeenMessageData, Data_DecrementNew } from '../types/dataTypes';
 
 export const getBannerData = (onError: () => void) : ThunkAction<void, RootState, null, BannerAction> =>
 {
@@ -284,6 +284,9 @@ export const hideBlog = (blogData: BlogData, allBlogs: BlogData[], onComplete?: 
         {
             const isHidden = blogData.blog_isHidden ?? false;
             console.log(blogData);
+            // const {blog_id, ...blog} = blogData;
+            // await Firebase.firestore().collection("blogs").doc(blogData.blog_id).set(blog as BlogData);
+
             dispatch(setBlogData({...blogData, blog_isHidden: !isHidden}, allBlogs, false, onComplete, onError));
             console.log("Success");
         }
@@ -362,8 +365,50 @@ export const addNewMessage = (messageData: MessageData, onComplete?: () => void,
             const {msg_id, ...message} = messageData;
             await Firebase.firestore().collection("messages").add({...message, msg_sentAt: createdAt});
             dispatch({type: Data_AddMessageData, payload: messageData});
+            dispatch({type: Data_IncrementNew});
             onComplete && onComplete();
             
+        }
+        catch (error)
+        {
+            onError && onError(error);
+            console.log(error);
+        }
+    }
+}
+
+export const deleteMessage = (messageData: MessageData, onComplete?: () => void, onError?: (err: any) => void) : ThunkAction<void, RootState, null, MessageAction> =>
+{
+    return async dispatch =>
+    {
+        try
+        {
+            await Firebase.firestore().collection("messages").doc(messageData.msg_id).delete();
+            dispatch({type: Data_DelMessageData, payload: messageData});
+            if(!messageData.msg_seen)
+            {
+                dispatch({type: Data_DecrementNew});
+            }
+            onComplete && onComplete();
+        }
+        catch (error)
+        {
+            onError && onError(error);
+            console.log(error);
+        }
+    }
+}
+
+export const seenMessage = (messageData: MessageData, onComplete?: () => void, onError?: (err: any) => void) : ThunkAction<void, RootState, null, MessageAction> =>
+{
+    return async dispatch =>
+    {
+        try
+        {
+            await Firebase.firestore().collection("messages").doc(messageData.msg_id).set({msg_seen: true});
+            dispatch({type: Data_SeenMessageData, payload: messageData});
+            dispatch({type: Data_DecrementNew});
+            onComplete && onComplete();
         }
         catch (error)
         {

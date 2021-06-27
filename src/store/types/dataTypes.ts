@@ -4,6 +4,7 @@ export const Data_SetProjectData = 'Data_SetProjectData';
 export const Data_SetBlogData = 'Data_SetBlogData';
 export const Data_AddMessageData = 'Data_AddMessageData';
 export const Data_DelMessageData = 'Data_DelMessageData';
+export const Data_SeenMessageData = 'Data_SeenMessageData';
 export const Data_SetHasNew = 'Data_SetHasNew';
 export const Data_IncrementNew = 'Data_IncrementNew';
 export const Data_DecrementNew = 'Data_DecrementNew';
@@ -100,6 +101,12 @@ interface DelMessageDataAction
     payload: MessageData;
 }
 
+interface SeenMessageDataAction
+{
+    type: typeof Data_SeenMessageData;
+    payload: MessageData;
+}
+
 interface SetHasNewDataAction
 {
     type: typeof Data_SetHasNew;
@@ -125,4 +132,4 @@ export type BannerAction = SetBannerDataAction;
 export type AboutAction = SetAboutDataAction;
 export type ProjectAction = SetProjectDataAction;
 export type BlogAction = SetBlogDataAction;
-export type MessageAction = AddMessageDataAction | DelMessageDataAction | SetHasNewDataAction | IncrementNewDataAction | DecrementNewDataAction;
+export type MessageAction = AddMessageDataAction | DelMessageDataAction | SeenMessageDataAction | SetHasNewDataAction | IncrementNewDataAction | DecrementNewDataAction;

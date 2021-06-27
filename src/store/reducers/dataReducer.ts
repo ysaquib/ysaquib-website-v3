@@ -1,4 +1,4 @@
-import {BannerData, Data_SetBannerData, BannerAction, Data_SetAboutData, AboutAction, AboutData, ProjectData, ProjectAction, Data_SetProjectData, BlogData, BlogAction, Data_SetBlogData, MessageData, MessageAction, Data_AddMessageData, MessageState, Data_IncrementNew, Data_DecrementNew, Data_DelMessageData } from '../types/dataTypes'
+import {BannerData, Data_SetBannerData, BannerAction, Data_SetAboutData, AboutAction, AboutData, ProjectData, ProjectAction, Data_SetProjectData, BlogData, BlogAction, Data_SetBlogData, MessageData, MessageAction, Data_AddMessageData, MessageState, Data_IncrementNew, Data_DecrementNew, Data_DelMessageData, Data_SeenMessageData } from '../types/dataTypes'
 
 let default_data = require('../../default_data.json');
 
@@ -69,12 +69,21 @@ export const messageReducer = (state = initialMessagesState, action: MessageActi
     {
         case Data_AddMessageData:
             return {...state, messages: state.messages.push(action.payload)};
+
         case Data_DelMessageData:
             return {...state, messages: state.messages.filter((msg) => {return action.payload.msg_id !== msg.msg_id})};
+        
+        case Data_SeenMessageData:
+            const msgToUpdate = state.messages.find((msg) => (msg.msg_id === action.payload.msg_id));
+            msgToUpdate && (msgToUpdate.msg_seen = true);
+            return state;
+
         case Data_IncrementNew:
-            return {...state, newMessagesCount: state.newMessagesCount + 1}
+            return {...state, newMessagesCount: state.newMessagesCount + 1, hasNewMessages: true};
+
         case Data_DecrementNew:
-            return {...state, hasNewMessages: state.newMessagesCount - 1}
+            return {...state, newMessagesCount: state.newMessagesCount - 1, hasNewMessages: (state.newMessagesCount - 1 === 0)};
+
         default:
             return state;
     }
