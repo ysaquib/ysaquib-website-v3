@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import { RootState } from '../../store';
 import { userSignOut } from '../../store/actions/authActions';
+import ThemeSwitcher from '../elements/ThemeSwitcher';
 
 
 
@@ -60,11 +61,11 @@ const Header : FC = () =>
         <header id="pseudo_header">
         <div id="header">
         <div className="header_wrapper">
-            <p className="header_title">
-                <Link to="/">
+            <ThemeSwitcher useButton={false}>
+                <p className="header_title">
                     {default_data.header.title}
-                </Link>
-            </p>
+                </p>
+            </ThemeSwitcher>
 
 
             <ol className="header_list">

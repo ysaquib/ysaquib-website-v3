@@ -3,7 +3,12 @@ import Button from './Button';
 
 let default_data = require('../../default_data.json');
 
-const ThemeSwitcher: FC = () => 
+interface ThemeSwitcherProps
+{
+    useButton?: boolean;
+}
+
+const ThemeSwitcher: FC<ThemeSwitcherProps> = ({useButton=true, ...props}) => 
 {
     const [useDarkTheme, setDarkTheme] = useState(true);
 
@@ -51,6 +56,16 @@ const ThemeSwitcher: FC = () =>
         }
     }, [])
 
+    if (!useButton && props.children)
+    {
+        return (
+            <span onClick={toggleTheme}>
+                {props.children}
+            </span>
+        )
+    }
+
+    // Default behavior.
     return (
         <Button className="no_background" text={`Use ` + (useDarkTheme ? "Light" : "Dark") + ` Theme`} onClick={toggleTheme}/>
     );
