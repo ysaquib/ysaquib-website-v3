@@ -90,18 +90,30 @@
         padding: 1rem;
 
         font: $regular-weight $regular-size $sans-font, sans-serif;
-
+        
         :not(:last-child)
         {
             margin-bottom: 1rem;
         }
-
+        
         .msginfo
         {
             border-radius: $radius-regular;
             // box-shadow: $messages-list-shadow;
             width: 100%;
             padding: 1.5rem;
+            
+            &.delete
+            {
+                padding: 0.75rem;
+                font: $regular-weight $Little-size $sans-font, sans-serif;
+                display: grid;
+                place-content: center;
+                &:hover
+                {
+                    cursor: pointer;
+                }
+            }
             &.content
             {
                 overflow-y: auto;
@@ -200,6 +212,19 @@
             .msginfo
             {
                 background-color: themed("grey-200");
+                &.delete
+                {
+                    background-color: mix(themed("error"), themed("grey-000"), 50%);
+                    &:hover
+                    {
+                        background-color: mix(themed("error"), themed("grey-000"), 70%);
+                    }
+                    &:active
+                    {
+                        transition: none;
+                        background-color: mix(themed("error"), themed("grey-000"), 80%);
+                    }
+                }
             }
         }
     }

@@ -125,7 +125,7 @@ export const messageReducer = (state = initialMessagesState, action: MessageActi
 
         case Data_AddMessageData:
             const allMessages = state.allMessages;
-            allMessages.push(action.payload);
+            allMessages.unshift(action.payload);
             return {...state, allMessages};
 
         case Data_DelMessageData:

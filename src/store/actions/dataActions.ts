@@ -460,8 +460,8 @@ export const deleteMessage = (messageData: MessageData, onComplete?: () => void,
     {
         try
         {
-            await Firebase.firestore().collection("messages").doc(messageData.msg_id).delete();
             dispatch({type: Data_DelMessageData, payload: messageData});
+            await Firebase.firestore().collection("messages").doc(messageData.msg_id).delete();
             if(!messageData.msg_seen)
             {
                 dispatch({type: Data_DecrementNew});

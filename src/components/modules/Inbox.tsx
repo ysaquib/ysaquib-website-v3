@@ -6,8 +6,9 @@
 import React, { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
-import { getMessages, seenMessage } from '../../store/actions/dataActions';
+import { deleteMessage, getMessages, seenMessage } from '../../store/actions/dataActions';
 import { MessageData } from '../../store/types/dataTypes';
+import DialogBox from '../elements/DialogBox';
 import LoadingSkeleton from '../elements/LoadingSkeleton';
 
 interface ListItemProps
@@ -21,6 +22,7 @@ interface ListItemProps
 interface MessageBoxProps
 {
     message: MessageData | undefined;
+    handleDelete: (msg: MessageData) => void;
 }
 
 const ListItem: FC<ListItemProps> = ({message, onClick, selected, ...props}) =>
@@ -50,7 +52,7 @@ const ListItem: FC<ListItemProps> = ({message, onClick, selected, ...props}) =>
     );
 }
 
-const MessageBox: FC<MessageBoxProps> = ({message}) =>
+const MessageBox: FC<MessageBoxProps> = ({message, handleDelete}) =>
 {
     if(!message)
     {
@@ -62,10 +64,10 @@ const MessageBox: FC<MessageBoxProps> = ({message}) =>
     }
     return (
         <div id="message">
-            <input type="text" readOnly className="msginfo sender" value={`${message.msg_firstname} ${message.msg_lastname} (${message.msg_emailaddress})`}></input>
+            <input type="text" readOnly className="msginfo sender" value={`${message.msg_firstname} ${message.msg_lastname} <${message.msg_emailaddress}>`}></input>
             <input type="text" readOnly className="msginfo subject" value={`${message.msg_subject}`} />
-            {/* <input className="msginfo subject">{message.msg_subject}</input>*/}
             <textarea readOnly className="msginfo content" value={message.msg_message} />
+            <div className="msginfo delete" onClick={() => handleDelete(message)}>Delete Message</div>
         </div>
     );
 }
@@ -75,11 +77,27 @@ const Inbox : FC = () =>
     const dispatch = useDispatch();
     const { allMessages, isLoadingMessages } = useSelector((state: RootState) => state.messages);
     const [ selectedMessage, setSelectedMessage] = useState<MessageData>();
+    const [ dialog, setDialog ] = useState<JSX.Element>(<></>);
 
     useEffect(() => 
     {
         dispatch(getMessages(undefined, () => {console.log("Error getting message data")}));
     }, [dispatch]);
+
+    const handleClickDelete = (message: MessageData) =>
+    {
+        setDialog(
+            <DialogBox title="Confirm Delete Message" 
+                       message={`Are you sure you want to delete this message from ${message.msg_firstname} ${message.msg_lastname}?`}
+                       optionReject="Delete Message"
+                       optionClose="Cancel"
+                       onClose={()=>setDialog(<></>)}
+                       onReject={() => {
+                           setSelectedMessage(undefined);
+                           dispatch(deleteMessage(message));
+                           setDialog(<></>);
+                       }}/>);
+    }
     
     if (isLoadingMessages)
     {
@@ -114,6 +132,7 @@ const Inbox : FC = () =>
     }
     return (
         <section id="inbox">
+            {dialog}
             <ul id="message_list">
             {allMessages && allMessages.map((message) =>
                 <ListItem message={message} 
@@ -128,7 +147,7 @@ const Inbox : FC = () =>
                           }}/>
             )}
             </ul>
-            <MessageBox message={selectedMessage}/>
+            <MessageBox message={selectedMessage} handleDelete={handleClickDelete}/>
         </section>
     );
 }
