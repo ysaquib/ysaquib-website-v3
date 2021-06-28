@@ -34,11 +34,11 @@
     }
     @include themify()
     {
-        color: themed('grey-150');
+        color: themed("grey-150");
         background-color: currentColor;
         &::before
         {
-            color: mix(themed('grey-200'), themed('grey-300'), 80%);
+            color: mix(themed("grey-200"), themed("grey-300"), 80%);
             background: linear-gradient(90deg, transparent, currentColor, transparent);
             transform: translateX(-100%);
             animation: $anim-long shine linear infinite;

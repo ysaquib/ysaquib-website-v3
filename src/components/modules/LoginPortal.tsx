@@ -13,7 +13,7 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
-import { userSignIn } from '../../store/actions/authActions';
+import { setLoading, userSignIn } from '../../store/actions/authActions';
 
 interface FormInputs
 {
@@ -36,7 +36,7 @@ const LoginPortal : FC = () =>
 {
     const resolver = yupResolver(schema);
     const {register, handleSubmit, formState: {errors}} = useForm<FormInputs>({mode: "all", resolver});
-    const [isLoading, setLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const [isSignedIn, setSignedIn] = useState(false);
     
     const dispatch = useDispatch();
@@ -45,14 +45,15 @@ const LoginPortal : FC = () =>
     const onSubmit : SubmitHandler<FormInputs> = (data) => 
     {
         console.log(JSON.stringify(data));
-        setLoading(true);
+        setIsLoading(true);
         dispatch(userSignIn(
             {
                 email: data.emailaddress, 
                 password: data.password
             }, 
-            () => {setLoading(false)}));
-        setSignedIn(true);
+            () => {setIsLoading(false)}));
+
+        dispatch(setLoading(true));
     }
 
     if (authenticated || isSignedIn)
