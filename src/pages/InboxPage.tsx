@@ -6,12 +6,13 @@
 import React, { FC } from 'react';
 
 import { Container } from '@material-ui/core';
+import Inbox from '../components/modules/Inbox';
  
 const InboxPage : FC = () =>
 {
     return (
         <Container>
-            <h1>FDAFDS</h1>
+            <Inbox />
         </Container>
     );
 }

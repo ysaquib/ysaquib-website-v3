@@ -7,7 +7,7 @@ import React, { FC, useEffect } from 'react';
 import './styles/main.scss';
 import './firebase/config'
 
-import { useDispatch, useSelector } from 'react-redux'; //useSelector
+import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import Admin from './pages/AdminPage';
@@ -43,7 +43,7 @@ const App : FC = () =>
             document.body.classList.remove("theme-dark");
             document.body.classList.add("theme-light");
             break;
-            default:
+        default:
             document.body.classList.remove("theme-light");
             document.body.classList.add("theme-dark");
             break;
