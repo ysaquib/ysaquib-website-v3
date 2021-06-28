@@ -5,7 +5,7 @@
 
 import React, { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import { RootState } from '../../store';
 import { userSignOut } from '../../store/actions/authActions';
 import ThemeSwitcher from '../elements/ThemeSwitcher';
@@ -21,13 +21,36 @@ const Header : FC = () =>
     
     const [scrollPosition, setScrollPosition] = useState(0);
     const {authenticated, userRoles} = useSelector((state : RootState) => state.auth);
+    const {hasNewMessages, newMessagesCount} = useSelector((state : RootState) => state.messages);
+
+    const path = useLocation().pathname;
+
+    const [selectedPath, setSelectedPath] = useState(path);
     
     const handleScroll = () => 
     {
         const posY = window.pageYOffset;
         setScrollPosition(posY);
     }
+
+    function handlePageClick(path: string)
+    {
+        history.push(path);
+        setSelectedPath(path);
+    }
     
+    useEffect(() => 
+    {
+        document.getElementById(selectedPath)?.classList.add("selected_path");
+        console.log(selectedPath);
+        
+        return () => 
+        {
+            document.getElementById(selectedPath)?.classList.remove("selected_path");
+
+        }
+    }, [selectedPath]);
+
     useEffect(() => 
     {
         window.addEventListener('scroll', handleScroll, {passive: true});
@@ -71,25 +94,29 @@ const Header : FC = () =>
             <ol className="header_list">
                 {default_data.header.sections.map(([title, path] : [string, string]) => {
                     return (
-                    <li className="header_item" key={title} onClick={() => history.push(path)}>
+                    <li className="header_item" 
+                        key={title} 
+                        id={path} 
+                        onClick=
+                        {() => handlePageClick(path)}>
                         {title}
                     </li>);
                 })}
 
                 {!authenticated ? 
-                    <li className="header_item" onClick={() => {history.push("/signin")}} >
+                    <li className="header_item" id="/signin" onClick={() => {handlePageClick("/signin")}} >
                             Sign In
                     </li> : <></>   
                 }
 
                 {authenticated && userRoles.includes("superadmin") ? 
-                    <li className="header_item" onClick={() => {history.push("/inbox")}} >
-                        Messages
+                    <li className="header_item" id="/inbox" onClick={() => handlePageClick("/inbox")} >
+                        {`${hasNewMessages ? `${newMessagesCount} New ` : ""}Message${newMessagesCount > 1 || !hasNewMessages ? "s" : ""}`}
                     </li> : <></>   
                 }
 
                 {authenticated && userRoles.includes("superadmin") ? 
-                    <li className="header_item" onClick={() => {history.push("/admin")}} >
+                    <li className="header_item" id="/admin" onClick={() => handlePageClick("/admin")} >
                         Admin Dashboard
                     </li> : <></>   
                 }

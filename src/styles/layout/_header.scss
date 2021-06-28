@@ -46,7 +46,6 @@
             padding: 0rem;
             margin: 0rem;
             // padding: 1rem;
-            list-style-type: none;
             overflow: hidden;           
             
             :not(:last-child)
@@ -57,12 +56,17 @@
             padding: 1rem;
             .header_item
             {
+                list-style-type: none;
                 user-select: none;
                 cursor: pointer;
                 display: inline;
                 font: $medium-weight $Little-size $mono-font, monospace;
                 counter-increment: inst;
                 
+                &.selected_path
+                {
+                    font: $bold-weight $Little-size $mono-font, monospace;
+                }
             }
         }
 
@@ -73,33 +77,38 @@
         .header_wrapper .header_list .header_item
         {
             padding: 0.5rem;
-            color: themed('grey-700');
+            color: themed("grey-700");
             transition: color $trans-effect $trans-regular;
+
             &:hover
             {
-                color: themed('primary');
+                color: themed("primary");
             }
             &:focus-visible
             {
-                outline: themed('secondary') dashed 2px;
+                outline: themed("secondary") dashed 2px;
             }
             &:active:focus, &:active
             {
                 transition: none;
-                color: themed('secondary');
+                color: themed("secondary");
             }
-            
+
+            &.selected_path
+            {
+                color: themed("secondary");
+            }
         }
         
         .sign_out
         {
             &:hover
             {
-                color: themed('error') !important;
+                color: themed("error") !important;
             }
             &:active
             {
-                color: mix(themed('error'), themed('warning'), 50%) !important;
+                color: mix(themed("error"), themed("warning"), 50%) !important;
             }
         }
 
@@ -109,7 +118,7 @@
         &.scrolling
         {
             box-shadow: $header-box-shadow;
-            background-color: themed('grey-200');
+            background-color: themed("grey-200");
             height: 5rem;
         }
     }
