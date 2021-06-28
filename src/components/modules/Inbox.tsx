@@ -3,64 +3,129 @@
  * Author: Yusuf Saquib
  */
 
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
-import { getMessages } from '../../store/actions/dataActions';
+import { getMessages, seenMessage } from '../../store/actions/dataActions';
 import { MessageData } from '../../store/types/dataTypes';
 import LoadingSkeleton from '../elements/LoadingSkeleton';
 
-interface MessageListProps
+interface ListItemProps
 {
-    allMessages: MessageData[];
-    isLoading: boolean;
+    message: MessageData;
+    key: string;
+    selected: boolean;
+    onClick: () => void;
 }
 
-const MessageList: FC<MessageListProps> = ({allMessages, isLoading}) =>
+interface MessageBoxProps
 {
-    if (isLoading)
+    message: MessageData | undefined;
+}
+
+const ListItem: FC<ListItemProps> = ({message, onClick, selected, ...props}) =>
+{
+    const ref = React.useRef<HTMLLIElement>(null);
+    const dispatch = useDispatch();
+
+    const handleClick = () =>
     {
-        return (
-            <ul id="message_list">
-                <LoadingSkeleton type="rectangle" className="message_loader" />
-                <LoadingSkeleton type="rectangle" className="message_loader" />
-                <LoadingSkeleton type="rectangle" className="message_loader" />
-                <LoadingSkeleton type="rectangle" className="message_loader" />
-                <LoadingSkeleton type="rectangle" className="message_loader" />
-                <LoadingSkeleton type="rectangle" className="message_loader" />
-                <LoadingSkeleton type="rectangle" className="message_loader" />
-            </ul>
-        );
+        onClick();
+        dispatch(seenMessage(message));
+        document.getElementById(message.msg_id)?.classList.add("selected_msg");
     }
 
     return (
-        <ul id="message_list">
-            {allMessages && allMessages.map((message) =>
-                <li className={`message_li ${message.msg_seen ? "" : "new_msg"}`} id={message.msg_id} key={message.msg_id}>
-                    <h3 className="message_subject">{message.msg_subject}</h3>
-                    <p className="message_sender">{message.msg_firstname} {message.msg_lastname} &lt;{message.msg_emailaddress}&gt;</p>
-                </li>
-            )}
-        </ul>
+        <li className={`message_li ${message.msg_seen ? "" : "new_msg"} ${selected ? "selected_msg" : ""}`} 
+            id={message.msg_id} 
+            ref={ref}
+            onClick={handleClick} {...props}>
+            <h3 className="msgli sender">{message.msg_firstname} {message.msg_lastname}</h3>
+            <p className="msgli time">{message.msg_sentAt.toLocaleString("en-GB", {dateStyle: "short", timeStyle: "short", hour12: false})}</p>
+            <h3 className="msgli subject">{message.msg_subject}</h3>
+        </li>
+    );
+}
+
+const MessageBox: FC<MessageBoxProps> = ({message}) =>
+{
+    if(!message)
+    {
+        return (
+            <div id="message" className="empty_message">
+                <p>No message selected.</p>
+            </div>
+        );
+    }
+    return (
+        <div id="message">
+            <input type="text" readOnly className="msginfo sender" value={`${message.msg_firstname} ${message.msg_lastname} (${message.msg_emailaddress})`}></input>
+            <input type="text" readOnly className="msginfo subject" value={`${message.msg_subject}`} />
+            {/* <input className="msginfo subject">{message.msg_subject}</input>*/}
+            <textarea readOnly className="msginfo content" value={message.msg_message} />
+        </div>
     );
 }
 
 const Inbox : FC = () =>
 {
     const dispatch = useDispatch();
-    const {allMessages, isLoadingMessages} = useSelector((state: RootState) => state.messages);
+    const { allMessages, isLoadingMessages } = useSelector((state: RootState) => state.messages);
+    const [ selectedMessage, setSelectedMessage] = useState<MessageData>();
 
     useEffect(() => 
     {
         dispatch(getMessages(undefined, () => {console.log("Error getting message data")}));
     }, [dispatch]);
-
+    
+    if (isLoadingMessages)
+    {
+        return (
+            <section id="inbox">
+                <ul id="message_list" className="loading_list">
+                    <LoadingSkeleton type="rectangle" className="message_loader" />
+                    <LoadingSkeleton type="rectangle" className="message_loader" />
+                    <LoadingSkeleton type="rectangle" className="message_loader" />
+                    <LoadingSkeleton type="rectangle" className="message_loader" />
+                    <LoadingSkeleton type="rectangle" className="message_loader" />
+                    <LoadingSkeleton type="rectangle" className="message_loader" />
+                    <LoadingSkeleton type="rectangle" className="message_loader" />
+                </ul>
+                <div id="message">
+                </div>
+            </section>
+        );
+    }
+    else if (!isLoadingMessages && allMessages.length === 0)
+    {
+        return (
+            <section id="inbox"> 
+                <ul id="message_list" className="empty_list">
+                    <li>You have no messages.</li>
+                </ul>
+                <div id="message" className="empty_message">
+                    <p>No message selected.</p>
+                </div>
+            </section>
+        );
+    }
     return (
         <section id="inbox">
-            <MessageList allMessages={allMessages} isLoading={isLoadingMessages} />
-            <div id="message">
-
-            </div>
+            <ul id="message_list">
+            {allMessages && allMessages.map((message) =>
+                <ListItem message={message} 
+                          key={message.msg_id}
+                          selected={selectedMessage?.msg_id === message.msg_id}
+                          onClick={() => {
+                            if (selectedMessage)
+                            {
+                                document.getElementById(selectedMessage.msg_id)?.classList.remove("selected_msg", "new_msg");
+                            }
+                            setSelectedMessage(message);
+                          }}/>
+            )}
+            </ul>
+            <MessageBox message={selectedMessage}/>
         </section>
     );
 }

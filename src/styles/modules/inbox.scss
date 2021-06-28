@@ -8,6 +8,11 @@
     padding: 0rem;
     margin: 0rem;
     gap: 1.5rem;
+
+    .loading_list
+    {
+        overflow: hidden !important;
+    }
     
     #message_list
     {
@@ -33,20 +38,38 @@
 
         .message_li
         {
-            box-shadow: $messages-list-shadow;
+            // box-shadow: $messages-list-shadow;
             padding: 1.5rem;
             border-radius: $radius-regular;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
 
-            .message_subject
+            .msgli
             {
                 margin: 0rem;
-                margin-bottom: 0.5rem;
-                font: $semi-weight $regular-size $sans-font, sans-serif;
-            }
-            .message_sender
-            {
-                font: $medium-weight $Little-size $sans-font, sans-serif;
-                margin: 0rem;
+                &.sender
+                {
+                    place-self: center start;
+                    grid-column: span 1;
+                    grid-row: span 1;
+                    font: $bold-weight $regular-size $sans-font, sans-serif;
+                }
+                &.time
+                {
+                    place-self: center end;
+                    text-align: right;
+                    grid-column: span 1;
+                    grid-row: span 1;
+                    font: $medium-weight $little-size $sans-font, sans-serif;
+                }
+                &.subject
+                {
+                    place-self: center start;
+                    grid-column: span 2;
+                    grid-row: span 1;
+                    font: $semi-weight $Little-size $sans-font, sans-serif;
+                }
             }
 
             &:hover
@@ -61,12 +84,47 @@
         border-radius: $radius-regular;
         box-shadow: $inbox-shadow;
 
+        display: inline-flex;
+        flex-direction: column;
         grid-column: span 13;
-        background: green;
+        padding: 1rem;
+
+        font: $regular-weight $regular-size $sans-font, sans-serif;
+
+        :not(:last-child)
+        {
+            margin-bottom: 1rem;
+        }
+
+        .msginfo
+        {
+            border-radius: $radius-regular;
+            // box-shadow: $messages-list-shadow;
+            width: 100%;
+            padding: 1.5rem;
+            &.content
+            {
+                overflow-y: auto;
+                flex: 1 1 auto;
+            }
+        }
+    }
+
+
+    .empty_list, .empty_message
+    {
+        display: grid !important;
+        place-content: center;
+        font: $medium-weight $regular-size $sans-font, sans-serif;
     }
 
     @include themify()
     {
+
+        .empty_list, .empty_message
+        {
+            color: themed("grey-700");
+        }
         #message_list
         {
             background-color: themed("grey-150");
@@ -83,12 +141,10 @@
             .message_li
             {
                 background-color: themed("grey-200");
-                .message_subject
-                { color: themed("grey-800"); }
-
-                .message_sender
-                { color: themed("grey-700"); }
-                
+                .msgli
+                { 
+                    color: themed("grey-800");
+                }
                 &:hover
                 {
                     background-color: themed("grey-300");
@@ -99,15 +155,11 @@
                     background-color: themed("grey-400");
                 }
             }
-
+            
             .message_li.new_msg
             {
                 background-color: mix(themed("secondary"), themed("grey-000"), 40%);
-                .message_subject
-                {
-                    color: mix(themed("secondary"), themed("grey-900"), 20%);
-                }
-                .message_sender
+                .msgli
                 {
                     color: mix(themed("secondary"), themed("grey-900"), 20%);
                 }
@@ -117,7 +169,26 @@
                 }
                 &:active
                 {
+                    transition: none;
                     background-color: mix(themed("secondary"), themed("grey-000"), 80%);
+                }
+            }
+
+            .message_li.selected_msg
+            {
+                background-color: mix(themed("primary"), themed("grey-900"), 90%);
+                .msgli
+                {
+                    color: mix(themed("primary"), themed("grey-000"), 10%);
+                }
+                &:hover
+                {
+                    background-color: mix(themed("primary"), themed("grey-900"), 70%);
+                }
+                &:active
+                {
+                    transition: none;
+                    background-color: mix(themed("primary"), themed("grey-900"), 50%);
                 }
             }
         }
@@ -125,6 +196,11 @@
         #message
         {
             background-color: themed("grey-150");
+            color: themed("grey-800");
+            .msginfo
+            {
+                background-color: themed("grey-200");
+            }
         }
     }
 }
