@@ -2,7 +2,7 @@ import firebase from 'firebase';
 import { ThunkAction } from 'redux-thunk';
 import { RootState } from '..';
 import Firebase from '../../firebase/config';
-import { BannerData, Data_SetBannerData, BannerAction, AboutData, AboutAction, Data_SetAboutData, ProjectData, Data_SetProjectData, ProjectAction, BlogAction, Data_SetBlogData, BlogData, MessageData, MessageAction, Data_AddMessageData, Data_IncrementNew, Data_DelMessageData, Data_SeenMessageData, Data_DecrementNew, Data_SetAllBlogsData, Data_DelBlog, Data_AddBlog, Data_SetAllProjectsData, Data_AddProject, Data_DelProject, Data_UpdateAllProjects, Data_isLoadingBlogs, Data_isLoadingProjects, Data_isLoadingMessages } from '../types/dataTypes';
+import { BannerData, Data_SetBannerData, BannerAction, AboutData, AboutAction, Data_SetAboutData, ProjectData, Data_SetProjectData, ProjectAction, BlogAction, Data_SetBlogData, BlogData, MessageData, MessageAction, Data_AddMessageData, Data_IncrementNew, Data_DelMessageData, Data_SeenMessageData, Data_DecrementNew, Data_SetAllBlogsData, Data_DelBlog, Data_AddBlog, Data_SetAllProjectsData, Data_AddProject, Data_DelProject, Data_UpdateAllProjects, Data_isLoadingBlogs, Data_isLoadingProjects, Data_isLoadingMessages, Data_SetAllMessagesData } from '../types/dataTypes';
 
 export const getBannerData = (onError?: () => void) : ThunkAction<void, RootState, null, BannerAction> =>
 {
@@ -80,6 +80,10 @@ export const setAboutData = (aboutData: AboutData, onError?: (msg: any) => void)
     }
 }
 
+//  $
+//  $   Project Data Actions ==================================================
+//  $
+
 export const getProjectData = (onComplete?: () => void, onError?: () => void) : ThunkAction<void, RootState, null, ProjectAction> =>
 {
     return async dispatch =>
@@ -100,6 +104,7 @@ export const getProjectData = (onComplete?: () => void, onError?: () => void) : 
         {
             onError && onError();
             console.log(error);
+            dispatch(setProjectsLoading(false));
         }
     }
 }
@@ -236,6 +241,10 @@ export const setProjectsLoading = (isLoading: boolean) : ThunkAction<void, RootS
     }
 }
 
+//  $
+//  $   Blog Data Actions =====================================================
+//  $
+
 export const getBlogData = (onComplete?: () => void, onError?: () => void) : ThunkAction<void, RootState, null, BlogAction> =>
 {
     return async dispatch =>
@@ -266,6 +275,7 @@ export const getBlogData = (onComplete?: () => void, onError?: () => void) : Thu
         {
             onError && onError();
             console.log(error);
+            dispatch(setBlogsLoading(false));
         }
     }
 }
@@ -375,7 +385,40 @@ export const setBlogsLoading = (isLoading: boolean) : ThunkAction<void, RootStat
     }
 }
 
-// export const getMessages = 
+//  $
+//  $   Message Data Actions ==================================================
+//  $
+
+export const getMessages = (onComplete?: () => void, onError?: (err: any) => void) : ThunkAction<void, RootState, null, MessageAction> =>
+{
+    return async dispatch =>
+    {
+        try
+        {
+            const messages = await Firebase.firestore().collection("messages").orderBy("msg_sentAt", "desc").get();
+            const message_items: MessageData[] = [];
+            console.log("getting messages");
+            messages.forEach((doc) => {
+                message_items.push({...doc.data(), msg_id: doc.id, msg_sentAt: doc.get("msg_sentAt").toDate()} as MessageData);
+                console.log(doc.data());
+            })
+            
+            console.log(message_items);
+            dispatch({
+                type: Data_SetAllMessagesData, 
+                payload: message_items
+            });
+            dispatch(setMessagesLoading(false));
+            onComplete && onComplete();
+        }
+        catch (error)
+        {
+            onError && onError(error);
+            console.log(error);
+            dispatch(setMessagesLoading(false));
+        }
+    }
+}
 
 export const addNewMessage = (messageData: MessageData, onComplete?: () => void, onError?: (err: any) => void) : ThunkAction<void, RootState, null, MessageAction> =>
 {

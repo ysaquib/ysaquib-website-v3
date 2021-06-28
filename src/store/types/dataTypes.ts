@@ -15,6 +15,7 @@ export const Data_AddBlog = "Data_AddBlog";
 export const Data_DelBlog = "Data_DelBlog";
 export const Data_isLoadingBlogs = "Data_isLoadingBlogs";
 
+export const Data_SetAllMessagesData = "Data_SetAllMessagesData";
 export const Data_AddMessageData = "Data_AddMessageData";
 export const Data_DelMessageData = "Data_DelMessageData";
 export const Data_SeenMessageData = "Data_SeenMessageData";
@@ -169,6 +170,12 @@ export interface MessageData
     msg_seen: boolean;
 }
 
+interface SetAllMessagesDataAction
+{
+    type: typeof Data_SetAllMessagesData;
+    payload: MessageData[];
+}
+
 interface AddMessageDataAction
 {
     type: typeof Data_AddMessageData;
@@ -219,4 +226,4 @@ export type BannerAction = SetBannerDataAction;
 export type AboutAction = SetAboutDataAction;
 export type ProjectAction = SetProjectDataAction | SetLoadingProjectsAction | SetAllProjectsDataAction | AddProjectAction | DelProjectAction | UpdateAllProjectsAction;
 export type BlogAction = SetBlogDataAction | SetAllBlogsAction | AddBlogAction | DelBlogAction | SetLoadingBlogsAction;
-export type MessageAction = AddMessageDataAction | DelMessageDataAction | SeenMessageDataAction | SetHasNewDataAction | SetLoadingMessagesAction | IncrementNewDataAction | DecrementNewDataAction;
+export type MessageAction = SetAllMessagesDataAction | AddMessageDataAction | DelMessageDataAction | SeenMessageDataAction | SetHasNewDataAction | SetLoadingMessagesAction | IncrementNewDataAction | DecrementNewDataAction;

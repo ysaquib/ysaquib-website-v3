@@ -1,4 +1,4 @@
-import {BannerData, Data_SetBannerData, BannerAction, Data_SetAboutData, AboutAction, AboutData, ProjectAction, Data_SetProjectData, BlogAction, Data_SetBlogData, MessageAction, Data_AddMessageData, MessageState, Data_IncrementNew, Data_DecrementNew, Data_DelMessageData, Data_SeenMessageData, Data_SetAllBlogsData, Data_DelBlog, Data_AddBlog, Data_SetAllProjectsData, Data_AddProject, Data_DelProject, Data_UpdateAllProjects, ProjectState, Data_isLoadingProjects, BlogState, Data_isLoadingBlogs, } from '../types/dataTypes'
+import {BannerData, Data_SetBannerData, BannerAction, Data_SetAboutData, AboutAction, AboutData, ProjectAction, Data_SetProjectData, BlogAction, Data_SetBlogData, MessageAction, Data_AddMessageData, MessageState, Data_IncrementNew, Data_DecrementNew, Data_DelMessageData, Data_SeenMessageData, Data_SetAllBlogsData, Data_DelBlog, Data_AddBlog, Data_SetAllProjectsData, Data_AddProject, Data_DelProject, Data_UpdateAllProjects, ProjectState, Data_isLoadingProjects, BlogState, Data_isLoadingBlogs, Data_SetAllMessagesData, Data_isLoadingMessages, } from '../types/dataTypes'
 
 let default_data = require('../../default_data.json');
 
@@ -120,6 +120,9 @@ export const messageReducer = (state = initialMessagesState, action: MessageActi
 {
     switch (action.type)
     {
+        case Data_SetAllMessagesData:
+            return {...state, allMessages: action.payload}
+
         case Data_AddMessageData:
             const allMessages = state.allMessages;
             allMessages.push(action.payload);
@@ -138,6 +141,9 @@ export const messageReducer = (state = initialMessagesState, action: MessageActi
 
         case Data_DecrementNew:
             return {...state, newMessagesCount: state.newMessagesCount - 1, hasNewMessages: (state.newMessagesCount - 1 === 0)};
+
+        case Data_isLoadingMessages:
+            return {...state, isLoadingMessages: action.payload};
 
         default:
             return state;
