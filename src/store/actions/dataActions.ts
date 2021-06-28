@@ -471,7 +471,7 @@ export const seenMessage = (messageData: MessageData, onComplete?: () => void, o
     {
         try
         {
-            await Firebase.firestore().collection("messages").doc(messageData.msg_id).set({msg_seen: true});
+            await Firebase.firestore().collection("messages").doc(messageData.msg_id).update({msg_seen: true});
             dispatch({type: Data_SeenMessageData, payload: messageData});
             dispatch({type: Data_DecrementNew});
             onComplete && onComplete();
