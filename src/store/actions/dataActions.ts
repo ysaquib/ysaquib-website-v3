@@ -2,7 +2,7 @@ import firebase from 'firebase';
 import { ThunkAction } from 'redux-thunk';
 import { RootState } from '..';
 import Firebase from '../../firebase/config';
-import { BannerData, Data_SetBannerData, BannerAction, AboutData, AboutAction, Data_SetAboutData, ProjectData, Data_SetProjectData, ProjectAction, BlogAction, Data_SetBlogData, BlogData, MessageData, MessageAction, Data_AddMessageData, Data_IncrementNew, Data_DelMessageData, Data_SeenMessageData, Data_DecrementNew, Data_SetAllBlogsData, Data_DelBlog, Data_AddBlog, Data_SetAllProjectsData, Data_AddProject, Data_DelProject, Data_UpdateAllProjects, Data_isLoadingBlogs, Data_isLoadingProjects, Data_isLoadingMessages, Data_SetAllMessagesData } from '../types/dataTypes';
+import { BannerData, Data_SetBannerData, BannerAction, AboutData, AboutAction, Data_SetAboutData, ProjectData, Data_SetProjectData, ProjectAction, BlogAction, Data_SetBlogData, BlogData, MessageData, MessageAction, Data_AddMessageData, Data_IncrementNew, Data_DelMessageData, Data_SeenMessageData, Data_DecrementNew, Data_SetAllBlogsData, Data_DelBlog, Data_AddBlog, Data_SetAllProjectsData, Data_AddProject, Data_DelProject, Data_UpdateAllProjects, Data_isLoadingBlogs, Data_isLoadingProjects, Data_isLoadingMessages, Data_SetAllMessagesData, Data_SetNewMessagesCount } from '../types/dataTypes';
 
 export const getBannerData = (onError?: () => void) : ThunkAction<void, RootState, null, BannerAction> =>
 {
@@ -397,13 +397,24 @@ export const getMessages = (onComplete?: () => void, onError?: (err: any) => voi
         {
             const messages = await Firebase.firestore().collection("messages").orderBy("msg_sentAt", "desc").get();
             const message_items: MessageData[] = [];
+            let newMessages = 0;
             console.log("getting messages");
             messages.forEach((doc) => {
                 message_items.push({...doc.data(), msg_id: doc.id, msg_sentAt: doc.get("msg_sentAt").toDate()} as MessageData);
-                console.log(doc.data());
+                if (doc.get("msg_seen") === false)
+                {
+                    newMessages++;
+                    console.log(newMessages);
+                }
             })
             
-            console.log(message_items);
+            if(newMessages > 0)
+            {
+                dispatch({
+                    type: Data_SetNewMessagesCount,
+                    payload: newMessages
+                });
+            }
             dispatch({
                 type: Data_SetAllMessagesData, 
                 payload: message_items

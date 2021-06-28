@@ -22,6 +22,7 @@ export const Data_SeenMessageData = "Data_SeenMessageData";
 export const Data_SetHasNew = "Data_SetHasNew";
 export const Data_IncrementNew = "Data_IncrementNew";
 export const Data_DecrementNew = "Data_DecrementNew";
+export const Data_SetNewMessagesCount = "Data_SetNewMessagesCount";
 export const Data_isLoadingMessages = "Data_isLoadingMessages";
 
 export interface BannerData
@@ -207,7 +208,11 @@ interface DecrementNewDataAction
 {
     type: typeof Data_DecrementNew;
 }
-
+interface SetNewMessagesCountAction
+{
+    type: typeof Data_SetNewMessagesCount;
+    payload: number;
+}
 interface SetLoadingMessagesAction
 {
     type: typeof Data_isLoadingMessages;
@@ -226,4 +231,4 @@ export type BannerAction = SetBannerDataAction;
 export type AboutAction = SetAboutDataAction;
 export type ProjectAction = SetProjectDataAction | SetLoadingProjectsAction | SetAllProjectsDataAction | AddProjectAction | DelProjectAction | UpdateAllProjectsAction;
 export type BlogAction = SetBlogDataAction | SetAllBlogsAction | AddBlogAction | DelBlogAction | SetLoadingBlogsAction;
-export type MessageAction = SetAllMessagesDataAction | AddMessageDataAction | DelMessageDataAction | SeenMessageDataAction | SetHasNewDataAction | SetLoadingMessagesAction | IncrementNewDataAction | DecrementNewDataAction;
+export type MessageAction = SetNewMessagesCountAction | SetAllMessagesDataAction | AddMessageDataAction | DelMessageDataAction | SeenMessageDataAction | SetHasNewDataAction | SetLoadingMessagesAction | IncrementNewDataAction | DecrementNewDataAction;

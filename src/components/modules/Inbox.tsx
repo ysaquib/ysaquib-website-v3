@@ -31,7 +31,10 @@ const ListItem: FC<ListItemProps> = ({message, onClick, selected, ...props}) =>
     const handleClick = () =>
     {
         onClick();
-        dispatch(seenMessage(message));
+        if(!message.msg_seen)
+        {
+            dispatch(seenMessage(message));
+        }
         document.getElementById(message.msg_id)?.classList.add("selected_msg");
     }
 

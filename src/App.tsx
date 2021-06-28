@@ -28,6 +28,7 @@ import Error404 from './pages/ErrorPage';
 import Loader from './components/layout/Loader';
 import BlogsPage from './pages/BlogsPage';
 import InboxPage from './pages/InboxPage';
+import { getMessages } from './store/actions/dataActions';
 
 let default_data = require('./default_data.json');
 
@@ -56,6 +57,7 @@ const App : FC = () =>
             if(user) 
             {
                 dispatch(setLoading(true));
+                dispatch(getMessages());
                 await dispatch(getUserById(user.uid));
                 if(!user.emailVerified) 
                 {
