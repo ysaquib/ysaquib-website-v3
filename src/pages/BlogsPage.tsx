@@ -36,10 +36,10 @@ const BlogsPage : FC = () =>
     useEffect(() => 
     {
         setBlogs(allBlogs);
-        return () => 
-        {
-            setBlogs([]);
-        }
+        // return () => 
+        // {
+        //     setBlogs([]);
+        // }
     }, [allBlogs]);
 
     const new_blog: BlogData = 

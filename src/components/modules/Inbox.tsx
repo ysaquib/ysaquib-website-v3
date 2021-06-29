@@ -1,5 +1,5 @@
 /**
- * File: InboxPage.tsx
+ * File: Inbox.tsx
  * Author: Yusuf Saquib
  */
 
@@ -67,7 +67,16 @@ const MessageBox: FC<MessageBoxProps> = ({message, handleDelete}) =>
             <input type="text" readOnly className="msginfo sender" value={`${message.msg_firstname} ${message.msg_lastname} <${message.msg_emailaddress}>`}></input>
             <input type="text" readOnly className="msginfo subject" value={`${message.msg_subject}`} />
             <textarea readOnly className="msginfo content" value={message.msg_message} />
-            <div className="msginfo delete" onClick={() => handleDelete(message)}>Delete Message</div>
+            <div className="msginfo buttons">
+                <div className="msgbtn delete" 
+                     onClick={() => handleDelete(message)}>Delete Message</div>
+                <div className="msgbtn reply" 
+                     onClick={(event) => 
+                     {
+                         event.preventDefault();
+                         window.location.href = `mailto:${message.msg_emailaddress}?subject=RE: ${message.msg_subject}&body=---%0D%0A${message.msg_message}`;
+                     }}>Reply</div>
+            </div>
         </div>
     );
 }

@@ -55,7 +55,7 @@ const BlogsList : FC = () =>
     const [ pageBlogs, setPageBlogs ] = useState<BlogData[]>([]);
 
     const [ page, setPage] = useState<number>(currentPage);
-    const [ totalPages, setTotalPages] = useState<number>(10);
+    const [ totalPages, setTotalPages] = useState<number>(1);
 
     
     const handlePageChange = (_event: React.ChangeEvent<unknown>, value: number) =>

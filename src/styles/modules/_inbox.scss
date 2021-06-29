@@ -91,27 +91,32 @@
 
         font: $regular-weight $regular-size $sans-font, sans-serif;
         
-        :not(:last-child)
-        {
-            margin-bottom: 1rem;
-        }
-        
         .msginfo
         {
+
             border-radius: $radius-regular;
-            // box-shadow: $messages-list-shadow;
+            margin: 0rem 0rem 1rem;
             width: 100%;
             padding: 1.5rem;
             
-            &.delete
+            &.buttons
             {
-                padding: 0.75rem;
-                font: $regular-weight $Little-size $sans-font, sans-serif;
                 display: grid;
-                place-content: center;
-                &:hover
+                grid-template-columns: 1fr 1fr;
+                margin: 0rem;
+                padding: 0rem;
+                gap: 1.5rem;
+                .msgbtn
                 {
-                    cursor: pointer;
+                    border-radius: $radius-regular;
+                    padding: 0.75rem;
+                    font: $medium-weight $Little-size $sans-font, sans-serif;
+                    display: grid;
+                    place-content: center;
+                    &:hover
+                    {
+                        cursor: pointer;
+                    }
                 }
             }
             &.content
@@ -208,22 +213,41 @@
         #message
         {
             background-color: themed("grey-150");
-            color: themed("grey-800");
+            color: themed("grey-900");
             .msginfo
             {
                 background-color: themed("grey-200");
-                &.delete
+                &.buttons
                 {
-                    background-color: mix(themed("error"), themed("grey-000"), 50%);
-                    &:hover
+                    background-color: themed("grey-150");
+                    .delete
                     {
-                        background-color: mix(themed("error"), themed("grey-000"), 70%);
+                        background-color: mix(themed("error"), themed("grey-000"), 50%);
+                        &:hover
+                        {
+                            background-color: mix(themed("error"), themed("grey-000"), 70%);
+                        }
+                        &:active
+                        {
+                            transition: none;
+                            background-color: mix(themed("error"), themed("grey-000"), 80%);
+                        }
                     }
-                    &:active
+
+                    .reply
                     {
-                        transition: none;
-                        background-color: mix(themed("error"), themed("grey-000"), 80%);
+                        background-color: mix(themed("success"), themed("grey-000"), 50%);
+                        &:hover
+                        {
+                            background-color: mix(themed("success"), themed("grey-000"), 70%);
+                        }
+                        &:active
+                        {
+                            transition: none;
+                            background-color: mix(themed("success"), themed("grey-000"), 80%);
+                        }
                     }
+
                 }
             }
         }
