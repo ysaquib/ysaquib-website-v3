@@ -19,81 +19,19 @@ function useQuery()
 interface BlogListItemProps
 {
     blog: BlogData;
-    handleClickDelete: (blog: BlogData) => void;
-    setHidden: (blog: BlogData, hidden: boolean) => void;
-
 }
 
-const BlogListItem: FC<BlogListItemProps> = ({blog, handleClickDelete, setHidden}) =>
+const BlogListItem: FC<BlogListItemProps> = ({blog}) =>
 {
+    const dispatch = useDispatch();
     const { authenticated, userRoles } = useSelector((state : RootState) => state.auth);
     const [isBlogHidden, setBlogHidden] = useState(blog.blog_isHidden);
+    const [ dialog, setDialog ] = useState<JSX.Element>(<></>);
     
-    const toggleHide = () =>
+    const setHidden = () =>
     {
         setBlogHidden(!isBlogHidden);
-        setHidden(blog, !isBlogHidden);
-    }
-
-    const history = useHistory();
-    return (
-        <li className="blogs_list_item_wrapper"
-            id={blog.blog_id} 
-            key={blog.blog_id}>
-            <div className="blogs_list_item" onClick={() => history.push(`/blog/${blog.blog_url}`)}>
-                <h1 className="blogs_list_title">
-                    {blog.blog_title}
-                </h1>
-                <p className="blogs_list_date">
-                    {blog.blog_createdAt.toLocaleDateString(undefined , {year: 'numeric', month: 'long', day: 'numeric'})}
-                </p>
-            </div>
-            {(authenticated && userRoles.includes("superadmin")) && (<>
-                <div className="blogs_list_item_button hide" id="hide" onClick={toggleHide}><span className="svg_icon">{isBlogHidden ? IconEyeOff : IconEye}</span></div>
-                
-                <div className="blogs_list_item_button delete" id="delete" onClick={() => handleClickDelete(blog)}><span className="svg_icon">{IconGarbageDelete}</span></div>
-            </>)}
-        </li>
-    )
-}
-
-const BlogsList : FC = () =>
-{
-
-    const currentPage = parseInt(useQuery().get("page") ?? "1");
-
-    const history = useHistory();
-    const dispatch = useDispatch();
-    const {allBlogs, isLoadingBlogs} = useSelector((state: RootState) => state.blogs);
-    
-    const { authenticated, userRoles } = useSelector((state : RootState) => state.auth);
-    const [ dialog, setDialog ] = useState<JSX.Element>(<></>);
-
-    const [ blogsPerPage, setBlogsPerPage] = useState<number>(4);
-    const [ blogs, setBlogs ] = useState<BlogData[]>(allBlogs);
-
-    const [ pageBlogs, setPageBlogs ] = useState<BlogData[]>([]);
-
-    const [ page, setPage] = useState<number>(currentPage);
-    const [ totalPages, setTotalPages] = useState<number>(1);
-
-    
-    const handlePageChange = (_event: React.ChangeEvent<unknown>, value: number) =>
-    {
-        history.push(`/blog?page=${value}`);
-        setPage(value);
-    }
-
-    const { items } = usePagination(
-    {
-        count: totalPages,
-        page: page,
-        onChange: handlePageChange
-    });
-    
-    function setHidden(blogData: BlogData, hidden: boolean)
-    {
-        dispatch(setBlogData({...blogData, blog_isHidden: hidden}));
+        dispatch(setBlogData({...blog, blog_isHidden: !isBlogHidden}));
     }
 
     function handleClickDelete (blogData: BlogData)
@@ -116,6 +54,64 @@ const BlogsList : FC = () =>
             setDialog(<></>);
         }
     }
+
+    const history = useHistory();
+    return (
+        <li className="blogs_list_item_wrapper"
+            id={blog.blog_id} 
+            key={blog.blog_id}>
+           
+            {dialog}
+            
+            <div className="blogs_list_item" onClick={() => history.push(`/blog/${blog.blog_url}`)}>
+                <h1 className="blogs_list_title">
+                    {blog.blog_title}
+                </h1>
+                <p className="blogs_list_date">
+                    {blog.blog_createdAt.toLocaleDateString(undefined , {year: 'numeric', month: 'long', day: 'numeric'})}
+                </p>
+            </div>
+            {(authenticated && userRoles.includes("superadmin")) && (<>
+                <div className="blogs_list_item_button hide" id="hide" onClick={setHidden}><span className="svg_icon">{isBlogHidden ? IconEyeOff : IconEye}</span></div>
+                
+                <div className="blogs_list_item_button delete" id="delete" onClick={() => handleClickDelete(blog)}><span className="svg_icon">{IconGarbageDelete}</span></div>
+            </>)}
+        </li>
+    )
+}
+
+const BlogsList : FC = () =>
+{
+
+    const currentPage = parseInt(useQuery().get("page") ?? "1");
+
+    const history = useHistory();
+    const dispatch = useDispatch();
+    const {allBlogs, isLoadingBlogs} = useSelector((state: RootState) => state.blogs);
+    
+    const { authenticated, userRoles } = useSelector((state : RootState) => state.auth);
+
+    const [ blogsPerPage, setBlogsPerPage] = useState<number>(4);
+    const [ blogs, setBlogs ] = useState<BlogData[]>(allBlogs);
+
+    const [ pageBlogs, setPageBlogs ] = useState<BlogData[]>([]);
+
+    const [ page, setPage] = useState<number>(currentPage);
+    const [ totalPages, setTotalPages] = useState<number>(1);
+
+    
+    const handlePageChange = (_event: React.ChangeEvent<unknown>, value: number) =>
+    {
+        history.push(`/blog?page=${value}`);
+        setPage(value);
+    }
+
+    const { items } = usePagination(
+    {
+        count: totalPages,
+        page: page,
+        onChange: handlePageChange
+    });
 
     useEffect(() => {
         const total = Math.ceil(blogs.length / blogsPerPage);
@@ -159,7 +155,6 @@ const BlogsList : FC = () =>
 
     return (
         <section id="blogslist" className="">
-            {dialog}
             <h1 className="admin_title blogs_title">Blog</h1>
             <div className="blogs_list_wrapper">
                 <ul className="blogs_list">
@@ -177,7 +172,7 @@ const BlogsList : FC = () =>
 
                     {pageBlogs && (pageBlogs
                     .map((blog) =>
-                        <BlogListItem blog={blog} key={blog.blog_id} handleClickDelete={() => handleClickDelete(blog)} setHidden={setHidden}/>    
+                        <BlogListItem blog={blog} key={blog.blog_id} />    
                     ))}
                 </ul>
 
