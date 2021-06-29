@@ -98,6 +98,7 @@ const Inbox : FC = () =>
         setDialog(
             <DialogBox title="Confirm Delete Message" 
                        message={`Are you sure you want to delete this message from ${message.msg_firstname} ${message.msg_lastname}?`}
+                       messageError="Warning: this action cannot be undone."
                        optionReject="Delete Message"
                        optionClose="Cancel"
                        onClose={()=>setDialog(<></>)}
