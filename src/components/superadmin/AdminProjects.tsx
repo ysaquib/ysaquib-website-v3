@@ -14,10 +14,11 @@ import { RootState } from '../../store';
 import { addNewProject, deleteProject, getProjectData, setProjectData, setProjectsLoading, updateAllProjects } from '../../store/actions/dataActions';
 import Button from '../elements/Button';
 import TextArea from '../elements/TextArea';
-import { Add, ChevronRight, Remove } from '@material-ui/icons';
+import { ChevronRight } from '@material-ui/icons';
 import CheckBox from '../elements/Checkbox';
 import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd';
 import DialogBox from '../elements/DialogBox';
+import { IconAdd, IconChevronRight, IconGarbageDelete } from '../elements/Icons';
 
 const schema = yup.object().shape(
 {
@@ -29,6 +30,7 @@ const schema = yup.object().shape(
     project_github: yup.string().url("must be a valid URL"),
     project_url: yup.string().url("must be a valid URL"),
     project_inProgress: yup.boolean(),
+    project_isHidden: yup.boolean(),
     project_progress: yup.number().typeError("must be a valid number.")
                          .when('project_inProgress', {
                              is: true, 
@@ -53,6 +55,7 @@ const AdminProjects : FC = () =>
 
     const [isNewProject, setNewProject] = useState<boolean>(false);
     const [isInProgress, setInProgress] = useState<boolean>(project?.project_inProgress ?? false);
+    const [isHidden, setIsHidden] = useState<boolean>(project?.project_isHidden ?? false);
 
     const [dialog, setDialog] = useState(<></>);
     
@@ -72,6 +75,7 @@ const AdminProjects : FC = () =>
             setValue("project_github", project.project_github ?? "");
             setValue("project_url", project.project_url ?? "");
             setValue("project_inProgress", project.project_inProgress ?? false);
+            setValue("project_isHidden", project.project_isHidden ?? false);
             setValue("project_progress", project.project_progress ?? 0);
             
             setMessage("");
@@ -88,9 +92,7 @@ const AdminProjects : FC = () =>
      */
     useEffect(() => 
     {
-        dispatch(getProjectData(undefined, () => {
-            console.log("Error getting about data")}
-        ));
+        dispatch(getProjectData(undefined, () => {console.log("Error getting project data")}));
     }, [dispatch, message]);
 
 
@@ -154,15 +156,18 @@ const AdminProjects : FC = () =>
      */
     const delProject = () =>
     {
+        setDialog(<></>);
         if(project)
         {
             dispatch(deleteProject(project, projects, undefined, (err) => {setError(err)}));
         }
         setProject(undefined);
         setMessage("Successfully Deleted");
-        setDialog(<></>);
     }
 
+    /**
+     * Open dialog when delete button is clicked
+     */
     const handleDeleteDialog = () =>
     {
         if (project)
@@ -244,6 +249,16 @@ const AdminProjects : FC = () =>
      * TODO: Add isHidden checkbox to dashboard
      * TODO: Improve the CSS
      */
+
+    /**
+     * This could definitely be made a lot better but at this point it works
+     * well and it could break things to separate the list and box into two
+     * separate components so I will just leave it for now.
+     * 
+     * Either way, not much will change since realistically I can only separate
+     * the list item, which isnt that much anyways, and the project details are
+     * not that complicated.
+     */
     return (
         <section id="admin_project" className="admin projects" >
             {dialog}
@@ -264,7 +279,7 @@ const AdminProjects : FC = () =>
                                             onClick={() => changeProject(project.project_id)}>
                                             
                                             <h3 className="project_item_title">{project.project_title}</h3>
-                                            <ChevronRight className="chevron"/>
+                                            <span className="svg_icon chevron">{IconChevronRight}</span>
                                         
                                         </li>
                                     )
@@ -278,9 +293,10 @@ const AdminProjects : FC = () =>
                 </Droppable>
                 </DragDropContext>  
 
+                {/* $ Here are the project buttons to add and delete $ */}
                 <div className="project_buttons">
-                    <li className="project_item button_add" key="add" onClick={createNewProject}><Add className="add"/></li>
-                    <li className="project_item button_delete" key="delete" onClick={handleDeleteDialog}><Remove className="add"/></li>
+                    <li className="project_item button_add" key="add" onClick={createNewProject}><span className="svg_icon add">{IconAdd}</span></li>
+                    <li className="project_item button_delete" key="delete" onClick={handleDeleteDialog}><span className="svg_icon add">{IconGarbageDelete}</span></li>
                 </div>
 
             </div>
@@ -367,13 +383,21 @@ const AdminProjects : FC = () =>
                            disabled={!isInProgress}
                            show_label />
                 
-                <CheckBox label="Work In Progress"
+                <CheckBox label="In Progress"
                           name="project_inProgress"
                           className="half"
                           register={register} 
                           registration={{required: false}} 
                           disabled={project == null} 
                           onChange={() => setInProgress(!isInProgress)}/>
+                
+                <CheckBox label="Is Hidden?"
+                          name="project_isHidden"
+                          className="half"
+                          register={register} 
+                          registration={{required: false}} 
+                          disabled={project == null} 
+                          onChange={() => setIsHidden(!isHidden)}/>
 
                 <TextField label="Tags" 
                            name="project_tags"

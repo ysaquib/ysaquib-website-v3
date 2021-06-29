@@ -217,11 +217,13 @@
         grid-template-columns: repeat(2, 1fr);
         gap: 1.5rem;
 
-        .add, .delete
+        .button_add, .button_delete
         {
-            flex-grow: 3;
-            width: $medium-size;
-            height: $medium-size;
+            width: 100%;
+            display: grid;
+            place-content: center;
+            // width: $medium-size;
+            // height: $medium-size;
         }
     }
     

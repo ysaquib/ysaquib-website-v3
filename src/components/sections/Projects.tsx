@@ -60,8 +60,8 @@ const Projects : FC = () =>
                 {projects && 
                 (projects
                     .filter((project) => {return !(project.project_isHidden) ?? true}))
-                    .map((project : ProjectData) => (
-                    <ProjectCard key={project.project_order} {...project} />
+                    .map((project : ProjectData, index) => (
+                    <ProjectCard key={project.project_id} order={index} {...project} />
                 ))}
             </div>
 

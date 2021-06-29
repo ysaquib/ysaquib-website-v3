@@ -10,16 +10,18 @@ import { IconArticle, IconGithub, IconLaunch } from './Icons';
 interface CardProps extends ProjectData
 {
     className?: string;
+    order: number;
 }
 
-const ProjectCard : FC<CardProps> = ({children, className, ...projectData}) => 
+const ProjectCard : FC<CardProps> = ({children, className, order, ...projectData}) => 
 {
     const featured_order : number = 0;
+    console.log(order);
     /**
      * Create the "Featured Project" tag that will only be applied to the 
      * featured project (any project with the 'featured' className)
      */
-    const featured_tag: JSX.Element = projectData.project_order === featured_order ? (
+    const featured_tag: JSX.Element = order === featured_order ? (
         <div className="featured_tag">
             <h3 className="label">Featured Project</h3>
         </div>) : (<></>);
@@ -59,7 +61,7 @@ const ProjectCard : FC<CardProps> = ({children, className, ...projectData}) =>
     }
     
     return (
-        <div className={`project_card_wrapper ${getClassName(projectData.project_order)} ${projectData.project_inProgress ? "wip" : ""} ${className ?? ""}`}>
+        <div className={`project_card_wrapper ${getClassName(order)} ${projectData.project_inProgress ? "wip" : ""} ${className ?? ""}`}>
             <div className="project_card">
                 
                 <h1 className="project_title">
