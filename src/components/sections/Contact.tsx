@@ -42,10 +42,8 @@ const Contact : FC = () =>
 {
     const dispatch = useDispatch();
     const resolver = yupResolver(schema);
-    const {register, handleSubmit, reset, formState: {errors}} = useForm<FormInputs>({mode:"all" ,resolver});
-    const [isMsgSent, setMsgSent] = useState("");
+    const {register, handleSubmit, formState: {errors, isDirty, isSubmitting, isSubmitted}} = useForm<FormInputs>({mode:"all" ,resolver});
     const [formChanged, setFormChanged] = useState(false);
-
 
     useEffect(() => {
         if (formChanged)
@@ -53,7 +51,7 @@ const Contact : FC = () =>
             window.onbeforeunload = () => true;
         }
 
-        if (isMsgSent.includes("sent!"))
+        else if (!isSubmitted)
         {
             window.onbeforeunload = () => undefined;
         }
@@ -61,19 +59,7 @@ const Contact : FC = () =>
         return () => {
             window.onbeforeunload = () => undefined;
         };
-    }, [formChanged, isMsgSent]);
-
-    const messageSuccess = () =>
-    {
-        setMsgSent(`Your message has successfully been sent!\nI will be in touch with you as soon as possible.`);
-        reset();
-    }
-    
-    const messageError = (err: any) =>
-    {
-        setMsgSent(`An unknown error has occured. Please try again later.`);
-    }
-    
+    }, [formChanged]);
 
     const onSubmit : SubmitHandler<FormInputs> = (data) => 
     {
@@ -90,23 +76,18 @@ const Contact : FC = () =>
             msg_seen: false,
             msg_sentAt: new Date(Date.now())
         }
-
-        dispatch(addNewMessage(message, messageSuccess, messageError));
+        
+        dispatch(addNewMessage(message));
         /**
-
-         * TODO: Send message + (save to database?)
          * TODO: Add recaptcha
          */
-        
-        reset();
     }
 
-    if (isMsgSent !== "")
+    if (isSubmitted)
     {
         return(
             <Section id="contact" className="mini" title={default_data.contact.title}>
                 <h2 className="message_sent">Your message has been sent!<br />I will be in touch with you as soon as possible.</h2>
-                <Button text="Okay" className="neutral" onClick={() => setMsgSent("")}/>
             </Section>
         );
     }
@@ -161,7 +142,7 @@ const Contact : FC = () =>
                     when={formChanged}
                     message='You have unsaved changes, are you sure you want to leave?'/>
                     
-                <Button text="Send Message" className="confirmbtn" />
+                <Button text="Send Message" disabled={ !isDirty || isSubmitting || isSubmitted } className="confirmbtn" />
             </form>
         </Section>
     );

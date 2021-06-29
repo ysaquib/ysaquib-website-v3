@@ -3,7 +3,7 @@
  * Author: Yusuf Saquib
  */
 
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import Button from './Button';
 
 interface DialogProps
@@ -31,6 +31,7 @@ interface DialogProps
 
 const DialogBox: FC<DialogProps> = ({overlay=true, className="", ...props}) => 
 {
+    const [isLoading, setLoading] = useState(false);
 
     return (
         <div id="overlay" className={`background ${overlay ? "overlay" : ""}`}>
@@ -59,16 +60,16 @@ const DialogBox: FC<DialogProps> = ({overlay=true, className="", ...props}) =>
                 <div className="dialog_box_buttons">
                     
                     {props.optionClose && 
-                    <Button text={props.optionClose} className="neutral" onClick={props.onClose}/>}
+                    <Button text={props.optionClose} disabled={isLoading} className="neutral" onClick={()=>{setLoading(true); props.onClose && props.onClose();}}/>}
 
                     {props.optionReject && 
-                    <Button text={props.optionReject} className="reject" onClick={props.onReject}/>}
+                    <Button text={props.optionReject} disabled={isLoading} className="reject" onClick={()=>{setLoading(true); props.onReject && props.onReject();}}/>}
                     
                     {props.optionWarning && 
-                    <Button text={props.optionWarning} className="warning" onClick={props.onWarning}/>}
+                    <Button text={props.optionWarning} disabled={isLoading} className="warning" onClick={()=>{setLoading(true); props.onWarning && props.onWarning();}}/>}
                     
                     {props.optionConfirm && 
-                    <Button text={props.optionConfirm} className="confirm" onClick={props.onConfirm}/>}
+                    <Button text={props.optionConfirm} disabled={isLoading} className="confirm" onClick={()=>{setLoading(true); props.onConfirm && props.onConfirm();}}/>}
                     
                 
                 </div>

@@ -462,6 +462,12 @@ export const deleteMessage = (messageData: MessageData, onComplete?: () => void,
         {
             dispatch({type: Data_DelMessageData, payload: messageData});
             await Firebase.firestore().collection("messages").doc(messageData.msg_id).delete();
+            
+            /**
+             * Not strictly necessary but may need it later if I ever decide 
+             * to move the delete button somewhere that does not require seeing
+             * the message in order to delete it
+             */
             if(!messageData.msg_seen)
             {
                 dispatch({type: Data_DecrementNew});
