@@ -48,6 +48,8 @@ const BlogsPage : FC = () =>
         blog_url: "", 
         blog_title: "", 
         blog_content: "", 
+        blog_isHidden: false,
+        blog_inProgress: false,
         blog_createdAt: new Date(Date.now()),
     }
 

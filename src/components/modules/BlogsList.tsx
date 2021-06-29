@@ -16,25 +16,45 @@ function useQuery()
     return new URLSearchParams(useLocation().search);
 }
 
-interface HideButtonProps
+interface BlogListItemProps
 {
     blog: BlogData;
-    toggleHidden: () => void;
+    handleClickDelete: (blog: BlogData) => void;
+    setHidden: (blog: BlogData, hidden: boolean) => void;
+
 }
 
-const HideButton : FC<HideButtonProps> = ({blog, toggleHidden}) => 
+const BlogListItem: FC<BlogListItemProps> = ({blog, handleClickDelete, setHidden}) =>
 {
-    const [isBlogHidden, setBlogHidden] = useState(blog.blog_isHidden ?? false);
+    const { authenticated, userRoles } = useSelector((state : RootState) => state.auth);
+    const [isBlogHidden, setBlogHidden] = useState(blog.blog_isHidden);
     
     const toggleHide = () =>
     {
         setBlogHidden(!isBlogHidden);
-        toggleHidden();
+        setHidden(blog, !isBlogHidden);
     }
-    
+
+    const history = useHistory();
     return (
-        <div className="blogs_list_item_button hide" id="hide" onClick={toggleHide}><span className="svg_icon">{isBlogHidden ? IconEyeOff : IconEye}</span></div>
-    );
+        <li className="blogs_list_item_wrapper"
+            id={blog.blog_id} 
+            key={blog.blog_id}>
+            <div className="blogs_list_item" onClick={() => history.push(`/blog/${blog.blog_url}`)}>
+                <h1 className="blogs_list_title">
+                    {blog.blog_title}
+                </h1>
+                <p className="blogs_list_date">
+                    {blog.blog_createdAt.toLocaleDateString(undefined , {year: 'numeric', month: 'long', day: 'numeric'})}
+                </p>
+            </div>
+            {(authenticated && userRoles.includes("superadmin")) && (<>
+                <div className="blogs_list_item_button hide" id="hide" onClick={toggleHide}><span className="svg_icon">{isBlogHidden ? IconEyeOff : IconEye}</span></div>
+                
+                <div className="blogs_list_item_button delete" id="delete" onClick={() => handleClickDelete(blog)}><span className="svg_icon">{IconGarbageDelete}</span></div>
+            </>)}
+        </li>
+    )
 }
 
 const BlogsList : FC = () =>
@@ -71,9 +91,9 @@ const BlogsList : FC = () =>
         onChange: handlePageChange
     });
     
-    function toggleHidden(blogData: BlogData)
+    function setHidden(blogData: BlogData, hidden: boolean)
     {
-        dispatch(setBlogData({...blogData, blog_isHidden: !(blogData.blog_isHidden ?? false)}));
+        dispatch(setBlogData({...blogData, blog_isHidden: hidden}));
     }
 
     function handleClickDelete (blogData: BlogData)
@@ -156,25 +176,9 @@ const BlogsList : FC = () =>
                     }
 
                     {pageBlogs && (pageBlogs
-                    .map((blog) =>{
-                        return (
-                        <li className="blogs_list_item_wrapper"
-                            id={blog.blog_id} 
-                            key={blog.blog_id}>
-                            <div className="blogs_list_item" onClick={() => history.push(`/blog/${blog.blog_url}`)}>
-                                <h1 className="blogs_list_title">
-                                    {blog.blog_title}
-                                </h1>
-                                <p className="blogs_list_date">
-                                    {blog.blog_createdAt.toLocaleDateString(undefined , {year: 'numeric', month: 'long', day: 'numeric'})}
-                                </p>
-                            </div>
-                            {(authenticated && userRoles.includes("superadmin")) && (<>
-                                <HideButton blog={blog} toggleHidden={() => toggleHidden(blog)}/>
-                                <div className="blogs_list_item_button delete" id="delete" onClick={() => handleClickDelete(blog)}><span className="svg_icon">{IconGarbageDelete}</span></div>
-                            </>)}
-                        </li>
-                    );}))}
+                    .map((blog) =>
+                        <BlogListItem blog={blog} key={blog.blog_id} handleClickDelete={() => handleClickDelete(blog)} setHidden={setHidden}/>    
+                    ))}
                 </ul>
 
                 <Pagination items={items} />
