@@ -212,10 +212,10 @@ const BlogPage : FC<BlogPageProps> = ({isNewBlog=false, isEditing=false, allBlog
                 
 
                 <div id="editor_buttons">
-                    <Button text="Cancel" className="reject" onClick={handleCancel} disabled={isLoading}/>
+                    <Button id="cancel_blog" text="Cancel" className="reject" onClick={handleCancel} disabled={isLoading}/>
                     <div className="button_group">
-                        <Button text="Preview" className="neutral" onClick={handlePreview} disabled={isButtonDisabled}/>
-                        <Button text={isLoading ? "Saving" : "Save"} className="confirm" onClick={handleSave} disabled={isButtonDisabled}/>
+                        <Button id="preview_blog" text="Preview" className="neutral" onClick={handlePreview} disabled={isButtonDisabled}/>
+                        <Button id="save_blog" text="Save" className="confirm" onClick={() => {setButtonDisabled(true); handleSave()}} disabled={isButtonDisabled}/>
                     </div>
                 </div>
             </section>

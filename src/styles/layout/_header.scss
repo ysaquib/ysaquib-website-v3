@@ -29,6 +29,7 @@
         {
             padding: 1rem;
             font: $bold-weight $medium-size $sans-font, sans-serif;
+            user-select: none;
             &:hover
             {
                 cursor: pointer;

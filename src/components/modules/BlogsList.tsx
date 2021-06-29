@@ -1,5 +1,5 @@
 import { usePagination } from '@material-ui/lab/Pagination';
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { useLocation } from 'react-router-dom';
@@ -86,20 +86,21 @@ const BlogsList : FC = () =>
     const currentPage = parseInt(useQuery().get("page") ?? "1");
 
     const history = useHistory();
-    const dispatch = useDispatch();
     const {allBlogs, isLoadingBlogs} = useSelector((state: RootState) => state.blogs);
     
     const { authenticated, userRoles } = useSelector((state : RootState) => state.auth);
+    
+    const bpp_options: number[] = [5, 10, 25];
+    const [ currentBPP, setCurrentBPP ] = useState<string>("button_bpp_0");
+    const [ blogsPerPage, setBlogsPerPage] = useState<number>(bpp_options[0]);
 
-    const [ blogsPerPage, setBlogsPerPage] = useState<number>(4);
-    const [ blogs, setBlogs ] = useState<BlogData[]>(allBlogs);
-
+    const [ blogs, setBlogs ] = useState<BlogData[]>(allBlogs);    
     const [ pageBlogs, setPageBlogs ] = useState<BlogData[]>([]);
 
     const [ page, setPage] = useState<number>(currentPage);
     const [ totalPages, setTotalPages] = useState<number>(1);
-
     
+
     const handlePageChange = (_event: React.ChangeEvent<unknown>, value: number) =>
     {
         history.push(`/blog?page=${value}`);
@@ -120,9 +121,17 @@ const BlogsList : FC = () =>
         return () => {
             setTotalPages(0);
         }
-    }, [blogs, blogsPerPage])
+    }, [blogs, blogsPerPage]);
 
     useEffect(() => {
+        document.getElementById(currentBPP)?.classList.add("selected");
+        return () => {
+            document.getElementById(currentBPP)?.classList.remove("selected");
+        }
+    }, [currentBPP]);
+
+    useEffect(() => {
+
         const blogsList = allBlogs
             .filter((blog) => {return (!blog.blog_isHidden ?? true) || (authenticated && userRoles.includes("superadmin"))});
         
@@ -157,8 +166,29 @@ const BlogsList : FC = () =>
         <section id="blogslist" className="">
             <h1 className="admin_title blogs_title">Blog</h1>
             <div className="blogs_list_wrapper">
-                <ul className="blogs_list">
 
+                <div className="blogs_list_options">
+                    <div className="option">
+                        Blogs Per Page:
+                        <ul className="blogs_per_page">
+                            {bpp_options.map((option, index) => 
+                                <li key={option}>
+                                    <button id={`button_bpp_${index}`}
+                                            className={index === 0 ? "selected" : ""}
+                                            value={option}
+                                            onClick={(e) => {
+                                                setCurrentBPP(e.currentTarget.id);
+                                                setBlogsPerPage(option);
+                                            }}>
+                                        {option}
+                                    </button>
+                                </li>
+                            )}
+                        </ul>
+                    </div>
+                </div>
+
+                <ul className="blogs_list">
                     {(authenticated && userRoles.includes("superadmin")) && 
                         <li className="blogs_list_item_wrapper"
                         id="create_new_blog" 

@@ -84,14 +84,10 @@
             {
                 color: themed('grey-150');
                 background-color: themed('primary');
-                &:hover
-                {
-                    background-color: mix(themed('primary'), themed('grey-900'), $color-mix-less);
-                }
-                &:active
+                &:active, &:active:focus, &:hover
                 {
                     transition: none;
-                    background-color: mix(themed('primary'), themed('grey-900'), $color-mix-least);
+                    background-color: themed('primary');
                 }
             }
             

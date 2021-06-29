@@ -2,11 +2,59 @@
 {
     .blogs_list_wrapper
     {
+
+        .blogs_list_options
+        {
+            display: inline-flex;
+            flex-direction: row-reverse;
+            align-items: center;
+            width: 100%;
+            font: $medium-weight $small-size $sans-font, sans-serif;
+            
+            .option
+            {
+                display: inline-flex;
+                flex-direction: row;
+                align-items: center;
+                .blogs_per_page
+                {
+                    list-style-type: none;
+                    padding: 0rem;
+                    margin: 0rem;
+                    
+                    li 
+                    {
+                        margin-left: 1.5rem;
+                        display: inline;
+                    }
+                    
+                    li button 
+                    {
+                        font: $medium-weight $small-size $sans-font, sans-serif;
+                        width: 3.3rem;
+                        height: 3.3rem;
+                        border-radius: 5rem;
+                        border: none;
+                        &.selected
+                        {
+                            font: $semi-weight $small-size $sans-font, sans-serif;
+                        }
+                        &:hover 
+                        {
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+            
+            // justify-content: flex-start;
+        }
+
         .blogs_list
         {
             display: grid;
             // grid-template-columns: repeat(2, 1fr);
-            gap: 1.5rem;
+            gap: 1rem;
 
             padding: 0rem;
 
@@ -43,32 +91,34 @@
                 width: 100%;
                 flex: 10 6;
 
-                &.loading
-                {
-                    height: 6.4rem;
-                    box-shadow: none;
-                }
-
-
+                
+                
                 display: inline-flex;
                 flex-direction: row;
                 justify-content: space-between;
                 align-items: center;
-
+                
                 list-style-type: none;
                 padding: 2rem;
                 border-radius: $radius-regular;
                 
                 &.create_new
                 {
-                    padding: 1.2rem;
+                    padding: 1rem;
                     justify-content: center;
                     font: $medium-weight $Small-size $mono-font, monospace;
                 }
-
+                
                 &:hover
                 {
                     cursor: pointer;
+                }
+                
+                &.loading
+                {
+                    height: 6.4rem;
+                    box-shadow: none;
+                    cursor: default;
                 }
 
                 .blogs_list_date
@@ -91,6 +141,42 @@
     {
         .blogs_list_wrapper
         {
+            color: themed('grey-850');
+            
+            .blogs_list_options
+            {
+                .option .blogs_per_page
+                {
+                    li button
+                    {
+                        color: themed('grey-900');
+                        background-color: themed("grey-150");
+                        &:hover
+                        {
+                            color: themed('primary');
+                            background-color: themed("grey-200");
+                        }
+                        &:active:focus, &:active
+                        {
+                            transition: none;
+                            background-color: themed("grey-300");
+                        }
+                        
+                        &.selected
+                        {
+                            color: themed('grey-000');
+                            background-color: themed("secondary");
+
+                            &:hover, &:active:focus, &:active
+                            {
+                                transition: none;
+                                background-color: themed("secondary");
+                            }
+                        }
+                    }
+                }
+
+            }
 
             .blogs_list
             {
@@ -118,11 +204,10 @@
 
                     }
                 }
-                .blogs_list_item
+                .blogs_list_item:not(.loading)
                 {
                     .blogs_list_title
                     {
-                        color: themed('grey-800');
                         transition: color $trans-regular $trans-effect;
                     }
 
