@@ -52,16 +52,16 @@ const ProjectCard : FC<CardProps> = ({children, className, order, ...projectData
         {
             case featured_order:
                 return "featured";
-            // case 2:
-            // case 3:
-            default:
+            case featured_order+1:
+            case featured_order+2:
                 return "large";
-                //return "";
+            default:
+                return "";
         }
     }
     
     return (
-        <div className={`project_card_wrapper ${getClassName(order)} ${projectData.project_inProgress ? "wip" : ""} ${className ?? ""}`}>
+        <div id={`js-${order}`} className={`project_card_wrapper ${getClassName(order)} ${projectData.project_inProgress ? "wip" : ""} ${className ?? ""}`}>
             <div className="project_card">
                 
                 <h1 className="project_title">

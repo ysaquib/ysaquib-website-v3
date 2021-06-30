@@ -1,19 +1,18 @@
 #footer
 {
     width: 100%;
-    margin-top: 5rem;
+    margin: 5rem auto auto;
     padding-bottom: 5rem;
     height: 5rem;
     
     .footer_wrapper
     {
-        margin: auto;
-        width: 90%;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         text-align: center;
+        padding: 0rem 1rem;
 
         @include themify()
         {
@@ -28,8 +27,8 @@
             {
                 background-color: themed('grey-300');
             }
-            height: 1px;
-            width: 70%;
+            height: 0.5px;
+            width: 80%;
         }
         
         .footer_label

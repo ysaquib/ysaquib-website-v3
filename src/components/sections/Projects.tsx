@@ -13,7 +13,15 @@ import LoadingSkeleton from '../elements/LoadingSkeleton';
 import ProjectCard from '../elements/ProjectCard';
 import Section from '../elements/Section';
 
-const Projects : FC = () =>
+interface ProjectsProps
+{
+    sectionTitle?: string;
+    showAllProjects?: boolean;
+    projectsLimit?: number;
+    id: string;
+}
+
+const Projects : FC<ProjectsProps> = ({showAllProjects=false, id, sectionTitle="My Projects", projectsLimit=5}) =>
 {
     const dispatch = useDispatch();
     const {allProjects, isLoadingProjects} = useSelector((state: RootState) => state.projects);
@@ -26,7 +34,15 @@ const Projects : FC = () =>
     
     useEffect(() => 
     {
-        setProjects(allProjects);
+        const visibleProjects = allProjects.filter((project) => {return !(project.project_isHidden) ?? true});
+        if(!showAllProjects && projectsLimit < visibleProjects.length)
+        {
+            setProjects(visibleProjects.slice(0, projectsLimit));
+        }
+        else
+        {
+            setProjects(visibleProjects);
+        }
         
         return () =>
         {
@@ -42,7 +58,7 @@ const Projects : FC = () =>
     if(isLoadingProjects)
     {
         return(
-            <Section title="My Projects" id="projects">
+            <Section title={sectionTitle} id={id} className="projects">
                 <div className="projects_wrapper">
                     <LoadingSkeleton type="rectangle" className="loading_card featured" />
                     <LoadingSkeleton type="rectangle" className="loading_card large" />
@@ -55,19 +71,19 @@ const Projects : FC = () =>
         )
     }
     return (
-        <Section title="My Projects" id="projects">
+        <Section title={sectionTitle} id={id} className="projects">
             <div className="projects_wrapper">
                 {projects && 
-                (projects
-                    .filter((project) => {return !(project.project_isHidden) ?? true}))
-                    .map((project : ProjectData, index) => (
+                projects.map((project : ProjectData, index) => (
                     <ProjectCard key={project.project_id} order={index} {...project} />
                 ))}
             </div>
 
-            <div className="projects_button">
-                <Button text="See All Projects"/>
-            </div>
+            { !showAllProjects &&
+                <div className="projects_button">
+                    <Button text="See All Projects"/>
+                </div>
+            }
         </Section>
     );
 }

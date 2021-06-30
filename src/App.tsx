@@ -27,8 +27,10 @@ import firebase from 'firebase';
 import Error404 from './pages/ErrorPage';
 import Loader from './components/layout/Loader';
 import BlogsPage from './pages/BlogsPage';
-import InboxPage from './pages/InboxPage';
 import { getMessages } from './store/actions/dataActions';
+import { Container } from '@material-ui/core';
+import Inbox from './components/modules/Inbox';
+import Projects from './components/sections/Projects';
 
 let default_data = require('./default_data.json');
 
@@ -81,16 +83,19 @@ const App : FC = () =>
     return (
         <BrowserRouter>
             <Header />
-            <Switch>
-                <PublicRoute exact path="/"> <HomePage /> </PublicRoute>
-                <PublicRoute exact path="/signin"> <SignIn /> </PublicRoute>
-                <PublicRoute exact path="/signup"> <SignUp /> </PublicRoute>
-                <PublicRoute path="/blog"> <BlogsPage /> </PublicRoute>
-                <PrivateRoute path="/admin" authRoles={["superadmin"]}> <Admin /> </PrivateRoute>
-                <PrivateRoute path="/inbox" authRoles={["superadmin"]}> <InboxPage /> </PrivateRoute>
-                <Route component={Error404} />
-            </Switch>
+            <Container>
+                <Switch>
+                    <PublicRoute exact path="/"> <HomePage /> </PublicRoute>
+                    <PublicRoute exact path="/signin"> <SignIn /> </PublicRoute>
+                    <PublicRoute exact path="/signup"> <SignUp /> </PublicRoute>
+                    <PublicRoute path="/blog"> <BlogsPage /> </PublicRoute>
+                    <PublicRoute path="/projects"> <Projects id="all_projects" sectionTitle="Projects Archive" showAllProjects={true}/> </PublicRoute>
+                    <PrivateRoute path="/admin" authRoles={["superadmin"]}> <Admin /> </PrivateRoute>
+                    <PrivateRoute path="/inbox" authRoles={["superadmin"]}> <Inbox /> </PrivateRoute>
+                    <Route component={Error404} />
+                </Switch>
             <Footer />
+            </Container>
         </BrowserRouter>
     );
 }

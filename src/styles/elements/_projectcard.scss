@@ -6,7 +6,7 @@
 .project_card_wrapper
 {
 
-    height: 35rem;
+    height: 30rem;
     position: relative;
     
     grid-column: span 2;
@@ -142,39 +142,12 @@
         place-items: center;
         position: relative;
 
-        // &::after
-        // {
-        //     content: '';
-        //     height: 2.5rem;
-        //     position: absolute;
-        //     top: 0rem;
-        //     right: -1.5rem;
-        //     width: 2rem;
-        //     @include themify()
-        //     {
-        //         border: 1.2rem solid themed('secondary');
-        //         border-right: 1.2rem solid transparent;
-        //     }
-        // }
-
         .label
         {
             margin: 0rem;
             padding: 0rem;
             font: $semi-weight $Little-size $mono-font, monospace;
         }
-    }
-    
-    .project_title
-    {
-        margin: 0rem 0rem;
-        font: $bold-weight $Medium-size $sans-font, sans-serif;
-    }
-    
-    .project_description
-    {
-        width: 100%;
-        font: $regular-weight $small-size $sans-font, sans-serif;
     }
 
     .project_languages, .wip_bar_wrapper
@@ -189,15 +162,10 @@
     
     .project_languages
     {
-        // overflow: hidden;
-        // margin: 0rem;
-        // padding: 0rem;
-        // position: absolute;
 
         list-style-type: none;
         font: $regular-weight $Little-size $mono-font, monospace;
 
-        
         li
         {
             display: inline;
@@ -248,6 +216,18 @@
             }
         }
     }
+
+    .project_title
+    {
+        margin: 0rem 0rem;
+        font: $bold-weight $Medium-size $sans-font, sans-serif;
+    }
+    
+    .project_description
+    {
+        width: 100%;
+        font: $regular-weight $small-size $sans-font, sans-serif;
+    }
     
     &.featured
     {
@@ -293,7 +273,7 @@
 .loading_card
 {
     grid-column: span 2;
-    height: 35rem;
+    height: 30rem;
     &.featured
     {
         grid-column: span 6;
