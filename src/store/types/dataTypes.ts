@@ -43,7 +43,7 @@ export interface AboutData
 {
     about_title: string;
     about_description: string;
-    about_links: {[key: string]: string};
+    about_links: string[];
 }
 
 interface SetAboutDataAction

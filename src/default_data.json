@@ -25,11 +25,11 @@
         "about_title" : "About Me",
         "about_description": "",
         "about_links" :
-        {
-            "linkedin" : "",
-            "github" : "",
-            "email" : "yusufsaquib@gmail.com"
-        }
+        [
+            "Email, yusufsaquib@gmail.com",
+            "LinkedIn, https://www.linkedin.com/in/ysaquib/",
+            "GitHub, https://github.com/ysaquib"
+        ]
     },
 
     "contact" :

@@ -7,16 +7,59 @@
 {
     .about_wrapper
     {
-        width: 80%;
-
+        width: 100%;
+        
         .about_description
         {
+            width: 80%;
             font: $regular-weight $regular-size $sans-font, sans-serif;
             white-space: pre-line;
             // color: $light-foreground-color;
-            @include themify()
+        }
+
+        .about_links
+        {
+            padding: 0rem;
+            list-style-type: none;
+            width: 100%;
+            display: inline-flex;
+            justify-content: space-evenly;
+            .about_links_item
             {
-                color: themed('grey-700');
+                display: inline;
+                a 
+                {
+                    font-size: $regular-size;
+                    border: 2px dashed transparent;
+                    margin: 1rem;
+                    padding: 0.5rem;
+                }
+            }
+        }
+        @include themify()
+        {
+            color: themed('grey-700');
+            
+            .about_links_item a
+            {
+                * { transition: none; }
+
+                color: themed("grey-600");
+                &:hover
+                {
+                    color: themed("primary");
+                }
+                &:focus-visible
+                {
+                    box-shadow: none;
+                    outline: none;
+                    color: themed("secondary");
+                    border: 2px dashed themed("secondary");
+                }
+                &:active, &:active:focus
+                {
+                    color: themed("secondary");
+                }
             }
         }
     }
