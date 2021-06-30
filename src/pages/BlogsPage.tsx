@@ -61,33 +61,31 @@ const BlogsPage : FC = () =>
 
     return (
         <Router history={history}>
-            <Container>
-                <Switch>
-                    <PublicRoute exact path="/blog">
-                        <BlogsList />
-                    </PublicRoute>
+            <Switch>
+                <PublicRoute exact path="/blog">
+                    <BlogsList />
+                </PublicRoute>
 
-                    <PrivateRoute exact path="/blog/create_new" authRoles={["superadmin"]}> 
-                        <BlogPage {...new_blog} allBlogs={blogs} isNewBlog={true} isEditing={true}/>
-                    </PrivateRoute>
+                <PrivateRoute exact path="/blog/create_new" authRoles={["superadmin"]}> 
+                    <BlogPage {...new_blog} allBlogs={blogs} isNewBlog={true} isEditing={true}/>
+                </PrivateRoute>
 
-                    <Route path="/blog/:blogurl" children={
-                        ({match}) => {
-                            if (isLoading)
-                            {
-                                return Loader;
-                            }
-                            else
-                            {
-                                return (
-                                    <BlogPage {...(blogs.find((blog) => {return blog.blog_url === match?.params.blogurl}) as BlogData)} allBlogs={blogs}/>
-                                );
-                            }
-                        }} 
-                    />
-                        
-                </Switch>
-            </Container>
+                <Route path="/blog/:blogurl" children={
+                    ({match}) => {
+                        if (isLoading)
+                        {
+                            return Loader;
+                        }
+                        else
+                        {
+                            return (
+                                <BlogPage {...(blogs.find((blog) => {return blog.blog_url === match?.params.blogurl}) as BlogData)} allBlogs={blogs}/>
+                            );
+                        }
+                    }} 
+                />
+                    
+            </Switch>
         </Router>
     );
 }

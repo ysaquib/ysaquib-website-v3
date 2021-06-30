@@ -1,5 +1,5 @@
 /**
- * File: SignUp.tsx
+ * File: ErrorPage.tsx
  * Author: Yusuf Saquib
  */
 
