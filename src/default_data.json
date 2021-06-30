@@ -24,6 +24,7 @@
     {
         "about_title" : "About Me",
         "about_description": "",
+        "about_links_title": "",
         "about_links" :
         [
             "Email, yusufsaquib@gmail.com",

@@ -8,12 +8,14 @@
     .about_wrapper
     {
         width: 100%;
-        
+        display: inline-flex;
+        flex-direction: column;
         .about_description
         {
-            width: 80%;
+            width: 100%;
             font: $regular-weight $regular-size $sans-font, sans-serif;
             white-space: pre-line;
+            flex: 1 1 auto;
             // color: $light-foreground-color;
         }
 
@@ -24,14 +26,18 @@
             width: 100%;
             display: inline-flex;
             justify-content: space-evenly;
+            border-radius: $radius-regular;
+            box-shadow: $blog-list-box-shadow;
             .about_links_item
             {
-                display: inline;
+                display: inline-flex;
+                justify-content: center;
+                align-items: center;
+                
                 a 
                 {
-                    font-size: $regular-size;
                     border: 2px dashed transparent;
-                    margin: 1rem;
+                    margin: 1rem 0rem;
                     padding: 0.5rem;
                 }
             }
@@ -39,6 +45,11 @@
         @include themify()
         {
             color: themed('grey-700');
+
+            .about_links
+            {
+                background-color: themed("grey-150");
+            }
             
             .about_links_item a
             {

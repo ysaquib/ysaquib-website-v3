@@ -57,13 +57,14 @@ const About : FC = () =>
                <p className="about_description">
                {about.about_description}
                </p>
+               <h3 className="sec_subtitle">See more of my work</h3>
                <ul className="about_links">
                    {
                        about.about_links && about.about_links.map((value, index) => 
                        {
                            const [title, link] = value.split(",");
                            return (
-                               <li key={`link_${title.trim()}`} className="about_links_item"><Link to={link.trim()} title={title.trim()}><span className="svg_icon">{getIcon(title.trim())}</span></Link></li>
+                               <li key={`link_${title.trim()}`} className="about_links_item"><a href={link.trim()} title={title.trim()} ><span className="svg_icon">{getIcon(title.trim())}</span></a></li>
                            )
                        }
                        )
