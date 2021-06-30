@@ -10,6 +10,7 @@ import DialogBox from '../elements/DialogBox';
 import { IconEye, IconEyeOff, IconGarbageDelete } from '../elements/Icons';
 import LoadingSkeleton from '../elements/LoadingSkeleton';
 import Pagination from '../elements/Pagination';
+import Section from '../elements/Section';
 
 function useQuery() 
 {
@@ -163,8 +164,7 @@ const BlogsList : FC = () =>
     }
 
     return (
-        <section id="blogslist" className="">
-            <h1 className="admin_title blogs_title">Blog</h1>
+        <Section id="blogslist" title="All Blogs" className="">
             <div className="blogs_list_wrapper">
 
                 <div className="blogs_list_options">
@@ -208,7 +208,7 @@ const BlogsList : FC = () =>
 
                 <Pagination items={items} />
             </div>
-        </section>
+        </Section>
     );
 }
 

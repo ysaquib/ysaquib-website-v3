@@ -42,16 +42,15 @@ const Contact : FC = () =>
 {
     const dispatch = useDispatch();
     const resolver = yupResolver(schema);
-    const {register, handleSubmit, formState: {errors, isDirty, isSubmitting, isSubmitted}} = useForm<FormInputs>({mode:"all" ,resolver});
-    const [formChanged, setFormChanged] = useState(false);
+    const {register, handleSubmit, reset, formState: {errors, isDirty, isSubmitting, isSubmitted}} = useForm<FormInputs>({mode:"all" ,resolver});
 
     useEffect(() => {
-        if (formChanged)
+        if (isDirty)
         {
             window.onbeforeunload = () => true;
         }
 
-        else if (!isSubmitted)
+        else if (isSubmitted)
         {
             window.onbeforeunload = () => undefined;
         }
@@ -59,7 +58,7 @@ const Contact : FC = () =>
         return () => {
             window.onbeforeunload = () => undefined;
         };
-    }, [formChanged]);
+    }, [isDirty, isSubmitted]);
 
     const onSubmit : SubmitHandler<FormInputs> = (data) => 
     {
@@ -78,6 +77,7 @@ const Contact : FC = () =>
         }
         
         dispatch(addNewMessage(message));
+        reset();
         /**
          * TODO: Add recaptcha
          */
@@ -94,7 +94,7 @@ const Contact : FC = () =>
 
     return (
         <Section id="contact" className="mini" title={default_data.contact.title}>
-            <form className="contact_wrapper" onSubmit={handleSubmit(onSubmit)} onChange={() => setFormChanged(true)}>
+            <form className="contact_wrapper" onSubmit={handleSubmit(onSubmit)}>
                 <TextField 
                     label="First Name" 
                     name="firstname" 
@@ -139,7 +139,7 @@ const Contact : FC = () =>
 
                 
                 <Prompt
-                    when={formChanged}
+                    when={isDirty}
                     message='You have unsaved changes, are you sure you want to leave?'/>
                     
                 <Button text="Send Message" disabled={ !isDirty || isSubmitting || isSubmitted } className="confirmbtn" />

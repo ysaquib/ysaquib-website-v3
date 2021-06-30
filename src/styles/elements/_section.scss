@@ -21,7 +21,53 @@ section
 
     .sec_title
     {
+        text-align: center;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        
         font: $bold-weight $large-size $serif-font, serif;
+        &::after, &::before
+        {
+            content: "";
+            flex: 1;
+            height: 1px;
+            width: 100%;
+        }
+        &::before{margin-right: 3rem;}
+        &::after{margin-left: 3rem;}
+    }
+    
+    .sec_subtitle
+    {
+        text-align: center;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        &::after
+        {
+            content: "";
+            flex: 1;
+            height: 1px;
+            width: 100%;
+        }
+        &::after{margin-left: 3rem;}
+        font: $regular-weight $medium-size $sans-font, sans-serif;
+        
+    }
+
+    @include themify()
+    {
+        .sec_subtitle, .sec_title
+        {
+            color: themed("grey-900");
+            &::after, &::before
+            {
+                background-color: themed('grey-300');
+            }
+        }
     }
 
     @include respond(phone)
