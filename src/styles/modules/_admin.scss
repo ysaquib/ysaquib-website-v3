@@ -2,7 +2,6 @@
 {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, 1fr) 0.5fr;
     width: 100%;
     gap: 2rem;
     padding: 0rem;
@@ -46,7 +45,6 @@
         grid-column: span 2;
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        grid-row: span 2;
         gap: 3rem;
     }
 
@@ -55,7 +53,7 @@
         height: 100%;
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: 0.5fr repeat(7, 0.5fr);
+        // grid-template-rows: fit-content;
 
         gap: 1.5rem;
         padding: 3rem;
@@ -64,7 +62,7 @@
         &.banner
         {
             height: auto;
-            grid-template-rows: 0.5fr repeat(4, 0.5fr);
+            // grid-template-rows: 0.5fr repeat(4, 0.5fr);
             margin-top: 2rem;
             
         }
@@ -79,8 +77,9 @@
         }
         &.projects
         {
-            grid-template-rows: 0.5fr repeat(6, 0.5fr);
+            // grid-template-rows: 0.5fr repeat(6, 0.5fr);
             grid-column: span 2;
+            height: fit-content;
             // align-items: start;
             // justify-items: start;
             align-content: start;

@@ -17,7 +17,7 @@
     #message_list
     {
         border-radius: $radius-regular;
-        grid-column: span 7;
+        grid-column: span 8;
         padding: 1.2rem 1rem;
         margin: 0rem;
         overflow-y: auto;
@@ -42,22 +42,23 @@
             padding: 1.5rem;
             border-radius: $radius-regular;
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            grid-template-rows: 1fr 0.5fr;
+            grid-template-columns: 1.2fr 0.8fr;
+            grid-template-rows: repeat(2, fit-content);
+            gap: 0.5rem;
 
             .msgli
             {
                 margin: 0rem;
                 &.sender
                 {
-                    place-self: center start;
+                    place-self: start start;
                     grid-column: span 1;
                     grid-row: span 1;
                     font: $bold-weight $regular-size $sans-font, sans-serif;
                 }
                 &.time
                 {
-                    place-self: center end;
+                    place-self: start end;
                     text-align: right;
                     grid-column: span 1;
                     grid-row: span 1;
@@ -65,7 +66,7 @@
                 }
                 &.subject
                 {
-                    place-self: center start;
+                    place-self: end start;
                     grid-column: span 2;
                     grid-row: span 1;
                     font: $semi-weight $Little-size $sans-font, sans-serif;
@@ -86,7 +87,7 @@
 
         display: inline-flex;
         flex-direction: column;
-        grid-column: span 13;
+        grid-column: span 12;
         padding: 1rem;
 
         font: $regular-weight $regular-size $sans-font, sans-serif;

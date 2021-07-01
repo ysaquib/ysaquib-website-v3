@@ -23,7 +23,6 @@ const schema = yup.object().shape(
 {
     project_title : yup.string().required("is required."),
     project_description: yup.string().required("is required."),
-    project_id: yup.string(),
     project_tags: yup.string().required("is required."),
     project_blog: yup.string().url("must be a valid URL"),
     project_github: yup.string().url("must be a valid URL"),
@@ -68,7 +67,6 @@ const AdminProjects : FC = () =>
         {
             setValue("project_title", project.project_title);
             setValue("project_description", project.project_description);
-            setValue("project_id", project.project_id);
             setValue("project_tags", project.project_tags);
             setValue("project_blog", project.project_blog ?? "");
             setValue("project_github", project.project_github ?? "");
@@ -312,18 +310,19 @@ const AdminProjects : FC = () =>
                            registration={{required: true}} 
                            disabled={project == null}
                            show_label />
-                
-                <TextField label="Project ID" 
-                           name="project_id"
+
+                <TextField label="Blog URL" 
+                           name="project_blog"
                            type="text"
-                           classNameInner="elevated"
                            className="half"
-                           defaultValue={project?.project_id}
-                           message={errors.project_id?.message} 
+                           classNameInner="elevated"
+                           defaultValue={project?.project_blog}
+                           message={errors.project_blog?.message} 
                            register={register} 
-                           registration={{required: true}} 
-                           disabled show_label/>
-                
+                           registration={{required: false}} 
+                           disabled={project == null}
+                           show_label />
+                                
                 <TextField label="Github Repository URL" 
                            name="project_github"
                            type="text"
@@ -348,17 +347,6 @@ const AdminProjects : FC = () =>
                            disabled={project == null}
                            show_label />
 
-                <TextField label="Image URL" 
-                           name="project_blog"
-                           type="text"
-                           classNameInner="elevated"
-                           defaultValue={project?.project_blog}
-                           message={errors.project_blog?.message} 
-                           register={register} 
-                           registration={{required: false}} 
-                           disabled={project == null}
-                           show_label />
-
                 <TextArea label="Project Description" 
                            name="project_description"
                            classNameInner="elevated"
@@ -366,6 +354,18 @@ const AdminProjects : FC = () =>
                            rows={5}
                            defaultValue={project?.project_description}
                            message={errors.project_description?.message} 
+                           register={register} 
+                           registration={{required: true}} 
+                           disabled={project == null}
+                           show_label />
+
+                <TextField label="Tags" 
+                           name="project_tags"
+                           type="text"
+                           classNameInner="elevated"
+                           className="half"
+                           defaultValue={project?.project_tags}
+                           message={errors.project_tags?.message} 
                            register={register} 
                            registration={{required: true}} 
                            disabled={project == null}
@@ -398,17 +398,6 @@ const AdminProjects : FC = () =>
                           registration={{required: false}} 
                           disabled={project == null} 
                           onChange={() => setIsHidden(!isHidden)}/>
-
-                <TextField label="Tags" 
-                           name="project_tags"
-                           type="text"
-                           classNameInner="elevated"
-                           defaultValue={project?.project_tags}
-                           message={errors.project_tags?.message} 
-                           register={register} 
-                           registration={{required: true}} 
-                           disabled={project == null}
-                           show_label />
 
                 <p className={`message ${error != null && !isLoadingProjects ? "error" : ""}`}>
                     {error != null && !isLoadingProjects ? error : message}
