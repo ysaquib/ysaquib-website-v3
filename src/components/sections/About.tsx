@@ -5,7 +5,6 @@
 
 import React, { FC, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { RootState } from '../../store';
 import { getAboutData } from '../../store/actions/dataActions';
 import { AboutData } from '../../store/types/dataTypes';

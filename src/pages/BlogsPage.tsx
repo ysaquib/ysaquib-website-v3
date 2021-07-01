@@ -5,7 +5,6 @@
 
 import React, { FC, useEffect, useState } from 'react';
 
-import { Container } from '@material-ui/core';
 import BlogsList from '../components/modules/BlogsList';
 import { Route, Router, useHistory, Switch } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';

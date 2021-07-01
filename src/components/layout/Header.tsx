@@ -5,7 +5,7 @@
 
 import React, { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { RootState } from '../../store';
 import { userSignOut } from '../../store/actions/authActions';
 import ThemeSwitcher from '../elements/ThemeSwitcher';
@@ -35,13 +35,11 @@ const Header : FC = () =>
     
     useEffect(() => {
         setSelectedPath(currentPath.pathname);
-    }, [history.location])
+    }, [history.location, currentPath.pathname])
     
     useEffect(() => 
     {
-        document.getElementById(selectedPath)?.classList.add("selected_path");
-        console.log(selectedPath);
-        
+        document.getElementById(selectedPath)?.classList.add("selected_path");        
         return () => 
         {
             document.getElementById(selectedPath)?.classList.remove("selected_path");

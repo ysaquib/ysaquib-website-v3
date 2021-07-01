@@ -37,7 +37,6 @@ const LoginPortal : FC = () =>
     const resolver = yupResolver(schema);
     const {register, handleSubmit, formState: {errors}} = useForm<FormInputs>({mode: "all", resolver});
     const [isLoading, setIsLoading] = useState(false);
-    const [isSignedIn, setSignedIn] = useState(false);
     
     const dispatch = useDispatch();
     const {error, authenticated} = useSelector((state : RootState) => state.auth);
@@ -56,7 +55,7 @@ const LoginPortal : FC = () =>
         dispatch(setLoading(true));
     }
 
-    if (authenticated || isSignedIn)
+    if (authenticated)
     {
         return (
             <Redirect to="/" />
