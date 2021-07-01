@@ -19,59 +19,63 @@
 
         .project_links .links_list .links_item
         {
-            color: themed("grey-600");
-            &:hover
-            {
-                color: themed("grey-900");
-            }
-            &::after
-            {
-                color: themed("grey-500");
-            }
-        }
-
-        &.wip .project_links .links_list .links_item
-        {
-            
             color: themed("secondary");
             &:hover
             {
                 color: themed("grey-900");
             }
-            &::after
-            {
-                color: themed("secondary");
-            }
-        }
-        
-        &.featured .project_links .links_list .links_item
-        {
-            &:hover
-            {
-                color: themed("grey-900");
-            }
-            color: themed("primary");
-            &::after
-            {
-                color: themed("primary");
-            }
+            * {transition: none;}
         }
 
-        .featured_tag
-        {
-            background-color: themed("primary");
-            color: themed("grey-000");
-        }
-        .wip_tag
+        .date_tag
         {
             background-color: themed("secondary");
             color: themed("grey-000");
         }
-        .date_tag
+
+        
+        &.featured .project_links .links_list .links_item
+        {
+            color: themed("primary");
+            &:hover
+            {
+                color: themed("grey-900");
+            }
+        }
+        .featured_tag, &.featured .date_tag
+        {
+            background-color: themed("primary");
+            color: themed("grey-000");
+        }
+
+        &.wip .project_links .links_list .links_item
+        {
+            
+            color: themed("grey-700");
+            &:hover
+            {
+                color: themed("grey-900");
+            }
+        }
+        .wip_tag, &.wip .date_tag
         {
             background-color: themed("grey-700");
             color: themed("grey-000");
         }
+        .wip_bar_wrapper
+        {
+            color: themed("grey-700");
+            .wip_bar
+            {
+                background-color: themed("grey-300");
+                .wip_progress
+                {
+                    background-color: currentColor;
+                }
+            }
+        }
+        
+        
         
         .project_description
         {
@@ -80,21 +84,6 @@
         .project_languages
         {
             color: themed("grey-600");
-        }
-        .wip_bar_wrapper
-        {
-            .wip_label
-            {
-                color: themed("secondary");
-            }
-            .wip_bar
-            {
-                background-color: themed("grey-300");
-                .wip_progress
-                {
-                    background-color: themed("secondary");
-                }
-            }
         }
     }
     
@@ -129,7 +118,7 @@
                 cursor: pointer;
                 display: inline;
                 margin: 0rem;
-                margin-right: 1.5rem;
+                margin-right: 1rem;
             }
         }
 
@@ -168,7 +157,7 @@
     {
 
         list-style-type: none;
-        font: $regular-weight $Little-size $mono-font, monospace;
+        font: $regular-weight $small-size $mono-font, monospace;
 
         li
         {
@@ -191,7 +180,21 @@
                 content: "";
             }
         }
-        
+    }
+
+    .project_title
+    {
+        margin: 0rem 0rem;
+        font: $bold-weight $Medium-size $sans-font, sans-serif;
+    }
+    
+    .project_description
+    {
+        width: 100%;
+        text-align: start;
+        flex: 1;
+        font: $regular-weight $Small-size $sans-font, sans-serif;
+        margin-bottom: 3rem;
     }
 
     &.wip .project_languages
@@ -220,21 +223,6 @@
             }
         }
     }
-
-    .project_title
-    {
-        margin: 0rem 0rem;
-        font: $bold-weight $Medium-size $sans-font, sans-serif;
-    }
-    
-    .project_description
-    {
-        width: 100%;
-        text-align: start;
-        flex: 1;
-        font: $regular-weight $small-size $sans-font, sans-serif;
-        margin-bottom: 3rem;
-    }
     
     &.featured
     {
@@ -248,11 +236,11 @@
         .project_description
         {
             width: 80%;
-            font-size: $regular-size;
+            font-size: $Regular-size;
         }
         .project_languages
         {
-            font-size: $Small-size;
+            font-size: $regular-size;
         }
     }
     
@@ -268,11 +256,11 @@
         .project_description
         {
             width: 100%;
-            font-size: $Small-size;
+            font-size: $regular-size;
         }
         .project_languages
         {
-            font-size: $small-size;
+            font-size: $Small-size;
         }
     }    
 }

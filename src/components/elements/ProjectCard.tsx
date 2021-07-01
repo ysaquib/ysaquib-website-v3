@@ -30,6 +30,12 @@ const ProjectCard : FC<CardProps> = ({children, className, order, ...projectData
             <h3 className="label">In Progress</h3>
         </div>) : (<></>);
 
+    const date_tag: JSX.Element = (
+        <div className="date_tag">
+            <h3 className="label">{projectData.project_createdAt.toLocaleDateString(undefined, {month: "short", year: "numeric"})}</h3>
+        </div>
+    );
+
 
     const wip_bar: JSX.Element = projectData.project_inProgress ? (
         <div className="wip_bar_wrapper">
@@ -67,11 +73,7 @@ const ProjectCard : FC<CardProps> = ({children, className, order, ...projectData
                     {projectData.project_title}
                 </h1>
                 <div className="project_links">
-                
-                    {/* <div className="date_tag">
-                        <h3 className="label">Dec 2019</h3>
-                    </div> */}
-                
+                    {date_tag}
                     {featured_tag}
                     {wip_tag}
                     <ul className="links_list">

@@ -142,7 +142,8 @@ const AdminProjects : FC = () =>
             project_id: "",
             project_order: -1,
             project_tags: "",
-            project_progress: 0
+            project_progress: 0,
+            project_createdAt: new Date(Date.now()),
         }
         setNewProject(true);
         setProject(new_project);

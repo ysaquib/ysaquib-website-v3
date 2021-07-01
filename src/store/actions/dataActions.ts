@@ -93,8 +93,9 @@ export const getProjectData = (onComplete?: () => void, onError?: () => void) : 
             const projects = await Firebase.firestore().collection("projects").orderBy("project_order").get();
             const project_items: ProjectData[] = [];
             projects.forEach((doc) => {
-                project_items.push({...doc.data(), project_id: doc.id} as ProjectData);
-            })
+                project_items.push({...doc.data(), project_id: doc.id, project_createdAt: doc.get("project_createdAt").toDate()} as ProjectData);
+            });
+
             dispatch({type: Data_SetAllProjectsData, payload: project_items});
             dispatch(setProjectsLoading(false));
             onComplete && onComplete();
@@ -117,9 +118,11 @@ export const setProjectData = (projectData: ProjectData, onComplete?: () => void
         try 
         {
             const {project_id, ...project} = projectData;
+            const proj_createdAt = firebase.firestore.Timestamp.fromDate(project.project_createdAt)
+
             // const project_index = allProjects.findIndex((proj) => {return proj.project_id === projectData.project_id});
             // allProjects[project_index] = projectData;
-            await Firebase.firestore().collection("projects").doc(projectData.project_id).set(project as ProjectData);
+            await Firebase.firestore().collection("projects").doc(projectData.project_id).set({...project, project_createdAt: proj_createdAt});
 
             dispatch({
                 type: Data_SetProjectData, 
@@ -156,7 +159,6 @@ export const updateAllProjects = (allProjects: ProjectData[], onComplete?: () =>
     {
         try 
         {
-            
             updateProjectsOrders(allProjects);
 
             dispatch({
@@ -181,8 +183,9 @@ export const addNewProject = (projectData: ProjectData, allProjects: ProjectData
         try 
         {
             const {project_id, ...project} = {...projectData, project_order: allProjects.length};
+            const proj_createdAt = firebase.firestore.Timestamp.fromDate(project.project_createdAt)
             
-            const storedProject = await Firebase.firestore().collection("projects").add(project as ProjectData);
+            const storedProject = await Firebase.firestore().collection("projects").add({...project, project_createdAt: proj_createdAt});
 
             dispatch({
                 type: Data_AddProject,

@@ -57,9 +57,7 @@ export const projectReducer = (state = initialProjectsState, action: ProjectActi
             
         case Data_AddProject:
             const allProjects = state.allProjects;
-            console.log(state.allProjects);
             allProjects.push(action.payload);
-            console.log(allProjects, state.allProjects);
             return {...state, allProjects: allProjects};
 
         case Data_UpdateAllProjects:
