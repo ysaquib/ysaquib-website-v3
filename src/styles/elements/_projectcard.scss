@@ -6,7 +6,7 @@
 .project_card_wrapper
 {
 
-    height: 30rem;
+    min-height: $project-card-height;
     position: relative;
     
     grid-column: span 2;
@@ -71,11 +71,11 @@
         }
         .project_description
         {
-            color: themed('grey-800');
+            color: themed('grey-750');
         }
         .project_languages
         {
-            color: themed('grey-700');
+            color: themed('grey-600');
         }
         .wip_bar_wrapper
         {
@@ -97,7 +97,6 @@
     .project_card
     {
         padding: $padding-card-regular;
-        padding-top: $padding-card-regular;
         display: flex;
         flex-direction: column;
         border: none;
@@ -226,7 +225,9 @@
     .project_description
     {
         width: 100%;
+        text-align: start;
         font: $regular-weight $small-size $sans-font, sans-serif;
+        margin-bottom: 4rem;
     }
     
     &.featured
@@ -240,7 +241,7 @@
 
         .project_description
         {
-            // width: 70%;
+            width: 80%;
             font-size: $regular-size;
         }
         .project_languages
@@ -273,7 +274,7 @@
 .loading_card
 {
     grid-column: span 2;
-    height: 30rem;
+    height: $project-card-height;
     &.featured
     {
         grid-column: span 6;

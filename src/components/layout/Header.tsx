@@ -23,21 +23,19 @@ const Header : FC = () =>
     const {authenticated, userRoles} = useSelector((state : RootState) => state.auth);
     const {hasNewMessages, newMessagesCount} = useSelector((state : RootState) => state.messages);
 
-    const path = useLocation().pathname;
+    const currentPath = useLocation();
 
-    const [selectedPath, setSelectedPath] = useState(path);
+    const [selectedPath, setSelectedPath] = useState<string>(currentPath.pathname);
     
     const handleScroll = () => 
     {
         const posY = window.pageYOffset;
         setScrollPosition(posY);
     }
-
-    function handlePageClick(path: string)
-    {
-        history.push(path);
-        setSelectedPath(path);
-    }
+    
+    useEffect(() => {
+        setSelectedPath(currentPath.pathname);
+    }, [history.location])
     
     useEffect(() => 
     {
@@ -98,25 +96,25 @@ const Header : FC = () =>
                         key={title} 
                         id={path} 
                         onClick=
-                        {() => handlePageClick(path)}>
+                        {() => history.push(path)}>
                         {title}
                     </li>);
                 })}
 
                 {!authenticated ? 
-                    <li className="header_item" id="/signin" onClick={() => {handlePageClick("/signin")}} >
+                    <li className="header_item" id="/signin" onClick={() => {history.push("/signin")}} >
                             Sign In
                     </li> : <></>   
                 }
 
                 {authenticated && userRoles.includes("superadmin") ? 
-                    <li className="header_item" id="/inbox" onClick={() => handlePageClick("/inbox")} >
+                    <li className="header_item" id="/inbox" onClick={() => history.push("/inbox")} >
                         {`${hasNewMessages ? `${newMessagesCount} New ` : ""}Message${newMessagesCount > 1 || !hasNewMessages ? "s" : ""}`}
                     </li> : <></>   
                 }
 
                 {authenticated && userRoles.includes("superadmin") ? 
-                    <li className="header_item" id="/admin" onClick={() => handlePageClick("/admin")} >
+                    <li className="header_item" id="/admin" onClick={() => history.push("/admin")} >
                         Admin Dashboard
                     </li> : <></>   
                 }

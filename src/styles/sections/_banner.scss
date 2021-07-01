@@ -5,11 +5,10 @@
 
 #banner
 {
-    // margin: 10rem auto 20rem;
     .banner_wrapper
     {
         margin: 0rem;
-        padding: 4rem 4rem; // 4rem 3rem 4rem;
+        padding: $padding-card-regular; // 4rem 3rem 4rem;
 
         @include themify()
         {
@@ -30,8 +29,6 @@
             }
             
         }    
-        // background-image: url('../../../images/pittsburgh.jpg');
-        // background-image: linear-gradient(90deg,rgba(45,45,58,.9) 15%,rgba(45,45,58,.7) 50%,rgba(43,43,53,.7) 100%);
 
         .pre
         {

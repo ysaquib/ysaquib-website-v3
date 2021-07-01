@@ -16,7 +16,6 @@ interface CardProps extends ProjectData
 const ProjectCard : FC<CardProps> = ({children, className, order, ...projectData}) => 
 {
     const featured_order : number = 0;
-    console.log(order);
     /**
      * Create the "Featured Project" tag that will only be applied to the 
      * featured project (any project with the 'featured' className)
