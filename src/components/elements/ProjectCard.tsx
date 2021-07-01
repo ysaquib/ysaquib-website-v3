@@ -67,19 +67,24 @@ const ProjectCard : FC<CardProps> = ({children, className, order, ...projectData
                     {projectData.project_title}
                 </h1>
                 <div className="project_links">
+                
+                    {/* <div className="date_tag">
+                        <h3 className="label">Dec 2019</h3>
+                    </div> */}
+                
                     {featured_tag}
                     {wip_tag}
                     <ul className="links_list">
-                        {projectData.project_blog && <li className="links_item svg_icon" title="Read More">{IconArticle}</li>}
-                        {projectData.project_github && <li className="links_item svg_icon" title="View Github Repo">{IconGithub}</li>}
-                        {projectData.project_url && <li className="links_item svg_icon" title="View Demo">{IconLaunch}</li>}
+                        {projectData.project_blog && <li className="links_item svg_icon" key="blog" title="Read More">{IconArticle}</li>}
+                        {projectData.project_github && <li className="links_item svg_icon" key="github" title="View Github Repo">{IconGithub}</li>}
+                        {projectData.project_url && <li className="links_item svg_icon" key="demo" title="View Demo">{IconLaunch}</li>}
                     </ul>
                 </div>
                 <p className="project_description">
                     {projectData.project_description}
                 </p>
                 <ul className="project_languages">
-                    {(projectData.project_tags?.split(","))?.map(tag => {return(<li key={tag.trim()}>{tag.trim()}</li>);})}
+                    {(projectData.project_tags?.split(","))?.map((tag, index) => {return(<li key={`${tag.trim()}_${index}`}>{tag.trim()}</li>);})}
                 </ul>
                 {wip_bar}
             </div>

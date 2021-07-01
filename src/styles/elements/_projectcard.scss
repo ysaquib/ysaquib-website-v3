@@ -7,7 +7,7 @@
 {
 
     min-height: $project-card-height;
-    position: relative;
+    // position: relative;
     
     grid-column: span 2;
     border-radius: $radius-large;
@@ -15,32 +15,32 @@
     
     @include themify()
     {
-        background-color: themed('grey-150');
+        background-color: themed("grey-150");
 
         .project_links .links_list .links_item
         {
-            color: themed('grey-600');
+            color: themed("grey-600");
             &:hover
             {
-                color: themed('grey-900');
+                color: themed("grey-900");
             }
             &::after
             {
-                color: themed('grey-500');
+                color: themed("grey-500");
             }
         }
 
         &.wip .project_links .links_list .links_item
         {
             
-            color: themed('secondary');
+            color: themed("secondary");
             &:hover
             {
-                color: themed('grey-900');
+                color: themed("grey-900");
             }
             &::after
             {
-                color: themed('secondary');
+                color: themed("secondary");
             }
         }
         
@@ -48,47 +48,51 @@
         {
             &:hover
             {
-                color: themed('grey-900');
+                color: themed("grey-900");
             }
-            color: themed('primary');
+            color: themed("primary");
             &::after
             {
-                color: themed('primary');
+                color: themed("primary");
             }
         }
 
-        .featured_tag, .wip_tag
+        .featured_tag
         {
-            background-color: themed('primary');
-            .label
-            {
-                color: themed('grey-000');
-            }
+            background-color: themed("primary");
+            color: themed("grey-000");
         }
         .wip_tag
         {
-            background-color: themed('secondary');
+            background-color: themed("secondary");
+            color: themed("grey-000");
         }
+        .date_tag
+        {
+            background-color: themed("grey-700");
+            color: themed("grey-000");
+        }
+        
         .project_description
         {
-            color: themed('grey-750');
+            color: themed("grey-750");
         }
         .project_languages
         {
-            color: themed('grey-600');
+            color: themed("grey-600");
         }
         .wip_bar_wrapper
         {
             .wip_label
             {
-                color: themed('secondary');
+                color: themed("secondary");
             }
             .wip_bar
             {
-                background-color: themed('grey-300');
+                background-color: themed("grey-300");
                 .wip_progress
                 {
-                    background-color: themed('secondary');
+                    background-color: themed("secondary");
                 }
             }
         }
@@ -101,14 +105,16 @@
         flex-direction: column;
         border: none;
         margin: 0rem;
+        height: 100%;
     }
 
     .project_links
     {
         margin-top: 1rem;
         display: flex;
+        flex-wrap: wrap;
         align-items: center;
-        gap: 2rem;
+        gap: 1rem;
         user-select: none;
         
         .links_list
@@ -130,12 +136,13 @@
     }
 
 
-    .featured_tag, .wip_tag
+    .featured_tag, .wip_tag, .date_tag
     {
         align-self: left;
-        min-width: 11rem;
+        width: fit-content;
+        // min-width: 11rem;
         height: 2.5rem;
-        padding: 0.4rem 1rem;
+        padding: 0.4rem 0.8rem;
         border-radius: $radius-small;
         display: grid;
         place-items: center;
@@ -145,7 +152,7 @@
         {
             margin: 0rem;
             padding: 0rem;
-            font: $semi-weight $Little-size $mono-font, monospace;
+            font: $semi-weight $little-size $mono-font, monospace;
         }
     }
 
@@ -154,9 +161,7 @@
         overflow: hidden;
         margin: 0rem;
         padding: 0rem;
-        position: absolute;
-        inset: auto $padding-card-regular $padding-card-regular $padding-card-regular;
-        width: auto;
+        width: 100%;
     }
     
     .project_languages
@@ -174,7 +179,7 @@
             &::after
             {
                 padding-left: 1rem;
-                content: '•';
+                content: "•";
             }
         }
         
@@ -183,7 +188,7 @@
             &::after
             {
                 padding-left: 1rem;
-                content: '';
+                content: "";
             }
         }
         
@@ -226,8 +231,9 @@
     {
         width: 100%;
         text-align: start;
+        flex: 1;
         font: $regular-weight $small-size $sans-font, sans-serif;
-        margin-bottom: 4rem;
+        margin-bottom: 3rem;
     }
     
     &.featured
