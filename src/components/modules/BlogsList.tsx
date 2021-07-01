@@ -1,5 +1,5 @@
 import { usePagination } from '@material-ui/lab/Pagination';
-import React, { FC, useEffect, useRef, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { useLocation } from 'react-router-dom';
@@ -96,10 +96,9 @@ const BlogsList : FC = () =>
     const [ blogsPerPage, setBlogsPerPage] = useState<number>(bpp_options[0]);
 
     const [ blogs, setBlogs ] = useState<BlogData[]>(allBlogs);    
-    const [ pageBlogs, setPageBlogs ] = useState<BlogData[]>([]);
 
     const [ page, setPage] = useState<number>(currentPage);
-    const [ totalPages, setTotalPages] = useState<number>(1);
+    const [ totalPages, setTotalPages] = useState<number>(Math.ceil(blogs.length / blogsPerPage));
     
 
     const handlePageChange = (_event: React.ChangeEvent<unknown>, value: number) =>
@@ -117,41 +116,30 @@ const BlogsList : FC = () =>
 
     useEffect(() => {
         const total = Math.ceil(blogs.length / blogsPerPage);
-        console.log(blogs.length, total);
         setTotalPages(total);
-        return () => {
-            setTotalPages(0);
-        }
     }, [blogs, blogsPerPage]);
-
+    
     useEffect(() => {
+        console.log("Get BPP");
         document.getElementById(currentBPP)?.classList.add("selected");
         return () => {
             document.getElementById(currentBPP)?.classList.remove("selected");
         }
     }, [currentBPP]);
-
+    
     useEffect(() => {
-
+        
+        console.log("Doing stuff");
         const blogsList = allBlogs
             .filter((blog) => {return (!blog.blog_isHidden ?? true) || (authenticated && userRoles.includes("superadmin"))});
         
-        const pageBlogsList = blogsList
-            .slice(0 + blogsPerPage * (currentPage - 1), blogsPerPage + blogsPerPage * (currentPage - 1));
-
         setBlogs(blogsList);
-        setPageBlogs(pageBlogsList);
-        return () => {
-            setBlogs([]);
-            setPageBlogs([]);
-        }
-    }, [allBlogs, page, setBlogs, setPageBlogs, blogsPerPage, authenticated, userRoles, currentPage]);
+    }, [allBlogs, setBlogs, authenticated, userRoles]);
 
     if (isLoadingBlogs)
     {
         return(
-            <section id="blogslist" className="">
-                <h1 className="admin_title blogs_title">Blog</h1>
+            <Section id="blogslist" title="All Blogs" className="">
                 <div className="blogs_list_wrapper">
                     <ul className="blogs_list">
                         <LoadingSkeleton className="blogs_list_item loading" type="rectangle" />
@@ -159,7 +147,7 @@ const BlogsList : FC = () =>
                         <LoadingSkeleton className="blogs_list_item loading" type="rectangle" />
                     </ul>
                 </div>
-            </section>
+            </Section>
         );
     }
 
@@ -200,7 +188,8 @@ const BlogsList : FC = () =>
                         </li>
                     }
 
-                    {pageBlogs && (pageBlogs
+                    {blogs && (blogs
+                    .slice(0 + blogsPerPage * (currentPage - 1), blogsPerPage + blogsPerPage * (currentPage - 1))
                     .map((blog) =>
                         <BlogListItem blog={blog} key={blog.blog_id} />    
                     ))}
