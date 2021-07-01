@@ -6,6 +6,7 @@
 import React, { FC, useEffect, useState } from 'react'
 import TextField from '../elements/TextField';
 import * as yup from 'yup';
+import { format, parse } from "date-fns";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { ProjectData } from '../../store/types/dataTypes';
@@ -54,6 +55,7 @@ const AdminProjects : FC = () =>
     const [isNewProject, setNewProject] = useState<boolean>(false);
     const [isInProgress, setInProgress] = useState<boolean>(project?.project_inProgress ?? false);
     const [isHidden, setIsHidden] = useState<boolean>(project?.project_isHidden ?? false);
+    const [currentDate, setCurrentDate] = useState<string>(format(project?.project_createdAt ?? new Date(Date.now()), "yyyy-MM-dd"));
 
     const [dialog, setDialog] = useState(<></>);
     
@@ -74,6 +76,7 @@ const AdminProjects : FC = () =>
             setValue("project_inProgress", project.project_inProgress ?? false);
             setValue("project_isHidden", project.project_isHidden ?? false);
             setValue("project_progress", project.project_progress ?? 0);
+            setCurrentDate(format(project.project_createdAt, "yyyy-MM-dd"));
             
             setMessage("");
             setInProgress(project.project_inProgress ?? false);
@@ -81,7 +84,7 @@ const AdminProjects : FC = () =>
             setFocus("project_title");
         }
         return () => {}
-    }, [project, setValue, setFocus]);
+    }, [project, setValue, setFocus, setCurrentDate]);
 
     /**
      * When the message is updated, we get the data again and set the list 
@@ -183,8 +186,6 @@ const AdminProjects : FC = () =>
         }
     }
 
-
-
     /**
      * handleOnDragEnd handles the result when the project list is reordered 
      * using drag and drop features. In this case, the orders of all projects
@@ -224,7 +225,8 @@ const AdminProjects : FC = () =>
             ...project_data,
             project_id: proj_id,
             project_progress: proj_prog,
-            project_inProgress: isInProgress
+            project_inProgress: isInProgress,
+            project_createdAt: parse(currentDate, "yyyy-MM-dd", new Date())
         };
 
         console.log(new_project);
@@ -372,6 +374,37 @@ const AdminProjects : FC = () =>
                            disabled={project == null}
                            show_label />
 
+                <TextField  label="Creation Date"
+                            type="date"
+                            className="half"
+                            classNameInner="elevated"
+                            name="project_createdAt"
+                            value={currentDate}
+                            onChangeEvent={(e) => setCurrentDate(e.currentTarget.value)}
+                            message={errors.project_createdAt?.message} 
+                            disabled={project == null}
+                            register={register} 
+                            registration={{required: true}}
+                            show_label  />
+
+                <div className="checkboxes">
+                    <CheckBox label="In Progress"
+                            name="project_inProgress"
+                            className="half"
+                            register={register} 
+                            registration={{required: false}} 
+                            disabled={project == null} 
+                            onChange={() => setInProgress(!isInProgress)}/>
+                    
+                    <CheckBox label="Is Hidden?"
+                            name="project_isHidden"
+                            className="half"
+                            register={register} 
+                            registration={{required: false}} 
+                            disabled={project == null} 
+                            onChange={() => setIsHidden(!isHidden)}/>
+                </div>
+
                 <TextField label="Progress" 
                            name="project_progress"
                            type="text"
@@ -383,22 +416,7 @@ const AdminProjects : FC = () =>
                            registration={{required: false}} 
                            disabled={!isInProgress}
                            show_label />
-                
-                <CheckBox label="In Progress"
-                          name="project_inProgress"
-                          className="half"
-                          register={register} 
-                          registration={{required: false}} 
-                          disabled={project == null} 
-                          onChange={() => setInProgress(!isInProgress)}/>
-                
-                <CheckBox label="Is Hidden?"
-                          name="project_isHidden"
-                          className="half"
-                          register={register} 
-                          registration={{required: false}} 
-                          disabled={project == null} 
-                          onChange={() => setIsHidden(!isHidden)}/>
+
 
                 <p className={`message ${error != null && !isLoadingProjects ? "error" : ""}`}>
                     {error != null && !isLoadingProjects ? error : message}

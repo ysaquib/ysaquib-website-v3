@@ -21,9 +21,10 @@ interface TextFieldProps extends InputHTMLAttributes<HTMLInputElement>
     show_label?: boolean;
     className?: string;
     classNameInner?: string;
+    onChangeEvent?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const TextField: FC<TextFieldProps> = ({ label, type, name, classNameInner, className, disabled, message, register, registration, replace_label, show_label=false, ...props }) => 
+const TextField: FC<TextFieldProps> = ({ label, onChangeEvent, type, name, classNameInner, className, disabled, message, register, registration, replace_label, show_label=false, ...props }) => 
 {
     const [showLabel, setShowLabel] = useState(props.defaultValue != null || show_label);
 
@@ -51,7 +52,7 @@ const TextField: FC<TextFieldProps> = ({ label, type, name, classNameInner, clas
                 className={`${classNameInner ?? ""} ${message ? "error" : ""}`}
                 disabled={disabled} 
                 placeholder={label}
-                onChange={(event) => event.target.value === "" ? setShowLabel(false) : setShowLabel(true)}/>
+                onChange={(event) => {onChangeEvent && onChangeEvent(event); event.target.value === "" ? setShowLabel(false) : setShowLabel(true)}}/>
        </div>
     );
 }
