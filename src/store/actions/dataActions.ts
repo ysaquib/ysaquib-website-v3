@@ -117,7 +117,6 @@ export const setProjectData = (projectData: ProjectData, onComplete?: () => void
         try 
         {
             const {project_id, ...project} = projectData;
-            
             // const project_index = allProjects.findIndex((proj) => {return proj.project_id === projectData.project_id});
             // allProjects[project_index] = projectData;
             await Firebase.firestore().collection("projects").doc(projectData.project_id).set(project as ProjectData);
@@ -175,13 +174,13 @@ export const updateAllProjects = (allProjects: ProjectData[], onComplete?: () =>
 }
 
 
-export const addNewProject = (projectData: ProjectData, onComplete?: () => void, onError?: (msg: any) => void) : ThunkAction<void, RootState, null, ProjectAction> =>
+export const addNewProject = (projectData: ProjectData, allProjects: ProjectData[], onComplete?: () => void, onError?: (msg: any) => void) : ThunkAction<void, RootState, null, ProjectAction> =>
 {
     return async dispatch =>
     {
         try 
         {
-            const {project_id, ...project} = projectData;
+            const {project_id, ...project} = {...projectData, project_order: allProjects.length};
             
             const storedProject = await Firebase.firestore().collection("projects").add(project as ProjectData);
 

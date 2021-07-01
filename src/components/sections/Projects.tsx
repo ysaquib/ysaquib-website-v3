@@ -5,6 +5,7 @@
 
 import React, { FC, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { RootState } from '../../store';
 import { getProjectData } from '../../store/actions/dataActions';
 import { ProjectData } from '../../store/types/dataTypes';
@@ -21,9 +22,10 @@ interface ProjectsProps
     id: string;
 }
 
-const Projects : FC<ProjectsProps> = ({showAllProjects=false, id, sectionTitle="My Projects", projectsLimit=5}) =>
+const Projects : FC<ProjectsProps> = ({showAllProjects=false, id, sectionTitle="My Projects", projectsLimit=6}) =>
 {
     const dispatch = useDispatch();
+    const history = useHistory();
     const {allProjects, isLoadingProjects} = useSelector((state: RootState) => state.projects);
     const [projects, setProjects] = useState<ProjectData[]>(allProjects);
 
@@ -48,7 +50,7 @@ const Projects : FC<ProjectsProps> = ({showAllProjects=false, id, sectionTitle="
         {
             setProjects([]);
         }
-    }, [allProjects]);
+    }, [allProjects, projectsLimit, showAllProjects]);
 
     
 
@@ -81,7 +83,7 @@ const Projects : FC<ProjectsProps> = ({showAllProjects=false, id, sectionTitle="
 
             { !showAllProjects &&
                 <div className="projects_button">
-                    <Button text="See All Projects"/>
+                    <Button text="See All Projects" onClick={() => history.push("/projects")}/>
                 </div>
             }
         </Section>

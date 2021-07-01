@@ -14,7 +14,6 @@ import { RootState } from '../../store';
 import { addNewProject, deleteProject, getProjectData, setProjectData, setProjectsLoading, updateAllProjects } from '../../store/actions/dataActions';
 import Button from '../elements/Button';
 import TextArea from '../elements/TextArea';
-import { ChevronRight } from '@material-ui/icons';
 import CheckBox from '../elements/Checkbox';
 import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd';
 import DialogBox from '../elements/DialogBox';
@@ -80,7 +79,7 @@ const AdminProjects : FC = () =>
             
             setMessage("");
             setInProgress(project.project_inProgress ?? false);
-            console.log(project);
+            console.log(project?.project_title, project?.project_order);
             setFocus("project_title");
         }
         return () => {}
@@ -93,7 +92,7 @@ const AdminProjects : FC = () =>
     useEffect(() => 
     {
         dispatch(getProjectData(undefined, () => {console.log("Error getting project data")}));
-    }, [dispatch, message]);
+    }, [dispatch]);
 
 
     /**
@@ -214,7 +213,7 @@ const AdminProjects : FC = () =>
      */
     const onSubmit : SubmitHandler<ProjectData> = (data) => 
     {
-        console.log(data);
+        console.log(project?.project_title, data.project_title, project?.project_order);
         dispatch(setProjectsLoading(true));
 
         const proj_id = project?.project_id ?? "";
@@ -224,7 +223,6 @@ const AdminProjects : FC = () =>
         const new_project = {
             ...project, 
             ...project_data,
-            project_order: projects.length,
             project_id: proj_id,
             project_progress: proj_prog,
             project_inProgress: isInProgress
@@ -233,10 +231,12 @@ const AdminProjects : FC = () =>
         console.log(new_project);
         if(isNewProject && project)
         {
-            dispatch(addNewProject(new_project, undefined, (err) => {setError(err)}));
+            console.log("New project");
+            dispatch(addNewProject(new_project, projects, undefined, (err) => {setError(err)}));
         }
-        else if(project)
+        else if(!isNewProject && project)
         {
+            console.log("Existing project");
             dispatch(setProjectData(new_project, undefined, (err) => {setError(err)}));
         }
         

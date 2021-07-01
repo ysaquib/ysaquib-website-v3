@@ -48,14 +48,19 @@ export const projectReducer = (state = initialProjectsState, action: ProjectActi
 
         case Data_SetProjectData:
             const newProjects = state.allProjects;
+            console.log(state.allProjects);
             const project_index = newProjects.findIndex((proj) => {return proj.project_id === action.payload.project_id});
+            console.log(project_index);
             newProjects[project_index] = action.payload;
+            console.log(newProjects);
             return {...state, allProjects: newProjects};
             
         case Data_AddProject:
             const allProjects = state.allProjects;
+            console.log(state.allProjects);
             allProjects.push(action.payload);
-            return {...state, allProjects};
+            console.log(allProjects, state.allProjects);
+            return {...state, allProjects: allProjects};
 
         case Data_UpdateAllProjects:
             action.payload.forEach((project, index) => {project.project_order = index});

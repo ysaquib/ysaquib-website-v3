@@ -15,7 +15,7 @@ const HomePage : FC = () =>
     return (
         <>
             <Banner />
-            <Projects projectsLimit={5} id="projects"/>
+            <Projects projectsLimit={6} id="projects"/>
             <ACWrapper />
             <Security />
         </>
