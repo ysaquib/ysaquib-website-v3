@@ -226,7 +226,7 @@ const BlogPage : FC<BlogPageProps> = ({isNewBlog=false, isEditing=false, allBlog
 
             {canUserEdit && editBlogButton}
             
-            <div id="blog_header">
+            <div id="blog_header" className={`${blogData.blog_isFeatured === true ? "featured" : ""} ${blogData.blog_inProgress === true ? "wip" : ""}`}>
                 <h1 id="blog_title">{blogTitle}</h1>
                 <div id="blog_info">
                     <p className="info_item">Written by Yusuf Saquib</p>

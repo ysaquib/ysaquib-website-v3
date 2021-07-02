@@ -7,10 +7,10 @@
         margin: 0 0 3rem 0;
         @include themify()
         {
-            color: mix(themed('primary'), themed('grey-000'), 25%);
+            color: mix(themed("primary"), themed("grey-000"), 25%);
             &::before
             {
-                color: mix(themed('primary'), themed('grey-000'), 35%);
+                color: mix(themed("primary"), themed("grey-000"), 35%);
             }
         }
     }
@@ -72,7 +72,7 @@
 
             .info_item
             {
-                font: $light-weight $small-size $serif-font, serif;
+                font: $regular-weight $small-size $serif-font, serif;
             }
         }
     }
@@ -81,33 +81,54 @@
     {
         #blog_edit_button
         {
-            color: themed('grey-000');
-            background-color: mix(themed('grey-000'), themed('primary'), 50%);
+            color: themed("grey-000");
+            background-color: mix(themed("grey-000"), themed("primary"), 50%);
             &:hover
             {
-                background-color: mix( themed('primary'),themed('grey-100'), $color-mix-least);
+                background-color: mix( themed("primary"),themed("grey-100"), $color-mix-least);
                 cursor: pointer;
             }
             
             &:active
             {
                 transition: none;
-                background-color: mix( themed('primary'),themed('grey-150'), $color-mix-less);
+                background-color: mix( themed("primary"),themed("grey-150"), $color-mix-less);
             }
         }
 
         #blog_header
         {
-
             #blog_title
             {
-                background-color: themed('primary');
-                color: themed('grey-000');
+                background-color: themed("primary");
+                color: themed("grey-000");
             }
-        }
-        #blog_info .info_item
-        {
-            color: themed('primary');
+            #blog_info .info_item
+            {
+                color: themed("primary");
+            }
+            &.featured
+            {
+                #blog_title
+                {
+                    background-color: themed("secondary");
+                }
+                #blog_info .info_item
+                {
+                    color: themed("secondary");
+                }
+            }
+            &.wip
+            {
+                #blog_title
+                {
+                    background-color: themed("grey-700");
+                }
+                #blog_info .info_item
+                {
+                    color: themed("grey-700");
+                }
+            }
         }
     }
 }
@@ -210,7 +231,7 @@
         {
             &::after
             {
-                content: '\2714';
+                content: "\2714";
                 font-size: $regular-size;
             }
         }
@@ -246,54 +267,54 @@
     
     @include themify()
     {
-        color: themed('grey-800');
+        color: themed("grey-800");
         
-        // background-color: themed('grey-150');
+        // background-color: themed("grey-150");
         
         hr 
         {
-            border-color: themed('grey-900');
+            border-color: themed("grey-900");
         }
 
         p > code, pre
         {
-            background-color: themed('grey-150') !important;
+            background-color: themed("grey-150") !important;
         }
 
         
         blockquote
         {
-            border-left: 0.4rem solid themed('primary');
-            background-color: themed('grey-150');
+            border-left: 0.4rem solid themed("primary");
+            background-color: themed("grey-150");
         }
         
         a 
         {
-            color: themed('secondary');
+            color: themed("secondary");
             text-decoration: none;
             &:hover
             {
-                color: themed('primary');
+                color: themed("primary");
                 text-decoration: underline;
             }
         }
         
         table, td, th
         {
-            border: 1px solid themed('grey-400');
-            // background-color: themed('grey-200');
+            border: 1px solid themed("grey-400");
+            // background-color: themed("grey-200");
         }
         
         th 
         {
-            background-color: themed('grey-200');
-            border-bottom: 2px solid themed('grey-400');
+            background-color: themed("grey-200");
+            border-bottom: 2px solid themed("grey-400");
         }
         
 
         h1, h2, h3, h4, h5, h6
         {
-            color: themed('grey-900');
+            color: themed("grey-900");
         }
 
         
@@ -305,7 +326,7 @@
 {
     @include themify() 
     {
-        color: themed('grey-800');
+        color: themed("grey-800");
     }
 
     #editor_buttons
@@ -332,8 +353,8 @@
         {
             @include themify() 
             {
-                color: themed('grey-800');
-                background-color: themed('grey-150');
+                color: themed("grey-800");
+                background-color: themed("grey-150");
             }
         }
     }
@@ -347,8 +368,8 @@
         {
             @include themify() 
             {
-                color: themed('grey-800');
-                background-color: themed('grey-150');
+                color: themed("grey-800");
+                background-color: themed("grey-150");
             }
         }
     }

@@ -19,7 +19,7 @@
 
         .project_links .links_list .links_item
         {
-            color: themed("secondary");
+            color: themed("primary");
             &:hover
             {
                 color: themed("grey-900");
@@ -29,14 +29,14 @@
 
         .date_tag
         {
-            background-color: themed("secondary");
+            background-color: themed("primary");
             color: themed("grey-000");
         }
 
         
         &.featured .project_links .links_list .links_item
         {
-            color: themed("primary");
+            color: themed("secondary");
             &:hover
             {
                 color: themed("grey-900");
@@ -44,7 +44,7 @@
         }
         .featured_tag, &.featured .date_tag
         {
-            background-color: themed("primary");
+            background-color: themed("secondary");
             color: themed("grey-000");
         }
 
@@ -130,7 +130,7 @@
         align-self: left;
         width: fit-content;
         // min-width: 11rem;
-        height: 2.5rem;
+        // height: 2.5rem;
         padding: 0.4rem 0.8rem;
         border-radius: $radius-small;
         display: grid;

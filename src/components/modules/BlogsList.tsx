@@ -35,6 +35,16 @@ const BlogListItem: FC<BlogListItemProps> = ({blog}) =>
         dispatch(setBlogData({...blog, blog_isHidden: !isBlogHidden}));
     }
 
+    const featured_tag: JSX.Element = blog.blog_isFeatured ? (
+        <p className="blogs_list_tag">
+            Featured Blog
+        </p>) : (<></>);
+
+    const wip_tag: JSX.Element = blog.blog_inProgress ? (
+        <p className="blogs_list_tag">
+            In Progress
+        </p>) : (<></>);
+
     function handleClickDelete (blogData: BlogData)
     {
         if(blogData)
@@ -64,13 +74,17 @@ const BlogListItem: FC<BlogListItemProps> = ({blog}) =>
            
             {dialog}
             
-            <div className="blogs_list_item" onClick={() => history.push(`/blog/${blog.blog_url}`)}>
+            <div className={`blogs_list_item ${blog.blog_isFeatured ? "featured" : ""} ${blog.blog_inProgress ? "wip" : ""}`} onClick={() => history.push(`/blog/${blog.blog_url}`)}>
                 <h1 className="blogs_list_title">
                     {blog.blog_title}
                 </h1>
-                <p className="blogs_list_date">
-                    {blog.blog_createdAt.toLocaleDateString(undefined , {year: 'numeric', month: 'long', day: 'numeric'})}
-                </p>
+                <div className="blogs_list_tags">
+                    {featured_tag}
+                    {wip_tag}
+                    <p className="blogs_list_tag">
+                        {blog.blog_createdAt.toLocaleDateString(undefined , {year: 'numeric', month: 'long', day: 'numeric'})}
+                    </p>
+                </div>
             </div>
             {(authenticated && userRoles.includes("superadmin")) && (<>
                 <div className="blogs_list_item_button hide" id="hide" onClick={setHidden}><span className="svg_icon">{isBlogHidden ? IconEyeOff : IconEye}</span></div>
