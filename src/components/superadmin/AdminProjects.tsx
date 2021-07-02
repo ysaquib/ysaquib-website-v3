@@ -388,7 +388,7 @@ const AdminProjects : FC = () =>
                             show_label  />
 
                 <div className="checkboxes">
-                    <CheckBox label="In Progress"
+                    <CheckBox label="In Progress?"
                             name="project_inProgress"
                             className="half"
                             register={register} 

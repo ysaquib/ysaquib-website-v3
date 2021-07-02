@@ -175,7 +175,7 @@ const Editor: FC<EditorProps> = ({className="", content, setContent, name, ...pr
             name={name} 
             className="editor_area" 
             onChange={handleEditorChange}
-            rows={50}/>
+            rows={25}/>
         </div>
     );
 }

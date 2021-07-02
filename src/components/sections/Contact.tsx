@@ -3,7 +3,7 @@
  * Author: Yusuf Saquib
  */
 
-import React, { FC, useEffect } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import TextField from '../elements/TextField';
 import Section from '../elements/Section';
 import { useForm, SubmitHandler } from 'react-hook-form';
@@ -42,7 +42,8 @@ const Contact : FC = () =>
 {
     const dispatch = useDispatch();
     const resolver = yupResolver(schema);
-    const {register, handleSubmit, reset, formState: {errors, isDirty, isSubmitting, isSubmitted}} = useForm<FormInputs>({mode:"all" ,resolver});
+    const {register, handleSubmit, reset, formState: {errors, isDirty, isSubmitting} } = useForm<FormInputs>({mode:"all" ,resolver});
+    const [isSent, setSent] = useState(false);
 
     useEffect(() => {
         if (isDirty)
@@ -50,15 +51,15 @@ const Contact : FC = () =>
             window.onbeforeunload = () => true;
         }
 
-        else if (isSubmitted)
+        if (isSent)
         {
-            window.onbeforeunload = () => undefined;
+            window.onbeforeunload = () => true;
         }
         
         return () => {
             window.onbeforeunload = () => undefined;
         };
-    }, [isDirty, isSubmitted]);
+    }, [isDirty, isSent]);
 
     const onSubmit : SubmitHandler<FormInputs> = (data) => 
     {
@@ -76,6 +77,7 @@ const Contact : FC = () =>
             msg_sentAt: new Date(Date.now())
         }
         
+        setSent(true);
         dispatch(addNewMessage(message));
         reset();
         /**
@@ -83,7 +85,7 @@ const Contact : FC = () =>
          */
     }
 
-    if (isSubmitted)
+    if (isSent)
     {
         return(
             <Section id="contact" className="mini" title={default_data.contact.title}>
@@ -142,7 +144,7 @@ const Contact : FC = () =>
                     when={isDirty}
                     message='You have unsaved changes, are you sure you want to leave?'/>
                     
-                <Button text="Send Message" disabled={ !isDirty || isSubmitting || isSubmitted } className="confirmbtn" />
+                <Button text="Send Message" disabled={ !isDirty || isSubmitting } className="confirmbtn" />
             </form>
         </Section>
     );

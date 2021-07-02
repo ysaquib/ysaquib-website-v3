@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import { getAboutData } from '../../store/actions/dataActions';
 import { AboutData } from '../../store/types/dataTypes';
-import { IconBugcrowd, IconGithubFilled, IconLinkedInBoxFilled, IconMail, IconStackOverflow } from '../elements/Icons';
+import { IconBugcrowd, IconGithubFilled, IconLeetcode, IconLinkedInBoxFilled, IconMail, IconStackOverflow } from '../elements/Icons';
 import Section from '../elements/Section';
 
 const About : FC = () =>
@@ -31,6 +31,8 @@ const About : FC = () =>
                 return IconStackOverflow;
             case "BugCrowd":
                 return IconBugcrowd;
+            case "LeetCode":
+                return IconLeetcode;
             default:
                 return <></>;
         }
