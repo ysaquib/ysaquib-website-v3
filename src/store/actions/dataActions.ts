@@ -256,7 +256,8 @@ export const getBlogData = (onComplete?: () => void, onError?: () => void) : Thu
             const blogs = await Firebase.firestore().collection("blogs").orderBy("blog_createdAt", "desc").get();
             const blog_items: BlogData[] = [];
             blogs.forEach((doc) => {
-                if (doc.get("blog_updatedAt") != null)
+                const blog_updatedAt = doc.get("blog_updatedAt");
+                if (blog_updatedAt != null)
                 {
                     blog_items.push({...doc.data(), blog_id: doc.id, blog_createdAt: doc.get("blog_createdAt").toDate(), blog_updatedAt: doc.get("blog_updatedAt").toDate()} as BlogData);
                 }
@@ -282,26 +283,25 @@ export const getBlogData = (onComplete?: () => void, onError?: () => void) : Thu
     }
 }
 
-export const setBlogData = (blogData: BlogData, update?: boolean, onComplete?: () => void, onError?: () => void) : ThunkAction<void, RootState, null, BlogAction> =>
+export const setBlogData = (blogData: BlogData, onComplete?: () => void, onError?: () => void) : ThunkAction<void, RootState, null, BlogAction> =>
 {
     return async dispatch =>
     {
         try
         {
-            const currentTime = new Date(Date.now());
-            const updatedAt = firebase.firestore.Timestamp.fromDate(currentTime);
-            const {blog_id, ...blog} = blogData;
-
             console.log(blogData);
+            const {blog_id, ...blog} = blogData;
+            const createdAt = firebase.firestore.Timestamp.fromDate(blogData.blog_createdAt);
+            
 
-            if (update)
+            if (blogData.blog_updatedAt)
             {
-                blogData.blog_updatedAt = currentTime;
-                await Firebase.firestore().collection("blogs").doc(blogData.blog_id).set({...blog, blog_updatedAt: updatedAt});
+                const updatedAt = firebase.firestore.Timestamp.fromDate(blogData.blog_updatedAt);
+                await Firebase.firestore().collection("blogs").doc(blogData.blog_id).set({...blog, blog_createdAt: createdAt, blog_updatedAt: updatedAt});
             }
             else 
             {
-                await Firebase.firestore().collection("blogs").doc(blogData.blog_id).set(blog as BlogData);
+                await Firebase.firestore().collection("blogs").doc(blogData.blog_id).set({...blog, blog_createdAt: createdAt});
             }
             
             
@@ -327,11 +327,9 @@ export const addNewBlog = (blogData: BlogData, onComplete?: () => void, onError?
     {
         try
         {
-            const currentTime = new Date(Date.now());
-            const createdAt = firebase.firestore.Timestamp.fromDate(currentTime);
+            const createdAt = firebase.firestore.Timestamp.fromDate(blogData.blog_createdAt);
 
-            blogData.blog_createdAt = currentTime;
-            const {blog_id, ...blog} = blogData;
+            const {blog_id, blog_updatedAt, ...blog} = blogData;
             const DocRef = await Firebase.firestore().collection("blogs").add({...blog, blog_createdAt: createdAt});
                         
             

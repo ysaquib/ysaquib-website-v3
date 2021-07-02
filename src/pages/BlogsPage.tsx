@@ -15,6 +15,7 @@ import BlogPage from './BlogPage';
 import LoadingSkeleton from '../components/elements/LoadingSkeleton';
 import PrivateRoute from '../components/auth/PrivateRoute';
 import PublicRoute from '../components/auth/PublicRoute';
+import PageNotFound from '../components/layout/PageNotFound';
  
 const BlogsPage : FC = () =>
 {
@@ -77,8 +78,14 @@ const BlogsPage : FC = () =>
                         }
                         else
                         {
+                            const requestedBlog = blogs.find((blog) => {return blog.blog_url === match?.params.blogurl}) as BlogData
+                            
+                            if (requestedBlog === undefined)
+                            {
+                                return (<PageNotFound />);
+                            }
                             return (
-                                <BlogPage {...(blogs.find((blog) => {return blog.blog_url === match?.params.blogurl}) as BlogData)} allBlogs={blogs}/>
+                                <BlogPage {...requestedBlog} allBlogs={blogs}/>
                             );
                         }
                     }} 
