@@ -14,8 +14,8 @@ interface CheckBoxProps extends InputHTMLAttributes<HTMLInputElement>
 {
     name: string;
     label: string;
-    register: UseFormRegister<any>;
-    registration: RegisterOptions;
+    register?: UseFormRegister<any>;
+    registration?: RegisterOptions;
     isChecked?: boolean;   
 }
 
@@ -26,7 +26,7 @@ const CheckBox: FC<CheckBoxProps> = ({ isChecked, label, name, className, disabl
      * UseEffect adds or removes a 'checked' class on the label associated 
      * with the checkbox.
      */
-    const [checked, setChecked] = useState(false);
+    const [checked, setChecked] = useState(isChecked);
     
     useEffect(() => {
         if (checked)
@@ -41,13 +41,24 @@ const CheckBox: FC<CheckBoxProps> = ({ isChecked, label, name, className, disabl
     
     return (
        <div className={`input_wrapper checkbox_wrapper ${className ? className : ""}`}>
-            <input {...props} type="checkbox" {...register(name, registration)}
-                name={name}
-                id={`${name}_input`}
-                disabled={disabled}
-                defaultChecked={checked}
-                onClick={() => setChecked(!checked)}
-                onChange={props?.onChange} />
+            {register
+            ?
+                <input {...props} type="checkbox" {...register(name, registration)}
+                    name={name}
+                    id={`${name}_input`}
+                    disabled={disabled}
+                    defaultChecked={checked}
+                    onClick={() => setChecked(!checked)}
+                    onChange={props?.onChange} />
+            :
+                <input {...props} type="checkbox"
+                    name={name}
+                    id={`${name}_input`}
+                    disabled={disabled}
+                    defaultChecked={checked}
+                    onClick={() => setChecked(!checked)}
+                    onChange={props?.onChange} />
+            }
             <label id={name} htmlFor={name} className={`checkbox_label ${disabled ? "disabled" : ""}`}>{label}</label>
        </div>
     );

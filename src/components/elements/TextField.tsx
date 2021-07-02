@@ -16,8 +16,8 @@ interface TextFieldProps extends InputHTMLAttributes<HTMLInputElement>
     label: string;
     message?: string;
     replace_label?: boolean,
-    register: UseFormRegister<any>;
-    registration: RegisterOptions;
+    register?: UseFormRegister<any>;
+    registration?: RegisterOptions;
     show_label?: boolean;
     className?: string;
     classNameInner?: string;
@@ -46,13 +46,25 @@ const TextField: FC<TextFieldProps> = ({ label, onChangeEvent, type, name, class
                 {replace_label ? `${message != null ? message : label }` : `${label} ${message != null ? message : "" }`}
             </label>
             <br />
-            <input {...props} type={type} {...register(name, registration)}
-                id={`${name}_input`}
-                name={name}
-                className={`${classNameInner ?? ""} ${message ? "error" : ""}`}
-                disabled={disabled} 
-                placeholder={label}
-                onChange={(event) => {onChangeEvent && onChangeEvent(event); event.target.value === "" ? setShowLabel(false) : setShowLabel(true)}}/>
+            {register 
+            ?
+                <input {...props} type={type} {...register(name, registration)}
+                    id={`${name}_input`}
+                    name={name}
+                    className={`${classNameInner ?? ""} ${message ? "error" : ""}`}
+                    disabled={disabled} 
+                    placeholder={label}
+                    onChange={(event) => {onChangeEvent && onChangeEvent(event); (event.target.value === "" && !show_label) ? setShowLabel(false) : setShowLabel(true)}}/>
+            :
+                <input {...props} type={type}
+                    id={`${name}_input`}
+                    name={name}
+                    className={`${classNameInner ?? ""} ${message ? "error" : ""}`}
+                    disabled={disabled} 
+                    placeholder={label}
+                    onChange={(event) => {onChangeEvent && onChangeEvent(event); (event.target.value === "" && !show_label) ? setShowLabel(false) : setShowLabel(true)}}/>
+
+            }
        </div>
     );
 }

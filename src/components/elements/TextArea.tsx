@@ -17,12 +17,11 @@ interface TextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement>
     label: string;
     message?: string;
     replace_label?: boolean,
-    register: UseFormRegister<any>;
-    registration: RegisterOptions;
+    register?: UseFormRegister<any>;
+    registration?: RegisterOptions;
     show_label?: boolean;
     classNameInner?: string;
     className?: string;
-    
 }
 
 const TextArea: FC<TextAreaProps> = ({ label, name, classNameInner, className, disabled, message, register, registration, replace_label, show_label=false, ...props }) => 
@@ -41,19 +40,31 @@ const TextArea: FC<TextAreaProps> = ({ label, name, classNameInner, className, d
         }
     }, [showLabel, message, name]);
 
+    
     return (
         <div className={`input_wrapper ${className ? className : ""}`}>
             <label id={name} htmlFor={name} className={`text_label ${message ? "error" : ""}`}>
                 {replace_label ? `${message != null ? message : label }` : `${label} ${message != null ? message : "" }`}
             </label>
             <br />
-            <textarea {...register(name, registration)} {...props}
-                id={`${name}_input`}
-                name={name}
-                className={`${classNameInner ?? ""} ${message ? "error" : ""}`}
-                disabled={disabled} 
-                placeholder={label}
-                onChange={(event) => event.target.value === "" ? setShowLabel(false) : setShowLabel(true)}/>
+            {register
+            ? 
+                <textarea {...register(name, registration)} {...props}
+                    id={`${name}_input`}
+                    name={name}
+                    className={`${classNameInner ?? ""} ${message ? "error" : ""}`}
+                    disabled={disabled} 
+                    placeholder={label}
+                    onChange={(event) => (event.target.value === "" && !show_label) ? setShowLabel(false) : setShowLabel(true)}/>
+            :
+                <textarea {...props}
+                    id={`${name}_input`}
+                    name={name}
+                    className={`${classNameInner ?? ""} ${message ? "error" : ""}`}
+                    disabled={disabled} 
+                    placeholder={label}
+                    onChange={(event) => (event.target.value === "" && !show_label) ? setShowLabel(false) : setShowLabel(true)}/>
+            }
         </div>
     );
 }
