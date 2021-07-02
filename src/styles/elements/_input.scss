@@ -129,7 +129,8 @@ textarea, input[type=text], input[type=password], input[type=date]
 {
     display: inline-flex;
     height: 100%;
-    width: 100%;
+    min-width: fit-content;
+    width: fit-content;
     justify-content: flex-start;
     align-items: center;
     gap: 1rem;
@@ -137,7 +138,7 @@ textarea, input[type=text], input[type=password], input[type=date]
 
 .checkbox_label
 {
-    
+    min-width: fit-content;
     @include themify()
     {
         color: themed('grey-750');

@@ -12,11 +12,14 @@ import Markdown from 'markdown-to-jsx';
 import Button from '../components/elements/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store';
+import { format, parse } from "date-fns";
 
 import { Light as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomOneDark, atomOneLight } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import { addNewBlog, setBlogData } from '../store/actions/dataActions';
 import { Redirect, useHistory } from 'react-router-dom';
+import TextField from '../components/elements/TextField';
+import CheckBox from '../components/elements/Checkbox';
 
 
 
@@ -69,6 +72,10 @@ const BlogPage : FC<BlogPageProps> = ({isNewBlog=false, isEditing=false, allBlog
     const [blogTags, setBlogTags] = useState<string>(blogData.blog_tags ?? "");
     const [blogURL, setBlogURL] = useState<string>(blogData.blog_url);
     const [blogContent, setBlogContent] = useState<string>(blogData.blog_content);
+    const [blogCreatedAt, setBlogCreatedAt] = useState<string>(format(blogData.blog_createdAt, "yyyy-MM-dd"));
+    const [blogUpdatedAt, setBlogUpdatedAt] = useState<string>(format(blogData.blog_updatedAt ?? new Date(Date.now()), "yyyy-MM-dd"));
+    const [blogInProgress, setBlogInProgress] = useState<boolean>(blogData.blog_inProgress ?? false);
+    const [blogIsFeatured, setBlogIsFeatured] = useState<boolean>(blogData.blog_isFeatured ?? false);
 
     const [editingBlog, setEditingBlog] = useState<boolean>(isEditing);
     const [isLoading, setLoading] = useState<boolean>(false);
@@ -76,10 +83,6 @@ const BlogPage : FC<BlogPageProps> = ({isNewBlog=false, isEditing=false, allBlog
     const [isButtonDisabled, setButtonDisabled] = useState<boolean>(true);
 
     const codeTheme = document.body.classList.contains('theme-dark') ? atomOneDark : atomOneLight;
-
-    const blogTitleRef = React.useRef<HTMLInputElement>(null);
-    const blogTagsRef = React.useRef<HTMLInputElement>(null);
-    const blogURLRef = React.useRef<HTMLInputElement>(null);
 
     const handleClickEditBlog = () =>
     {
@@ -96,23 +99,18 @@ const BlogPage : FC<BlogPageProps> = ({isNewBlog=false, isEditing=false, allBlog
         </div>);
     
 
-    const handleTitleChange = () =>
+    const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) =>
     {
-        const title: string = blogTitleRef.current?.value ?? "";
+        const title: string = event.target.value ?? "";
         const url: string = title.toLowerCase().replaceAll(/[\W_]+/g, "-");
+        console.log(blogURL);
         setBlogTitle(title);
         setBlogURL(url);
     }
 
-    const handleTagsChange = () =>
+    const handleURLChange = (event: React.ChangeEvent<HTMLInputElement>) =>
     {
-        const tags: string = blogTagsRef.current?.value ?? ""; 
-        setBlogTags(tags);
-    }
-
-    const handleURLChange = () =>
-    {
-        const url_initial: string = blogURLRef.current?.value ?? "";
+        const url_initial: string = event.target.value ?? "";
         const url: string = url_initial.toLowerCase().replaceAll(/[\W_]+/g, "-");
         setBlogURL(url);
     }
@@ -124,14 +122,22 @@ const BlogPage : FC<BlogPageProps> = ({isNewBlog=false, isEditing=false, allBlog
 
     const handleSave = () =>
     {
+        if (blogCreatedAt.match(/yyyy|MM|dd/g) !== null || blogUpdatedAt.match(/yyyy|MM|dd/g) !== null)
+        {
+            console.log("BAD >:(");
+            return;
+        }
         setLoading(true);
-
         const blogPayload = {
             ...blogData, 
             blog_title: blogTitle, 
             blog_content: blogContent, 
             blog_tags: blogTags, 
-            blog_url: blogURL 
+            blog_url: blogURL,
+            blog_createdAt: parse(blogCreatedAt, "yyyy-MM-dd", new Date()),
+            blog_updatedAt: parse(blogUpdatedAt, "yyyy-MM-dd", new Date()),
+            blog_isFeatured: blogIsFeatured,
+            blog_inProgress: blogInProgress
         }
 
         if(isNew)
@@ -140,7 +146,7 @@ const BlogPage : FC<BlogPageProps> = ({isNewBlog=false, isEditing=false, allBlog
         }
         else
         {
-            dispatch(setBlogData(blogPayload, true));
+            dispatch(setBlogData(blogPayload, () => {setEditingBlog(false); history.push(`/blog/${blogURL}`)}));
         }
 
         setIsNew(false);
@@ -164,51 +170,106 @@ const BlogPage : FC<BlogPageProps> = ({isNewBlog=false, isEditing=false, allBlog
         {
             setButtonDisabled(false);
         }
-    }, [isLoading, blogTitle, blogContent, blogURL]);
+    }, [isLoading, blogTitle, blogContent, blogURL, blogCreatedAt, blogUpdatedAt, blogIsFeatured, blogInProgress]);
 
     if (blogData.blog_id == null)
     {
         return (
             <PageNotFound />
-        )
+        );
     }
     else if (blogData.blog_isHidden && !canUserEdit)
     {
         return (
             <Redirect to="/blog" />
-        )
+        );
     }
     else if (editingBlog)
     {
         return (
             <section id="edit_blog">
-                <input
-                    ref={blogURLRef}
+
+                {/* <TextField label="Blog URL" 
+                           name="project_blog"
+                           type="text"
+                           className="half"
+                           classNameInner="elevated"
+                           defaultValue={project?.project_blog}
+                           message={errors.project_blog?.message} 
+                           register={register} 
+                           registration={{required: false}} 
+                           disabled={project == null}
+                           show_label 
+                           show_label/> */}
+
+                <TextField
+                    name="blog_tags"
+                    label="Blog Tags"
+                    placeholder="Blog Tags"
+                    className="blog_field"
+                    defaultValue={blogTags}
+                    onChangeEvent={(e) => setBlogTags(e.target.value)}
+                    type="text" 
+                    show_label/>
+
+                <div className="blog_input_group">
+
+                    <TextField
+                        name="blog_createdAt"
+                        label="Creation Date"
+                        placeholder="Creation Date"
+                        className="blog_field"
+                        value={blogCreatedAt}
+                        onChangeEvent={(e) => setBlogCreatedAt(e.target.value)}
+                        type="date" 
+                        show_label/>
+
+                    <TextField
+                        name="blog_updatedAt"
+                        label="Updated Date"
+                        placeholder="Blog Updated At"
+                        className="blog_field"
+                        value={blogUpdatedAt}
+                        onChangeEvent={(e) => setBlogUpdatedAt(e.target.value)}
+                        type="date" 
+                        show_label
+                        disabled={isNewBlog}/>
+
+                    <CheckBox label="In Progress?"
+                            isChecked={blogInProgress}
+                            name="blog_inprogress"
+                            className="half"
+                            onChange={() => setBlogInProgress(!blogInProgress)}/>
+                    
+                    <CheckBox label="Is Featured?"
+                            isChecked={blogIsFeatured}
+                            name="blog_isfeatured"
+                            className="half"
+                            onChange={() => setBlogIsFeatured(!blogIsFeatured)}/>
+                </div>
+
+                <TextField
+                    name="blog_url"
+                    label="Blog URL"
                     placeholder="Blog URL"
                     className="blog_field"
                     value={blogURL}
-                    onChange={handleURLChange}
-                    type="text" />
-                
-                <input
-                    ref={blogTitleRef}
+                    onChangeEvent={handleURLChange}
+                    type="text" 
+                    show_label/>
+                    
+                <TextField
+                    name="blog_title"
+                    label="Blog Title"
                     placeholder="Blog Title"
                     className="blog_title_field"
-                    value={blogTitle}
-                    onChange={handleTitleChange}
-                    type="text" />
-
+                    defaultValue={blogTitle}
+                    onChangeEvent={handleTitleChange}
+                    type="text" 
+                    show_label/>
 
                 <Editor name="blog_editor" content={blogContent} setContent={setBlogContent}/>
                 
-
-                <input
-                    ref={blogTagsRef}
-                    placeholder="Blog Tags"
-                    className="blog_field"
-                    value={blogTags}
-                    onChange={handleTagsChange}
-                    type="text" />
                 
 
                 <div id="editor_buttons">
@@ -222,17 +283,17 @@ const BlogPage : FC<BlogPageProps> = ({isNewBlog=false, isEditing=false, allBlog
         );
     }
     return (
-        <section id="blog">
+        <section id="blog" className={`${blogIsFeatured === true ? "featured" : ""} ${blogInProgress === true ? "wip" : ""}`}>
 
             {canUserEdit && editBlogButton}
             
-            <div id="blog_header" className={`${blogData.blog_isFeatured === true ? "featured" : ""} ${blogData.blog_inProgress === true ? "wip" : ""}`}>
+            <div id="blog_header" >
                 <h1 id="blog_title">{blogTitle}</h1>
                 <div id="blog_info">
                     <p className="info_item">Written by Yusuf Saquib</p>
                     <p className="info_item">
                         Created on {blogData.blog_createdAt.toLocaleDateString(undefined , {year: 'numeric', month: 'long', day: 'numeric'})} 
-                        {blogData.blog_updatedAt && <span className="emph"> &#8212; Updated on {blogData.blog_updatedAt.toLocaleDateString(undefined , {year: 'numeric', month: 'long', day: 'numeric'})}</span>}</p>
+                        {blogData.blog_updatedAt && blogCreatedAt !== blogUpdatedAt && <span className="emph"> &#8212; Updated on {blogData.blog_updatedAt.toLocaleDateString(undefined , {year: 'numeric', month: 'long', day: 'numeric'})}</span>}</p>
                 </div>
             </div>
 

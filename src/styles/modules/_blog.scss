@@ -107,29 +107,65 @@
             {
                 color: themed("primary");
             }
-            &.featured
+        }
+        &.featured
+        {
+            #blog_header
             {
                 #blog_title
                 {
                     background-color: themed("secondary");
                 }
+                
                 #blog_info .info_item
                 {
                     color: themed("secondary");
                 }
             }
-            &.wip
+            #blog_edit_button
+            {
+                background-color: mix(themed("grey-000"), themed("secondary"), 50%);
+                &:hover
+                {
+                    background-color: mix( themed("secondary"),themed("grey-100"), $color-mix-least);
+                }
+                
+                &:active
+                {
+                    background-color: mix( themed("secondary"),themed("grey-150"), $color-mix-less);
+                }
+            }
+        }
+        &.wip
+        {
+            #blog_header
             {
                 #blog_title
                 {
                     background-color: themed("grey-700");
                 }
+                
                 #blog_info .info_item
                 {
                     color: themed("grey-700");
                 }
             }
+            #blog_edit_button
+            {
+                background-color: mix(themed("grey-000"), themed("grey-700"), 50%);
+                &:hover
+                {
+                    background-color: mix( themed("grey-700"),themed("grey-100"), $color-mix-least);
+                }
+                
+                &:active
+                {
+                    background-color: mix( themed("grey-700"),themed("grey-150"), $color-mix-less);
+                }
+            }
         }
+        
+        
     }
 }
 
@@ -335,6 +371,7 @@
         display: inline-flex;
         align-items: center;
         justify-content: space-between;
+        margin-top: 2rem;
         
         .button_group
         {
@@ -345,32 +382,27 @@
             }
         }
     }
+
+    .blog_input_group
+    {
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+    }
     
     .blog_field
     {
-        margin: 2rem auto;
-        &:hover
-        {
-            @include themify() 
-            {
-                color: themed("grey-800");
-                background-color: themed("grey-150");
-            }
-        }
+        margin: 0rem auto 2rem;
     }
 
     .blog_title_field
     {
-        font: $medium-weight $large-size $serif-font, serif;
-        padding: 2rem;
-        margin-bottom: 5rem;
-        &:hover
+        input 
         {
-            @include themify() 
-            {
-                color: themed("grey-800");
-                background-color: themed("grey-150");
-            }
+            font: $medium-weight $large-size $serif-font, serif;
+            padding: 2rem;
+            
         }
+        margin-bottom: 5rem;
     }
 }
