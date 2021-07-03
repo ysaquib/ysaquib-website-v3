@@ -45,7 +45,6 @@ const TextField: FC<TextFieldProps> = ({ label, onChangeEvent, type, name, class
             <label id={name} htmlFor={name} className={`text_label ${message ? "error" : ""}`}>
                 {replace_label ? `${message != null ? message : label }` : `${label} ${message != null ? message : "" }`}
             </label>
-            <br />
             {register 
             ?
                 <input {...props} type={type} {...register(name, registration)}

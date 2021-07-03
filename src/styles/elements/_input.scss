@@ -2,6 +2,8 @@
 {
     width: 100%;
     height: auto;
+    display: inline-flex;
+    flex-direction: column;
     margin: 0rem;
     padding: 0rem;
     font: $regular-weight $regular-size $sans-font, sans-serif;
@@ -128,6 +130,7 @@ textarea, input[type=text], input[type=password], input[type=date]
 .checkbox_wrapper
 {
     display: inline-flex;
+    flex-direction: row;
     height: 100%;
     min-width: fit-content;
     width: fit-content;

@@ -46,7 +46,6 @@ const TextArea: FC<TextAreaProps> = ({ label, name, classNameInner, className, d
             <label id={name} htmlFor={name} className={`text_label ${message ? "error" : ""}`}>
                 {replace_label ? `${message != null ? message : label }` : `${label} ${message != null ? message : "" }`}
             </label>
-            <br />
             {register
             ? 
                 <textarea {...register(name, registration)} {...props}

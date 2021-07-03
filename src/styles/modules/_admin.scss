@@ -53,6 +53,7 @@
         height: 100%;
         display: grid;
         grid-template-columns: repeat(2, 1fr);
+        margin: 0rem;
         // grid-template-rows: fit-content;
 
         gap: 1.5rem;
@@ -61,14 +62,15 @@
 
         &.banner
         {
+            flex: 1 1 auto;
             height: auto;
-            // grid-template-rows: 0.5fr repeat(4, 0.5fr);
-            margin-top: 2rem;
+            // margin-top: 2rem;
             
         }
         
         &.about
         {
+            height: 100%;
             .about_checkboxes
             {
                 justify-content: space-between;
@@ -80,7 +82,12 @@
             .about_desc
             {
                 // grid-row: span 5 !important;
-                margin: auto !important;
+                height: 100%;
+                textarea
+                {
+                    flex: 1 1 auto;
+                }
+                margin: 0rem;
             }
         }
         &.projects
@@ -153,6 +160,11 @@
 
 #admin_banner
 {
+
+    display: inline-flex;
+    flex-direction: column;
+    gap: 2rem;
+
     #banner
     {
         @include themify(){border: 0.1rem solid themed('grey-900');}
