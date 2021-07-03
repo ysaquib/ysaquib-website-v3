@@ -14,6 +14,7 @@ import { RootState } from '../../store';
 import { getAboutData, setAboutData } from '../../store/actions/dataActions';
 import Button from '../elements/Button';
 import TextArea from '../elements/TextArea';
+import CheckBox from '../elements/Checkbox';
 
 const schema = yup.object().shape(
 {
@@ -80,6 +81,40 @@ const AdminAbout : FC = () =>
                            rows={15}
                            register={register} 
                            registration={{required: true}} />
+
+                {/* <div className="about_checkboxes">
+                    <CheckBox label="Github"
+                                name="project_inProgress"
+                                className="half"
+                                disabled={about == null} 
+                                />
+                    <CheckBox label="LinkedIn"
+                                name="project_inProgress"
+                                className="half"
+                                disabled={about == null} 
+                                />
+                    <CheckBox label="StackOverflow"
+                                name="project_inProgress"
+                                className="half"
+                                disabled={about == null} 
+                                />
+                    <CheckBox label="BugCrowd"
+                                name="project_inProgress"
+                                className="half"
+                                disabled={about == null} 
+                                />
+                    <CheckBox label="LeetCode"
+                                name="project_inProgress"
+                                className="half"
+                                disabled={about == null} 
+                                />
+                    <CheckBox label="HackTheBox"
+                                name="project_inProgress"
+                                className="half"
+                                disabled={about == null} 
+                                />
+
+                </div> */}
 
                 <p className={`message ${error !== "" && !isLoading ? "error" : ""}`}>
                     {error !== "" && !isLoading ? error : message}

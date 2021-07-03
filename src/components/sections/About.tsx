@@ -3,12 +3,12 @@
  * Author: Yusuf Saquib
  */
 
+import Markdown from 'markdown-to-jsx';
 import React, { FC, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import { getAboutData } from '../../store/actions/dataActions';
 import { AboutData } from '../../store/types/dataTypes';
-import { IconBugcrowd, IconGithubFilled, IconLeetcode, IconLinkedInBoxFilled, IconMail, IconStackOverflow } from '../elements/Icons';
 import Section from '../elements/Section';
 
 const About : FC = () =>
@@ -17,26 +17,6 @@ const About : FC = () =>
     const AboutData = useSelector((state: RootState) => state.about);
     const [about, setAbout] = useState<AboutData>(AboutData);
 
-    const getIcon = (title: string) : JSX.Element => 
-    {
-        switch(title)
-        {
-            case "Email":
-                return IconMail;
-            case "GitHub":
-                return IconGithubFilled;
-            case "LinkedIn":
-                return IconLinkedInBoxFilled;
-            case "StackOverflow":
-                return IconStackOverflow;
-            case "BugCrowd":
-                return IconBugcrowd;
-            case "LeetCode":
-                return IconLeetcode;
-            default:
-                return <></>;
-        }
-    }
 
     useEffect(() => 
     {
@@ -55,22 +35,9 @@ const About : FC = () =>
     return (
        <Section id="about" className="mini" title={about.about_title}>
            <div className="about_wrapper">
-               <p className="about_description">
-               {about.about_description}
-               </p>
-               <h3 className="sec_subtitle">See more of my work</h3>
-               <ul className="about_links">
-                   {
-                       about.about_links && about.about_links.map((value, index) => 
-                       {
-                           const [title, link] = value.split(",");
-                           return (
-                               <li key={`link_${title.trim()}`} className="about_links_item"><a href={link.trim()} title={title.trim()} ><span className="svg_icon">{getIcon(title.trim())}</span></a></li>
-                           )
-                       }
-                       )
-                   }
-               </ul>
+                <Markdown className="about_description">
+                    {about.about_description}
+                </Markdown>
            </div>
        </Section>
     );
