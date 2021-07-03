@@ -69,9 +69,17 @@
         
         &.about
         {
+            .about_checkboxes
+            {
+                justify-content: space-between;
+                width: 100%;
+                grid-column: span 2;
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+            }
             .about_desc
             {
-                grid-row: span 5 !important;
+                // grid-row: span 5 !important;
                 margin: auto !important;
             }
         }
