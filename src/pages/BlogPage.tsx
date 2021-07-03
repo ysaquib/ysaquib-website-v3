@@ -24,7 +24,7 @@ import CheckBox from '../components/elements/Checkbox';
 
 
 const ImageEnv: FC<ImgHTMLAttributes<HTMLImageElement>> = ({...props}) => (
-    <span className="blog_image">
+    <span className="md_image">
         <img {...props} src={props.src} alt={props.alt} title={props.title}  />
     </span>
 );
@@ -293,15 +293,15 @@ const BlogPage : FC<BlogPageProps> = ({isNewBlog=false, isEditing=false, allBlog
                     <p className="info_item">Written by Yusuf Saquib</p>
                     <p className="info_item">
                         Created on {blogData.blog_createdAt.toLocaleDateString(undefined , {year: 'numeric', month: 'long', day: 'numeric'})} 
-                        {blogData.blog_updatedAt && blogCreatedAt !== blogUpdatedAt && <span className="emph"> &#8212; Updated on {blogData.blog_updatedAt.toLocaleDateString(undefined , {year: 'numeric', month: 'long', day: 'numeric'})}</span>}</p>
+                        {blogData.blog_updatedAt && blogCreatedAt !== blogUpdatedAt && <> &#8212; Updated on {blogData.blog_updatedAt.toLocaleDateString(undefined , {year: 'numeric', month: 'long', day: 'numeric'})}</>}</p>
                 </div>
             </div>
 
 
-            <div id="blog_content">
+            <div id="blog_content" className="markdown_content">
             <Markdown
                       options={{
-                            disableParsingRawHTML: true,
+                            // disableParsingRawHTML: true,
                             overrides: 
                             {
                                 img: ImageEnv,

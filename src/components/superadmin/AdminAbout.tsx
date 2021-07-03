@@ -78,7 +78,7 @@ const AdminAbout : FC = () =>
                            message={errors.about_description?.message}
                            classNameInner="elevated"
                            className="about_desc"
-                           rows={15}
+                           rows={18}
                            register={register} 
                            registration={{required: true}} />
 

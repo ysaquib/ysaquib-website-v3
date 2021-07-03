@@ -13,7 +13,8 @@
         .about_description
         {
             width: 100%;
-            font: $regular-weight $regular-size $sans-font, sans-serif;
+            margin: 0rem;
+            // font: $regular-weight $regular-size $sans-font, sans-serif;
             white-space: pre-line;
             flex: 1 1 auto;
             // color: $light-foreground-color;
