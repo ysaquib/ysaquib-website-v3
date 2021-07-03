@@ -56,7 +56,7 @@ body
     text-align: center;
     transition: none;
 
-    transition: background-color $trans-fast $trans-effect;
+    transition: background-color $trans-regular $trans-effect;
     
     &.theme-dark
     {
@@ -69,13 +69,13 @@ body
     }
     .theme-dark
     {
-        transition: background-color $trans-fast $trans-effect;
+        transition: background-color $trans-regular $trans-effect;
         background-color: get_color($key: 'grey-000', $theme: 'dark');
     }
     
     .theme-light
     {
-        transition: background-color $trans-fast $trans-effect;
+        transition: background-color $trans-regular $trans-effect;
         background-color: get_color($key: 'grey-000', $theme: 'light');
 
     }

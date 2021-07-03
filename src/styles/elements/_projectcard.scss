@@ -141,6 +141,7 @@
         {
             margin: 0rem;
             padding: 0rem;
+            transition: none;
             font: $semi-weight $little-size $mono-font, monospace;
         }
     }
@@ -164,6 +165,8 @@
             display: inline;
             padding-right: 1rem;
             text-align: left;
+            transition: none;
+
             
             &::after
             {

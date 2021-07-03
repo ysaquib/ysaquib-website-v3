@@ -20,9 +20,9 @@
     box-sizing: border-box;
 }
 
-*
-{
-    transition: background-color $trans-fast $trans-effect, color $trans-fast $trans-effect;
-}
+// *
+// {
+//     transition: background-color $trans-regular $trans-effect, color $trans-regular $trans-effect;
+// }
 
 .firebase-emulator-warning { display: none; }
