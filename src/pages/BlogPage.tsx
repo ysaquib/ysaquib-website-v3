@@ -20,6 +20,7 @@ import { addNewBlog, setBlogData } from '../store/actions/dataActions';
 import { Redirect, useHistory } from 'react-router-dom';
 import TextField from '../components/elements/TextField';
 import CheckBox from '../components/elements/Checkbox';
+import { ThemeContext } from '../ThemeContext';
 
 
 
@@ -82,7 +83,9 @@ const BlogPage : FC<BlogPageProps> = ({isNewBlog=false, isEditing=false, allBlog
     const [isNew, setIsNew] = useState<boolean>(isNewBlog);
     const [isButtonDisabled, setButtonDisabled] = useState<boolean>(true);
 
-    const codeTheme = document.body.classList.contains('theme-dark') ? atomOneDark : atomOneLight;
+    const {theme, ...rest} = React.useContext(ThemeContext);
+
+    const codeTheme = theme === "theme-dark" ? atomOneDark : atomOneLight;
 
     const handleClickEditBlog = () =>
     {
@@ -299,6 +302,7 @@ const BlogPage : FC<BlogPageProps> = ({isNewBlog=false, isEditing=false, allBlog
 
 
             <div id="blog_content" className="markdown_content">
+            
             <Markdown
                       options={{
                             // disableParsingRawHTML: true,

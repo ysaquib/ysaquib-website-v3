@@ -45,7 +45,6 @@ const App : FC = () =>
     if(getTheme == null)
     {
         document.body.classList.add("theme-dark");
-        console.log("NOTHEME")
     }
 
     useEffect(() => {
@@ -54,20 +53,6 @@ const App : FC = () =>
             document.body.classList.remove(currentTheme);
         }
     }, [currentTheme])
-
-    // switch (getTheme)
-    // {
-    //     case "light":
-    //         setCurrentTheme("theme-light");
-    //         document.body.classList.remove("theme-dark");
-    //         document.body.classList.add("theme-light");
-    //         break;
-    //     default:
-    //         setCurrentTheme("theme-dark");
-    //         document.body.classList.remove("theme-light");
-    //         document.body.classList.add("theme-dark");
-    //         break;
-    // }
 
 
     useEffect(() => {
