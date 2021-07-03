@@ -5,10 +5,14 @@
 
 import React, { FC } from 'react';
 
-const Loader : FC = () =>
+interface LoaderProps
+{
+    className?: string;
+}
+const Loader : FC<LoaderProps> = ({className}) =>
 {
     return (
-        <section id="loader">
+        <section id="loader" className={`${className ?? ""}`}>
             <div className="loader_wrapper">
                 <div className="loader loader-ball" />
             </div>

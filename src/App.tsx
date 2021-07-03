@@ -3,7 +3,7 @@
  * Author: Yusuf Saquib
  */
 
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import './styles/main.scss';
 import './firebase/config'
 
@@ -31,6 +31,7 @@ import { getMessages } from './store/actions/dataActions';
 import { Container } from '@material-ui/core';
 import Inbox from './components/modules/Inbox';
 import Projects from './components/sections/Projects';
+import { ThemeContext } from './ThemeContext';
 
 let default_data = require('./default_data.json');
 
@@ -40,17 +41,34 @@ const App : FC = () =>
     const AuthState = useSelector((state : RootState) => state.auth);
 
     const getTheme = localStorage.getItem('theme') || default_data.theme;
-    switch (getTheme)
+    const [currentTheme, setCurrentTheme] = useState<string>(getTheme ?? "theme-dark");
+    if(getTheme == null)
     {
-        case "light":
-            document.body.classList.remove("theme-dark");
-            document.body.classList.add("theme-light");
-            break;
-        default:
-            document.body.classList.remove("theme-light");
-            document.body.classList.add("theme-dark");
-            break;
+        document.body.classList.add("theme-dark");
+        console.log("NOTHEME")
     }
+
+    useEffect(() => {
+        document.body.classList.add(currentTheme);
+        return () => {
+            document.body.classList.remove(currentTheme);
+        }
+    }, [currentTheme])
+
+    // switch (getTheme)
+    // {
+    //     case "light":
+    //         setCurrentTheme("theme-light");
+    //         document.body.classList.remove("theme-dark");
+    //         document.body.classList.add("theme-light");
+    //         break;
+    //     default:
+    //         setCurrentTheme("theme-dark");
+    //         document.body.classList.remove("theme-light");
+    //         document.body.classList.add("theme-dark");
+    //         break;
+    // }
+
 
     useEffect(() => {
         dispatch(setLoading(true));
@@ -77,12 +95,15 @@ const App : FC = () =>
 
     if (AuthState.loading)
     {
-        return(<Loader />);
+        return(<Loader className={currentTheme==="theme-light" ? "light" : "dark"}/>);
     }
     
     return (
         <BrowserRouter>
+
+            <ThemeContext.Provider value={{theme: currentTheme, toggleTheme: () => setCurrentTheme(currentTheme === "theme-dark" ? "theme-light" : "theme-dark")}}>
             <Header />
+
             <Container>
                 <Switch>
                     <PublicRoute exact path="/"> <HomePage /> </PublicRoute>
@@ -96,6 +117,9 @@ const App : FC = () =>
                 </Switch>
             <Footer />
             </Container>
+
+            </ThemeContext.Provider>
+
         </BrowserRouter>
     );
 }

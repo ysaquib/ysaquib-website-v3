@@ -34,6 +34,7 @@
 @import './modules/admin';
 @import './modules/blogslist';
 @import './modules/blog';
+@import './modules/markdown';
 @import './modules/inbox';
 
 @import './base/base';
@@ -54,6 +55,8 @@ body
     height: auto;
     text-align: center;
     transition: none;
+
+    transition: background-color $trans-fast $trans-effect;
     
     &.theme-dark
     {
@@ -63,7 +66,6 @@ body
     &.theme-light
     {
         background-color: get_color($key: 'grey-000', $theme: 'light');
-        
     }
     .theme-dark
     {

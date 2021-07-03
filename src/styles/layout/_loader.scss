@@ -3,14 +3,6 @@
  * https://codepen.io/jenning/pen/LYWJdWz
  */
 
-.theme-light #loader .loader_wrapper .loader
-{
-    --light-color: rgba(0, 0, 0, 0.3);
-}
-.theme-dark #loader .loader_wrapper .loader
-{
-    --light-color: rgba(255, 255, 255, 0.3);
-}
 
 #loader
 {
@@ -18,7 +10,26 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 90vmin;
+    flex: 1 1 auto;
+    margin: 0rem;
+    padding: 0rem;
+    width: 100%;
+    height: 100vh;
+
+    --light-color: rgba(255, 255, 255, 0.3);
+    background-color: #0D141D;
+
+    &.light 
+    {
+        background-color: #F6F6F8;
+        --light-color: rgba(0, 0, 0, 0.3);
+    }
+    &.dark 
+    {
+        background-color: #0D141D;
+        --light-color: rgba(255, 255, 255, 0.3);
+    }
+
 
     .loading_text
     {
