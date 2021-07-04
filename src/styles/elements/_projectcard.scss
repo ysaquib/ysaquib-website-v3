@@ -80,7 +80,7 @@
         
         .project_description
         {
-            color: themed("grey-750");
+            color: themed("grey-800");
         }
         .project_languages
         {
@@ -97,11 +97,13 @@
         margin: 0rem;
         height: 100%;
     }
+    
+    font-size: $Small-size;
 
     .project_links
     {
 
-        margin-top: 1rem;
+        margin: 1em 0rem;
         display: flex;
         flex-wrap: wrap;
         align-items: center;
@@ -136,8 +138,6 @@
 
         align-self: left;
         width: fit-content;
-        // min-width: 11rem;
-        // height: 2.5rem;
         padding: 0.4rem 0.8rem;
         border-radius: $radius-small;
         display: grid;
@@ -161,58 +161,6 @@
         width: 100%;
     }
     
-    .project_languages
-    {
-
-        list-style-type: none;
-        font: $regular-weight $small-size $mono-font, monospace;
-
-        li
-        {
-            display: inline;
-            padding-right: 1rem;
-            text-align: left;
-            
-            transition: color $trans-effect $trans-regular;
-            
-            &::after
-            {
-                padding-left: 1rem;
-                content: "•";
-            }
-        }
-        
-        :last-child
-        {
-            &::after
-            {
-                padding-left: 1rem;
-                content: "";
-            }
-        }
-    }
-
-    .project_title
-    {
-        transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
-        margin: 0rem 0rem;
-        font: $bold-weight $Medium-size $sans-font, sans-serif;
-    }
-    
-    .project_description
-    {
-        transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
-        width: 100%;
-        text-align: start;
-        flex: 1;
-        font: $regular-weight $Small-size $sans-font, sans-serif;
-        margin-bottom: 3rem;
-    }
-
-    &.wip .project_languages
-    {
-        display: none;
-    }
     .wip_bar_wrapper
     {
         transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
@@ -238,8 +186,63 @@
         }
     }
     
+    .project_title
+    {
+        transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
+        margin: 0rem;
+        font: $bold-weight $Medium-size $sans-font, sans-serif;
+    }
+    
+    .project_description
+    {
+        transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
+        width: 100%;
+        text-align: start;
+        white-space: pre-wrap;
+        flex: 1;
+        font: $regular-weight $Small-size $sans-font, sans-serif;
+        line-height: 1.5;
+        margin: 0rem 0rem 3rem;
+    }
+
+    .project_languages
+    {
+
+        list-style-type: none;
+        font: $regular-weight $Little-size $mono-font, monospace;
+
+        li
+        {
+            display: inline;
+            text-align: left;
+            
+            transition: color $trans-effect $trans-regular;
+            
+            &::after
+            {
+                padding: 0rem 0.75rem;
+                content: "•";
+            }
+        }
+        
+        :last-child
+        {
+            &::after
+            {
+                padding-left: 0.75rem;
+                content: "";
+            }
+        }
+    }
+    &.wip .project_languages
+    {
+        display: none;
+    }
+    
     &.featured
     {
+
+        font-size: $Regular-size;
         grid-column: span 6;
 
         .project_title
@@ -250,7 +253,6 @@
         .project_description
         {
             width: 80%;
-            font-size: $Regular-size;
         }
         .project_languages
         {
@@ -261,16 +263,15 @@
     &.large
     {
         grid-column: span 3;
+        font-size: $regular-size;
 
         .project_title
         {
             font-size: $large-size;
         }
-
         .project_description
         {
             width: 100%;
-            font-size: $regular-size;
         }
         .project_languages
         {

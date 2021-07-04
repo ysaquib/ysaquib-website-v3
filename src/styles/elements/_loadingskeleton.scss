@@ -14,8 +14,8 @@
 {
     border-radius: $radius-large;
     position: relative;
-    transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
     overflow: hidden;
+    transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
     &::before
     {
         &.circle
@@ -31,7 +31,7 @@
         left: 0rem;
         right: 0rem;
         bottom: 0rem;
-
+        
     }
     @include themify()
     {

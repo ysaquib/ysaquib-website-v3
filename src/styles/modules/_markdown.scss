@@ -11,6 +11,7 @@
     }
     
     font: $regular-weight $regular-size $sans-font, sans-serif;    
+    line-height: 1.75;
     
     p, span
     {
@@ -166,9 +167,7 @@
     
     @include themify()
     {
-        color: themed("grey-800");
-        
-        // background-color: themed("grey-150");
+        color: themed("grey-750");
         
         hr 
         {
