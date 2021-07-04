@@ -20,7 +20,6 @@
 
         .project_links .links_list .links_item
         {
-            transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
 
             color: themed("primary");
             &:hover
@@ -120,6 +119,7 @@
             
             .links_item
             {
+                transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
                 cursor: pointer;
                 display: inline;
                 margin: 0rem;
@@ -172,8 +172,8 @@
             display: inline;
             padding-right: 1rem;
             text-align: left;
-            transition: none;
-
+            
+            transition: color $trans-effect $trans-regular;
             
             &::after
             {
@@ -215,6 +215,7 @@
     }
     .wip_bar_wrapper
     {
+        transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
         .wip_label
         {
             font: $regular-weight $Little-size $mono-font, monospace;
@@ -226,6 +227,7 @@
             border-radius: $radius-small;
             padding: 1rem;
             position: relative;
+            transition: background-color $trans-effect $trans-regular;
             .wip_progress
             {
                 position: absolute;
