@@ -4,10 +4,10 @@
     padding: 4rem;
     width: 45%;
     
-    @include themify()
-    {
-        background-color: themed('grey-000');
-    }
+    // @include themify()
+    // {
+    //     background-color: themed('grey-000');
+    // }
     
     .sec_title
     {

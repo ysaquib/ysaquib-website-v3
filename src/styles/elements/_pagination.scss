@@ -18,6 +18,7 @@
     .pagination_icon,
     .pagination_button
     {
+        transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
         font: $medium-weight $small-size $sans-font, sans-serif;
         user-select: none;
         border: none;

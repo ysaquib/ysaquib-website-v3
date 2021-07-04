@@ -23,32 +23,34 @@
         overflow-y: auto;
         list-style-type: none;
         box-shadow: $inbox-shadow;
-
+        
         :not(:last-child)
         {
             margin-bottom: 1rem;
         }
-
+        
         .message_loader
         {
             box-shadow: none !important;
             width: 100%;
             height: 5rem;       
         }
-
+        
+        transition: background-color $trans-effect $trans-regular;
         .message_li
         {
-            // box-shadow: $messages-list-shadow;
+            transition: background-color $trans-effect $trans-regular;
             padding: 1.5rem;
             border-radius: $radius-regular;
             display: grid;
             grid-template-columns: 1.2fr 0.8fr;
             grid-template-rows: repeat(2, fit-content);
             gap: 0.5rem;
-
+            
             .msgli
             {
                 margin: 0rem;
+                transition: color $trans-effect $trans-regular;
                 &.sender
                 {
                     place-self: start start;
@@ -82,6 +84,7 @@
     
     #message
     {
+        transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
         border-radius: $radius-regular;
         box-shadow: $inbox-shadow;
 
@@ -94,7 +97,6 @@
         
         .msginfo
         {
-
             border-radius: $radius-regular;
             margin: 0rem 0rem 1rem;
             width: 100%;
@@ -107,8 +109,10 @@
                 margin: 0rem;
                 padding: 0rem;
                 gap: 1.5rem;
+                transition: background-color $trans-effect $trans-regular;
                 .msgbtn
                 {
+                    transition: background-color $trans-effect $trans-regular;
                     border-radius: $radius-regular;
                     padding: 0.75rem;
                     font: $medium-weight $Little-size $sans-font, sans-serif;

@@ -64,7 +64,7 @@ textarea, input[type=text], input[type=password], input[type=date]
     
     font: $medium-weight $regular-size $sans-font, sans-serif;
     
-    transition: background-color $trans-effect $trans-regular;
+    transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular, border-color $trans-effect $trans-regular;
     
     @include themify()
     {
@@ -142,6 +142,7 @@ textarea, input[type=text], input[type=password], input[type=date]
 .checkbox_label
 {
     min-width: fit-content;
+    transition: color $trans-effect $trans-regular;
     @include themify()
     {
         color: themed('grey-750');
@@ -174,6 +175,7 @@ input[type=checkbox]
     width: 1.75rem;
     height: 1.75rem;
     border: 1px solid;
+    transition: background-color $trans-effect $trans-regular, border-color $trans-effect $trans-regular;
     // margin-right: 1.5rem;
 
 
@@ -217,6 +219,7 @@ input[type=checkbox]
     {
         content: '\2714';
         font-size: $regular-size;
+        transition: color $trans-effect $trans-regular;
         color: transparent;
     }
     

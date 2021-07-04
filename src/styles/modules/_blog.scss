@@ -28,7 +28,7 @@
     #blog_edit_button
     {
         font: $medium-weight $Small-size $mono-font, monospace;
-
+        transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -37,26 +37,15 @@
         width: 100%;
         
         border-radius: $radius-regular;
-
-
-        
-
-        .svg_icon
-        {
-            display: grid;
-            place-items: center;
-            margin-right: 1rem;
-        }
-
     }
 
 
     #blog_header
     {   
         margin-bottom: 4rem;
-
         #blog_title
         {
+            transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
             margin: auto;
             text-align: center;
             border-radius: $radius-regular;
@@ -72,6 +61,7 @@
 
             .info_item
             {
+                transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
                 font: $regular-weight $small-size $serif-font, serif;
             }
         }

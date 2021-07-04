@@ -17,10 +17,10 @@
         border: 0.1rem solid;
         border-radius: $radius-regular;
         width: fit-content;
+        transition: border-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
         * {
             transition: none;
         }
-        transition: background-color ease $trans-regular;
         
         &:hover
         {
@@ -28,10 +28,13 @@
         }
     }
 
+    transition: background-color $trans-effect $trans-regular;
+
     .toolbar_divider
     {
         padding: 0.04rem;
         margin: 0.2rem 0.5rem;
+        transition: background-color $trans-effect $trans-regular;
     }
 
 

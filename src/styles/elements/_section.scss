@@ -21,6 +21,7 @@ section
 
     .sec_title
     {
+        transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
         text-align: center;
         display: inline-flex;
         align-items: center;
@@ -34,6 +35,7 @@ section
             flex: 1;
             height: 1px;
             width: 100%;
+            transition: background-color $trans-effect $trans-regular;
         }
         &::before{margin-right: 3rem;}
         &::after{margin-left: 3rem;}

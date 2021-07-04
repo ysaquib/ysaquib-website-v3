@@ -2,7 +2,7 @@
 {
     .blogs_list_wrapper
     {
-
+        transition: color $trans-effect $trans-regular;
         .blogs_list_options
         {
             display: inline-flex;
@@ -30,6 +30,7 @@
                     
                     li button 
                     {
+                        transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
                         font: $medium-weight $small-size $sans-font, sans-serif;
                         width: 3.3rem;
                         height: 3.3rem;
@@ -132,6 +133,7 @@
 
                 .blogs_list_tag
                 {
+                    transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
                     font: $semi-weight $little-size $mono-font, monospace;
                     padding: 0.4rem 0.8rem;
                     border-radius: $radius-regular;

@@ -25,6 +25,7 @@
         @include themify()
         {
             background-color: themed('grey-300');
+            transition: background-color $trans-effect $trans-regular;
         }
         height: 1px;
         width: 100%;
@@ -50,11 +51,11 @@
 
     .edit
     {
+        transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
         height: 100%;
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         margin: 0rem;
-        // grid-template-rows: fit-content;
 
         gap: 1.5rem;
         padding: 3rem;
@@ -63,9 +64,7 @@
         &.banner
         {
             flex: 1 1 auto;
-            height: auto;
-            // margin-top: 2rem;
-            
+            height: auto;            
         }
         
         &.about
@@ -81,7 +80,6 @@
             }
             .about_desc
             {
-                // grid-row: span 5 !important;
                 height: 100%;
                 textarea
                 {
@@ -92,11 +90,8 @@
         }
         &.projects
         {
-            // grid-template-rows: 0.5fr repeat(6, 0.5fr);
             grid-column: span 2;
             height: fit-content;
-            // align-items: start;
-            // justify-items: start;
             align-content: start;
             .desc_textarea
             {
@@ -115,6 +110,7 @@
 
         h3
         {
+            transition: color $trans-effect $trans-regular;
             margin-top: 0rem;
             margin-bottom: 2rem;
             grid-column: span 2;
@@ -167,7 +163,11 @@
 
     #banner
     {
-        @include themify(){border: 0.1rem solid themed('grey-900');}
+        @include themify()
+        {
+            border: 0.1rem solid themed('grey-900');
+            transition: border-color $trans-effect $trans-regular;
+        }
 
         border-radius: $radius-regular;
         width: 100%;
@@ -225,8 +225,6 @@
             cursor: pointer;
         }
         
-        
-        
         .project_item_title
         {
             margin: 0rem;
@@ -250,8 +248,6 @@
             width: 100%;
             display: grid;
             place-content: center;
-            // width: $medium-size;
-            // height: $medium-size;
         }
     }
     
@@ -259,7 +255,7 @@
     {
         .project_item
         {
-            transition: color $trans-regular $trans-effect , background-color $trans-regular $trans-effect;
+            transition: color $trans-regular $trans-effect, background-color $trans-regular $trans-effect;
             * {
                 transition: none;
             }

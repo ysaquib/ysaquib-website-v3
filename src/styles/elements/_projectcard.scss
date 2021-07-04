@@ -5,6 +5,7 @@
 
 .project_card_wrapper
 {
+    transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
 
     min-height: $project-card-height;
     // position: relative;
@@ -19,12 +20,13 @@
 
         .project_links .links_list .links_item
         {
+            transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
+
             color: themed("primary");
             &:hover
             {
                 color: themed("grey-900");
             }
-            * {transition: none;}
         }
 
         .date_tag
@@ -99,12 +101,15 @@
 
     .project_links
     {
+
         margin-top: 1rem;
         display: flex;
         flex-wrap: wrap;
         align-items: center;
         gap: 1rem;
         user-select: none;
+        transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
+
         
         .links_list
         {
@@ -127,6 +132,8 @@
 
     .featured_tag, .wip_tag, .date_tag
     {
+        transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
+
         align-self: left;
         width: fit-content;
         // min-width: 11rem;
@@ -187,12 +194,14 @@
 
     .project_title
     {
+        transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
         margin: 0rem 0rem;
         font: $bold-weight $Medium-size $sans-font, sans-serif;
     }
     
     .project_description
     {
+        transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
         width: 100%;
         text-align: start;
         flex: 1;

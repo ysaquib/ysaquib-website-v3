@@ -23,6 +23,7 @@
         {
             content: "";
             order: 1;
+            transition: background-color $trans-effect $trans-regular;
             @include themify()
             {
                 background-color: themed('grey-300');

@@ -4,26 +4,31 @@
     width: 100%;
     margin: 3rem 0rem;
 
+
     :first-child
     {
         margin-top: 0rem;
     }
     
-    font: $regular-weight $regular-size $sans-font, sans-serif;
+    font: $regular-weight $regular-size $sans-font, sans-serif;    
     
-    p 
+    p, span
     {
         margin: 1.6rem 0rem;
+        transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
     }
     
     li 
     {
         margin: 0.5rem 0rem;
+        transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
+
     }
     
     p > code
     {
         font: $regular-weight $Small-size $mono-font, monospace;
+        transition: background-color $trans-effect $trans-regular;
         border-radius: $radius-regular;
         padding: 0.15rem 0.3rem;
     }
@@ -33,10 +38,13 @@
         border: transparent;
         border-top: 1px solid;
         margin: 0rem;
+        transition: border-color $trans-effect $trans-regular;
+
     }
 
     pre
     {
+        transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
         > code 
         {
             font: $medium-weight $Small-size $mono-font, monospace;
@@ -77,11 +85,14 @@
     h1, h2, h3, h4, h5, h6
     {
         margin: 3.5rem 0rem 2rem;
+        transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
     }
 
 
     blockquote
     {
+        transition: background-color $trans-effect $trans-regular, border-color $trans-effect $trans-regular;
+
         p 
         {
             margin: 0rem;
@@ -101,9 +112,12 @@
             &::after
             {
                 content: "\2714";
+                transition: color $trans-effect $trans-regular;
                 font-size: $regular-size;
             }
         }
+        transition: background-color $trans-effect $trans-regular, border-color $trans-effect $trans-regular;
+
 
         display: inline-flex;
         align-items: center;
@@ -129,6 +143,7 @@
     th, td 
     {
         padding: 1rem;
+        transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular, border-color $trans-effect $trans-regular;
     }
     
     table 
@@ -138,6 +153,15 @@
         border-collapse: collapse;
     }
     
+    a 
+    {
+        text-decoration: none;
+        &:hover
+        {
+            text-decoration: underline;
+        }
+        transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
+    }
     
     
     @include themify()

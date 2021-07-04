@@ -9,6 +9,7 @@
             @include themify()
             {
                 color: themed('secondary');
+                transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
             }
         }
         .label
@@ -18,7 +19,6 @@
             text-align: center; 
                                     
             display: inline-flex;
-            // padding: 0 1rem;
             @include themify()
             {
                 background-color: themed('grey-000');
@@ -38,6 +38,7 @@
                 content: "";
                 margin-left: 1rem;
                 flex: 1;
+                transition: background-color $trans-effect $trans-regular;
                 @include themify()
                 {
                     background-color: themed('secondary');
@@ -46,7 +47,7 @@
                 width: 100%;
             }
         }
-
+        
         .public_key
         {
             transition: height 1s $trans-effect;
@@ -54,6 +55,7 @@
             height: 0;
             overflow: hidden;
             display: block;
+            transition: background-color $trans-effect $trans-regular;
             @include themify()
             {
                 background-color: themed('grey-100');

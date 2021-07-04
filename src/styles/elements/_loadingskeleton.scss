@@ -14,6 +14,7 @@
 {
     border-radius: $radius-large;
     position: relative;
+    transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
     overflow: hidden;
     &::before
     {
