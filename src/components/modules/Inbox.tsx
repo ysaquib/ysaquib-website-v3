@@ -10,6 +10,7 @@ import { deleteMessage, getMessages, seenMessage } from '../../store/actions/dat
 import { MessageData } from '../../store/types/dataTypes';
 import DialogBox from '../elements/DialogBox';
 import LoadingSkeleton from '../elements/LoadingSkeleton';
+import Head from '../layout/Head';
 
 interface ListItemProps
 {
@@ -142,6 +143,8 @@ const Inbox : FC = () =>
     }
     return (
         <section id="inbox">
+            <Head title="Messages" />
+
             {dialog}
             <ul id="message_list">
             {allMessages && allMessages.map((message) =>

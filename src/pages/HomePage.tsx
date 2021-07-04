@@ -4,6 +4,7 @@
  */
 
 import React, { FC } from 'react';
+import Head from '../components/layout/Head';
 
 import Banner from '../components/sections/Banner';
 import Projects from '../components/sections/Projects';
@@ -14,6 +15,8 @@ const HomePage : FC = () =>
 {
     return (
         <>
+            <Head />
+            
             <Banner />
             <Projects projectsLimit={6} id="projects"/>
             <ACWrapper />

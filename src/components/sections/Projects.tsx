@@ -13,6 +13,7 @@ import Button from '../elements/Button';
 import LoadingSkeleton from '../elements/LoadingSkeleton';
 import ProjectCard from '../elements/ProjectCard';
 import Section from '../elements/Section';
+import Head from '../layout/Head';
 
 interface ProjectsProps
 {
@@ -80,6 +81,10 @@ const Projects : FC<ProjectsProps> = ({showAllProjects=false, id, sectionTitle="
                     <ProjectCard key={project.project_id} order={index} {...project} />
                 ))}
             </div>
+
+            { showAllProjects && 
+                <Head title="All Projects" />
+            }
 
             { !showAllProjects &&
                 <div className="projects_button">

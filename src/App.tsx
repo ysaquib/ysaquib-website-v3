@@ -32,6 +32,7 @@ import { Container } from '@material-ui/core';
 import Inbox from './components/modules/Inbox';
 import Projects from './components/sections/Projects';
 import { ThemeContext } from './ThemeContext';
+import Head from './components/layout/Head';
 
 let default_data = require('./default_data.json');
 
@@ -85,6 +86,8 @@ const App : FC = () =>
     
     return (
         <BrowserRouter>
+            <Head main={true} />
+            
 
             <ThemeContext.Provider value={{theme: currentTheme, toggleTheme: () => setCurrentTheme(currentTheme === "theme-dark" ? "theme-light" : "theme-dark")}}>
             <Header />

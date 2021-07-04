@@ -16,6 +16,7 @@ import LoadingSkeleton from '../components/elements/LoadingSkeleton';
 import PrivateRoute from '../components/auth/PrivateRoute';
 import PublicRoute from '../components/auth/PublicRoute';
 import PageNotFound from '../components/layout/PageNotFound';
+import Head from '../components/layout/Head';
  
 const BlogsPage : FC = () =>
 {
@@ -61,6 +62,8 @@ const BlogsPage : FC = () =>
 
     return (
         <Router history={history}>
+            <Head title="All Blogs" />
+
             <Switch>
                 <PublicRoute exact path="/blog">
                     <BlogsList />

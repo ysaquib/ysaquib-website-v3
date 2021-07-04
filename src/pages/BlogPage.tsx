@@ -21,6 +21,7 @@ import { Redirect, useHistory } from 'react-router-dom';
 import TextField from '../components/elements/TextField';
 import CheckBox from '../components/elements/Checkbox';
 import { ThemeContext } from '../ThemeContext';
+import Head from '../components/layout/Head';
 
 
 
@@ -192,6 +193,9 @@ const BlogPage : FC<BlogPageProps> = ({isNewBlog=false, isEditing=false, allBlog
         return (
             <section id="edit_blog">
 
+                <Head title={`${blogData.blog_title} — Editing Blog`} />
+
+
                 {/* <TextField label="Blog URL" 
                            name="project_blog"
                            type="text"
@@ -287,6 +291,9 @@ const BlogPage : FC<BlogPageProps> = ({isNewBlog=false, isEditing=false, allBlog
     }
     return (
         <section id="blog" className={`${blogIsFeatured === true ? "featured" : ""} ${blogInProgress === true ? "wip" : ""}`}>
+
+            <Head title={`${blogData.blog_title} — Blog`} />
+
 
             {canUserEdit && editBlogButton}
             
