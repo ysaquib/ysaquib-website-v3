@@ -31,7 +31,7 @@ import { getMessages } from './store/actions/dataActions';
 import { Container } from '@material-ui/core';
 import Inbox from './components/modules/Inbox';
 import Projects from './components/sections/Projects';
-import { ThemeContext } from './ThemeContext';
+import { ThemeContext } from './contexts/ThemeContext';
 import Head from './components/layout/Head';
 import { HelmetProvider } from 'react-helmet-async';
 

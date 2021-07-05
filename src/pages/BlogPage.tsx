@@ -20,7 +20,7 @@ import { addNewBlog, setBlogData } from '../store/actions/dataActions';
 import { Redirect, useHistory } from 'react-router-dom';
 import TextField from '../components/elements/TextField';
 import CheckBox from '../components/elements/Checkbox';
-import { ThemeContext } from '../ThemeContext';
+import { ThemeContext } from '../contexts/ThemeContext';
 import Head from '../components/layout/Head';
 
 
