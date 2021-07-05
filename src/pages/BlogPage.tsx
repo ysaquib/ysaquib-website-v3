@@ -84,7 +84,7 @@ const BlogPage : FC<BlogPageProps> = ({isNewBlog=false, isEditing=false, allBlog
     const [isNew, setIsNew] = useState<boolean>(isNewBlog);
     const [isButtonDisabled, setButtonDisabled] = useState<boolean>(true);
 
-    const {theme, ...rest} = React.useContext(ThemeContext);
+    const {theme} = React.useContext(ThemeContext);
 
     const codeTheme = theme === "theme-dark" ? atomOneDark : atomOneLight;
 
@@ -195,19 +195,6 @@ const BlogPage : FC<BlogPageProps> = ({isNewBlog=false, isEditing=false, allBlog
 
                 <Head title={`${blogData.blog_title} — Editing Blog`} />
 
-
-                {/* <TextField label="Blog URL" 
-                           name="project_blog"
-                           type="text"
-                           className="half"
-                           classNameInner="elevated"
-                           defaultValue={project?.project_blog}
-                           message={errors.project_blog?.message} 
-                           register={register} 
-                           registration={{required: false}} 
-                           disabled={project == null}
-                           show_label 
-                           show_label/> */}
 
                 <TextField
                     name="blog_tags"

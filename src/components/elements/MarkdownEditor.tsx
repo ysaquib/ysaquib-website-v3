@@ -35,7 +35,7 @@ const Formatting =
     tasklist_checked:   ["- [x] ",""],
     math:               ["$", "$"],
     code:               ["`", "`"],
-    codeblock:          ["```\n", "\n```"],
+    codeblock:          ["```language\n", "\n```"],
     separator:          ["---\n", ""],
     link:               ["[", "](url)"],
     image:              ["![", "](url)"],
@@ -63,7 +63,6 @@ const Toolbar : FC<ToolbarProps> = ({editorContent, setEditorContent, editorSele
         const newEnd = end + prefix.length;
 
         const newContent = editorContent.slice(0, start) + prefix + editorContent.slice(start, end) + suffix + editorContent.slice(end);
-        
         setEditorContent(newContent);
         setEditorSelection([newStart, newEnd]);
     }

@@ -13,7 +13,7 @@
     font: $regular-weight $regular-size $sans-font, sans-serif;    
     line-height: 1.75;
     
-    p, span
+    p, > span
     {
         margin: 1.6rem 0rem;
         transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
@@ -23,7 +23,13 @@
     {
         margin: 0.5rem 0rem;
         transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
+        
+    }
 
+    footer 
+    {
+        margin: 3.2rem 0rem 0rem;
+        font: $regular-weight $Small-size $sans-font, sans-serif;
     }
     
     p > code
@@ -45,50 +51,17 @@
 
     pre
     {
-        transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
+        transition: background-color $trans-effect $trans-regular;
         > code 
         {
+            :nth-child(n)
+            {
+                transition: color $trans-effect $trans-regular;
+            }
             font: $medium-weight $Small-size $mono-font, monospace;
         }
         border-radius: $radius-regular;
     }
-    
-    h1
-    {
-        font: $bold-weight $Large-size $serif-font, serif;
-    }
-
-    h2
-    {
-        font: $bolder-weight $larger-size $sans-font, sans-serif;
-    }
-
-    h3
-    {
-        font: $bold-weight $large-size $mono-font, monospace;
-    }
-
-    h4
-    {
-        font: $bold-weight $large-size $sans-font, sans-serif;
-    }
-    
-    h5
-    {
-        font: $semi-weight $Medium-size $mono-font, monospace;
-    }
-    
-    h6
-    {
-        font: $semi-weight $Medium-size $serif-font, serif;
-    }
-    
-    h1, h2, h3, h4, h5, h6
-    {
-        margin: 3.5rem 0rem 2rem;
-        transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
-    }
-
 
     blockquote
     {
@@ -131,6 +104,7 @@
     {
         img 
         {
+            border-radius: $radius-regular;
             max-width: 100%;
         }
         vertical-align: middle;
@@ -149,7 +123,7 @@
     
     table 
     {
-        margin: auto;
+        margin: 1.6rem auto;
         min-width: 50%;
         border-collapse: collapse;
     }
@@ -161,6 +135,42 @@
         {
             text-decoration: underline;
         }
+        transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
+    }
+    
+    h1
+    {
+        font: $bold-weight $Large-size $serif-font, serif;
+    }
+
+    h2
+    {
+        font: $bolder-weight $larger-size $sans-font, sans-serif;
+    }
+
+    h3
+    {
+        font: $bold-weight $large-size $mono-font, monospace;
+    }
+
+    h4
+    {
+        font: $bold-weight $large-size $sans-font, sans-serif;
+    }
+    
+    h5
+    {
+        font: $semi-weight $Medium-size $mono-font, monospace;
+    }
+    
+    h6
+    {
+        font: $semi-weight $Medium-size $serif-font, serif;
+    }
+    
+    h1, h2, h3, h4, h5, h6
+    {
+        margin: 3.5rem 0rem 2rem;
         transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
     }
     

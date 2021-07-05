@@ -14,7 +14,6 @@ import { RootState } from '../../store';
 import { getAboutData, setAboutData } from '../../store/actions/dataActions';
 import Button from '../elements/Button';
 import TextArea from '../elements/TextArea';
-import CheckBox from '../elements/Checkbox';
 
 const schema = yup.object().shape(
 {

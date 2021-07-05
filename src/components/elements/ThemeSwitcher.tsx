@@ -1,8 +1,7 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, { FC } from 'react';
 import { ThemeContext } from '../../ThemeContext';
 import Button from './Button';
 
-let default_data = require('../../default_data.json');
 
 interface ThemeSwitcherProps
 {
@@ -11,9 +10,6 @@ interface ThemeSwitcherProps
 
 const ThemeSwitcher: FC<ThemeSwitcherProps> = ({useButton=true, ...props}) => 
 {
-
-
-    
     // Default behavior.
     return (
         <ThemeContext.Consumer>
