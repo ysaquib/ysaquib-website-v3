@@ -33,6 +33,7 @@ import Inbox from './components/modules/Inbox';
 import Projects from './components/sections/Projects';
 import { ThemeContext } from './ThemeContext';
 import Head from './components/layout/Head';
+import { HelmetProvider } from 'react-helmet-async';
 
 let default_data = require('./default_data.json');
 
@@ -50,6 +51,7 @@ const App : FC = () =>
 
     useEffect(() => {
         document.body.classList.add(currentTheme);
+        localStorage.setItem("theme", currentTheme);
         return () => {
             document.body.classList.remove(currentTheme);
         }
@@ -86,8 +88,9 @@ const App : FC = () =>
     
     return (
         <BrowserRouter>
-            <Head main={true} />
-            
+        <HelmetProvider>
+
+            <Head main={true}/>
 
             <ThemeContext.Provider value={{theme: currentTheme, toggleTheme: () => setCurrentTheme(currentTheme === "theme-dark" ? "theme-light" : "theme-dark")}}>
             <Header />
@@ -108,6 +111,7 @@ const App : FC = () =>
 
             </ThemeContext.Provider>
 
+        </HelmetProvider>
         </BrowserRouter>
     );
 }
