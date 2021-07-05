@@ -25,7 +25,7 @@ const PageHead : FC<PageHeadProps> = ({main=false, title, ...props}) =>
     }
     return (
         <Helmet>
-            <title>{title && `${title} | `}Yusuf Saquib</title>
+            <title>{(title && `${title} | `) || ""}Yusuf Saquib</title>
         </Helmet>
     );
 }
