@@ -50,12 +50,13 @@
         
         .public_key
         {
-            transition: height 1s $trans-effect;
             margin: 0rem;
-            height: 0;
+            height: fit-content;
+            max-height: 0rem;
             overflow: hidden;
             display: block;
-            transition: background-color $trans-effect $trans-regular;
+            transition: max-height 1s $trans-effect, background-color $trans-effect $trans-regular;
+            border-radius: $radius-regular;
             @include themify()
             {
                 background-color: themed('grey-100');
@@ -63,7 +64,7 @@
             
             &.shown
             {
-                height: 95rem;
+                max-height: 150rem;
             }
             .key
             {
