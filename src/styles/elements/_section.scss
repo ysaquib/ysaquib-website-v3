@@ -9,6 +9,16 @@ section
     width: 80%;
     text-align: left;
 
+    @include media("<=tablet-l")
+    {
+        width: 100%;
+    }
+    
+    @include media(">tablet-l", "<desktop")
+    {
+        width: 90%;
+    }
+
     margin-bottom: 5rem;
 
 
@@ -71,12 +81,15 @@ section
             }
         }
     }
-
-    @include respond(phone)
-    {
-        border: none;
-        padding-left: 1rem;
-        padding-right: 1rem;
-    }
 }
-  
+
+#main_container
+{
+    padding-left: 24px;
+    padding-right: 24px;
+    width: 100%;
+    display: block;
+    box-sizing: border-box;
+    margin-left: auto;
+    margin-right: auto;
+}

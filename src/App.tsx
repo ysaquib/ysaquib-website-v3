@@ -95,7 +95,7 @@ const App : FC = () =>
             <ThemeContext.Provider value={{theme: currentTheme, toggleTheme: () => setCurrentTheme(currentTheme === "theme-dark" ? "theme-light" : "theme-dark")}}>
             <Header />
 
-            <Container>
+            <div id="main_container">
                 <Switch>
                     <PublicRoute exact path="/"> <HomePage /> </PublicRoute>
                     <PublicRoute exact path="/signin"> <SignIn /> </PublicRoute>
@@ -107,7 +107,7 @@ const App : FC = () =>
                     <Route component={Error404} />
                 </Switch>
             <Footer />
-            </Container>
+            </div>
 
             </ThemeContext.Provider>
 

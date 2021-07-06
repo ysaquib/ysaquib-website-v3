@@ -5,6 +5,18 @@
  * This file holds all the variables that are used throughout the project
  */
 
+// # Media Query Breakpoints --------------------------------------------------
+
+$breakpoints: (
+    "phone": 320px,
+    "tablet-p": 750px,
+    "tablet-l": 900px,
+    "desktop": 1200px,
+    "desktop-big": 1800px,
+);
+
+// TODO: Add :root with --multiplier CSS variable, which will change with media queries and will be multiplied with the font sizes.
+
 // # Text Variables -----------------------------------------------------------
 
 $tiny-size:        1rem;

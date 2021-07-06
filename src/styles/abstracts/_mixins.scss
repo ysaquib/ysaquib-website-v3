@@ -1,9 +1,9 @@
 // MEDIA QUERY MANAGER
 /*
  * 0 - 600px:          Phone
- * 600px - 900px       Table Portrait
- * 900px - 1200px      Table Landscape
- * [1200px - 1800px]   Desktop Normal Styles
+ * 600px - 900px       Tablet Portrait
+ * 900px - 1200px      Tablet Landscape
+ * [1200px - 1800px]   Desktop Normal Styles -- Default
  * 1800px +            Big Desktop
  * 
  * 1em = 16px
@@ -14,41 +14,49 @@
 @mixin respond($breakpoint) 
 {
   /* Small Phone --          0-320px */
-  @if $breakpoint == phone-xs 
+  @if $breakpoint == mobile-small 
   {
-    @media (max-width: 20em) 
+    @media (min-width: 0px) and (max-width: 320px) 
     {
       @content;
     }
   }
   /* Phone --                0-600px */
-  @if $breakpoint == phone 
+  @if $breakpoint == mobile
   {
-    @media (max-width: 37.5em) 
+    @media (min-width: 321px) and (max-width: 650px) 
     {
       @content;
     }
   }
   /* Tablet Portrait --      900px */
-  @if $breakpoint == tab-port 
+  @if $breakpoint == tablet-portrait
   {
-    @media (max-width: 56.25em) 
+    @media (min-width: 651px) and (max-width: 900px) 
     {
       @content;
     }
   }
   /* Tablet Landscape --     1200px */
-  @if $breakpoint == tab-land 
+  @if $breakpoint == tablet-landscape 
   {
-    @media (max-width: 75em) 
+    @media (min-width: 901px) and (max-width: 1200px) 
+    {
+      @content;
+    }
+  }
+  /* Desktop Normal          1200 - 1800px */
+  @if $breakpoint == desktop 
+  {
+    @media (min-width: 1201px) and (max-width: 1799px) 
     {
       @content;
     }
   }
   /* Big Desktop --          1800+ px*/
-  @if $breakpoint == big-desktop 
+  @if $breakpoint == desktop-big 
   {
-    @media (min-width: 112.5em) 
+    @media (min-width: 1800px) 
     {
       @content;
     }
