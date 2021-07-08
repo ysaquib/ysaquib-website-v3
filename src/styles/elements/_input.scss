@@ -62,7 +62,6 @@ textarea, input[type=text], input[type=password], input[type=date]
     border-radius: $radius-regular;
     border: 0.1rem solid;
     
-    font: $medium-weight $regular-size $sans-font, sans-serif;
     
     transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular, border-color $trans-effect $trans-regular;
     
@@ -164,7 +163,6 @@ textarea, input[type=text], input[type=password], input[type=date]
             color: themed('grey-900');
         }
     }
-    font: $regular-weight $small-size $sans-font, sans-serif;
 }
 
 input[type=checkbox]
@@ -218,7 +216,6 @@ input[type=checkbox]
     &::after
     {
         content: '\2714';
-        font-size: $regular-size;
         transition: color $trans-effect $trans-regular;
         color: transparent;
     }
@@ -228,7 +225,6 @@ input[type=checkbox]
         &::after
         {
             content: '\2714';
-            font-size: $regular-size;
         }
     }
 

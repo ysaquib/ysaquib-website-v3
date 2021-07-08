@@ -18,7 +18,6 @@ const ThemeSwitcher: FC<ThemeSwitcherProps> = ({useButton=true, ...props}) =>
                 {
                     return (<span onClick={toggleTheme}>{props.children}</span>)
                 }
-                console.log(theme);
                 return (<Button className="no_background" text={`Use ` + (theme === "theme-dark" ? "Light" : "Dark") + ` Theme`} onClick={toggleTheme}/>)
             }}
         </ThemeContext.Consumer>

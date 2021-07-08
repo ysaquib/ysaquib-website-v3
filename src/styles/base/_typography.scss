@@ -45,3 +45,248 @@ title
     -moz-font-feature-settings: "lnum";
     font-feature-settings: "lnum";
 }
+
+// $ Section ==================================================================
+
+.sec_title
+{
+    font: $bold-weight $large-size $serif-font, serif;
+}
+.sec_subtitle
+{
+    font: $regular-weight $medium-size $sans-font, sans-serif;
+}
+
+// $ PGP Key ==================================================================
+
+.pgp_key
+{
+    font: $regular-weight $little-size $mono-font, monospace;
+}
+
+// $ Button ===================================================================
+
+.btn
+{
+    font: $semi-weight $small-size $sans-font, sans-serif;
+}
+
+// $ Dialog Box ===============================================================
+
+.dialog_box
+{
+    .dialog_box_title
+    {
+        font: $regular-weight $Medium-size $serif-font, serif;
+    }
+    .dialog_box_message
+    {
+        font: $regular-weight $regular-size $sans-font, sans-serif;
+        &.error, &.warning, &.success
+        {
+            font: $semi-weight $regular-size $sans-font, sans-serif;
+        }
+    }
+
+}
+
+// $ Projects =================================================================
+
+.project_card_wrapper
+{
+    .project_tag
+    {
+        font: $semi-weight $little-size $mono-font, monospace;
+    }
+    .project_title
+    {
+        font: $bold-weight $Medium-size $sans-font, sans-serif;
+        @include media(">tablet-big")
+        {
+            &.featured_project_text { font-size: $Large-size; }
+            &.featured_large_text { font-size: $large-size; }
+        }
+        @include media(">tablet", "<=tablet-big")
+        {
+            &.featured_project_text { font-size: $large-size; }
+        }
+    }
+
+    .project_description
+    {
+        font: $regular-weight $Small-size $sans-font, sans-serif;
+        line-height: $line-height-medium;
+        @include media(">tablet-big")
+        {
+            &.featured_project_text { font-size: $Regular-size; }
+            &.featured_large_text { font-size: $regular-size; }
+            
+        }
+        @include media(">tablet", "<=tablet-big")
+        {
+            &.featured_project_text { font-size: $regular-size; }
+        }
+    }
+
+    .project_languages
+    {
+        font: $regular-weight $Little-size $mono-font, monospace;
+        @include media(">tablet-big")
+        {
+            &.featured_project_text { font-size: $regular-size; }
+            &.featured_large_text { font-size: $Small-size; }
+            
+        }
+        @include media(">tablet", "<=tablet-big")
+        {
+            &.featured_project_text { font-size: $Small-size; }
+        }
+    }
+    
+    .wip_label
+    {
+        font: $regular-weight $Little-size $mono-font, monospace;
+    }
+    
+    .links_list
+    {
+        font: $semi-weight $Little-size $mono-font, monospace;
+    }
+}
+
+// $ Pagination ===============================================================
+.pagination
+{
+    .pagination_icon,
+    .pagination_button
+    {
+        font: $medium-weight $small-size $sans-font, sans-serif;
+    }
+}
+
+.editor_wrapper .editor_area
+{
+    font: $regular-weight $regular-size $mono-font, monospace;
+}
+
+textarea, input[type=text], input[type=password], input[type=date]
+{
+    font: $medium-weight $regular-size $sans-font, sans-serif;
+}
+
+input[type=checkbox]
+{
+    &::after
+    {
+        font-size: $regular-size;
+    }
+}
+
+.checkbox_label
+{
+    font: $regular-weight $small-size $sans-font, sans-serif;
+}
+
+#footer .footer_label
+{
+    font: $semi-weight $little-size $mono-font, monospace;
+}
+
+#header
+{
+    .header_title
+    {
+        font: $bold-weight $medium-size $sans-font, sans-serif;
+    }
+    .header_item
+    {
+        font: $medium-weight $Little-size $mono-font, monospace;
+    }
+}
+
+#pagenotfound
+{
+    .title
+    {
+        font: $black-weight $gigantic-size $mono-font, monospace;
+    }
+    .subtitle
+    {
+        font: $medium-weight $large-size $mono-font, monospace;
+    }
+    .home_btn
+    {
+        font: $light-weight $regular-size $mono-font, monospace !important;
+    }
+}
+
+#loader .loading_text
+{
+    font: $light-weight $large-size $sans-font, sans-serif;
+}
+
+.admin
+{
+    .category_title
+    {
+        font: $semi-weight $medium-size $sans-font, sans-serif;
+    }
+    .message
+    {
+        font: $regular-weight $regular-size $sans-font, sans-serif;
+    }
+}
+
+#admin_banner
+{
+    .banner_wrapper
+    {
+        .banner_buttons
+        {
+            :nth-child(n)
+            {
+                font-size: $little-size;
+            }
+        }    
+        .pre { font-size: $small-size; }
+        
+        .my_name{ font-size: $large-size; }
+        
+        .my_title { font-size: $large-size; } 
+    }
+}
+
+#admin_projects_list .project_item_title
+{
+    font: $regular-weight $regular-size $sans-font, sans-serif;
+}
+
+#blog
+{
+    #blog_edit_button
+    {
+        font: $medium-weight $Small-size $mono-font, monospace;
+    }
+    #blog_title
+    {
+        font: $bold-weight $Huge-size $serif-font, serif;
+    }
+    .info_item
+    {
+        font: $regular-weight $small-size $serif-font, serif;
+    }
+}
+
+#edit_blog .blog_title_field input
+{
+    font: $medium-weight $large-size $serif-font, serif;
+}
+
+#login, #register
+{
+    .banner
+    {
+        font: $semi-weight $small-size $sans-font, sans-serif;
+        line-height: 1.5;
+    }
+}

@@ -5,6 +5,11 @@
 
 #about
 {
+    @include media("<=tablet")
+    {
+        grid-column: span 2;
+    }
+
     .about_wrapper
     {
         width: 100%;

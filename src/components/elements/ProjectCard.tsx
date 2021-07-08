@@ -28,19 +28,19 @@ const ProjectCard : FC<CardProps> = ({children, className, order, ...projectData
      * featured project (any project with the 'featured' className)
      */
     const featured_tag: JSX.Element = order === featured_order ? (
-        <div className="featured_tag">
-            <h3 className="label">Featured Project</h3>
-        </div>) : (<></>);
+        <p className="project_tag featured_tag">
+            Featured Project
+        </p>) : (<></>);
 
     const wip_tag: JSX.Element = projectData.project_inProgress ? (
-        <div className="wip_tag">
-            <h3 className="label">In Progress</h3>
-        </div>) : (<></>);
+        <p className="project_tag wip_tag">
+            In Progress
+        </p>) : (<></>);
 
     const date_tag: JSX.Element = (
-        <div className="date_tag">
-            <h3 className="label">{projectData.project_createdAt.toLocaleDateString(undefined, {month: "short", year: "numeric"})}</h3>
-        </div>
+        <p className="project_tag date_tag">
+            {projectData.project_createdAt.toLocaleDateString(undefined, {month: "short", year: "numeric"})}
+        </p>
     );
 
 
@@ -63,20 +63,20 @@ const ProjectCard : FC<CardProps> = ({children, className, order, ...projectData
         switch (order)
         {
             case featured_order:
-                return "featured";
+                return "featured_project";
             case featured_order+1:
             case featured_order+2:
-                return "large";
+                return "large_project";
             default:
                 return "";
         }
     }
     
     return (
-        <div id={`js-${order}`} className={`project_card_wrapper ${getClassName(order)} ${projectData.project_inProgress ? "wip" : ""} ${className ?? ""}`}>
+        <div id={`js-${order}`} className={`project_card_wrapper ${getClassName(order)} ${projectData.project_inProgress ? "wip_project" : ""} ${className ?? ""}`}>
             <div className="project_card">
                 
-                <h1 className="project_title">
+                <h1 className={`project_title ${getClassName(order)}_text`}>
                     {projectData.project_title}
                 </h1>
                 <div className="project_links">
@@ -89,10 +89,10 @@ const ProjectCard : FC<CardProps> = ({children, className, order, ...projectData
                         {projectData.project_url && <li className="links_item svg_icon" key="demo" title="View Demo" onClick={()=>window.open(projectData.project_url, "_blank", "noopener noreferrer")}>{IconLaunch}</li>}
                     </ul>
                 </div>
-                <p className="project_description">
+                <p className={`project_description ${getClassName(order)}_text`}>
                     {projectData.project_description}
                 </p>
-                <ul className="project_languages">
+                <ul className={`project_languages ${getClassName(order)}_text`}>
                     {(projectData.project_tags?.split(","))?.map((tag, index) => {return(<li key={`${tag.trim()}_${index}`}>{tag.trim()}</li>);})}
                 </ul>
                 {wip_bar}

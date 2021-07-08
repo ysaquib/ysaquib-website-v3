@@ -302,7 +302,7 @@ const AdminProjects : FC = () =>
 
             </div>
             <form className="edit projects" onSubmit={handleSubmit(onSubmit)}>
-                <h3>Edit Project Information</h3>
+                <h3 className="category_title">Edit Project Information</h3>
                 <TextField label="Project Title" 
                            name="project_title"
                            type="text"

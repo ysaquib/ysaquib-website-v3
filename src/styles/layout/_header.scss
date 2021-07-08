@@ -28,7 +28,6 @@
         .header_title
         {
             padding: 1rem;
-            font: $bold-weight $medium-size $sans-font, sans-serif;
             user-select: none;
             &:hover
             {
@@ -60,13 +59,8 @@
                 user-select: none;
                 cursor: pointer;
                 display: inline;
-                font: $medium-weight $Little-size $mono-font, monospace;
                 counter-increment: inst;
                 
-                &.selected_path
-                {
-                    font: $medium-weight $Little-size $mono-font, monospace;
-                }
             }
         }
 

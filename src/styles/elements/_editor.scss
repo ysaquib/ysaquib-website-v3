@@ -73,7 +73,6 @@
     {
         padding: 2rem;
         resize: vertical;
-        font: $regular-weight $regular-size $mono-font, monospace;
         &:hover
         {
             @include themify() {background-color: themed('grey-150');}

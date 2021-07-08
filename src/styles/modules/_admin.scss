@@ -108,13 +108,12 @@
             }
         }
 
-        h3
+        .category_title
         {
             transition: color $trans-effect $trans-regular;
             margin-top: 0rem;
             margin-bottom: 2rem;
             grid-column: span 2;
-            font: $semi-weight $medium-size $sans-font, sans-serif;
             justify-self: start;
             
         }
@@ -130,12 +129,11 @@
             justify-self: start;
             align-self: center;
             margin: 2rem 0rem 0rem 0rem;
-            font: $regular-weight $regular-size $sans-font, sans-serif;
         }
 
         @include themify()
         {
-            h3 
+            .category_title 
             {
                 color: themed('grey-900');
             }
@@ -183,15 +181,11 @@
                 {
                     min-width: 8rem;
                     padding: 0.7rem;
-                    font-size: $little-size;
                     margin-right: 1.5rem;
                 }
             }    
-            .pre { font-size: $small-size; }
             
-            .my_name{ font-size: $large-size; }
-            
-            .my_title { font-size: $large-size; margin-bottom: 2rem; } 
+            .my_title { margin-bottom: 2rem; } 
         }
     }
 }
@@ -228,7 +222,6 @@
         .project_item_title
         {
             margin: 0rem;
-            font: $regular-weight $regular-size $sans-font, sans-serif;
         }
         .chevron
         {

@@ -15,13 +15,12 @@
 
 $breakpoints: (
     "phone": 320px,
-    "tablet-p": 750px,
-    "tablet-l": 900px,
+    "phone-big": 480px,
+    "tablet": 768px,
+    "tablet-big": 1024px,
     "desktop": 1200px,
     "desktop-big": 1800px,
 );
-
-// TODO: Add :root with --multiplier CSS variable, which will change with media queries and will be multiplied with the font sizes.
 
 // # Text Variables -----------------------------------------------------------
 
@@ -49,6 +48,12 @@ $huger-size:       5.5rem;
 $Huge-size:        6rem;
 
 $gigantic-size:    7rem;
+
+// # Line Height Variables ----------------------------------------------------
+
+$line-height-regular:   1;
+$line-height-medium:    1.5;
+$line-height-large:     1.75;
 
 // # Font Variables -----------------------------------------------------------
 

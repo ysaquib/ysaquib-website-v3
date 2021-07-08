@@ -5,6 +5,12 @@
 
 #contact
 {
+
+    @include media("<=tablet")
+    {
+        grid-column: span 2;
+    }
+
     .message_sent
     {
         white-space: pre-line;

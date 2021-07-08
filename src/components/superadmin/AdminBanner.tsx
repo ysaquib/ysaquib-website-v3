@@ -64,7 +64,7 @@ const AdminBanner : FC = () =>
         <section id="admin_banner" className="admin">
             <Banner />
             <form className="edit banner" onSubmit={handleSubmit(onSubmit)}>
-                <h3>Edit Banner</h3>
+                <h3 className="category_title">Edit Banner</h3>
                 <TextField label="Prefix Title" 
                            name="banner_prefix"
                            type="text"

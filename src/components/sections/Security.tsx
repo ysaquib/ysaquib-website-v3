@@ -51,7 +51,7 @@ const Security : FC = () =>
                     {showKey ? <ExpandLess className="icon"/> : <ExpandMore className="icon"/>}
                 </div>
                 <div id="public_key" className="public_key">
-                    <p className="key">
+                    <p className="pgp_key">
                         {PGPKey}
                     </p>
                 </div>

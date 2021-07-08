@@ -26,8 +26,6 @@
             margin: 0rem;
             grid-column: span 2;
             padding: 1rem;
-            font: $semi-weight $small-size $sans-font, sans-serif;
-            line-height: 150%;
             @include themify()
             {
                 color: themed('grey-000');
