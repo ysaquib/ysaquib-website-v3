@@ -17,17 +17,20 @@
     height: 100vh;
 
     --light-color: rgba(255, 255, 255, 0.3);
+    --main-color: #F6F6F8;
     background-color: #0D141D;
-
+    
     &.light 
     {
         background-color: #F6F6F8;
         --light-color: rgba(0, 0, 0, 0.3);
+        --main-color: #0D141D;
     }
     &.dark 
     {
         background-color: #0D141D;
         --light-color: rgba(255, 255, 255, 0.3);
+        --main-color: #F6F6F8;
     }
 
 
@@ -61,10 +64,7 @@
             width: var(--loader-size);
             display: grid;
             place-items: center;
-            @include themify()
-            {
-                color: themed('grey-900');
-            }
+            color: --main-color;
         }
         
         .loader::before,
