@@ -5,15 +5,6 @@
 
 .project_card_wrapper
 {
-    transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
-
-    min-height: $project-card-height;
-    // position: relative;
-    
-    grid-column: span 2;
-    border-radius: $radius-large;
-    box-shadow: $project-card-box-shadow;
-    
     @include themify()
     {
         background-color: themed("grey-150");
@@ -75,9 +66,6 @@
                 }
             }
         }
-        
-        
-        
         .project_description
         {
             color: themed("grey-800");
@@ -87,6 +75,23 @@
             color: themed("grey-600");
         }
     }
+    transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
+
+    min-height: $project-card-height;
+    
+    @include media("<=tablet-l")
+    {
+        grid-column: span 3;
+    }
+    @include media("<tablet-p")
+    {
+        grid-column: span 6;
+    }
+
+    grid-column: span 2;
+    border-radius: $radius-large;
+    box-shadow: $project-card-box-shadow;
+    
     
     .project_card
     {
@@ -242,17 +247,20 @@
     &.featured
     {
 
-        font-size: $Regular-size;
         grid-column: span 6;
-
+        
         .project_title
         {
             font-size: $Large-size;
         }
-
         .project_description
         {
+            font-size: $Regular-size;
             width: 80%;
+            @include media("<=tablet-l")
+            {
+                width: 100%;
+            }
         }
         .project_languages
         {
@@ -263,21 +271,25 @@
     &.large
     {
         grid-column: span 3;
-        font-size: $regular-size;
-
+        @include media("<tablet-p")
+        {
+            grid-column: span 6;
+        }
+        
         .project_title
         {
             font-size: $large-size;
         }
         .project_description
         {
+            font-size: $regular-size;
             width: 100%;
         }
         .project_languages
         {
             font-size: $Small-size;
         }
-    }    
+    } 
 }
 
 .loading_card
@@ -292,5 +304,17 @@
     &.large
     {
         grid-column: span 3;
+    }
+    @include media("<=tablet-l")
+    {
+        grid-column: span 3;
+    }
+    @include media("<tablet-p")
+    {
+        grid-column: span 6;
+        &.large
+        {
+            grid-column: span 6;
+        }
     }
 }
