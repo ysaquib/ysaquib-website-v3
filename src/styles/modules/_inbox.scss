@@ -56,7 +56,6 @@
                     place-self: start start;
                     grid-column: span 1;
                     grid-row: span 1;
-                    font: $bold-weight $regular-size $sans-font, sans-serif;
                 }
                 &.time
                 {
@@ -64,14 +63,12 @@
                     text-align: right;
                     grid-column: span 1;
                     grid-row: span 1;
-                    font: $medium-weight $little-size $sans-font, sans-serif;
                 }
                 &.subject
                 {
                     place-self: end start;
                     grid-column: span 2;
                     grid-row: span 1;
-                    font: $semi-weight $Little-size $sans-font, sans-serif;
                 }
             }
 
@@ -93,7 +90,6 @@
         grid-column: span 12;
         padding: 1rem;
 
-        font: $regular-weight $regular-size $sans-font, sans-serif;
         
         .msginfo
         {
@@ -115,7 +111,6 @@
                     transition: background-color $trans-effect $trans-regular;
                     border-radius: $radius-regular;
                     padding: 0.75rem;
-                    font: $medium-weight $Little-size $sans-font, sans-serif;
                     display: grid;
                     place-content: center;
                     &:hover
@@ -137,7 +132,6 @@
     {
         display: grid !important;
         place-content: center;
-        font: $medium-weight $regular-size $sans-font, sans-serif;
     }
 
     @include themify()

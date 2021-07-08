@@ -9,7 +9,6 @@
             flex-direction: row-reverse;
             align-items: center;
             width: 100%;
-            font: $medium-weight $small-size $sans-font, sans-serif;
             
             .option
             {
@@ -31,15 +30,10 @@
                     li button 
                     {
                         transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
-                        font: $medium-weight $small-size $sans-font, sans-serif;
                         width: 3.3rem;
                         height: 3.3rem;
                         border-radius: 5rem;
                         border: none;
-                        &.selected
-                        {
-                            font: $semi-weight $small-size $sans-font, sans-serif;
-                        }
                         &:hover 
                         {
                             cursor: pointer;
@@ -108,7 +102,6 @@
                 {
                     padding: 1rem;
                     justify-content: center;
-                    font: $medium-weight $Small-size $mono-font, monospace;
                 }
                 
                 &:hover
@@ -134,7 +127,6 @@
                 .blogs_list_tag
                 {
                     transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
-                    font: $semi-weight $little-size $mono-font, monospace;
                     padding: 0.4rem 0.8rem;
                     border-radius: $radius-regular;
                     margin: 0rem;
@@ -143,7 +135,6 @@
                 .blogs_list_title
                 {
                     flex: 1 1 auto;
-                    font: $medium-weight $medium-size $sans-font, sans-serif;
                     margin: 0rem;
                 }
             }

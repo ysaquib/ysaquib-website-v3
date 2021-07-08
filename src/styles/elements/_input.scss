@@ -6,7 +6,6 @@
     flex-direction: column;
     margin: 0rem;
     padding: 0rem;
-    font: $regular-weight $regular-size $sans-font, sans-serif;
 
     grid-column: span 2;
 
@@ -23,7 +22,6 @@
 {
     margin: none;
     opacity: 0%;
-    font: $medium-weight $Little-size $sans-font, sans-serif;
     transition: $trans-regular;
     
     &.shown

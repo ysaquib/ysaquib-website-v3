@@ -8,7 +8,7 @@
 
 :root
 {
-    --size-mult: 1rem;
+    --size-mult: 2rem;
 }
 
 // # Media Query Breakpoints --------------------------------------------------
@@ -26,27 +26,20 @@ $breakpoints: (
 
 $tiny-size:        1rem;
 $Tiny-size:        1.1rem;
-
 $little-size:      1.2rem;
 $Little-size:      1.3rem;
-
 $small-size:       1.4rem;
 $Small-size:       1.5rem;
-
 $regular-size:     1.6rem;
 $Regular-size:     1.8rem;
-
 $medium-size:      2rem;
 $Medium-size:      2.5rem;
-
 $large-size:       3rem;
 $larger-size:      3.5rem;
 $Large-size:       4rem;
-
 $huge-size:        5rem;
 $huger-size:       5.5rem;
 $Huge-size:        6rem;
-
 $gigantic-size:    7rem;
 
 // # Line Height Variables ----------------------------------------------------
