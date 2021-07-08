@@ -64,7 +64,7 @@
             width: var(--loader-size);
             display: grid;
             place-items: center;
-            color: --main-color;
+            color: var(--main-color);
         }
         
         .loader::before,
