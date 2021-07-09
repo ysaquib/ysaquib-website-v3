@@ -12,6 +12,13 @@
                 transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
             }
         }
+        .key_toggle
+        {
+            @include themify()
+            {
+                color: themed('secondary');
+            }
+        }
         .label
         {
             user-select: none;
@@ -64,13 +71,15 @@
             
             &.shown
             {
+                overflow-x: auto;
                 max-height: 150rem;
             }
             .pgp_key
             {
+                width: fit-content;
                 margin: 0rem;
-                white-space: pre-wrap;
                 padding: 2rem;
+                white-space: pre-wrap;
             }
         }
     }

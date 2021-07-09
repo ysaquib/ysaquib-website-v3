@@ -29,11 +29,15 @@
         {
             width: 100%;
             display: flex;
+            flex-wrap: wrap;
             flex-direction: row;
-            :nth-child(n)
-            {
-                margin-right: 1.5rem;
-            }
+            align-items: stretch;
+            // @include media("<tablet")
+            // {
+            //     flex-direction: column;
+            //     align-items: stretch;
+            // }
+            gap: 2rem;
             
         }    
 

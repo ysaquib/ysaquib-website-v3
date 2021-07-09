@@ -45,8 +45,30 @@ section
             width: 100%;
             transition: background-color $trans-effect $trans-regular;
         }
-        &::before{margin-right: 3rem;}
-        &::after{margin-left: 3rem;}
+        &::before
+        {
+            margin-right: 3rem;
+            @include media("<=tablet")
+            {
+                margin-right: 2rem;
+            }
+            @include media("<=phone")
+            {
+                margin-right: 1.5rem;
+            }
+        }
+        &::after
+        {
+            margin-left: 3rem;
+            @include media("<=tablet")
+            {
+                margin-left: 2rem;
+            }
+            @include media("<=phone")
+            {
+                margin-left: 1.5rem;
+            }
+        }
     }
     
     .sec_subtitle

@@ -59,6 +59,10 @@ title
 
 // $ PGP Key ==================================================================
 
+.key_toggle
+{
+    font: $medium-weight $regular-size $mono-font, monospace;
+}
 .pgp_key
 {
     font: $regular-weight $little-size $mono-font, monospace;

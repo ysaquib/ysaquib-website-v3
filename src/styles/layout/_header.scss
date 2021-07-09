@@ -2,10 +2,18 @@
 {
     height: 8rem;
     margin-bottom: 3rem;
+    // @include media("<=tablet")
+    // {
+    //     display: none;
+    // }
 }
 
 #header
 {
+    // @include media("<=tablet")
+    // {
+    //     display: none;
+    // }
     height: 8rem;
     padding: 1rem 2rem;
     width: 100%;
@@ -49,7 +57,7 @@
             
             :not(:last-child)
             {
-                margin-right: 3rem;
+                margin-right: 2.0rem;
             }
             
             padding: 1rem;
