@@ -5,12 +5,6 @@
  * This file holds all the variables that are used throughout the project
  */
 
-
-:root
-{
-    --size-mult: 2rem;
-}
-
 // # Media Query Breakpoints --------------------------------------------------
 
 $breakpoints: (
@@ -22,25 +16,58 @@ $breakpoints: (
     "desktop-big": 1800px,
 );
 
+:root
+{
+    --size-multiplier:   0.0;
+
+    @include media("<=tablet-big")
+    {
+        --size-multiplier: 0.5;
+    }
+    @include media("<tablet")
+    {
+        --size-multiplier: 1.0;
+    }
+    
+
+    --tiny-size:         calc(1.0rem - (0.1rem * var(--size-multiplier)));
+    --Tiny-size:         calc(1.1rem - (0.1rem * var(--size-multiplier)));
+    --little-size:       calc(1.2rem - (0.1rem * var(--size-multiplier)));
+    --Little-size:       calc(1.3rem - (0.1rem * var(--size-multiplier)));
+    --small-size:        calc(1.4rem - (0.1rem * var(--size-multiplier)));
+    --Small-size:        calc(1.5rem - (0.1rem * var(--size-multiplier)));
+    --regular-size:      calc(1.6rem - (0.1rem * var(--size-multiplier)));
+    --Regular-size:      calc(1.8rem - (0.2rem * var(--size-multiplier)));
+    --medium-size:       calc(2.0rem - (0.2rem * var(--size-multiplier)));
+    --Medium-size:       calc(2.5rem - (0.5rem * var(--size-multiplier)));
+    --large-size:        calc(3.0rem - (0.5rem * var(--size-multiplier)));
+    --larger-size:       calc(3.5rem - (0.5rem * var(--size-multiplier)));
+    --Large-size:        calc(4.0rem - (0.5rem * var(--size-multiplier)));
+    --huge-size:         calc(5.0rem - (0.5rem * var(--size-multiplier)));
+    --huger-size:        calc(5.5rem - (0.5rem * var(--size-multiplier)));
+    --Huge-size:         calc(6.0rem - (0.5rem * var(--size-multiplier)));
+    --gigantic-size:     calc(7.0rem - (1.0rem * var(--size-multiplier)));
+}
+
 // # Text Variables -----------------------------------------------------------
 
-$tiny-size:        1rem;
-$Tiny-size:        1.1rem;
-$little-size:      1.2rem;
-$Little-size:      1.3rem;
-$small-size:       1.4rem;
-$Small-size:       1.5rem;
-$regular-size:     1.6rem;
-$Regular-size:     1.8rem;
-$medium-size:      2rem;
-$Medium-size:      2.5rem;
-$large-size:       3rem;
-$larger-size:      3.5rem;
-$Large-size:       4rem;
-$huge-size:        5rem;
-$huger-size:       5.5rem;
-$Huge-size:        6rem;
-$gigantic-size:    7rem;
+$tiny-size:        var(--tiny-size);
+$Tiny-size:        var(--Tiny-size);
+$little-size:      var(--little-size);
+$Little-size:      var(--Little-size);
+$small-size:       var(--small-size);
+$Small-size:       var(--Small-size);
+$regular-size:     var(--regular-size);
+$Regular-size:     var(--Regular-size);
+$medium-size:      var(--medium-size);
+$Medium-size:      var(--Medium-size);
+$large-size:       var(--large-size);
+$larger-size:      var(--larger-size);
+$Large-size:       var(--Large-size);
+$huge-size:        var(--huge-size);
+$huger-size:       var(--huger-size);
+$Huge-size:        var(--Huge-size);
+$gigantic-size:    var(--gigantic-size);
 
 // # Line Height Variables ----------------------------------------------------
 
