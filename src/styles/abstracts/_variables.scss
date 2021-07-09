@@ -8,8 +8,8 @@
 // # Media Query Breakpoints --------------------------------------------------
 
 $breakpoints: (
-    "phone": 320px,
-    "phone-big": 480px,
+    "phone-small": 320px,
+    "phone": 480px,
     "tablet": 768px,
     "tablet-big": 1024px,
     "desktop": 1200px,
@@ -24,9 +24,17 @@ $breakpoints: (
     {
         --size-multiplier: 0.5;
     }
-    @include media("<tablet")
+    @include media("<=tablet")
+    {
+        --size-multiplier: 0.75;
+    }
+    @include media("<phone")
     {
         --size-multiplier: 1.0;
+    }
+    @include media("<phone-small")
+    {
+        --size-multiplier: 1.25;
     }
     
 
@@ -37,15 +45,16 @@ $breakpoints: (
     --small-size:        calc(1.4rem - (0.1rem * var(--size-multiplier)));
     --Small-size:        calc(1.5rem - (0.1rem * var(--size-multiplier)));
     --regular-size:      calc(1.6rem - (0.1rem * var(--size-multiplier)));
-    --Regular-size:      calc(1.8rem - (0.2rem * var(--size-multiplier)));
+    --Regular-size:      calc(1.8rem - (0.1rem * var(--size-multiplier)));
     --medium-size:       calc(2.0rem - (0.2rem * var(--size-multiplier)));
-    --Medium-size:       calc(2.5rem - (0.5rem * var(--size-multiplier)));
-    --large-size:        calc(3.0rem - (0.5rem * var(--size-multiplier)));
+    --Medium-size:       calc(2.5rem - (0.2rem * var(--size-multiplier)));
+    --large-size:        calc(3.0rem - (0.2rem * var(--size-multiplier)));
     --larger-size:       calc(3.5rem - (0.5rem * var(--size-multiplier)));
     --Large-size:        calc(4.0rem - (0.5rem * var(--size-multiplier)));
-    --huge-size:         calc(5.0rem - (0.5rem * var(--size-multiplier)));
-    --huger-size:        calc(5.5rem - (0.5rem * var(--size-multiplier)));
-    --Huge-size:         calc(6.0rem - (0.5rem * var(--size-multiplier)));
+    --Largest-size:      calc(4.5rem - (1.0rem * var(--size-multiplier)));
+    --huge-size:         calc(5.0rem - (1.0rem * var(--size-multiplier)));
+    --huger-size:        calc(5.5rem - (1.0rem * var(--size-multiplier)));
+    --Huge-size:         calc(6.0rem - (1.0rem * var(--size-multiplier)));
     --gigantic-size:     calc(7.0rem - (1.0rem * var(--size-multiplier)));
 }
 
@@ -64,6 +73,7 @@ $Medium-size:      var(--Medium-size);
 $large-size:       var(--large-size);
 $larger-size:      var(--larger-size);
 $Large-size:       var(--Large-size);
+$Largest-size:     var(--Largest-size);
 $huge-size:        var(--huge-size);
 $huger-size:       var(--huger-size);
 $Huge-size:        var(--Huge-size);
@@ -142,6 +152,9 @@ $dialog-box-shadow:       0.0rem 0.1rem 3.0rem 0.5rem rgba(#000, 25%);
 
 // # Padding and Margin Variables ---------------------------------------------
 
+
+$padding-card-min: 2rem;
+$padding-card-less: 2.5rem;
 $padding-card-regular: 3rem;
 
 // # Width and Height Variables -----------------------------------------------
