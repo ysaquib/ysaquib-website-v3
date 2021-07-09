@@ -2,13 +2,14 @@
 {
 
     display: grid;
-    grid-template-columns: repeat(20, 1fr);
+    grid-template-columns: repeat(5, 1fr);
+    height: 70vh;
+    
     // width: 100%;
-    height: 35vmax;
     padding: 0rem;
     // margin: 0rem;
     gap: 1.5rem;
-
+    
     .loading_list
     {
         overflow: hidden !important;
@@ -17,13 +18,18 @@
     #message_list
     {
         border-radius: $radius-regular;
-        grid-column: span 8;
+        grid-column: span 2;
         padding: 1.2rem 1rem;
         margin: 0rem;
         overflow-y: auto;
         list-style-type: none;
         box-shadow: $inbox-shadow;
         
+        @include media("<=tablet")
+        {
+            grid-column: span 5;
+        }
+
         :not(:last-child)
         {
             margin-bottom: 1rem;
@@ -87,9 +93,13 @@
 
         display: inline-flex;
         flex-direction: column;
-        grid-column: span 12;
+        grid-column: span 3;
         padding: 1rem;
 
+        @include media("<=tablet")
+        {
+            grid-column: span 5;
+        }
         
         .msginfo
         {

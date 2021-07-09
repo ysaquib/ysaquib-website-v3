@@ -63,9 +63,9 @@ const Projects : FC<ProjectsProps> = ({showAllProjects=false, id, sectionTitle="
         return(
             <Section title={sectionTitle} id={id} className="projects">
                 <div className="projects_wrapper">
-                    <LoadingSkeleton type="rectangle" className="loading_card featured" />
-                    <LoadingSkeleton type="rectangle" className="loading_card large" />
-                    <LoadingSkeleton type="rectangle" className="loading_card large" />
+                    <LoadingSkeleton type="rectangle" className="loading_card featured_project" />
+                    <LoadingSkeleton type="rectangle" className="loading_card large_project" />
+                    <LoadingSkeleton type="rectangle" className="loading_card large_project" />
                     <LoadingSkeleton type="rectangle" className="loading_card" />
                     <LoadingSkeleton type="rectangle" className="loading_card" />
                     <LoadingSkeleton type="rectangle" className="loading_card" />
