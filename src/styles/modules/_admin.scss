@@ -45,7 +45,7 @@
         grid-column: span 2;
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 3rem;
+        gap: 2rem;
     }
 
     .edit
@@ -57,13 +57,24 @@
         margin: 0rem;
 
         gap: 1.5rem;
-        padding: 3rem;
+        padding: $padding-card-regular;
+        @include media("<=tablet")
+        {
+            padding: $padding-card-least;
+        }
         border-radius: $radius-regular;
-
+        
         &.banner
         {
             flex: 1 1 auto;
-            height: auto;            
+            height: auto;  
+            @include media("<=tablet")
+            {
+                .input_wrapper.half
+                {
+                    grid-column: span 2;
+                }          
+            }
         }
         
         &.about
@@ -90,6 +101,14 @@
         &.projects
         {
             grid-column: span 2;
+            @include media("<=tablet")
+            {
+                grid-column: span 3;
+                .input_wrapper.half
+                {
+                    grid-column: span 2;
+                }
+            }
             height: fit-content;
             align-content: start;
             .desc_textarea
@@ -121,10 +140,19 @@
             margin: 2rem 0rem 0rem 0rem;
             justify-self: end;
             align-self: center;
+            @include media("<=tablet")
+            {
+                width: 100%;
+                grid-column: span 2;
+            }
         }
         
         .message
         {
+            @include media("<=tablet")
+            {
+                grid-column: span 2;
+            }
             justify-self: start;
             align-self: center;
             margin: 2rem 0rem 0rem 0rem;
@@ -151,12 +179,25 @@
     }
 }
 
+#admin_about
+{
+    @include media("<=tablet")
+    {
+        grid-column: span 2;
+    }
+}
+
 #admin_banner
 {
 
     display: inline-flex;
     flex-direction: column;
     gap: 2rem;
+
+    @include media("<=tablet")
+    {
+        grid-column: span 2;
+    }
 
     #banner
     {
@@ -176,12 +217,7 @@
             padding: 0rem; // 4rem 3rem 4rem;
             .banner_buttons
             {
-                :nth-child(n)
-                {
-                    min-width: 8rem;
-                    padding: 0.7rem;
-                    margin-right: 1.5rem;
-                }
+                gap: 1rem;
             }    
             
             .my_title { margin-bottom: 2rem; } 
@@ -199,6 +235,11 @@
         {
             margin-bottom: 1.5rem;
         }
+    }
+
+    @include media("<=tablet")
+    {
+        grid-column: span 3;
     }
 
     
@@ -289,6 +330,5 @@
                 }
             }
         }
-
     }
 }
