@@ -1,6 +1,6 @@
 #pseudo_header
 {
-    height: 8rem;
+    height: $gigantic-size;
     margin-bottom: 3rem;
     // @include media("<=tablet")
     // {
@@ -14,7 +14,7 @@
     // {
     //     display: none;
     // }
-    height: 8rem;
+    height: $gigantic-size;
     padding: 1rem 2rem;
     width: 100%;
     z-index: 10;

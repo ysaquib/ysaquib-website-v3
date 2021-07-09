@@ -6,7 +6,6 @@
 import React, { FC, useEffect, useState } from 'react'
 import Section from '../elements/Section';
 import {ExpandMore, ExpandLess} from '@material-ui/icons/';
-import Markdown from 'markdown-to-jsx';
 
 import default_data from '../../default_data.json';
 

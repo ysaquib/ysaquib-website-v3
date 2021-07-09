@@ -28,7 +28,6 @@ import Error404 from './pages/ErrorPage';
 import Loader from './components/layout/Loader';
 import BlogsPage from './pages/BlogsPage';
 import { getMessages } from './store/actions/dataActions';
-import { Container } from '@material-ui/core';
 import Inbox from './components/modules/Inbox';
 import Projects from './components/sections/Projects';
 import { ThemeContext } from './contexts/ThemeContext';

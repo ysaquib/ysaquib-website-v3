@@ -83,7 +83,10 @@ const AdminProjects : FC = () =>
             console.log(project?.project_title, project?.project_order);
             setFocus("project_title");
         }
-        return () => {}
+        return () => 
+        {
+            setMessage("");
+        }
     }, [project, setValue, setFocus, setCurrentDate]);
 
     /**

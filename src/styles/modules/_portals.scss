@@ -1,8 +1,16 @@
 #login, #register
 {
     margin: auto;
-    padding: 4rem;
-    width: 45%;
+    width: 33%;
+    
+    @include media(">tablet", "<=tablet-big")
+    {
+        width: 66%;
+    }
+    @include media("<=tablet")
+    {
+        width: 100%;
+    }
     
     // @include themify()
     // {
@@ -19,6 +27,14 @@
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 1.5rem;
+
+        @include media("<=tablet")
+        {
+            .input_wrapper.half
+            {
+                grid-column: span 2;
+            }
+        }
         
         .banner
         {
