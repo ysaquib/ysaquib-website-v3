@@ -7,6 +7,7 @@ import { RootState } from '../../store';
 import { deleteBlog, setBlogData } from '../../store/actions/dataActions';
 import { BlogData } from '../../store/types/dataTypes';
 import DialogBox from '../elements/DialogBox';
+import { format } from "date-fns";
 import { IconEye, IconEyeOff, IconGarbageDelete } from '../elements/Icons';
 import LoadingSkeleton from '../elements/LoadingSkeleton';
 import Pagination from '../elements/Pagination';
@@ -37,7 +38,7 @@ const BlogListItem: FC<BlogListItemProps> = ({blog}) =>
 
     const featured_tag: JSX.Element = blog.blog_isFeatured ? (
         <p className="blogs_list_tag">
-            Featured Blog
+            Featured
         </p>) : (<></>);
 
     const wip_tag: JSX.Element = blog.blog_inProgress ? (
@@ -82,15 +83,15 @@ const BlogListItem: FC<BlogListItemProps> = ({blog}) =>
                     {featured_tag}
                     {wip_tag}
                     <p className="blogs_list_tag">
-                        {blog.blog_createdAt.toLocaleDateString(undefined , {year: 'numeric', month: 'long', day: 'numeric'})}
+                        {format(blog.blog_createdAt, "dd MMM yyyy")}
                     </p>
                 </div>
             </div>
-            {(authenticated && userRoles.includes("superadmin")) && (<>
+            {(authenticated && userRoles.includes("superadmin")) && (<div className="blogs_list_buttons">
                 <div className="blogs_list_item_button hide" id="hide" onClick={setHidden}><span className="svg_icon">{isBlogHidden ? IconEyeOff : IconEye}</span></div>
                 
                 <div className="blogs_list_item_button delete" id="delete" onClick={() => handleClickDelete(blog)}><span className="svg_icon">{IconGarbageDelete}</span></div>
-            </>)}
+            </div>)}
         </li>
     )
 }

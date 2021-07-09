@@ -29,7 +29,7 @@ const ProjectCard : FC<CardProps> = ({children, className, order, ...projectData
      */
     const featured_tag: JSX.Element = order === featured_order ? (
         <p className="project_tag featured_tag">
-            Featured Project
+            Featured
         </p>) : (<></>);
 
     const wip_tag: JSX.Element = projectData.project_inProgress ? (

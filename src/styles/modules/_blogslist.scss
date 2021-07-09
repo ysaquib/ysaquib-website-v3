@@ -30,8 +30,8 @@
                     li button 
                     {
                         transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
-                        width: 3.3rem;
-                        height: 3.3rem;
+                        width: $large-size;
+                        height: $large-size;
                         border-radius: 5rem;
                         border: none;
                         &:hover 
@@ -58,27 +58,43 @@
                 display: inline-flex;
                 justify-content: flex-start;
                 align-items: center;
-                :not(:last-child)
+                flex-direction: row;
+                
+                gap: 1rem;
+
+                @include media("<=tablet")
                 {
-                    margin-right: 1rem;
+                    flex-direction: column;
+                    margin-bottom: 0.5rem;
                 }
 
             }
-
-            .blogs_list_item_button
+            .blogs_list_buttons
             {
-                border-radius: $radius-regular;
-                flex: 1 1;
-                height: 100%;
+                flex: 2 3;
                 display: grid;
-                place-items: center;
-                box-shadow: $blog-list-box-shadow;
-
-                &:hover
+                gap: 1rem;
+                grid-template-columns: 1fr 1fr;
+                place-items: stretch;
+                height: 100%;
+                width: 100%;
+                
+                .blogs_list_item_button
                 {
-                    cursor: pointer;
+                    border-radius: $radius-regular;
+                    padding: 0.8rem;
+                    display: grid;
+                    place-items: center;
+                    box-shadow: $blog-list-box-shadow;
+    
+                    &:hover
+                    {
+                        cursor: pointer;
+                    }
                 }
+            
             }
+
 
             .blogs_list_item
             {
@@ -87,16 +103,23 @@
                 flex: 10 6;
 
                 
-                
                 display: inline-flex;
                 gap: 2rem;
                 flex-direction: row;
                 justify-content: space-between;
                 align-items: center;
-                
                 list-style-type: none;
                 padding: 2rem;
                 border-radius: $radius-regular;
+                
+                @include media("<=tablet")
+                {
+                    flex-direction: column;
+                    align-items: flex-start;
+                    padding: 1rem;
+                    gap: 1rem;
+                }
+
                 
                 &.create_new
                 {
@@ -118,18 +141,22 @@
 
                 .blogs_list_tags
                 {
-                    display: inline-flex;
+                    display: flex;
                     justify-content: flex-end;
                     align-items: center;
                     gap: 1rem;
+                    flex-wrap: wrap;
                 }
 
                 .blogs_list_tag
                 {
+                    text-align: center;
                     transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
                     padding: 0.4rem 0.8rem;
                     border-radius: $radius-regular;
+                    
                     margin: 0rem;
+                    flex: 0 0 auto;
                 }
 
                 .blogs_list_title
@@ -285,9 +312,7 @@
                             background-color: mix(themed("success"), themed("grey-150"), $color-mix-least);
                         }
                     }
-
                 }
-
             }
         }
     }

@@ -26,8 +26,8 @@
         display: grid;
         place-content: center;
         
-        width: 3.3rem;
-        height: 3.3rem;
+        width: $large-size;
+        height: $large-size;
         border-radius: 5rem;
 
         &:hover
