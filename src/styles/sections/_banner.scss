@@ -8,8 +8,15 @@
     .banner_wrapper
     {
         margin: 0rem;
-        padding: $padding-card-regular; // 4rem 3rem 4rem;
-
+        padding: 0rem;
+        @include media(">tablet-big")
+        {
+            padding: $padding-card-regular;
+        }
+        @include media(">tablet", "<=tablet-big")
+        {
+            padding: $padding-card-less;
+        }
         @include themify()
         {
             background-color: themed('background-dark');

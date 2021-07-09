@@ -96,6 +96,10 @@
     .project_card
     {
         padding: $padding-card-regular;
+        @include media("<=tablet")
+        {
+            padding: $padding-card-less;
+        }
         display: flex;
         flex-direction: column;
         border: none;
