@@ -282,11 +282,11 @@ input[type=checkbox]
 {
     .title
     {
-        font: $black-weight $gigantic-size $mono-font, monospace;
+        font: $black-weight $huge-size $mono-font, monospace;
     }
     .subtitle
     {
-        font: $medium-weight $large-size $mono-font, monospace;
+        font: $medium-weight $Medium-size $mono-font, monospace;
     }
     .home_btn
     {
@@ -349,7 +349,7 @@ input[type=checkbox]
     }
     #blog_title
     {
-        font: $bold-weight $Huge-size $serif-font, serif;
+        font: $bold-weight $Largest-size $serif-font, serif;
     }
     .info_item
     {

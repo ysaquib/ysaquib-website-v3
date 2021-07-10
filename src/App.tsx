@@ -54,7 +54,7 @@ const App : FC = () =>
         return () => {
             document.body.classList.remove(currentTheme);
         }
-    }, [currentTheme])
+    }, [currentTheme]);
 
 
     useEffect(() => {

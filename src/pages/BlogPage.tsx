@@ -25,6 +25,7 @@ import Head from '../components/layout/Head';
 
 
 
+
 const ImageEnv: FC<ImgHTMLAttributes<HTMLImageElement>> = ({...props}) => (
     <span className="md_image">
         <img {...props} src={props.src} alt={props.alt} title={props.title}  />
@@ -287,10 +288,12 @@ const BlogPage : FC<BlogPageProps> = ({isNewBlog=false, isEditing=false, allBlog
             <div id="blog_header" >
                 <h1 id="blog_title">{blogTitle}</h1>
                 <div id="blog_info">
-                    <p className="info_item">Written by Yusuf Saquib</p>
                     <p className="info_item">
-                        Created on {blogData.blog_createdAt.toLocaleDateString(undefined , {year: 'numeric', month: 'long', day: 'numeric'})} 
-                        {blogData.blog_updatedAt && blogCreatedAt !== blogUpdatedAt && <> &#8212; Updated on {blogData.blog_updatedAt.toLocaleDateString(undefined , {year: 'numeric', month: 'long', day: 'numeric'})}</>}</p>
+                        {format(blogData.blog_createdAt, "dd MMMM yyyy")} 
+                    </p>
+                    {/* {blogData.blog_updatedAt && blogCreatedAt !== blogUpdatedAt && 
+                    <p className="info_item">
+                        Updated {format(blogData.blog_updatedAt, "dd MMM yyyy")}</p>} */}
                 </div>
             </div>
 
