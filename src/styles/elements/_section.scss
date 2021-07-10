@@ -4,9 +4,10 @@
  */
 section 
 {
-    margin: auto;
+    margin: 0rem auto auto;
     width: 80%;
     text-align: left;
+    // flex: 1;
 
     @include media(">tablet-big", "<desktop")
     {
@@ -16,10 +17,6 @@ section
     {
         width: 100%;
     }
-
-
-    margin-bottom: 5rem;
-
 
     &.mini
     {
@@ -107,7 +104,11 @@ section
     padding-left: 24px;
     padding-right: 24px;
     width: 100%;
-    display: block;
+
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+
     box-sizing: border-box;
     margin-left: auto;
     margin-right: auto;

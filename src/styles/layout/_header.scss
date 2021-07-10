@@ -1,7 +1,8 @@
 #pseudo_header
 {
     height: $gigantic-size;
-    margin-bottom: 3rem;
+    flex: 0 0 auto;
+    margin-bottom: $large-size;
     // @include media("<=tablet")
     // {
     //     display: none;
@@ -21,7 +22,7 @@
     position: fixed;
     top: 0rem;
 
-    transition: all $trans-effect $trans-regular;
+    transition: all $trans-effect $trans-fast;
     
 
     .header_wrapper
