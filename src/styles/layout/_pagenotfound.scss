@@ -1,16 +1,17 @@
 #pagenotfound
 {
     text-align: center;
+    margin-top: 25vh;
     .title
     {
         transition: color $trans-effect $trans-regular;
-        margin-bottom: 0;
+        margin: 0;
     }
     
     .subtitle
     {
         transition: color $trans-effect $trans-regular;
-        margin-top: 0;
+        margin: 0;
     }
     
 
