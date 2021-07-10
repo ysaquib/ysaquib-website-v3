@@ -23,10 +23,38 @@ const Header : FC = () =>
     const {authenticated, userRoles} = useSelector((state : RootState) => state.auth);
     const {hasNewMessages, newMessagesCount} = useSelector((state : RootState) => state.messages);
 
+    const mobileBreakpoint: number = 768;
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= mobileBreakpoint);
+
     const currentPath = useLocation();
 
     const [selectedPath, setSelectedPath] = useState<string>(currentPath.pathname);
     
+    const [windowSize, setWindowSize] = useState({
+        width: window.innerWidth,
+        height: window.innerHeight,
+    });
+
+    const handleResize = () => {
+        setWindowSize({
+            width: window.innerWidth,
+            height: window.innerHeight,
+        });
+    }
+
+    useEffect(() => {
+        setIsMobile(windowSize.width <= mobileBreakpoint);
+    }, [windowSize]);
+    
+    useEffect(() => {
+        window.addEventListener("resize", handleResize);
+        return () => 
+        {
+            window.removeEventListener("resize", handleResize)
+        };
+    }, []);
+    
+
     const handleScroll = () => 
     {
         const posY = window.pageYOffset;
@@ -35,30 +63,25 @@ const Header : FC = () =>
     
     useEffect(() => {
         setSelectedPath(currentPath.pathname);
-    }, [history.location, currentPath.pathname])
+    }, [history.location, currentPath.pathname]);
     
-    useEffect(() => 
-    {
-        document.getElementById(selectedPath)?.classList.add("selected_path");        
+    useEffect(() => {
+        document.getElementById(selectedPath)?.classList.add("selected_path");
         return () => 
         {
             document.getElementById(selectedPath)?.classList.remove("selected_path");
-
         }
     }, [selectedPath]);
 
-    useEffect(() => 
-    {
+    useEffect(() => {
         window.addEventListener('scroll', handleScroll, {passive: true});
-
         return () => 
         {
             window.removeEventListener('scroll', handleScroll);
         }
     }, []);
 
-    useEffect(() => 
-    {
+    useEffect(() => {
         if (scrollPosition > 0)
         {
             return document.getElementById("header")?.classList.add("scrolling");
@@ -69,10 +92,7 @@ const Header : FC = () =>
         }
     }, [scrollPosition]);
 
-    const handleSignOut = () =>
-    {
-        dispatch(userSignOut());
-    }
+    const handleSignOut = () => {dispatch(userSignOut());}
 
     const list_items: JSX.Element = default_data.header.sections.map(([title, path] : [string, string]) => {
         return (
@@ -105,6 +125,30 @@ const Header : FC = () =>
         : ( <></> );
 
     //onClick={() => history.push(path)}
+    if (isMobile)
+    {
+        return (
+            <header id="pseudo_header">
+                <div id="header">
+                    <div className="header_wrapper">
+                        <ThemeSwitcher useButton={false}>
+                            <p className="header_title">
+                                {default_data.header.title}
+                            </p>
+                        </ThemeSwitcher>
+                        
+                    </div>
+                    <ol className="header_list header_drawer">
+                        {list_items}
+                        {signin_tab}
+                        {messages_tab}
+                        {admin_tab}
+                        {signout_tab}
+                    </ol>
+                </div>
+            </header>
+        );
+    }
 
     return (
         <header id="pseudo_header">
@@ -125,13 +169,6 @@ const Header : FC = () =>
                     </ol>
 
                 </div>
-                <ol className="header_list header_drawer">
-                    {list_items}
-                    {signin_tab}
-                    {messages_tab}
-                    {admin_tab}
-                    {signout_tab}
-                </ol>
             </div>
         </header>
     );

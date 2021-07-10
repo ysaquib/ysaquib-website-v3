@@ -52,6 +52,10 @@
         display: inline-flex;
         flex-direction: row;
         gap: 2rem;
+        @include media("<=tablet-big")
+        {
+            gap: 1rem;
+        }
         
         @include media("<=tablet")
         {
@@ -84,9 +88,9 @@
 
             .header_item
             {
-                padding: 2rem;
+                padding: 1.5rem;
             }
-            justify-content: start;
+            justify-content: flex-start;
 
         }
     }
