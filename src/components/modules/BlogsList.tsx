@@ -107,8 +107,13 @@ const BlogsList : FC = () =>
     const { authenticated, userRoles } = useSelector((state : RootState) => state.auth);
     
     const bpp_options: number[] = [5, 10, 25];
-    const [ currentBPP, setCurrentBPP ] = useState<string>("button_bpp_0");
-    const [ blogsPerPage, setBlogsPerPage] = useState<number>(bpp_options[0]);
+
+    const local_bpp: number = parseInt(localStorage.getItem("blogs_per_page") ?? "5");
+    const bpp_index: number = bpp_options.findIndex((x) => x === local_bpp);
+    const final_index: number = bpp_index === -1 ? 0 : bpp_index;
+
+    const [ currentBPP, setCurrentBPP ] = useState<string>(`button_bpp_${final_index}`);
+    const [ blogsPerPage, setBlogsPerPage] = useState<number>(bpp_options[final_index]);
 
     const [ blogs, setBlogs ] = useState<BlogData[]>(allBlogs);    
 
@@ -132,10 +137,10 @@ const BlogsList : FC = () =>
     useEffect(() => {
         const total = Math.ceil(blogs.length / blogsPerPage);
         setTotalPages(total);
+        localStorage.setItem("blogs_per_page", blogsPerPage.toString());
     }, [blogs, blogsPerPage]);
     
     useEffect(() => {
-        console.log("Get BPP");
         document.getElementById(currentBPP)?.classList.add("selected");
         return () => {
             document.getElementById(currentBPP)?.classList.remove("selected");
@@ -144,7 +149,6 @@ const BlogsList : FC = () =>
     
     useEffect(() => {
         
-        console.log("Doing stuff");
         const blogsList = allBlogs
             .filter((blog) => {return (!blog.blog_isHidden ?? true) || (authenticated && userRoles.includes("superadmin"))});
         
@@ -177,7 +181,7 @@ const BlogsList : FC = () =>
                             {bpp_options.map((option, index) => 
                                 <li key={option}>
                                     <button id={`button_bpp_${index}`}
-                                            className={index === 0 ? "selected" : ""}
+                                            className={index === final_index ? "selected" : ""}
                                             value={option}
                                             onClick={(e) => {
                                                 setCurrentBPP(e.currentTarget.id);
