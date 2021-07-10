@@ -3,27 +3,22 @@
     height: $gigantic-size;
     flex: 0 0 auto;
     margin-bottom: $large-size;
-    // @include media("<=tablet")
-    // {
-    //     display: none;
-    // }
 }
 
 #header
 {
-    // @include media("<=tablet")
-    // {
-    //     display: none;
-    // }
     height: $gigantic-size;
-    padding: 1rem 2rem;
     width: 100%;
     z-index: 10;
     position: fixed;
     top: 0rem;
-
+    
     transition: all $trans-effect $trans-fast;
     
+    &.scrolling
+    {
+        height: $huge-size;
+    }
 
     .header_wrapper
     {
@@ -33,59 +28,84 @@
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
+        padding: 1rem 2rem;    
+    }
 
-        .header_title
-        {
-            padding: 1rem;
-            user-select: none;
-            &:hover
-            {
-                cursor: pointer;
-            }
-            a
-            {
-                text-decoration: none;
-            }
-            
-        }
+    .header_title
+    {
+        border-radius: $radius-regular;
+        margin: 0rem;
+        padding: 1rem;
+        user-select: none;
+        &:hover
+        {cursor: pointer;}
+        a
+        {text-decoration: none;}
         
-        .header_list 
+    }
+    
+    .header_list 
+    {
+        margin: 0rem;
+        padding: 0rem;
+        overflow: hidden;
+        display: inline-flex;
+        flex-direction: row;
+        gap: 2rem;
+        
+        @include media("<=tablet")
+        {
+            display: none;
+        }
+    }
+    
+    .header_item
+    {
+        border-radius: $radius-regular;
+        list-style-type: none;
+        user-select: none;
+        cursor: pointer;
+        display: inline;
+        padding: 1rem 1rem;
+        counter-increment: inst;
+    }
+
+    .header_drawer
+    {
+        display: none;
+
+        @include media("<=tablet")
         {
             padding: 0rem;
-            margin: 0rem;
-            // padding: 1rem;
-            overflow: hidden;           
-            
-            :not(:last-child)
-            {
-                margin-right: 2.0rem;
-            }
-            
-            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            gap: 0rem;
+
             .header_item
             {
-                list-style-type: none;
-                user-select: none;
-                cursor: pointer;
-                display: inline;
-                counter-increment: inst;
-                
+                padding: 2rem;
             }
-        }
+            justify-content: start;
 
+        }
     }
+
+
+
     @include themify 
     {
         .header_wrapper .header_title,
-        .header_wrapper .header_list .header_item
+        .header_list .header_item
         {
-            padding: 0.5rem;
             color: themed("grey-700");
-            transition: color $trans-effect $trans-regular;
+            border: 1px solid transparent;
+            transition: color $trans-effect $trans-regular, border-color $trans-effect $trans-regular;
 
             &:hover
             {
                 color: themed("primary");
+                border-color: currentColor;
             }
             &:focus-visible
             {
@@ -100,8 +120,11 @@
             &.selected_path
             {
                 color: themed("secondary");
+                border-color: currentColor;
             }
         }
+
+
         
         .sign_out
         {
@@ -118,11 +141,14 @@
         
         background-color: transparent;
         box-shadow: none;
-        &.scrolling
+        &.scrolling, &.open
         {
             box-shadow: $header-box-shadow;
             background-color: themed("grey-200");
-            height: 5rem;
+        }
+        .header_drawer
+        {
+            background-color: themed("grey-200");
         }
     }
 }

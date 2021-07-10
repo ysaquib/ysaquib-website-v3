@@ -73,59 +73,66 @@ const Header : FC = () =>
     {
         dispatch(userSignOut());
     }
+
+    const list_items: JSX.Element = default_data.header.sections.map(([title, path] : [string, string]) => {
+        return (
+        <li className="header_item" 
+            key={title} 
+            id={path} 
+            onClick=
+            {() => history.push(path)}>
+            {title}
+        </li>);
+    });
     
+
+    const signin_tab: JSX.Element = !authenticated 
+        ? ( <li className="header_item" id="/signin" onClick={() => {history.push("/signin")}}>Sign In</li> ) 
+        : ( <></> );
+
+    const messages_tab: JSX.Element = authenticated && userRoles.includes("superadmin") 
+        ? ( <li className="header_item" id="/inbox" onClick={() => history.push("/inbox")}> 
+                {`${hasNewMessages ? `${newMessagesCount} New ` : ""}Message${newMessagesCount > 1 || !hasNewMessages ? "s" : ""}`}
+            </li>) 
+        : ( <></> );
+
+    const admin_tab: JSX.Element = authenticated && userRoles.includes("superadmin")
+        ? ( <li className="header_item" id="/admin" onClick={() => history.push("/admin")}>Admin Dashboard</li> )
+        : ( <></> );
+
+    const signout_tab: JSX.Element = authenticated
+        ? ( <li className="header_item sign_out" onClick={handleSignOut}>Sign Out</li> ) 
+        : ( <></> );
+
     //onClick={() => history.push(path)}
 
     return (
         <header id="pseudo_header">
-        <div id="header">
-        <div className="header_wrapper">
-            <ThemeSwitcher useButton={false}>
-                <p className="header_title">
-                    {default_data.header.title}
-                </p>
-            </ThemeSwitcher>
+            <div id="header">
+                <div className="header_wrapper">
+                    <ThemeSwitcher useButton={false}>
+                        <p className="header_title">
+                            {default_data.header.title}
+                        </p>
+                    </ThemeSwitcher>
 
+                    <ol className="header_list">
+                        {list_items}
+                        {signin_tab}
+                        {messages_tab}
+                        {admin_tab}
+                        {signout_tab}
+                    </ol>
 
-            <ol className="header_list">
-                {default_data.header.sections.map(([title, path] : [string, string]) => {
-                    return (
-                    <li className="header_item" 
-                        key={title} 
-                        id={path} 
-                        onClick=
-                        {() => history.push(path)}>
-                        {title}
-                    </li>);
-                })}
-
-                {!authenticated ? 
-                    <li className="header_item" id="/signin" onClick={() => {history.push("/signin")}} >
-                            Sign In
-                    </li> : <></>   
-                }
-
-                {authenticated && userRoles.includes("superadmin") ? 
-                    <li className="header_item" id="/inbox" onClick={() => history.push("/inbox")} >
-                        {`${hasNewMessages ? `${newMessagesCount} New ` : ""}Message${newMessagesCount > 1 || !hasNewMessages ? "s" : ""}`}
-                    </li> : <></>   
-                }
-
-                {authenticated && userRoles.includes("superadmin") ? 
-                    <li className="header_item" id="/admin" onClick={() => history.push("/admin")} >
-                        Admin Dashboard
-                    </li> : <></>   
-                }
-
-
-                {authenticated ? 
-                    <li className="header_item sign_out" onClick={handleSignOut} >
-                            Sign Out
-                    </li> : <></>   
-                }
-            </ol>
-        </div>
-        </div>
+                </div>
+                <ol className="header_list header_drawer">
+                    {list_items}
+                    {signin_tab}
+                    {messages_tab}
+                    {admin_tab}
+                    {signout_tab}
+                </ol>
+            </div>
         </header>
     );
     
