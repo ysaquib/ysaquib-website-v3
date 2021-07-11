@@ -119,6 +119,8 @@ $trans-effect-drawer: ease-in-out;
 $trans-fastest: 0.15s;
 $trans-fast: 0.2s;
 $trans-regular: 0.3s;
+$trans-slow: 0.45s;
+$trans-slowest: 0.6s;
 
 $anim-long: 2s;
 
@@ -151,6 +153,7 @@ $messages-list-shadow:    0.1rem 0.1rem 0.5rem 0.0rem rgba(#000, 20%);
 $button-hover-box-shadow: 0.1rem 0.1rem 0.7rem 0.0rem rgba(#000, 30%);
 $header-box-shadow:       0.0rem 0.1rem 1.0rem 0.5rem rgba(#000, 10%);
 $dialog-box-shadow:       0.0rem 0.1rem 3.0rem 0.5rem rgba(#000, 25%);
+$menu-box-shadow:        -2.0rem 0.0rem 5.0rem 0.5rem rgba(#000, 75%);
 
 // # Padding and Margin Variables ---------------------------------------------
 
