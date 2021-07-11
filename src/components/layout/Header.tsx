@@ -11,7 +11,7 @@ import { userSignOut } from '../../store/actions/authActions';
 import ThemeSwitcher from '../elements/ThemeSwitcher';
 
 import scss_exports from "../../styles/abstracts/_exports.module.scss";
-import { IconClose, IconMenu } from '../elements/Icons';
+import { IconMenu } from '../elements/Icons';
 
 
 let default_data = require('../../default_data.json');
@@ -53,6 +53,18 @@ const Header : FC = () =>
     useEffect(() => {
         setIsMobileHeader(windowSize.width <= parseInt(scss_exports.breakpointTablet));
     }, [windowSize]);
+    
+    
+    /**
+     * Toggle view of Mobile Header
+     */
+    useEffect(() => {
+        console.log(isOpen);
+        if (isOpen)
+            document.getElementById("header_menu_wrapper")?.classList.add("open");
+        else
+            document.getElementById("header_menu_wrapper")?.classList.remove("open");
+    }, [isOpen]);
 
     /**
      * Change which header page tab is currently selected
@@ -65,6 +77,7 @@ const Header : FC = () =>
     
     useEffect(() => {
         document.getElementById(selectedPath)?.classList.add("selected_path");
+        console.log(document.getElementById(selectedPath));
         return () => 
         {
             document.getElementById(selectedPath)?.classList.remove("selected_path");
@@ -96,14 +109,14 @@ const Header : FC = () =>
      */
     
     useEffect(() => {
-        window.addEventListener('scroll', handleScroll, {passive: true});
+        window.addEventListener("scroll", handleScroll, {passive: true});
         window.addEventListener("resize", handleResize);
         handleScroll();
         handleResize();
 
         return () => 
         {
-            window.removeEventListener('scroll', handleScroll);
+            window.removeEventListener("scroll", handleScroll);
             window.removeEventListener("resize", handleResize)
         }
     }, []);
@@ -117,7 +130,7 @@ const Header : FC = () =>
 
     const list_items: JSX.Element = default_data.header.sections.map(([title, path] : [string, string]) => {
         return (
-        <li className="header_item" 
+        <li className={`header_item ${selectedPath === path ? "selected_path" : ""}`} 
             key={title} 
             id={path} 
             onClick=
@@ -127,17 +140,17 @@ const Header : FC = () =>
     });
     
     const signin_tab: JSX.Element = !authenticated 
-        ? ( <li className="header_item" id="/signin" onClick={() => {history.push("/signin")}}>Sign In</li> ) 
+        ? ( <li className={`header_item ${selectedPath === "/signin" ? "selected_path" : ""}`} id="/signin" onClick={() => {history.push("/signin")}}>Sign In</li> ) 
         : ( <></> );
 
     const messages_tab: JSX.Element = authenticated && userRoles.includes("superadmin") 
-        ? ( <li className="header_item" id="/inbox" onClick={() => history.push("/inbox")}> 
+        ? ( <li className={`header_item ${selectedPath === "/inbox" ? "selected_path" : ""}`} id="/inbox" onClick={() => history.push("/inbox")}> 
                 {`${hasNewMessages ? `${newMessagesCount} New ` : ""}Message${newMessagesCount > 1 || !hasNewMessages ? "s" : ""}`}
             </li>) 
         : ( <></> );
 
     const admin_tab: JSX.Element = authenticated && userRoles.includes("superadmin")
-        ? ( <li className="header_item" id="/admin" onClick={() => history.push("/admin")}>Admin Dashboard</li> )
+        ? ( <li className={`header_item ${selectedPath === "/admin" ? "selected_path" : ""}`} id="/admin" onClick={() => history.push("/admin")}>Admin Dashboard</li> )
         : ( <></> );
 
     const signout_tab: JSX.Element = authenticated
@@ -156,16 +169,20 @@ const Header : FC = () =>
                             </p>
                         </ThemeSwitcher>
 
-                        <span className="svg_icon menu_icon" onClick={()=>setIsOpen(!isOpen)}>{isOpen ? IconClose : IconMenu}</span>
+                        <span className="svg_icon menu_icon" onClick={()=>setIsOpen(!isOpen)}>{IconMenu}</span>
 
                     </div>
-                    <ol className="header_list header_drawer">
-                        {list_items}
-                        {signin_tab}
-                        {messages_tab}
-                        {admin_tab}
-                        {signout_tab}
-                    </ol>
+                    <div id="header_menu_wrapper" className="header_menu_wrapper" onClick={()=>setIsOpen(!isOpen)}>
+                        <div id="header_mobile_menu" className="header_menu">
+                            <ol className="header_list">
+                                {list_items}
+                                {signin_tab}
+                                {messages_tab}
+                                {admin_tab}
+                                {signout_tab}
+                            </ol>
+                        </div>
+                    </div>
                 </div>
             </header>
         );
