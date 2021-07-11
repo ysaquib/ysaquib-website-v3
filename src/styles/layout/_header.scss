@@ -28,7 +28,11 @@
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
-        padding: 1rem 2rem;    
+        padding: 1rem 2rem;
+        @include media("<=tablet")
+        {
+            padding: 1rem;
+        }
     }
 
     .header_title
@@ -41,7 +45,10 @@
         {cursor: pointer;}
         a
         {text-decoration: none;}
-        
+        @include media("<=tablet")
+        {
+            padding: 0rem;
+        }
     }
     
     .header_list 
@@ -95,21 +102,25 @@
         }
     }
 
+    .menu_icon
+    {
+        transition: color $trans-effect $trans-regular;
+    }
 
 
     @include themify 
     {
+        color: themed("grey-750");
+
         .header_wrapper .header_title,
         .header_list .header_item
         {
-            color: themed("grey-700");
-            border: 1px solid transparent;
             transition: color $trans-effect $trans-regular, border-color $trans-effect $trans-regular;
-
+            border: 1px solid transparent;
+            
             &:hover
             {
                 color: themed("primary");
-                border-color: currentColor;
             }
             &:focus-visible
             {
@@ -120,14 +131,28 @@
                 transition: none;
                 color: themed("secondary");
             }
-
+            
             &.selected_path
             {
                 color: themed("secondary");
-                border-color: currentColor;
             }
         }
-
+        
+        .header_list .header_item
+        {
+            &:hover
+            {
+                border-color: currentColor;
+            }
+            &.selected_path
+            {
+                border-color: currentColor;
+            }
+            &:active:focus, &:active
+            {
+                border-color: currentColor;
+            }   
+        }
 
         
         .sign_out
@@ -149,9 +174,12 @@
         {
             box-shadow: $header-box-shadow;
             background-color: themed("grey-200");
+            transition: background-color $trans-effect $trans-regular;
+            
         }
         .header_drawer
         {
+            transition: background-color $trans-effect $trans-regular;
             background-color: themed("grey-200");
         }
     }

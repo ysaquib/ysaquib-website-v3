@@ -11,6 +11,7 @@ import { userSignOut } from '../../store/actions/authActions';
 import ThemeSwitcher from '../elements/ThemeSwitcher';
 
 import scss_exports from "../../styles/abstracts/_exports.module.scss";
+import { IconClose, IconMenu } from '../elements/Icons';
 
 
 let default_data = require('../../default_data.json');
@@ -20,12 +21,15 @@ const Header : FC = () =>
     const history = useHistory();
     const dispatch = useDispatch();
     
-    const [scrollPosition, setScrollPosition] = useState(0);
     const {authenticated, userRoles} = useSelector((state : RootState) => state.auth);
     const {hasNewMessages, newMessagesCount} = useSelector((state : RootState) => state.messages);
+    
+    const [scrollPosition, setScrollPosition] = useState(0);
+    const [isOpen, setIsOpen] = useState(false);
+    
 
     // This is probably a very "janky" way of importing a SCSS variable
-    const [isMobileHeader, setIsMobileHeader] = useState(window.innerWidth <= parseInt(scss_exports.breakpointTablet));
+    const [isMobileHeader, setIsMobileHeader] = useState(false);
 
     const currentPath = useLocation();
     const [selectedPath, setSelectedPath] = useState<string>(currentPath.pathname);
@@ -49,14 +53,6 @@ const Header : FC = () =>
     useEffect(() => {
         setIsMobileHeader(windowSize.width <= parseInt(scss_exports.breakpointTablet));
     }, [windowSize]);
-
-    useEffect(() => {
-        window.addEventListener("resize", handleResize);
-        return () => 
-        {
-            window.removeEventListener("resize", handleResize)
-        };
-    }, []);
 
     /**
      * Change which header page tab is currently selected
@@ -85,14 +81,6 @@ const Header : FC = () =>
     }
 
     useEffect(() => {
-        window.addEventListener('scroll', handleScroll, {passive: true});
-        return () => 
-        {
-            window.removeEventListener('scroll', handleScroll);
-        }
-    }, []);
-
-    useEffect(() => {
         if (scrollPosition > 0)
         {
             return document.getElementById("header")?.classList.add("scrolling");
@@ -103,6 +91,22 @@ const Header : FC = () =>
         }
     }, [scrollPosition]);
 
+    /**
+     * Add event listeners for scroll and resize
+     */
+    
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll, {passive: true});
+        window.addEventListener("resize", handleResize);
+        handleScroll();
+        handleResize();
+
+        return () => 
+        {
+            window.removeEventListener('scroll', handleScroll);
+            window.removeEventListener("resize", handleResize)
+        }
+    }, []);
 
     const handleSignOut = () => {dispatch(userSignOut());}
 
@@ -151,6 +155,8 @@ const Header : FC = () =>
                                 {default_data.header.title}
                             </p>
                         </ThemeSwitcher>
+
+                        <span className="svg_icon menu_icon" onClick={()=>setIsOpen(!isOpen)}>{isOpen ? IconClose : IconMenu}</span>
 
                     </div>
                     <ol className="header_list header_drawer">
