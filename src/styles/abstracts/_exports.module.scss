@@ -1,0 +1,14 @@
+// $ Exported Variables =======================================================
+
+$exported-breakpoints: (
+    "phone-small": 325px,
+    "phone": 480px,
+    "tablet": 768px,
+    "tablet-big": 1024px,
+    "desktop": 1200px,
+    "desktop-big": 1800px,
+);
+
+:export {
+    breakpointTablet: map-get($map: $exported-breakpoints, $key: "tablet");
+}

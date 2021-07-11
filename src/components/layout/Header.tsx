@@ -10,6 +10,7 @@ import { RootState } from '../../store';
 import { userSignOut } from '../../store/actions/authActions';
 import ThemeSwitcher from '../elements/ThemeSwitcher';
 
+import scss_exports from "../../styles/abstracts/_exports.module.scss";
 
 
 let default_data = require('../../default_data.json');
@@ -23,11 +24,10 @@ const Header : FC = () =>
     const {authenticated, userRoles} = useSelector((state : RootState) => state.auth);
     const {hasNewMessages, newMessagesCount} = useSelector((state : RootState) => state.messages);
 
-    const mobileBreakpoint: number = 768;
-    const [isMobile, setIsMobile] = useState(window.innerWidth <= mobileBreakpoint);
+    // This is probably a very "janky" way of importing a SCSS variable
+    const [isMobileHeader, setIsMobileHeader] = useState(window.innerWidth <= parseInt(scss_exports.breakpointTablet));
 
     const currentPath = useLocation();
-
     const [selectedPath, setSelectedPath] = useState<string>(currentPath.pathname);
     
     const [windowSize, setWindowSize] = useState({
@@ -35,6 +35,10 @@ const Header : FC = () =>
         height: window.innerHeight,
     });
 
+    /**
+     * Switch to a mobile header depending on window size, which we have 
+     * added a listener to
+     */
     const handleResize = () => {
         setWindowSize({
             width: window.innerWidth,
@@ -43,9 +47,9 @@ const Header : FC = () =>
     }
 
     useEffect(() => {
-        setIsMobile(windowSize.width <= mobileBreakpoint);
+        setIsMobileHeader(windowSize.width <= parseInt(scss_exports.breakpointTablet));
     }, [windowSize]);
-    
+
     useEffect(() => {
         window.addEventListener("resize", handleResize);
         return () => 
@@ -53,17 +57,15 @@ const Header : FC = () =>
             window.removeEventListener("resize", handleResize)
         };
     }, []);
-    
 
-    const handleScroll = () => 
-    {
-        const posY = window.pageYOffset;
-        setScrollPosition(posY);
-    }
+    /**
+     * Change which header page tab is currently selected
+     */
     
     useEffect(() => {
         setSelectedPath(currentPath.pathname);
     }, [history.location, currentPath.pathname]);
+    
     
     useEffect(() => {
         document.getElementById(selectedPath)?.classList.add("selected_path");
@@ -72,6 +74,15 @@ const Header : FC = () =>
             document.getElementById(selectedPath)?.classList.remove("selected_path");
         }
     }, [selectedPath]);
+
+    /**
+     * Changes the color of header if the user is currently scrolling
+     */
+    const handleScroll = () => 
+    {
+        const posY = window.pageYOffset;
+        setScrollPosition(posY);
+    }
 
     useEffect(() => {
         window.addEventListener('scroll', handleScroll, {passive: true});
@@ -92,7 +103,13 @@ const Header : FC = () =>
         }
     }, [scrollPosition]);
 
+
     const handleSignOut = () => {dispatch(userSignOut());}
+
+    /**
+     * Declaring the header page tab items and the other tabs based on the
+     * auth state of the user.
+     */
 
     const list_items: JSX.Element = default_data.header.sections.map(([title, path] : [string, string]) => {
         return (
@@ -105,7 +122,6 @@ const Header : FC = () =>
         </li>);
     });
     
-
     const signin_tab: JSX.Element = !authenticated 
         ? ( <li className="header_item" id="/signin" onClick={() => {history.push("/signin")}}>Sign In</li> ) 
         : ( <></> );
@@ -124,8 +140,7 @@ const Header : FC = () =>
         ? ( <li className="header_item sign_out" onClick={handleSignOut}>Sign Out</li> ) 
         : ( <></> );
 
-    //onClick={() => history.push(path)}
-    if (isMobile)
+    if (isMobileHeader)
     {
         return (
             <header id="pseudo_header">
@@ -136,7 +151,7 @@ const Header : FC = () =>
                                 {default_data.header.title}
                             </p>
                         </ThemeSwitcher>
-                        
+
                     </div>
                     <ol className="header_list header_drawer">
                         {list_items}
