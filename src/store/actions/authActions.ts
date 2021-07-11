@@ -90,7 +90,6 @@ export const getUserById = (id: string) : ThunkAction<void, RootState, null, Aut
 
 export const setLoading = (value: boolean) : ThunkAction<void, RootState, null, AuthAction> => 
 {
-    console.log("is loading: ", value);
     return dispatch => 
     {
         dispatch({

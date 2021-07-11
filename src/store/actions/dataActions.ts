@@ -398,13 +398,11 @@ export const getMessages = (onComplete?: () => void, onError?: (err: any) => voi
             const messages = await Firebase.firestore().collection("messages").orderBy("msg_sentAt", "desc").get();
             const message_items: MessageData[] = [];
             let newMessages = 0;
-            console.log("getting messages");
             messages.forEach((doc) => {
                 message_items.push({...doc.data(), msg_id: doc.id, msg_sentAt: doc.get("msg_sentAt").toDate()} as MessageData);
                 if (doc.get("msg_seen") === false)
                 {
                     newMessages++;
-                    console.log(newMessages);
                 }
             })
             
