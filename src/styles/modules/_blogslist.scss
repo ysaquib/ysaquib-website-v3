@@ -110,6 +110,10 @@
                 align-items: center;
                 list-style-type: none;
                 padding: 2rem;
+                @include media(">desktop-big")
+                {
+                    padding: 4rem;   
+                }
                 border-radius: $radius-regular;
                 
                 @include media("<=tablet")

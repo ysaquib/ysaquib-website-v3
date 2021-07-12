@@ -65,6 +65,10 @@
         display: inline-flex;
         flex-direction: row;
         gap: 2rem;
+        @include media(">desktop-big")
+        {
+            gap: 4rem;   
+        }
         @include media("<=tablet-big")
         {
             gap: 1rem;
@@ -134,13 +138,18 @@
 
     @include themify 
     {
-        color: themed("grey-750");
+        
+        .menu_icon
+        {
+            color: themed("grey-750");
+        }
 
         .header_wrapper .header_title,
         .header_list .header_item
         {
             transition: color $trans-effect $trans-regular, border-color $trans-effect $trans-regular;
             border: 1px solid transparent;
+            color: themed("grey-750");
             
             &:hover
             {

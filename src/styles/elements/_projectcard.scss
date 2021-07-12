@@ -96,6 +96,10 @@
     .project_card
     {
         padding: $padding-card-regular;
+        @include media(">desktop-big")
+        {
+            padding: 6rem;
+        }
         @include media("<=tablet")
         {
             padding: $padding-card-less;
