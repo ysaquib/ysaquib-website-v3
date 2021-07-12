@@ -34,12 +34,21 @@
         align-items: center;
         justify-content: center;
         padding: 1rem;
-        margin-bottom: 2rem;
+        margin-bottom: 1rem;
         width: 100%;
         
         border-radius: $radius-regular;
     }
 
+    #blog_button_back
+    {
+        display: inline-flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 2rem;
+        transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
+    }
 
     #blog_header
     {   
@@ -100,6 +109,21 @@
             {
                 transition: none;
                 background-color: mix( themed("primary"),themed("grey-150"), $color-mix-less);
+            }
+        }
+
+        #blog_button_back
+        {
+            color: themed("grey-700");
+            &:hover
+            {
+                cursor: pointer;
+                color: themed("primary");
+            }
+            &:active
+            {
+                color: themed("secondary");
+                transition: none;
             }
         }
 

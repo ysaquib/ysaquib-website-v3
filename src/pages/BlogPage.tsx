@@ -22,6 +22,7 @@ import TextField from '../components/elements/TextField';
 import CheckBox from '../components/elements/Checkbox';
 import { ThemeContext } from '../contexts/ThemeContext';
 import Head from '../components/layout/Head';
+import { IconChevronLeft } from '../components/elements/Icons';
 
 
 
@@ -282,7 +283,7 @@ const BlogPage : FC<BlogPageProps> = ({isNewBlog=false, isEditing=false, allBlog
 
             <Head title={`${blogData.blog_title} — Blog`} />
 
-
+            <div id="blog_button_back" onClick={()=> history.push("/blog")}><span className="svg_icon">{IconChevronLeft}</span> Back to All Blogs</div>
             {canUserEdit && editBlogButton}
             
             <div id="blog_header" >

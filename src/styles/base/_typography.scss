@@ -343,6 +343,10 @@ input[type=checkbox]
 
 #blog
 {
+    #blog_button_back
+    {
+        font: $regular-weight $small-size $mono-font, monospace;
+    }
     #blog_edit_button
     {
         font: $medium-weight $Small-size $mono-font, monospace;
