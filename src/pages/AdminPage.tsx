@@ -3,7 +3,7 @@
  * Author: Yusuf Saquib
  */
 
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 
 import AdminBanner from '../components/superadmin/AdminBanner';
 import AdminAbout from '../components/superadmin/AdminAbout';
@@ -13,6 +13,10 @@ import Head from '../components/layout/Head';
  
 const Admin : FC = () =>
 {
+    useEffect(() => {
+        window.scrollTo(0,0);
+    }, []);
+    
     return (
         <Section title="Admin Dashboard">
             <Head title="Admin Dashboard" />

@@ -53,6 +53,10 @@ const Projects : FC<ProjectsProps> = ({showAllProjects=false, id, sectionTitle="
         }
     }, [allProjects, projectsLimit, showAllProjects]);
 
+    useEffect(() => {
+        window.scrollTo(0,0);
+    }, []);
+
     
 
     /**

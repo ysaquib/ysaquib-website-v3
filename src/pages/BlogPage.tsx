@@ -33,6 +33,9 @@ const ImageEnv: FC<ImgHTMLAttributes<HTMLImageElement>> = ({...props}) => (
     </span>
 );
 
+/**
+ * Override component for markdown codeblock
+ */
 interface CodeEnvProps
 {
     children: React.ReactElement;
@@ -55,14 +58,16 @@ const CodeEnv: FC<CodeEnvProps> = ({className, children, theme}) =>
         <code>{children}</code>
     );
 }
-    
+
+/**
+ * Override component for markdown image 
+ */
 interface BlogPageProps extends BlogData
 {
     allBlogs: BlogData[];
     isNewBlog?: boolean;
     isEditing?: boolean;
 }
-
 const BlogPage : FC<BlogPageProps> = ({isNewBlog=false, isEditing=false, allBlogs, ...blogData}) =>
 {
     const { authenticated, userRoles } = useSelector((state : RootState) => state.auth);
@@ -90,6 +95,9 @@ const BlogPage : FC<BlogPageProps> = ({isNewBlog=false, isEditing=false, allBlog
 
     const codeTheme = theme === "theme-dark" ? atomOneDark : atomOneLight;
 
+    /**
+     * Could be done with a useEffect but is not necessary
+     */
     const handleClickEditBlog = () =>
     {
         console.log(blogContent);
@@ -104,7 +112,9 @@ const BlogPage : FC<BlogPageProps> = ({isNewBlog=false, isEditing=false, allBlog
             Edit Blog
         </div>);
     
-
+    /**
+     * onChange handlers for controlled inputs
+     */
     const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) =>
     {
         const title: string = event.target.value ?? "";
@@ -121,11 +131,19 @@ const BlogPage : FC<BlogPageProps> = ({isNewBlog=false, isEditing=false, allBlog
         setBlogURL(url);
     }
 
+    /**
+     * Simply previews the current edit.
+     */
     const handlePreview = () =>
     {
         setEditingBlog(false);
     }
 
+    /**
+     * Handles saving the current edit.
+     * If its a new blog, then waits for the corresponding url to be created,
+     * *before* redirecting the user.
+     */
     const handleSave = () =>
     {
         if (blogCreatedAt.match(/yyyy|MM|dd/g) !== null || blogUpdatedAt.match(/yyyy|MM|dd/g) !== null)
@@ -159,6 +177,9 @@ const BlogPage : FC<BlogPageProps> = ({isNewBlog=false, isEditing=false, allBlog
         setLoading(false);
     }
 
+    /**
+     * Handles cancelling the current edit. Returns user to blog list page.
+     */
     const handleCancel = () => 
     {
         setBlogTitle(blogData.blog_title);
@@ -169,6 +190,20 @@ const BlogPage : FC<BlogPageProps> = ({isNewBlog=false, isEditing=false, allBlog
             history.push("/blog");
     }
 
+    /**
+     * Handles going back to all blogs.
+     * I want to make this remember the page that the user was on but I'm not 
+     * sure how to do so. So for now, I will just set it to go back to the 
+     * first page.
+     */
+    const handleBack = () =>
+    {
+        history.push("/blog");
+    }
+
+    /**
+     * Disable the save and preview button until something is changed.
+     */
     useEffect(() => 
     {
         setButtonDisabled(isLoading || blogTitle === "" || blogContent === "" || blogURL === "");
@@ -177,6 +212,16 @@ const BlogPage : FC<BlogPageProps> = ({isNewBlog=false, isEditing=false, allBlog
             setButtonDisabled(false);
         }
     }, [isLoading, blogTitle, blogContent, blogURL, blogCreatedAt, blogUpdatedAt, blogIsFeatured, blogInProgress]);
+
+
+    /**
+     * On first render:
+     *      - Immediately scroll to top of page.
+     */
+    useEffect(() =>
+    {
+        window.scrollTo(0,0);
+    }, []);
 
     if (blogData.blog_id == null)
     {
@@ -283,7 +328,7 @@ const BlogPage : FC<BlogPageProps> = ({isNewBlog=false, isEditing=false, allBlog
 
             <Head title={`${blogData.blog_title} — Blog`} />
 
-            <div id="blog_button_back" onClick={()=> history.push("/blog")}><span className="svg_icon">{IconChevronLeft}</span> Back to All Blogs</div>
+            <div id="blog_button_back" onClick={handleBack}><span className="svg_icon">{IconChevronLeft}</span> Back to All Blogs</div>
             {canUserEdit && editBlogButton}
             
             <div id="blog_header" >

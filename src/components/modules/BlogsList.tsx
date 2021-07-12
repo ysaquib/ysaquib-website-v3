@@ -67,6 +67,13 @@ const BlogListItem: FC<BlogListItemProps> = ({blog}) =>
         }
     }
 
+    /**
+     * Scroll to top of page on first load.
+     */
+    useEffect(() => {
+        window.scrollTo(0,0);
+    }, []);
+
     const history = useHistory();
     return (
         <li className="blogs_list_item_wrapper"
@@ -75,7 +82,7 @@ const BlogListItem: FC<BlogListItemProps> = ({blog}) =>
            
             {dialog}
             
-            <div className={`blogs_list_item ${blog.blog_isFeatured ? "featured" : ""} ${blog.blog_inProgress ? "wip" : ""}`} onClick={() => {history.push(`/blog/${blog.blog_url}`); window.scrollTo(0,0);}}>
+            <div className={`blogs_list_item ${blog.blog_isFeatured ? "featured" : ""} ${blog.blog_inProgress ? "wip" : ""}`} onClick={() => history.push(`/blog/${blog.blog_url}`)}>
                 <h1 className="blogs_list_title">
                     {blog.blog_title}
                 </h1>
