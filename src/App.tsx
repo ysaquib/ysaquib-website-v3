@@ -65,7 +65,7 @@ const App : FC = () =>
             {
                 dispatch(setLoading(true));
                 dispatch(getMessages());
-                await dispatch(getUserById(user.uid));
+                dispatch(getUserById(user.uid));
                 if(!user.emailVerified) 
                 {
                     dispatch(setNeedVerification());
