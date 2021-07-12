@@ -88,7 +88,7 @@ const Projects : FC<ProjectsProps> = ({showAllProjects=false, id, sectionTitle="
 
             { !showAllProjects &&
                 <div className="projects_button">
-                    <Button text="See All Projects" onClick={() => history.push("/projects")}/>
+                    <Button text="See All Projects" onClick={() => {history.push("/projects"); window.scrollTo(0,0);}}/>
                 </div>
             }
         </Section>

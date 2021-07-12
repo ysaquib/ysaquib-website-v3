@@ -75,7 +75,7 @@ const BlogListItem: FC<BlogListItemProps> = ({blog}) =>
            
             {dialog}
             
-            <div className={`blogs_list_item ${blog.blog_isFeatured ? "featured" : ""} ${blog.blog_inProgress ? "wip" : ""}`} onClick={() => history.push(`/blog/${blog.blog_url}`)}>
+            <div className={`blogs_list_item ${blog.blog_isFeatured ? "featured" : ""} ${blog.blog_inProgress ? "wip" : ""}`} onClick={() => {history.push(`/blog/${blog.blog_url}`); window.scrollTo(0,0);}}>
                 <h1 className="blogs_list_title">
                     {blog.blog_title}
                 </h1>
@@ -124,6 +124,7 @@ const BlogsList : FC = () =>
     const handlePageChange = (_event: React.ChangeEvent<unknown>, value: number) =>
     {
         history.push(`/blog?page=${value}`);
+        window.scrollTo(0,0);
         setPage(value);
     }
 
