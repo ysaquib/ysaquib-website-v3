@@ -29,6 +29,8 @@
     footer 
     {
         margin: 3.2rem 0rem 0rem;
+        border-top: 1px solid;
+        padding-top: 1.2rem;
         font: $regular-weight $Small-size $sans-font, sans-serif;
     }
     
@@ -44,7 +46,7 @@
     {
         border: transparent;
         border-top: 1px solid;
-        margin: 0rem;
+        margin: 2.4rem 0rem;
         transition: border-color $trans-effect $trans-regular;
 
     }
@@ -155,17 +157,17 @@
 
     h4
     {
-        font: $bold-weight $large-size $sans-font, sans-serif;
+        font: $semi-weight $large-size $sans-font, sans-serif;
     }
     
     h5
     {
-        font: $semi-weight $Medium-size $mono-font, monospace;
+        font: $medium-weight $Medium-size $mono-font, monospace;
     }
     
     h6
     {
-        font: $semi-weight $Medium-size $serif-font, serif;
+        font: $regular-weight $Medium-size $serif-font, serif;
     }
     
     h1, h2, h3, h4, h5, h6
@@ -179,9 +181,9 @@
     {
         color: themed("grey-750");
         
-        hr 
+        hr, footer 
         {
-            border-color: themed("grey-900");
+            border-color: themed("grey-700");
         }
 
         p > code, pre
