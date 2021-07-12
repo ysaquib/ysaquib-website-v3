@@ -6,10 +6,10 @@
 #contact
 {
 
-    @include media("<=tablet")
-    {
-        grid-column: span 2;
-    }
+    // @include media("<=tablet")
+    // {
+    //     grid-column: span 2;
+    // }
 
     .message_sent
     {
@@ -24,6 +24,14 @@
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 1.5rem;
+
+        @include media("<=tablet")
+        {
+            .half
+            {
+                grid-column: span 2;
+            }
+        }
         
         .confirmbtn
         {

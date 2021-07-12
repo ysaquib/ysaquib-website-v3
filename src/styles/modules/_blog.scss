@@ -190,13 +190,22 @@
         align-items: center;
         justify-content: space-between;
         margin-top: 2rem;
+        @include media("<=tablet")
+        {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 1rem;
+            justify-content: flex-start;
+        }
         
         .button_group
         {
-            display: inline;
-            :first-child
+            display: inline-flex;
+            gap: 1.5rem;
+            @include media("<=tablet")
             {
-                margin-right: 1.5rem;
+                gap: 1rem;
+                flex-direction: column;
             }
         }
     }
@@ -204,8 +213,19 @@
     .blog_input_group
     {
         display: flex;
+        flex-direction: row;
         gap: 2rem;
         align-items: center;
+        @include media("<=tablet")
+        {
+            gap: 0rem;
+            flex-direction: column;
+            align-items: flex-start;
+            .half
+            {
+                margin-bottom: 2rem;
+            }
+        }
     }
     
     .blog_field

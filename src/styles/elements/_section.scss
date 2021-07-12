@@ -4,12 +4,12 @@
  */
 section 
 {
-    margin: 0rem auto auto;
-    width: 80%;
+    margin: 0rem auto 8vh;
+    width: 75%;
     text-align: left;
     // flex: 1;
-
-    @include media(">tablet-big", "<desktop")
+    
+    @include media(">tablet-big", "<=desktop")
     {
         width: 90%;
     }
@@ -17,7 +17,7 @@ section
     {
         width: 100%;
     }
-
+    
     &.mini
     {
         padding: 0rem;
