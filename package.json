@@ -21,6 +21,7 @@
     "@types/react-syntax-highlighter": "^13.5.1",
     "@types/react-transition-group": "^4.4.1",
     "@types/yup": "^0.29.11",
+    "axios": "^0.21.1",
     "date-fns": "^2.22.1",
     "firebase": "^8.6.7",
     "markdown-to-jsx": "^7.1.3",

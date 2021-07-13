@@ -3,7 +3,7 @@
  * Author: Yusuf Saquib
  */
 
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, useCallback, useEffect, useState } from 'react'
 import TextField from '../elements/TextField';
 import Section from '../elements/Section';
 import { useForm, SubmitHandler } from 'react-hook-form';
@@ -16,7 +16,8 @@ import { Prompt } from 'react-router-dom';
 import { MessageData } from '../../store/types/dataTypes';
 import { useDispatch } from 'react-redux';
 import { addNewMessage } from '../../store/actions/dataActions';
-
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
+import axios from "axios";
 
 let default_data = require('../../default_data.json');
 
@@ -42,8 +43,14 @@ const Contact : FC = () =>
 {
     const dispatch = useDispatch();
     const resolver = yupResolver(schema);
-    const {register, handleSubmit, reset, formState: {errors, isDirty, isSubmitting} } = useForm<FormInputs>({mode:"all" ,resolver});
+    const {register, handleSubmit, reset, formState: {errors, isDirty, isValid} } = useForm<FormInputs>({mode: "all" ,resolver});
     const [isSent, setSent] = useState(false);
+    const [isButtonDisabled, setButtonDisabled] = useState(false);
+    const { executeRecaptcha } = useGoogleReCaptcha();
+
+    useEffect(() => {
+        setButtonDisabled(!(isValid && isDirty));
+    }, [isValid, isDirty]);
 
     useEffect(() => {
         if (isDirty)
@@ -53,7 +60,7 @@ const Contact : FC = () =>
 
         if (isSent)
         {
-            window.onbeforeunload = () => true;
+            window.onbeforeunload = () => undefined;
         }
         
         return () => {
@@ -80,15 +87,32 @@ const Contact : FC = () =>
         setSent(true);
         dispatch(addNewMessage(message));
         reset();
-        /**
-         * TODO: Add recaptcha
-         */
+    }
+    
+    const handleReCaptchaVerify = async () => {
+        if (executeRecaptcha) 
+        {
+            setButtonDisabled(true);
+            const token = await executeRecaptcha('Contact');
+            const score = await axios.get(`http://localhost:5001/ysaquib-website/us-central1/sendRecaptcha?token=${token}`).then((res) => {return res.data.score});
+            console.warn("SCORE: ", score);
+            if (score >= 0.5)
+            {
+                handleSubmit(onSubmit)();
+            }
+        }
+        else
+        {
+            setButtonDisabled(false);
+            console.log('Execute recaptcha not yet available');
+        }
     }
 
     if (isSent)
     {
         return(
             <Section id="contact" className="mini" title={default_data.contact.title}>
+
                 <h2 className="message_sent">Your message has been sent!<br />I will be in touch with you as soon as possible.</h2>
             </Section>
         );
@@ -141,10 +165,13 @@ const Contact : FC = () =>
 
                 
                 <Prompt
-                    when={isDirty}
+                    when={isDirty && !isSent}
                     message='You have unsaved changes, are you sure you want to leave?'/>
+                <div className="google_recaptcha_branding">
+                    This site is protected by reCAPTCHA and the Google <a href="https://policies.google.com/privacy">Privacy Policy</a> and <a href="https://policies.google.com/terms">Terms of Service</a> apply.
+                </div>
                     
-                <Button text="Send Message" disabled={ !isDirty || isSubmitting } className="confirmbtn" />
+                <Button text="Send Message" disabled={isButtonDisabled} className="confirmbtn" onClick={(e) => {e.preventDefault(); handleReCaptchaVerify();}} />
             </form>
         </Section>
     );

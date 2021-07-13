@@ -47,7 +47,9 @@ const TextField: FC<TextFieldProps> = ({ label, onChangeEvent, type, name, class
             </label>
             {register 
             ?
-                <input {...props} type={type} {...register(name, registration)}
+                <input {...props}
+                    type={type}
+                    {...register(name, registration)}
                     id={`${name}_input`}
                     name={name}
                     className={`${classNameInner ?? ""} ${message ? "error" : ""}`}
@@ -55,7 +57,8 @@ const TextField: FC<TextFieldProps> = ({ label, onChangeEvent, type, name, class
                     placeholder={label}
                     onChange={(event) => {onChangeEvent && onChangeEvent(event); (event.target.value === "" && !show_label) ? setShowLabel(false) : setShowLabel(true)}}/>
             :
-                <input {...props} type={type}
+                <input {...props} 
+                    type={type}
                     id={`${name}_input`}
                     name={name}
                     className={`${classNameInner ?? ""} ${message ? "error" : ""}`}

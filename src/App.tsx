@@ -33,6 +33,7 @@ import Projects from './components/sections/Projects';
 import { ThemeContext } from './contexts/ThemeContext';
 import Head from './components/layout/Head';
 import { HelmetProvider } from 'react-helmet-async';
+import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
 
 let default_data = require('./default_data.json');
 
@@ -46,6 +47,7 @@ const App : FC = () =>
     if(getTheme == null)
     {
         document.body.classList.add("theme-dark");
+        console.log(getTheme);
     }
 
     useEffect(() => {
@@ -86,6 +88,8 @@ const App : FC = () =>
     }
     
     return (
+        <GoogleReCaptchaProvider reCaptchaKey={process.env.REACT_APP_RECAPTCHA_KEY} >
+
         <BrowserRouter>
         <HelmetProvider>
 
@@ -112,6 +116,7 @@ const App : FC = () =>
 
         </HelmetProvider>
         </BrowserRouter>
+    </GoogleReCaptchaProvider>
     );
 }
 

@@ -4,6 +4,7 @@
  */
 
 import React, { FC } from 'react'
+import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
 import About from '../sections/About';
 import Contact from '../sections/Contact';
 
@@ -16,7 +17,9 @@ const ACWrapper : FC = () =>
     return (
         <section id="ac_wrapper">
             <About />
-            <Contact />
+            <GoogleReCaptchaProvider reCaptchaKey="6LfePyMbAAAAAAyhCMtDPqGNK_7IfJnR1YZJ-23Q">
+                <Contact />
+            </GoogleReCaptchaProvider>
         </section>
     );
 }

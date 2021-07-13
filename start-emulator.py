@@ -7,7 +7,7 @@ options = {
     "a" : "auth",
     # "db" : "database",
     "f" : "firestore",
-    # "fn" : "functions",
+    "fn" : "functions",
     "h" : "hosting",
     "s" : "storage"
     # "ps" : "pubsub"
@@ -18,6 +18,7 @@ firebase = "firebase"
 start = "emulators:start"
 import_dir = "--import=./firebase-dev/export"
 export_on_exit = "--export-on-exit"
+debug_flag = "--debug"
 
 only_opt = []
 

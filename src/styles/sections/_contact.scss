@@ -14,6 +14,7 @@
     .message_sent
     {
         white-space: pre-line;
+        margin-top: 0.4rem;
         @include themify()
         {
             color: themed('primary');
@@ -23,7 +24,23 @@
     {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: 1.5rem;
+        gap: 1.6rem;
+        align-items: start;
+        justify-content: start;
+        
+        .google_recaptcha_branding
+        {
+            line-height: 1.5;
+            @include themify()
+            {
+                color: themed('grey-750');
+                a 
+                {
+                    text-decoration: none;
+                    color: themed('secondary');
+                }
+            }
+        }
 
         @include media("<=tablet")
         {
@@ -37,9 +54,8 @@
         {
             grid-column: 2 / 3;
             margin: 0rem;
-            margin-top: 2rem;
             justify-self: end;
-            align-self: center;
+            align-self: start;
         }
         
     }
