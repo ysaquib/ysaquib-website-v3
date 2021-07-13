@@ -29,14 +29,14 @@
                 background-color: themed('grey-300');
             }
             height: 0.5px;
-            width: 80%;
+            width: $section-width-regular;
             @include media(">tablet-big", "<desktop")
             {
-                width: 90%;
+                width: $section-width-more;
             }
             @include media("<=tablet-big")
             {
-                width: 100%;
+                width: $section-width-most;
             }
 
         }

@@ -5,17 +5,17 @@
 section 
 {
     margin: 0rem auto 8vh;
-    width: 75%;
+    width: $section-width-regular;
     text-align: left;
     // flex: 1;
     
     @include media(">tablet-big", "<=desktop")
     {
-        width: 90%;
+        width: $section-width-more;
     }
     @include media("<=tablet-big")
     {
-        width: 100%;
+        width: $section-width-most;
     }
     
     &.mini
