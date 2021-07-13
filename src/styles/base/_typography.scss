@@ -156,7 +156,7 @@ title
             &.featured_project_text { font-size: $regular-size; }
         }
     }
-
+    
     .project_languages
     {
         font: $regular-weight $small-size $mono-font, monospace;
@@ -180,6 +180,11 @@ title
     .links_list
     {
         font: $semi-weight $Little-size $mono-font, monospace;
+    }
+    
+    &.error
+    {
+        font: $regular-weight $Regular-size $sans-font, sans-serif;
     }
 }
 

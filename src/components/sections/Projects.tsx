@@ -29,10 +29,11 @@ const Projects : FC<ProjectsProps> = ({showAllProjects=false, id, sectionTitle="
     const history = useHistory();
     const {allProjects, isLoadingProjects} = useSelector((state: RootState) => state.projects);
     const [projects, setProjects] = useState<ProjectData[]>(allProjects);
+    const [errorMsg, setErrorMsg] = useState<string>("");
 
     useEffect(() => 
     {
-        dispatch(getProjectData(undefined, () => {console.log("Error getting about data")}));
+        dispatch(getProjectData(undefined, () => {setErrorMsg("Error getting projects' data");}));
     }, [dispatch]);
     
     useEffect(() => 
@@ -76,6 +77,18 @@ const Projects : FC<ProjectsProps> = ({showAllProjects=false, id, sectionTitle="
                 </div>
             </Section>
         )
+    }
+    else if (projects && projects.length === 0)
+    {
+        return (
+            <Section title={sectionTitle} id={id} className="projects">
+                <div className="projects_wrapper">
+                    <div id={`js-none`} className={`project_card_wrapper error`}>
+                        No projects to show. {errorMsg}
+                    </div>
+                </div>
+            </Section>
+        );
     }
     return (
         <Section title={sectionTitle} id={id} className="projects">

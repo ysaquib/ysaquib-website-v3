@@ -74,6 +74,12 @@
         {
             color: themed("grey-600");
         }
+        
+        &.error
+        {
+            color: themed("grey-000");
+            background-color: themed("error");
+        }
     }
     transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
 
@@ -269,9 +275,15 @@
             {
                 width: 100%;
             }
-        }
-        
+        } 
     } 
+    &.error
+    {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        grid-column: span 6; 
+    }
 }
 
 .loading_card
