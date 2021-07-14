@@ -29,6 +29,9 @@ interface DialogProps
     overlay?: boolean;
 }
 
+/**
+ * Simply opens a new dialog box
+ */
 const DialogBox: FC<DialogProps> = ({overlay=true, className="", ...props}) => 
 {
     const [isLoading, setLoading] = useState(false);
@@ -38,24 +41,26 @@ const DialogBox: FC<DialogProps> = ({overlay=true, className="", ...props}) =>
 
             <div className={`dialog_box ${className}`}>
                 <h3 className="dialog_box_title">{props.title}</h3>
-                <p className="dialog_box_message">
-                    {props.message}
-                </p>
+                <div className="dialog_box_messages">
+                    <p className="dialog_box_message">
+                        {props.message}
+                    </p>
 
-                {props.messageWarning && 
-                <p className="dialog_box_message warning">
-                {props.messageWarning}
-                </p>}
+                    {props.messageWarning && 
+                    <p className="dialog_box_message warning">
+                    {props.messageWarning}
+                    </p>}
 
-                {props.messageError && 
-                <p className="dialog_box_message error">
-                {props.messageError}
-                </p>}
+                    {props.messageError && 
+                    <p className="dialog_box_message error">
+                    {props.messageError}
+                    </p>}
 
-                {props.messageSuccess && 
-                <p className="dialog_box_message success">
-                {props.messageSuccess}
-                </p>}
+                    {props.messageSuccess && 
+                    <p className="dialog_box_message success">
+                    {props.messageSuccess}
+                    </p>}    
+                </div>
 
                 <div className="dialog_box_buttons">
                     
