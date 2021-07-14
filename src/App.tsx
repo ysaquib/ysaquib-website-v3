@@ -58,15 +58,12 @@ const App : FC = () =>
         }
     }, [currentTheme]);
 
-    console.log("Is Loading", AuthState.loading);
     
     useEffect(() => {
         const unsubscribe = firebase.auth().onAuthStateChanged(async (user) => 
         {
-            console.log("Check user");
             if(user) 
             {
-                console.log("Is user");
                 dispatch(setLoading(true));
                 dispatch(getUserById(user.uid));
                 dispatch(getMessages());
@@ -80,14 +77,11 @@ const App : FC = () =>
             {
                 dispatch(setLoading(false));
             }
-            console.log("Done user");
         });
         
-        console.log("Done subscribe user");
         
         return () => 
         {
-            console.log("Unsubscribe");
             dispatch(setLoading(false));
             unsubscribe();
         };
@@ -99,7 +93,7 @@ const App : FC = () =>
     }
     
     return (
-        <GoogleReCaptchaProvider reCaptchaKey={process.env.REACT_APP_RECAPTCHA_KEY} >
+        <GoogleReCaptchaProvider reCaptchaKey="6LfePyMbAAAAAAyhCMtDPqGNK_7IfJnR1YZJ-23Q" >
 
         <BrowserRouter>
         <HelmetProvider>

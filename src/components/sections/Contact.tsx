@@ -3,7 +3,7 @@
  * Author: Yusuf Saquib
  */
 
-import React, { FC, useCallback, useEffect, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import TextField from '../elements/TextField';
 import Section from '../elements/Section';
 import { useForm, SubmitHandler } from 'react-hook-form';
@@ -50,10 +50,16 @@ const Contact : FC = () =>
 
     const [errorMsg, setErrorMsg] = useState<string>("");
 
+    /**
+     * Disable Button when "Send Message" is clicked.
+     */
     useEffect(() => {
         setButtonDisabled(!(isValid && isDirty));
     }, [isValid, isDirty]);
 
+    /**
+     * Shows prompt if navigating away and form has stuff in it.
+     */
     useEffect(() => {
         if (isDirty)
         {
@@ -70,6 +76,11 @@ const Contact : FC = () =>
         };
     }, [isDirty, isSent]);
 
+    /**
+     * handle form submission.
+     * Create a new empty message and fill it with the data from the form and
+     * send that to the database.
+     */
     const onSubmit : SubmitHandler<FormInputs> = (data) => 
     {
         window.onbeforeunload = () => undefined;
@@ -91,13 +102,20 @@ const Contact : FC = () =>
         reset();
     }
     
+    /**
+     * Verify the recaptcha before submitting the form. If the recaptcha is
+     * valid, then submit. Otherwise fail and show an error asking the user to
+     * try again later
+     */
     const handleReCaptchaVerify = async () => {
         setErrorMsg("");
         if (executeRecaptcha) 
         {
             setButtonDisabled(true);
             const token = await executeRecaptcha('Contact');
+            console.log(token);
             const resp = await axios.get(`http://localhost:5001/ysaquib-website/us-central1/sendRecaptcha?token=${token}`);
+            console.log(resp.data.score);
             if (resp.data.success && resp.data.score >= 0.5)
             {
                 handleSubmit(onSubmit)();

@@ -12,7 +12,7 @@ import Contact from '../sections/Contact';
 const ACWrapper : FC = () =>
 {
     /**
-     * Wrap the About and Contact sections in one neat little section
+     * Wrap the About and Contact sections in one cute little section
      */
     return (
         <section id="ac_wrapper">
