@@ -58,7 +58,7 @@ export const userSignUp = (data : SignUpData, onError: () => void) : ThunkAction
         }
         catch (error)
         {
-            console.log(error);
+            console.error(error);
             onError();
             dispatch({
                 type: User_SetError,
@@ -90,9 +90,10 @@ export const getUserById = (id: string, onError?: () => {}) : ThunkAction<void, 
         }
         catch (error)
         {
+            console.error(error);
             onError && onError();
             dispatch(setLoading(false));
-            console.log(error);
+            dispatch(setError(error));
         }
 
         dispatch(setLoading(false));
@@ -125,7 +126,7 @@ export const userSignIn = (data: SignInData, onError?: (msg?: any) => void) : Th
         }
         catch (error)
         {
-            console.log(error);
+            console.error(error);
             onError && onError();
             dispatch(setError(error));
         }
@@ -146,7 +147,7 @@ export const userSignOut = () : ThunkAction<void, RootState, null, AuthAction> =
         }
         catch (error)
         {
-            console.log(error);
+            console.error(error);
         }
     }
 }
@@ -159,7 +160,9 @@ export const setError = (error: firebase.FirebaseError) : ThunkAction<void, Root
         "auth/invalid-password" : "Invalid password.",
         "auth/invalid-password-hash" : "Invalid password.",
         "auth/invalid-password-salt" : "Invalid password.",
-        "auth/user-not-found" : "Email address is not associated with any user."
+        "auth/user-not-found" : "Email address is not associated with any user.",
+        "auth/uid-already-exists" : "UserID already exists.",
+        "auth/email-already-exists" : "Email already exists.",
     }
     return dispatch =>
     {
@@ -214,7 +217,7 @@ export const sendPasswordResetEmail = (email: string, successMessage: string) : 
         }
         catch (error)
         {
-            console.log(error);
+            console.error(error);
             dispatch(setError(error));
         }
     }

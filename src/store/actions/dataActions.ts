@@ -27,7 +27,7 @@ export const getBannerData = (onError?: () => void) : ThunkAction<void, RootStat
         catch (error)
         {
             onError && onError();
-            console.log(error);
+            console.error(error);
         }
     }
 }
@@ -44,7 +44,7 @@ export const setBannerData = (bannerData: BannerData, onError?: (msg: any) => vo
         catch (error)
         {
             onError && onError(error);
-            console.log(error);
+            console.error(error);
         }
     }
 }
@@ -65,7 +65,7 @@ export const getAboutData = (onError?: () => void) : ThunkAction<void, RootState
         catch (error)
         {
             onError && onError();
-            console.log(error);
+            console.error(error);
         }
     }
 }
@@ -82,7 +82,7 @@ export const setAboutData = (aboutData: AboutData, onError?: (msg: any) => void)
         catch (error)
         {
             onError && onError(error);
-            console.log(error);
+            console.error(error);
         }
     }
 }
@@ -111,7 +111,7 @@ export const getProjectData = (onComplete?: () => void, onError?: () => void) : 
         catch (error)
         {
             onError && onError();
-            console.log(error);
+            console.error(error);
             dispatch(setProjectsLoading(false));
         }
     }
@@ -138,12 +138,11 @@ export const setProjectData = (projectData: ProjectData, onComplete?: () => void
 
             dispatch(setProjectsLoading(false));
 
-            console.log("Success");
         }
         catch (error)
         {
             onError && onError(error);
-            console.log(error);
+            console.error(error);
         }
     }
 }
@@ -175,7 +174,7 @@ export const updateAllProjects = (allProjects: ProjectData[], onComplete?: () =>
         catch (error)
         {
             onError && onError(error);
-            console.log(error);
+            console.error(error);
         }
     }
 }
@@ -197,13 +196,12 @@ export const addNewProject = (projectData: ProjectData, allProjects: ProjectData
                 payload: {...project, project_id: storedProject.id}
             });
 
-            console.log("Success");
             onComplete && onComplete();
         }
         catch (error)
         {
             onError && onError(error);
-            console.log(error);
+            console.error(error);
         }
     }
 }
@@ -225,14 +223,12 @@ export const deleteProject = (projectData: ProjectData, allProjects: ProjectData
             });
             
 
-            // console.log(newAllProjects);
             onComplete && onComplete();
-            console.log("Successfully Deleted");
         }
         catch (error)
         {
             onError && onError(error);
-            console.log(error);
+            console.error(error);
         }
     }
 }
@@ -282,7 +278,7 @@ export const getBlogData = (onComplete?: () => void, onError?: () => void) : Thu
         catch (error)
         {
             onError && onError();
-            console.log(error);
+            console.error(error);
             dispatch(setBlogsLoading(false));
         }
     }
@@ -294,7 +290,7 @@ export const setBlogData = (blogData: BlogData, onComplete?: () => void, onError
     {
         try
         {
-            console.log(blogData);
+            console.error(blogData);
             const {blog_id, ...blog} = blogData;
             const createdAt = firebase.firestore.Timestamp.fromDate(blogData.blog_createdAt);
             
@@ -316,12 +312,11 @@ export const setBlogData = (blogData: BlogData, onComplete?: () => void, onError
             });
 
             onComplete && onComplete();
-            console.log("Success");
         }
         catch (error)
         {
             onError && onError();
-            console.log(error);
+            console.error(error);
         }
     }
 }
@@ -344,12 +339,11 @@ export const addNewBlog = (blogData: BlogData, onComplete?: () => void, onError?
             });
             
             onComplete && onComplete();
-            console.log("Success");
         }
         catch (error)
         {
             onError && onError();
-            console.log(error);
+            console.error(error);
         }
     }
 }
@@ -369,12 +363,11 @@ export const deleteBlog = (blogData: BlogData, onComplete?: () => void, onError?
             });
 
             onComplete && onComplete();
-            console.log("Successfully deleted Blog");
         }
         catch (error)
         {
             onError && onError(error);
-            console.log(error);
+            console.error(error);
         }
     }
 }
@@ -428,7 +421,7 @@ export const getMessages = (onComplete?: () => void, onError?: (err: any) => voi
         catch (error)
         {
             onError && onError(error);
-            console.log(error);
+            console.error(error);
             dispatch(setMessagesLoading(false));
         }
     }
@@ -452,7 +445,7 @@ export const addNewMessage = (messageData: MessageData, onComplete?: () => void,
         catch (error)
         {
             onError && onError(error);
-            console.log(error);
+            console.error(error);
         }
     }
 }
@@ -480,7 +473,7 @@ export const deleteMessage = (messageData: MessageData, onComplete?: () => void,
         catch (error)
         {
             onError && onError(error);
-            console.log(error);
+            console.error(error);
         }
     }
 }
@@ -499,7 +492,7 @@ export const seenMessage = (messageData: MessageData, onComplete?: () => void, o
         catch (error)
         {
             onError && onError(error);
-            console.log(error);
+            console.error(error);
         }
     }
 }
