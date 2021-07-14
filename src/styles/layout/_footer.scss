@@ -1,10 +1,10 @@
 #footer
 {
     width: 100%;
-    margin: 5rem auto 0rem;
+    margin: auto auto 0rem;
     padding-bottom: 5rem;
     height: 5rem;
-    flex-shrink: 0;
+    flex: 0 0 auto;
     
     .footer_wrapper
     {
