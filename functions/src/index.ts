@@ -21,7 +21,9 @@ exports.sendRecaptcha = functions.https.onRequest(async (req, res) => {
   
     if (data.success) {
         // Send the score back
-        res.status(200).send({ score: data.score });
+        res.status(200).send({ success: true, score: data.score });
     }
+
+    res.status(200).send({success: false, score: 0 });
     // Handle errors here
   });

@@ -48,6 +48,8 @@ const Contact : FC = () =>
     const [isButtonDisabled, setButtonDisabled] = useState(false);
     const { executeRecaptcha } = useGoogleReCaptcha();
 
+    const [errorMsg, setErrorMsg] = useState<string>("");
+
     useEffect(() => {
         setButtonDisabled(!(isValid && isDirty));
     }, [isValid, isDirty]);
@@ -90,21 +92,26 @@ const Contact : FC = () =>
     }
     
     const handleReCaptchaVerify = async () => {
+        setErrorMsg("");
         if (executeRecaptcha) 
         {
             setButtonDisabled(true);
             const token = await executeRecaptcha('Contact');
-            const score = await axios.get(`http://localhost:5001/ysaquib-website/us-central1/sendRecaptcha?token=${token}`).then((res) => {return res.data.score});
-            console.warn("SCORE: ", score);
-            if (score >= 0.5)
+            const resp = await axios.get(`http://localhost:5001/ysaquib-website/us-central1/sendRecaptcha?token=${token}`);
+            if (resp.data.success && resp.data.score >= 0.5)
             {
                 handleSubmit(onSubmit)();
+            }
+            else
+            {
+                setButtonDisabled(false);
+                setErrorMsg("An error has occured. Please try again later.");
             }
         }
         else
         {
             setButtonDisabled(false);
-            console.log('Execute recaptcha not yet available');
+            setErrorMsg("An unknown error has occured. Please try again later.");
         }
     }
 
@@ -120,6 +127,7 @@ const Contact : FC = () =>
 
     return (
         <Section id="contact" className="mini" title={default_data.contact.title}>
+            {errorMsg !== "" && <div id="form_error">{errorMsg}</div>}
             <form className="contact_wrapper" onSubmit={handleSubmit(onSubmit)}>
                 <TextField 
                     label="First Name" 
@@ -167,11 +175,11 @@ const Contact : FC = () =>
                 <Prompt
                     when={isDirty && !isSent}
                     message='You have unsaved changes, are you sure you want to leave?'/>
+                    
+                <Button text="Send Message" disabled={isButtonDisabled} className="confirmbtn" onClick={(e) => {e.preventDefault(); handleReCaptchaVerify();}} />
                 <div className="google_recaptcha_branding">
                     This site is protected by reCAPTCHA and the Google <a href="https://policies.google.com/privacy">Privacy Policy</a> and <a href="https://policies.google.com/terms">Terms of Service</a> apply.
                 </div>
-                    
-                <Button text="Send Message" disabled={isButtonDisabled} className="confirmbtn" onClick={(e) => {e.preventDefault(); handleReCaptchaVerify();}} />
             </form>
         </Section>
     );

@@ -114,6 +114,10 @@ title
 
 // $ Contact ==================================================================
 
+#form_error
+{
+    font: $medium-weight $small-size $sans-font;
+}
 .google_recaptcha_branding
 {
     font: $regular-weight $Tiny-size $sans-font;

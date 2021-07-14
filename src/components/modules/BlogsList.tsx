@@ -125,7 +125,6 @@ const BlogsList : FC = () =>
 
     const currentPageArg: number = parseInt(useQuery().get("page") ?? "1");
     const currentPage = currentPageArg % totalPages === 0 ? totalPages : currentPageArg % totalPages;
-    console.log("curentpage", currentPage);
     const [ page, setPage] = useState<number>(currentPage);
 
     const handlePageChange = (_event: React.ChangeEvent<unknown>, value: number) =>

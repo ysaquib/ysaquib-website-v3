@@ -11,10 +11,22 @@
     //     grid-column: span 2;
     // }
 
+    #form_error
+    {
+        padding: 1rem;
+        border-radius: $radius-regular;
+        margin-bottom: 1rem;
+        @include themify()
+        {
+            color: themed('grey-000');
+            background-color: themed('error');
+        }
+    }
+
     .message_sent
     {
-        white-space: pre-line;
         margin-top: 0.4rem;
+        white-space: pre-line;
         @include themify()
         {
             color: themed('primary');
@@ -22,6 +34,7 @@
     }
     .contact_wrapper
     {
+        margin-top: 0.4rem;
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 1.6rem;
@@ -31,6 +44,12 @@
         .google_recaptcha_branding
         {
             line-height: 1.5;
+            grid-column: span 2;
+            text-align: right;
+            @include media("<=tablet")
+            {
+                text-align: center;
+            }
             @include themify()
             {
                 color: themed('grey-750');
@@ -56,6 +75,11 @@
             margin: 0rem;
             justify-self: end;
             align-self: start;
+            @include media("<=tablet")
+            {
+                justify-self: stretch;
+                grid-column: span 2;
+            }
         }
         
     }

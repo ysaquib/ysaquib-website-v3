@@ -77,7 +77,6 @@ const Header : FC = () =>
     
     useEffect(() => {
         document.getElementById(selectedPath)?.classList.add("selected_path");
-        console.log(document.getElementById(selectedPath));
         return () => 
         {
             document.getElementById(selectedPath)?.classList.remove("selected_path");
