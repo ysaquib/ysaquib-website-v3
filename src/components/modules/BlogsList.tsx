@@ -226,6 +226,13 @@ const BlogsList : FC = () =>
         setBlogs(blogsList);
     }, [allBlogs, setBlogs, authenticated, userRoles]);
 
+    /**
+     * If use is superadmin and logged in, show create new blog button
+     */
+    const create_new_blog: JSX.Element = (authenticated && userRoles.includes("superadmin")) 
+    ? (<li className="blogs_list_item_wrapper" id="create_new_blog" key="create_new_blog" onClick={() => history.push("/blog/create_new")}><div className="blogs_list_item create_new">Create New Blog</div></li>)
+    : (<></>);
+
     if (isLoadingBlogs)
     {
         return(
@@ -284,16 +291,7 @@ const BlogsList : FC = () =>
                 </div>
 
                 <ul className="blogs_list">
-                    {(authenticated && userRoles.includes("superadmin")) && 
-                        <li className="blogs_list_item_wrapper"
-                        id="create_new_blog" 
-                        key="create_new_blog"
-                        onClick={() => history.push("/blog/create_new")}>
-                            <div className="blogs_list_item create_new">
-                                Create New Blog
-                            </div>
-                        </li>
-                    }
+                    {create_new_blog}
                     {pageBlogs && (pageBlogs
                     .map((blog) =>
                         <BlogListItem blog={blog} key={blog.blog_id} />    
