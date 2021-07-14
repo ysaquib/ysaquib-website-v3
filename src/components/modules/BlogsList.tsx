@@ -1,3 +1,10 @@
+/**
+ * File: BlogsList.tsx
+ * Author: Yusuf Saquib
+ * 
+ * Creates and manages the blogs list.
+ */
+
 import { usePagination } from '@material-ui/lab/Pagination';
 import React, { FC, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,10 +20,17 @@ import LoadingSkeleton from '../elements/LoadingSkeleton';
 import Pagination from '../elements/Pagination';
 import Section from '../elements/Section';
 
+/**
+ * Use query to get the current page number later.
+ */
 function useQuery() 
 {
     return new URLSearchParams(useLocation().search);
 }
+
+/**
+ * Functional Component for a blog list item for each blog.
+ */
 
 interface BlogListItemProps
 {
@@ -30,6 +44,9 @@ const BlogListItem: FC<BlogListItemProps> = ({blog}) =>
     const [isBlogHidden, setBlogHidden] = useState(blog.blog_isHidden);
     const [ dialog, setDialog ] = useState<JSX.Element>(<></>);
     
+    /**
+     * Toggle hidden state of blog.
+     */
     const setHidden = () =>
     {
         setBlogHidden(!isBlogHidden);
@@ -46,6 +63,9 @@ const BlogListItem: FC<BlogListItemProps> = ({blog}) =>
             In Progress
         </p>) : (<></>);
 
+    /**
+     * Confirm deletion of blog with dialog.
+     */
     function handleClickDelete (blogData: BlogData)
     {
         if(blogData)
@@ -120,40 +140,63 @@ const BlogsList : FC = () =>
     const [ blogsPerPage, setBlogsPerPage] = useState<number>(bpp_options[final_index]);
     
     const [ blogs, setBlogs ] = useState<BlogData[]>(allBlogs);
+    const [ pageBlogs, setPageBlogs ] = useState<BlogData[]>([]);
 
     const [ totalPages, setTotalPages] = useState<number>(Math.ceil(blogs.length / blogsPerPage));
 
+    /**
+     * get current page URL param. If its too big, make it the max. If its 0
+     * or less, make it 1, and set that as the current page.
+     */
     const currentPageArg: number = parseInt(useQuery().get("page") ?? "1");
     const currentPage = currentPageArg > totalPages ? totalPages : (currentPageArg < 1 ? 1 : currentPageArg);
     const [ page, setPage] = useState<number>(currentPage);
 
+    /**
+     * handles page change and updates page query in URL
+     */
     const handlePageChange = (_event: React.ChangeEvent<unknown>, value: number) =>
     {
         history.push(`/blog?page=${value}`);
         window.scrollTo(0,0);
-        // const newPage = value % totalPages === 0 ? totalPages : value % totalPages;
 
         setPage(value);
     }
 
+    /**
+     * handles changes in Blogs Per Page. 
+     */
     const handleChangeBPP = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, option: number) => 
     {
         setCurrentBPP(event.currentTarget.id);
         setBlogsPerPage(option);
     }
     
+    /**
+     * Initialize pagination
+     */
     const { items } = usePagination({
         count: totalPages,
         page: page,
         onChange: handlePageChange
     });
     
+    /**
+     * on update in the deps, recalculate the total pages, and set the new 
+     * current page if the old page is out of range.
+     * 
+     * Then compute the current page's blogs based on the current page and 
+     * the number of blogs per page.
+     * 
+     * Then save the selected blogs per page in cache.
+     */
     useEffect(() => {
         const newTotal = Math.ceil(blogs.length / blogsPerPage);
         const newPage: number = currentPageArg > newTotal ? newTotal : (currentPageArg < 1 ? 1 : currentPageArg);
         
         setTotalPages(newTotal);
         setPage(newPage);
+        setPageBlogs(blogs.slice(0 + blogsPerPage * (newPage - 1), blogsPerPage + blogsPerPage * (newPage - 1)));
 
         if (newPage !== page || currentPageArg === 0)
         {
@@ -164,6 +207,9 @@ const BlogsList : FC = () =>
         
     }, [blogs, blogsPerPage, currentPageArg, page, history]);
     
+    /**
+     * Simple update selected blogs per page option.
+     */
     useEffect(() => {
         document.getElementById(currentBPP)?.classList.add("selected");
         return () => {
@@ -171,6 +217,9 @@ const BlogsList : FC = () =>
         }
     }, [currentBPP]);
     
+    /**
+     * Filter out any hidden blogs unless the user is a superadmin and is logged in.
+     */
     useEffect(() => {
         const blogsList = allBlogs
             .filter((blog) => {return (!blog.blog_isHidden ?? true) || (authenticated && userRoles.includes("superadmin"))});
@@ -245,9 +294,7 @@ const BlogsList : FC = () =>
                             </div>
                         </li>
                     }
-
-                    {blogs && (blogs
-                    .slice(0 + blogsPerPage * (page - 1), blogsPerPage + blogsPerPage * (page - 1))
+                    {pageBlogs && (pageBlogs
                     .map((blog) =>
                         <BlogListItem blog={blog} key={blog.blog_id} />    
                     ))}
