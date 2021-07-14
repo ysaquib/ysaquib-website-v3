@@ -103,9 +103,9 @@ $line-height-large:     1.75;
 
 // # Font Variables -----------------------------------------------------------
 
-$sans-font:    'Raleway';
-$mono-font:    'Fira Code';
-$serif-font:   'Roboto Slab';
+$sans-font:    'Raleway', sans-serif;
+$mono-font:    'Fira Code', monospace;
+$serif-font:   'Roboto Slab', serif;
 
 // # Font Weight Variables ----------------------------------------------------
 

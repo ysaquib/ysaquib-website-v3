@@ -126,7 +126,8 @@ const BlogsList : FC = () =>
 
     const [ page, setPage] = useState<number>(currentPage);
     const [ totalPages, setTotalPages] = useState<number>(Math.ceil(blogs.length / blogsPerPage));
-    
+
+    // const [paginationItems, setPaginationItems] = useState([]);
 
     const handlePageChange = (_event: React.ChangeEvent<unknown>, value: number) =>
     {
@@ -135,8 +136,13 @@ const BlogsList : FC = () =>
         setPage(value);
     }
 
-    const { items } = usePagination(
+    const handleChangeBPP = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, option: number) => 
     {
+        setCurrentBPP(event.currentTarget.id);
+        setBlogsPerPage(option);
+    }
+
+    const { items } = usePagination({
         count: totalPages,
         page: page,
         onChange: handlePageChange
@@ -145,6 +151,10 @@ const BlogsList : FC = () =>
     useEffect(() => {
         const total = Math.ceil(blogs.length / blogsPerPage);
         setTotalPages(total);
+        if (page > total)
+        {
+            setPage(total);
+        }
         localStorage.setItem("blogs_per_page", blogsPerPage.toString());
     }, [blogs, blogsPerPage]);
     
@@ -156,10 +166,8 @@ const BlogsList : FC = () =>
     }, [currentBPP]);
     
     useEffect(() => {
-        
         const blogsList = allBlogs
             .filter((blog) => {return (!blog.blog_isHidden ?? true) || (authenticated && userRoles.includes("superadmin"))});
-        
         setBlogs(blogsList);
     }, [allBlogs, setBlogs, authenticated, userRoles]);
 
@@ -177,6 +185,26 @@ const BlogsList : FC = () =>
             </Section>
         );
     }
+    else if ((blogsPerPage * (currentPage - 1) > blogs.length) || (blogs && blogs.length === 0))
+    {
+        const errorDatabase: string = blogs.length === 0 ? "Error retrieving blog data." : ""
+        const errorInvalidPage: string = blogsPerPage * (currentPage - 1) > blogs.length ? "Invalid page number." : "";
+        return (
+            <Section id="blogslist" title="All Blogs" className="">
+                <div className="blogs_list_wrapper">
+                    <ul className="blogs_list">
+                        <li className="blogs_list_item_wrapper">
+                            <div className={`blogs_list_item error`}>
+                                No blogs to show. {errorDatabase !== "" ? errorDatabase : errorInvalidPage}
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+            </Section>
+
+        );
+    }
 
     return (
         <Section id="blogslist" title="All Blogs" className="">
@@ -191,10 +219,7 @@ const BlogsList : FC = () =>
                                     <button id={`button_bpp_${index}`}
                                             className={index === final_index ? "selected" : ""}
                                             value={option}
-                                            onClick={(e) => {
-                                                setCurrentBPP(e.currentTarget.id);
-                                                setBlogsPerPage(option);
-                                            }}>
+                                            onClick={(e) => handleChangeBPP(e, option)}>
                                         {option}
                                     </button>
                                 </li>

@@ -33,7 +33,7 @@ const Projects : FC<ProjectsProps> = ({showAllProjects=false, id, sectionTitle="
 
     useEffect(() => 
     {
-        dispatch(getProjectData(undefined, () => {setErrorMsg("Error getting projects' data");}));
+        dispatch(getProjectData(undefined, () => {setErrorMsg("Error retrieving project data");}));
     }, [dispatch]);
     
     useEffect(() => 

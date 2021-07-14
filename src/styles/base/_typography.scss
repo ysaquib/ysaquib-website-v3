@@ -16,12 +16,12 @@ h1
     {
         color: themed('grey-900');
     }
-    font: $medium-weight $large-size $serif-font, serif;
+    font: $medium-weight $large-size $serif-font;
 }
   
 h2
 {
-    font: $medium-weight $regular-size $mono-font, monospace;
+    font: $medium-weight $regular-size $mono-font;
     // color: $primary-color;
     @include themify()
     {
@@ -31,7 +31,7 @@ h2
 
 title
 {
-    font: $bold-weight $regular-size $sans-font, sans-serif;
+    font: $bold-weight $regular-size $sans-font;
     // color: $primary-color;
     @include themify()
     {
@@ -50,29 +50,29 @@ title
 
 .sec_title
 {
-    font: $bold-weight $large-size $serif-font, serif;
+    font: $bold-weight $large-size $serif-font;
 }
 .sec_subtitle
 {
-    font: $regular-weight $medium-size $sans-font, sans-serif;
+    font: $regular-weight $medium-size $sans-font;
 }
 
 // $ PGP Key ==================================================================
 
 .key_toggle
 {
-    font: $medium-weight $regular-size $mono-font, monospace;
+    font: $medium-weight $regular-size $mono-font;
 }
 .pgp_key
 {
-    font: $regular-weight $little-size $mono-font, monospace;
+    font: $regular-weight $little-size $mono-font;
 }
 
 // $ Button ===================================================================
 
 .btn
 {
-    font: $semi-weight $small-size $sans-font, sans-serif;
+    font: $semi-weight $small-size $sans-font;
 }
 
 // $ Dialog Box ===============================================================
@@ -81,14 +81,14 @@ title
 {
     .dialog_box_title
     {
-        font: $regular-weight $Medium-size $serif-font, serif;
+        font: $regular-weight $Medium-size $serif-font;
     }
     .dialog_box_message
     {
-        font: $regular-weight $regular-size $sans-font, sans-serif;
+        font: $regular-weight $regular-size $sans-font;
         &.error, &.warning, &.success
         {
-            font: $semi-weight $regular-size $sans-font, sans-serif;
+            font: $semi-weight $regular-size $sans-font;
         }
     }
 
@@ -100,15 +100,15 @@ title
 {
     .pre
     {
-        font: $medium-weight $regular-size $mono-font, monospace;
+        font: $medium-weight $regular-size $mono-font;
     }
     .my_name
     {
-        font: $bolder-weight $huge-size $sans-font, sans-serif;
+        font: $bolder-weight $huge-size $sans-font;
     }
     .my_title
     {
-        font: $bold-weight $Largest-size $sans-font, sans-serif;
+        font: $bold-weight $Largest-size $sans-font;
     }
 }
 
@@ -116,7 +116,7 @@ title
 
 .google_recaptcha_branding
 {
-    font: $regular-weight $Tiny-size $sans-font, sans-serif;
+    font: $regular-weight $Tiny-size $sans-font;
 }
 
 // $ Projects =================================================================
@@ -125,11 +125,11 @@ title
 {
     .project_tag
     {
-        font: $semi-weight $little-size $mono-font, monospace;
+        font: $semi-weight $little-size $mono-font;
     }
     .project_title
     {
-        font: $bold-weight $Medium-size $sans-font, sans-serif;
+        font: $bold-weight $Medium-size $sans-font;
         @include media(">tablet-big")
         {
             &.featured_project_text { font-size: $Large-size; }
@@ -143,7 +143,7 @@ title
 
     .project_description
     {
-        font: $regular-weight $regular-size $sans-font, sans-serif;
+        font: $regular-weight $regular-size $sans-font;
         line-height: $line-height-medium;
         @include media(">tablet-big")
         {
@@ -159,7 +159,7 @@ title
     
     .project_languages
     {
-        font: $regular-weight $small-size $mono-font, monospace;
+        font: $regular-weight $small-size $mono-font;
         @include media(">tablet-big")
         {
             &.featured_project_text { font-size: $regular-size; }
@@ -174,17 +174,82 @@ title
     
     .wip_label
     {
-        font: $regular-weight $Little-size $mono-font, monospace;
+        font: $regular-weight $Little-size $mono-font;
     }
     
     .links_list
     {
-        font: $semi-weight $Little-size $mono-font, monospace;
+        font: $semi-weight $Little-size $mono-font;
     }
     
     &.error
     {
-        font: $regular-weight $Regular-size $sans-font, sans-serif;
+        font: $medium-weight $Regular-size $sans-font;
+    }
+}
+
+
+// $ Blog (not including markdown) ============================================
+
+#blog
+{
+    #blog_button_back
+    {
+        font: $regular-weight $small-size $mono-font;
+    }
+    #blog_edit_button
+    {
+        font: $medium-weight $Small-size $mono-font;
+    }
+    #blog_title
+    {
+        font: $bold-weight $Largest-size $serif-font;
+    }
+    .info_item
+    {
+        font: $regular-weight $small-size $serif-font;
+    }
+}
+
+// $ Editing Blog =============================================================
+
+#edit_blog .blog_title_field input
+{
+    font: $medium-weight $large-size $serif-font;
+}
+
+// $ Blog List ================================================================
+
+#blogslist
+{
+    .blogs_list_options
+    {
+        font: $medium-weight $small-size $sans-font;
+    }
+    .blogs_per_page li button
+    {
+        font: $medium-weight $small-size $sans-font;
+        &.selected
+        {
+            font: $semi-weight $small-size $sans-font;
+        }
+    }
+    .blogs_list_item.create_new
+    {
+        font: $medium-weight $Small-size $mono-font;
+    }
+    .blogs_list_tag
+    {
+        font: $semi-weight $Tiny-size $mono-font;
+
+    }
+    .blogs_list_title
+    {
+        font: $medium-weight $medium-size $sans-font;
+    }
+    .error
+    {
+        font: $medium-weight $medium-size $sans-font;
     }
 }
 
@@ -196,29 +261,29 @@ title
     {
         &.sender
         {
-            font: $bold-weight $regular-size $sans-font, sans-serif;
+            font: $bold-weight $regular-size $sans-font;
         }
         &.time
         {
-            font: $medium-weight $little-size $sans-font, sans-serif;
+            font: $medium-weight $little-size $sans-font;
         }
         &.subject
         {
-            font: $semi-weight $Little-size $sans-font, sans-serif;
+            font: $semi-weight $Little-size $sans-font;
         }
     }
 
     #message
     {
-        font: $regular-weight $regular-size $sans-font, sans-serif;
+        font: $regular-weight $regular-size $sans-font;
         .msgbtn
         {
-            font: $medium-weight $Little-size $sans-font, sans-serif;
+            font: $medium-weight $Little-size $sans-font;
         }
     }
     .empty_list, .empty_message
     {
-        font: $medium-weight $regular-size $sans-font, sans-serif;
+        font: $medium-weight $regular-size $sans-font;
     }
 }
 
@@ -229,29 +294,29 @@ title
     .pagination_icon,
     .pagination_button
     {
-        font: $medium-weight $small-size $sans-font, sans-serif;
+        font: $medium-weight $small-size $sans-font;
     }
 }
 
 // $ Inputs ===================================================================
 .input_wrapper
 {
-    font: $regular-weight $regular-size $sans-font, sans-serif;
+    font: $regular-weight $regular-size $sans-font;
 }
 
 .text_label
 {
-    font: $medium-weight $Little-size $sans-font, sans-serif;
+    font: $medium-weight $Little-size $sans-font;
 }
 
 .editor_wrapper .editor_area
 {
-    font: $regular-weight $regular-size $mono-font, monospace;
+    font: $regular-weight $regular-size $mono-font;
 }
 
 textarea, input[type=text], input[type=password], input[type=date]
 {
-    font: $medium-weight $regular-size $sans-font, sans-serif;
+    font: $medium-weight $regular-size $sans-font;
 }
 
 input[type=checkbox]
@@ -264,14 +329,14 @@ input[type=checkbox]
 
 .checkbox_label
 {
-    font: $regular-weight $small-size $sans-font, sans-serif;
+    font: $regular-weight $small-size $sans-font;
 }
 
 // $ Footer ===================================================================
 
 #footer .footer_label
 {
-    font: $semi-weight $little-size $mono-font, monospace;
+    font: $semi-weight $little-size $mono-font;
 }
 
 // $ Header ===================================================================
@@ -280,11 +345,11 @@ input[type=checkbox]
 {
     .header_title
     {
-        font: $bold-weight $medium-size $sans-font, sans-serif;
+        font: $bold-weight $medium-size $sans-font;
     }
     .header_item
     {
-        font: $medium-weight $Little-size $mono-font, monospace;
+        font: $medium-weight $Little-size $mono-font;
     }
 }
 
@@ -294,15 +359,15 @@ input[type=checkbox]
 {
     .title
     {
-        font: $black-weight $huge-size $mono-font, monospace;
+        font: $black-weight $huge-size $mono-font;
     }
     .subtitle
     {
-        font: $medium-weight $Medium-size $mono-font, monospace;
+        font: $medium-weight $Medium-size $mono-font;
     }
     .home_btn
     {
-        font: $light-weight $regular-size $mono-font, monospace !important;
+        font: $light-weight $regular-size $mono-font !important;
     }
 }
 
@@ -310,7 +375,7 @@ input[type=checkbox]
 
 #loader .loading_text
 {
-    font: $light-weight $large-size $sans-font, sans-serif;
+    font: $light-weight $large-size $sans-font;
 }
 
 // $ Admin Dashboard ==========================================================
@@ -319,11 +384,11 @@ input[type=checkbox]
 {
     .category_title
     {
-        font: $semi-weight $medium-size $sans-font, sans-serif;
+        font: $semi-weight $medium-size $sans-font;
     }
     .message
     {
-        font: $regular-weight $regular-size $sans-font, sans-serif;
+        font: $regular-weight $regular-size $sans-font;
     }
 }
 
@@ -348,68 +413,7 @@ input[type=checkbox]
 
 #admin_projects_list .project_item_title
 {
-    font: $regular-weight $regular-size $sans-font, sans-serif;
-}
-
-// $ Blog (not including markdown) ============================================
-
-#blog
-{
-    #blog_button_back
-    {
-        font: $regular-weight $small-size $mono-font, monospace;
-    }
-    #blog_edit_button
-    {
-        font: $medium-weight $Small-size $mono-font, monospace;
-    }
-    #blog_title
-    {
-        font: $bold-weight $Largest-size $serif-font, serif;
-    }
-    .info_item
-    {
-        font: $regular-weight $small-size $serif-font, serif;
-    }
-}
-
-// $ Editing Blog =============================================================
-
-#edit_blog .blog_title_field input
-{
-    font: $medium-weight $large-size $serif-font, serif;
-}
-
-// $ Blog List ================================================================
-
-#blogslist
-{
-    .blogs_list_options
-    {
-        font: $medium-weight $small-size $sans-font, sans-serif;
-    }
-    .blogs_per_page li button
-    {
-        font: $medium-weight $small-size $sans-font, sans-serif;
-        &.selected
-        {
-            font: $semi-weight $small-size $sans-font, sans-serif;
-        }
-    }
-    .blogs_list_item.create_new
-    {
-        font: $medium-weight $Small-size $mono-font, monospace;
-    }
-    .blogs_list_tag
-    {
-        font: $semi-weight $Tiny-size $mono-font, monospace;
-
-    }
-    .blogs_list_title
-    {
-        font: $medium-weight $medium-size $sans-font, sans-serif;
-    }
-
+    font: $regular-weight $regular-size $sans-font;
 }
 
 // $ Login & Register =========================================================
@@ -418,7 +422,7 @@ input[type=checkbox]
 {
     .banner
     {
-        font: $semi-weight $small-size $sans-font, sans-serif;
+        font: $semi-weight $small-size $sans-font;
         line-height: 1.5;
     }
 }

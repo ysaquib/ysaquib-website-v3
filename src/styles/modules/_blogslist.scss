@@ -144,6 +144,12 @@
                     cursor: default;
                 }
 
+                &.error
+                {
+                    justify-content: center;
+                    align-items: center;
+                }
+
                 .blogs_list_tags
                 {
                     display: flex;
@@ -316,6 +322,14 @@
                             transition: none;
                             background-color: mix(themed("success"), themed("grey-150"), $color-mix-least);
                         }
+                    }
+
+                    &.error
+                    {
+                        transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
+
+                        color: themed("grey-000");
+                        background-color: themed("error");
                     }
                 }
             }
