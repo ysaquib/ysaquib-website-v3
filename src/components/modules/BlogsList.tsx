@@ -2,7 +2,7 @@ import { usePagination } from '@material-ui/lab/Pagination';
 import React, { FC, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
-import { useLocation } from 'react-router-dom';
+import { Redirect, useLocation } from 'react-router-dom';
 import { RootState } from '../../store';
 import { deleteBlog, setBlogData } from '../../store/actions/dataActions';
 import { BlogData } from '../../store/types/dataTypes';
@@ -105,34 +105,35 @@ const BlogListItem: FC<BlogListItemProps> = ({blog}) =>
 
 const BlogsList : FC = () =>
 {
-
-    const currentPage = parseInt(useQuery().get("page") ?? "1");
-
     const history = useHistory();
     const {allBlogs, isLoadingBlogs} = useSelector((state: RootState) => state.blogs);
     
     const { authenticated, userRoles } = useSelector((state : RootState) => state.auth);
     
     const bpp_options: number[] = [5, 10, 25];
-
+    
     const local_bpp: number = parseInt(localStorage.getItem("blogs_per_page") ?? "5");
     const bpp_index: number = bpp_options.findIndex((x) => x === local_bpp);
     const final_index: number = bpp_index === -1 ? 0 : bpp_index;
-
+    
     const [ currentBPP, setCurrentBPP ] = useState<string>(`button_bpp_${final_index}`);
     const [ blogsPerPage, setBlogsPerPage] = useState<number>(bpp_options[final_index]);
+    
+    const [ blogs, setBlogs ] = useState<BlogData[]>(allBlogs);
 
-    const [ blogs, setBlogs ] = useState<BlogData[]>(allBlogs);    
-
-    const [ page, setPage] = useState<number>(currentPage);
     const [ totalPages, setTotalPages] = useState<number>(Math.ceil(blogs.length / blogsPerPage));
 
-    // const [paginationItems, setPaginationItems] = useState([]);
+    const currentPageArg: number = parseInt(useQuery().get("page") ?? "1");
+    const currentPage = currentPageArg % totalPages === 0 ? totalPages : currentPageArg % totalPages;
+    console.log("curentpage", currentPage);
+    const [ page, setPage] = useState<number>(currentPage);
 
     const handlePageChange = (_event: React.ChangeEvent<unknown>, value: number) =>
     {
         history.push(`/blog?page=${value}`);
         window.scrollTo(0,0);
+        // const newPage = value % totalPages === 0 ? totalPages : value % totalPages;
+
         setPage(value);
     }
 
@@ -141,22 +142,29 @@ const BlogsList : FC = () =>
         setCurrentBPP(event.currentTarget.id);
         setBlogsPerPage(option);
     }
-
+    
     const { items } = usePagination({
         count: totalPages,
         page: page,
         onChange: handlePageChange
     });
-
+    
     useEffect(() => {
-        const total = Math.ceil(blogs.length / blogsPerPage);
-        setTotalPages(total);
-        if (page > total)
+        const newTotal = Math.ceil(blogs.length / blogsPerPage);
+        const pageParam: number = currentPageArg % newTotal;
+        const newPage = pageParam === 0 ? newTotal : pageParam;
+        
+        setTotalPages(newTotal);
+        setPage(newPage);
+
+        if (!isNaN(newPage) && newPage !== page)
         {
-            setPage(total);
+            history.push(`/blog?page=${newPage}`)
         }
+
         localStorage.setItem("blogs_per_page", blogsPerPage.toString());
-    }, [blogs, blogsPerPage]);
+        
+    }, [blogs, blogsPerPage, currentPageArg]);
     
     useEffect(() => {
         document.getElementById(currentBPP)?.classList.add("selected");
@@ -185,10 +193,10 @@ const BlogsList : FC = () =>
             </Section>
         );
     }
-    else if ((blogsPerPage * (currentPage - 1) > blogs.length) || (blogs && blogs.length === 0))
+    else if (blogs && blogs.length === 0)
     {
         const errorDatabase: string = blogs.length === 0 ? "Error retrieving blog data." : ""
-        const errorInvalidPage: string = blogsPerPage * (currentPage - 1) > blogs.length ? "Invalid page number." : "";
+        const errorInvalidPage: string = blogsPerPage * (page - 1) > blogs.length ? "Invalid page number." : "";
         return (
             <Section id="blogslist" title="All Blogs" className="">
                 <div className="blogs_list_wrapper">
@@ -241,7 +249,7 @@ const BlogsList : FC = () =>
                     }
 
                     {blogs && (blogs
-                    .slice(0 + blogsPerPage * (currentPage - 1), blogsPerPage + blogsPerPage * (currentPage - 1))
+                    .slice(0 + blogsPerPage * (page - 1), blogsPerPage + blogsPerPage * (page - 1))
                     .map((blog) =>
                         <BlogListItem blog={blog} key={blog.blog_id} />    
                     ))}
