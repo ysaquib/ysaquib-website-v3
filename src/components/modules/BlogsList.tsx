@@ -9,7 +9,7 @@ import { usePagination } from '@material-ui/lab/Pagination';
 import React, { FC, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
-import { Redirect, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { RootState } from '../../store';
 import { deleteBlog, setBlogData } from '../../store/actions/dataActions';
 import { BlogData } from '../../store/types/dataTypes';

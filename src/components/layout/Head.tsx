@@ -1,6 +1,8 @@
 /**
  * File: Head.tsx
  * Author: Yusuf Saquib
+ * 
+ * Appends stuff to the head using react-helmet-async
  */
 
 import React, { FC } from 'react';

@@ -1,3 +1,10 @@
+/**
+ * File: authActions.ts
+ * Author: Yusuf Saquib
+ * 
+ * Code modified from https://github.com/damirpristav/react-ts-redux-firebase-authentication
+ */
+
 import { ThunkAction } from 'redux-thunk';
 
 import { AuthAction, 
@@ -96,7 +103,6 @@ export const setLoading = (value: boolean) : ThunkAction<void, RootState, null, 
 {
     return dispatch => 
     {
-        console.log("SETLOADING:", value);
         dispatch({
             type: User_SetLoading,
             payload: value
@@ -111,7 +117,6 @@ export const userSignIn = (data: SignInData, onError?: (msg?: any) => void) : Th
         try
         {
             dispatch(setLoading(true));
-            console.log("Signing In");
             const response = await Firebase.auth().signInWithEmailAndPassword(data.email, data.password);
             if(response.user)
             {

@@ -1,3 +1,10 @@
+/**
+ * File: authTypes.ts
+ * Author: Yusuf Saquib
+ * 
+ * Code modified from https://github.com/damirpristav/react-ts-redux-firebase-authentication
+ */
+
 export const User_SetUser = "User_SetUser";
 export const User_SignedOut = "User_SignedOut";
 export const User_NeedVerification = "User_ReqVerify";

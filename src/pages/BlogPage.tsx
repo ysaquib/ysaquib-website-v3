@@ -24,9 +24,9 @@ import { ThemeContext } from '../contexts/ThemeContext';
 import Head from '../components/layout/Head';
 import { IconChevronLeft } from '../components/elements/Icons';
 
-
-
-
+/**
+ * Override component for markdown image
+ */
 const ImageEnv: FC<ImgHTMLAttributes<HTMLImageElement>> = ({...props}) => (
     <span className="md_image">
         <img {...props} src={props.src} alt={props.alt} title={props.title}  />
@@ -59,9 +59,6 @@ const CodeEnv: FC<CodeEnvProps> = ({className, children, theme}) =>
     );
 }
 
-/**
- * Override component for markdown image 
- */
 interface BlogPageProps extends BlogData
 {
     allBlogs: BlogData[];

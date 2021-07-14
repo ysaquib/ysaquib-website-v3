@@ -1,6 +1,8 @@
 /**
  * File: ErrorPage.tsx
  * Author: Yusuf Saquib
+ * 
+ * Shows the Error404 Page ONLY.
  */
 
 import React, { FC } from 'react';

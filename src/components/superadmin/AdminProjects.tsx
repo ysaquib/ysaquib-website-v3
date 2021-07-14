@@ -1,5 +1,5 @@
 /**
- * File: About.tsx
+ * File: AdminProjects.tsx
  * Author: Yusuf Saquib
  */
 
@@ -178,7 +178,7 @@ const AdminProjects : FC = () =>
         {
             setDialog(
                 <DialogBox 
-                    title="Confrim Delete Project" 
+                    title="Confirm Delete Project" 
                     message={`Are you sure you want to delete '${project?.project_title ?? "undefined" }' ?`}
                     messageError="Warning: this action cannot be undone."
                     optionReject="Delete Project"

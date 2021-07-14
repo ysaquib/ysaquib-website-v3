@@ -27,11 +27,6 @@ const Banner : FC = () =>
     
     /**
      * Get the banner information from the database.
-     * If the banner_info document exists, then update the banner state 
-     * and store the information in the cache
-     * 
-     * Only store information in cache if the information retrieved from the
-     * datavase is defined.
      */
     useEffect(() => 
     {

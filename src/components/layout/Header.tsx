@@ -1,6 +1,8 @@
 /**
  * File: Header.tsx
  * Author: Yusuf Saquib
+ * 
+ * Not to be confused with Head, Header manages and creates the navigation bar.
  */
 
 import React, { FC, useEffect, useState } from 'react';

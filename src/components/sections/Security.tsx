@@ -21,7 +21,9 @@ const Security : FC = () =>
     const [showKey, setShowKey] = useState(false);
     const [PGPKey, setPGPKey] = useState("Loading...");
 
-    
+    /**
+     * Gets the .asc file for my public PGP key as a string.
+     */
     useEffect(() => {
         fetch(public_key_file).then((res) => res.text()).then((text) => setPGPKey(text));
     }, []);

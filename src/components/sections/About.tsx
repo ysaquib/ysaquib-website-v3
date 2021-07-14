@@ -17,7 +17,9 @@ const About : FC = () =>
     const AboutData = useSelector((state: RootState) => state.about);
     const [about, setAbout] = useState<AboutData>(AboutData);
 
-
+    /**
+     * Get About Data from the database
+     */
     useEffect(() => 
     {
         dispatch(getAboutData(() => {console.log("Error getting about data")}));

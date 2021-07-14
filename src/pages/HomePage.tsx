@@ -1,6 +1,8 @@
 /**
  * File: HomePage.tsx
  * Author: Yusuf Saquib
+ * 
+ * Shows the homepage and basic components.
  */
 
 import React, { FC } from 'react';

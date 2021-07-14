@@ -1,6 +1,8 @@
 /**
  * File: Projects.tsx
  * Author: Yusuf Saquib
+ * 
+ * : Creates a Project Card for each project based on project data.
  */
 
 import React, { FC, useEffect, useState } from 'react'
@@ -31,11 +33,17 @@ const Projects : FC<ProjectsProps> = ({showAllProjects=false, id, sectionTitle="
     const [projects, setProjects] = useState<ProjectData[]>(allProjects);
     const [errorMsg, setErrorMsg] = useState<string>("");
 
+    /**
+     * Get all projects from database.
+     */
     useEffect(() => 
     {
         dispatch(getProjectData(undefined, () => {setErrorMsg("Error retrieving project data");}));
     }, [dispatch]);
     
+    /**
+     * Calculate how many projects to show based on props.
+     */
     useEffect(() => 
     {
         const visibleProjects = allProjects.filter((project) => {return !(project.project_isHidden) ?? true});
@@ -78,6 +86,9 @@ const Projects : FC<ProjectsProps> = ({showAllProjects=false, id, sectionTitle="
             </Section>
         )
     }
+    /**
+     * Handle error in case failed to get projects or there are no projects.
+     */
     else if (projects && projects.length === 0)
     {
         return (

@@ -1,5 +1,5 @@
 /**
- * File: About.tsx
+ * File: AdminAbout.tsx
  * Author: Yusuf Saquib
  */
 
@@ -34,6 +34,9 @@ const AdminAbout : FC = () =>
     const [error, setError] = useState("");
     const [message, setMessage] = useState("");
     
+    /**
+     * Get about data from database.
+     */
     useEffect(() => 
     {
         dispatch(getAboutData(() => setError("Error getting About Data")));
@@ -49,6 +52,9 @@ const AdminAbout : FC = () =>
         }
     }, [AboutData]);
 
+    /**
+     * handle edit submission.
+     */
     const onSubmit : SubmitHandler<AboutData> = (data) => 
     {
         console.log(data);

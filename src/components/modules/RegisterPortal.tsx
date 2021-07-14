@@ -1,5 +1,5 @@
 /**
- * File: Contact.tsx
+ * File: RegisterPortal.tsx
  * Author: Yusuf Saquib
  */
 

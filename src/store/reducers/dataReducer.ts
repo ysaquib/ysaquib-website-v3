@@ -1,3 +1,8 @@
+/**
+ * File: dataReducer.ts
+ * Author: Yusuf Saquib
+ */
+
 import {BannerData, Data_SetBannerData, BannerAction, Data_SetAboutData, AboutAction, AboutData, ProjectAction, Data_SetProjectData, BlogAction, Data_SetBlogData, MessageAction, Data_AddMessageData, MessageState, Data_IncrementNew, Data_DecrementNew, Data_DelMessageData, Data_SeenMessageData, Data_SetAllBlogsData, Data_DelBlog, Data_AddBlog, Data_SetAllProjectsData, Data_AddProject, Data_DelProject, Data_UpdateAllProjects, ProjectState, Data_isLoadingProjects, BlogState, Data_isLoadingBlogs, Data_SetAllMessagesData, Data_isLoadingMessages, Data_SetNewMessagesCount, } from '../types/dataTypes'
 
 let default_data = require('../../default_data.json');

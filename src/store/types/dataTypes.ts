@@ -1,3 +1,8 @@
+/**
+ * File: dataTypes.ts
+ * Author: Yusuf Saquib
+ */
+
 export const Data_SetBannerData = "Data_SetBannerData";
 
 export const Data_SetAboutData = "Data_SetAboutData";

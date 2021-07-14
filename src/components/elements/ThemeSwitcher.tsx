@@ -1,3 +1,9 @@
+/**
+ * File: ThemeSwitcher.tsx
+ * Author: Yusuf Saquib
+ */
+
+
 import React, { FC } from 'react';
 import { ThemeContext } from '../../contexts/ThemeContext';
 import Button from './Button';
@@ -8,9 +14,13 @@ interface ThemeSwitcherProps
     useButton?: boolean;
 }
 
+/**
+ * Implements a wrapper which toggles the current theme from ThemeContext.
+ */
+
 const ThemeSwitcher: FC<ThemeSwitcherProps> = ({useButton=true, ...props}) => 
 {
-    // Default behavior.
+    
     return (
         <ThemeContext.Consumer>
             {({theme, toggleTheme}) => {

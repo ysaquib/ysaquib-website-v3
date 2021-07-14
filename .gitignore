@@ -29,3 +29,5 @@ ui-debug.log*
 database-debug.log*
 
 old-start-emulator.py
+
+.VSCodeCounter

@@ -1,6 +1,8 @@
 /**
  * File: AdminPage.tsx
  * Author: Yusuf Saquib
+ * 
+ * Shows the admin dashboard and admin components
  */
 
 import React, { FC, useEffect } from 'react';

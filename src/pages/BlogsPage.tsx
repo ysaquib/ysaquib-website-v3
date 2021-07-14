@@ -1,6 +1,11 @@
 /**
  * File: BlogsPage.tsx
  * Author: Yusuf Saquib
+ * 
+ * Manages all the blog logic based on the URL.
+ * :: If the URL is "/blog" followed by an optional page query, show BlogsList.
+ * :: If there is a blog selected, namely "/blog/<BLOG URL>" then show the Blog
+ * :: Otherwise, show the Error page.
  */
 
 import React, { FC, useEffect, useState } from 'react';
@@ -27,7 +32,10 @@ const BlogsPage : FC = () =>
     const [blogs, setBlogs] = useState<BlogData[]>(allBlogs);
     const [isLoading, setLoading] = useState<boolean>(true);
 
-
+    /**
+     * Get all the blogs from the database and set that as allBlogs. This is 
+     * used solely to pass to children components.
+     */
     useEffect(() => 
     {
         dispatch(getBlogData(() => setLoading(false), () => {console.log("Error getting Blog data.")}));

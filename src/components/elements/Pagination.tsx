@@ -12,6 +12,9 @@ interface PaginationProps
     items: UsePaginationItem[];
 }
 
+/**
+ * Uses Material-UI's usePagination to do all the logic. This is just a wrapper.
+ */
 const Pagination : FC<PaginationProps> = ({items}) =>
 {
 

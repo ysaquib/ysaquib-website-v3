@@ -2,9 +2,9 @@
 {
     .title_loader
     {
-        padding: 10rem;
+        height: 10rem;
         width: 100%;
-        margin: 0 0 3rem 0;
+        margin: 4rem 0 3rem 0;
         @include themify()
         {
             color: mix(themed("primary"), themed("grey-000"), 25%);

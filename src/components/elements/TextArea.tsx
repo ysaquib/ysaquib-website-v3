@@ -1,5 +1,5 @@
 /**
- * File: TextField.tsx
+ * File: TextArea.tsx
  * Author: Yusuf Saquib
  */
 import React, { FC, TextareaHTMLAttributes, useEffect, useState } from 'react';

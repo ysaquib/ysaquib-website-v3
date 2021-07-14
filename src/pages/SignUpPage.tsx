@@ -1,6 +1,8 @@
 /**
  * File: SignUp.tsx
  * Author: Yusuf Saquib
+ * 
+ * Simply shows the registration portal.
  */
 
 import React, { FC } from 'react';

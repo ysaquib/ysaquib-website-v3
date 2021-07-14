@@ -30,7 +30,9 @@ interface DialogProps
 }
 
 /**
- * Simply opens a new dialog box
+ * Simply opens a new dialog box with the given properties and functions.
+ * Could be done better since this requires the user to be intelligent in using
+ * the DialogBox but I am the only one using this atm so it's fine.
  */
 const DialogBox: FC<DialogProps> = ({overlay=true, className="", ...props}) => 
 {

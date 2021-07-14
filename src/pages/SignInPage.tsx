@@ -1,6 +1,8 @@
 /**
  * File: SignIn.tsx
  * Author: Yusuf Saquib
+ * 
+ * Simply shows the login portal
  */
 
 import React, { FC } from 'react';

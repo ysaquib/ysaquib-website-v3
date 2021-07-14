@@ -1,5 +1,5 @@
 /**
- * File: About.tsx
+ * File: AdminBanner.tsx
  * Author: Yusuf Saquib
  */
 
@@ -36,6 +36,9 @@ const AdminBanner : FC = () =>
     const [error, setError] = useState("");
     const [message, setMessage] = useState("");
     
+    /**
+     * Get banner data from the database.
+     */
     useEffect(() => 
     {
         dispatch(getBannerData(() => setError("Error getting Banner Data")));
@@ -51,6 +54,10 @@ const AdminBanner : FC = () =>
         }
     }, [BannerData]);
 
+
+    /**
+     * Handle edit submission.
+     */
     const onSubmit : SubmitHandler<BannerData> = (data) => 
     {
         console.log(data);

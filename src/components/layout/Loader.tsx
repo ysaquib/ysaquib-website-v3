@@ -1,6 +1,8 @@
 /**
  * File: Loader.tsx
  * Author: Yusuf Saquib
+ * 
+ * Shows the loading screen. Pretty straightforward.
  */
 
 import React, { FC } from 'react';

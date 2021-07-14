@@ -1,3 +1,10 @@
+/**
+ * File: dataActions.ts
+ * Author: Yusuf Saquib
+ * 
+ * functions are pretty self-explanatory.
+ */
+
 import firebase from 'firebase';
 import { ThunkAction } from 'redux-thunk';
 import { RootState } from '..';
@@ -120,8 +127,6 @@ export const setProjectData = (projectData: ProjectData, onComplete?: () => void
             const {project_id, ...project} = projectData;
             const proj_createdAt = firebase.firestore.Timestamp.fromDate(project.project_createdAt)
 
-            // const project_index = allProjects.findIndex((proj) => {return proj.project_id === projectData.project_id});
-            // allProjects[project_index] = projectData;
             await Firebase.firestore().collection("projects").doc(projectData.project_id).set({...project, project_createdAt: proj_createdAt});
 
             dispatch({

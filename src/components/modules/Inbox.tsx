@@ -26,6 +26,9 @@ interface MessageBoxProps
     handleDelete: (msg: MessageData) => void;
 }
 
+/**
+ * A single message item using message data.
+ */
 const ListItem: FC<ListItemProps> = ({message, onClick, selected, ...props}) =>
 {
     const ref = React.useRef<HTMLLIElement>(null);
@@ -53,6 +56,9 @@ const ListItem: FC<ListItemProps> = ({message, onClick, selected, ...props}) =>
     );
 }
 
+/**
+ * Creates area where the message is shown.
+ */
 const MessageBox: FC<MessageBoxProps> = ({message, handleDelete}) =>
 {
     if(!message)
@@ -89,6 +95,10 @@ const Inbox : FC = () =>
     const [ selectedMessage, setSelectedMessage] = useState<MessageData>();
     const [ dialog, setDialog ] = useState<JSX.Element>(<></>);
 
+    /**
+     * Get all messages from database.
+     * : Note that this is not unique per user. This is for all users. But since I am the only user, its okay.
+     */
     useEffect(() => 
     {
         dispatch(getMessages(undefined, () => {console.log("Error getting message data")}));

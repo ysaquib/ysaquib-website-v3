@@ -1,3 +1,10 @@
+/**
+ * File: authReducer.ts
+ * Author: Yusuf Saquib
+ * 
+ * Code modified from https://github.com/damirpristav/react-ts-redux-firebase-authentication
+ */
+
 import { AuthAction, AuthState , User_SetUser, User_SignedOut, User_NeedVerification, User_SetLoading, User_SetWarning, User_SetSuccess, User_SetError, User_SetUserRoles } from '../types/authTypes';
 
 const initialState: AuthState = {

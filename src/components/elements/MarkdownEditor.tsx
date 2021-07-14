@@ -1,10 +1,18 @@
 /**
  * File: MarkdownEditor.tsx
  * Author: Yusuf Saquib
+ * 
+ * I couldn't find a decent markdown editor that supported the stuff that I
+ * wanted and allowed me to modify the CSS to my heart's content so I just made
+ * my own. It works okay and definitely lacks many features (like automatically
+ * adding the next number in an ordered list, or adding a new ul item when 
+ * pressing return, and more intelligent features) but it does the job well 
+ * enough for my purposes.
+ * 
+ * NOTE: I may expand on this later and release it as a separate NPM package.
  */
 
 import React, { FC, useEffect, useState } from 'react';
-// import { RegisterOptions, UseFormRegister } from 'react-hook-form';
 import { IconAsterisk, IconBold, IconBulletList, IconCheckedList, IconCheckedListAlt, IconCode, IconCodeBlock, IconHeader1, IconHeader2, IconHeader3, IconHeader4, IconHeader5, IconHeader6, IconImage, IconItalic, IconLink, IconNumberedList, IconQuote, IconSeparator, IconStrikethrough, IconTable } from './Icons';
 
 interface ToolbarProps
@@ -49,7 +57,7 @@ const Toolbar : FC<ToolbarProps> = ({editorContent, setEditorContent, editorSele
 {
     /**
      * TODO: Add basic keyboard shortcuts.
-     * TODO: Add auto continue list functionality?
+     * TODO: Add auto continue list functionality
      */
     function formatMarkdown (options: string[])
     {
