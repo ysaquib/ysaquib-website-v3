@@ -27,6 +27,7 @@
 {
     margin-top: 2.5rem;
 
+
     #blog_edit_button
     {
         transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
@@ -53,6 +54,7 @@
     #blog_header
     {   
         margin-bottom: 4rem;
+        
         #blog_title
         {
             transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
@@ -67,7 +69,7 @@
                 padding: 1rem;
             }
         }
-
+        
         #blog_info
         {
             display: flex;
@@ -75,14 +77,14 @@
             justify-content: space-between;
             flex-direction: row;
             margin: 1rem 0rem;
-            gap: 0.4rem;
+            gap: 1rem;
             
             @include media("<=tablet")
             {
-                text-align: left;
-                flex-direction: row;
-                align-items: stretch;
-                justify-content: space-between;
+                text-align: center;
+                flex-direction: column-reverse;
+                align-items: center;
+                justify-content: flex-end;
             }
             
             .info_item
@@ -90,6 +92,25 @@
                 transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
                 margin: 0rem;
             }
+        }
+
+        #blog_tag_list
+        {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            padding: 0rem;
+            margin: 0rem;
+        }
+        
+        .blog_tag
+        {
+            transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
+            list-style-type: none;
+            padding: 0.4rem 0.6rem;
+            border-radius: $radius-small;
         }
     }
     
@@ -129,6 +150,11 @@
 
         #blog_header
         {
+            .blog_tag
+            {
+                background-color: themed("primary");
+                color: themed("grey-000");
+            }
             #blog_title
             {
                 background-color: themed("primary");
@@ -143,11 +169,14 @@
         {
             #blog_header
             {
+                .blog_tag
+                {
+                    background-color: themed("secondary");
+                }
                 #blog_title
                 {
                     background-color: themed("secondary");
                 }
-                
                 #blog_info .info_item
                 {
                     color: themed("secondary");
@@ -171,11 +200,14 @@
         {
             #blog_header
             {
+                .blog_tag
+                {
+                    background-color: themed("grey-700");
+                }
                 #blog_title
                 {
                     background-color: themed("grey-700");
                 }
-                
                 #blog_info .info_item
                 {
                     color: themed("grey-700");

@@ -101,6 +101,7 @@ const BlogPage : FC<BlogPageProps> = ({isNewBlog=false, isEditing=false, allBlog
     const handleClickEditBlog = () =>
     {
         console.log(blogContent);
+        window.scrollTo(0,0);
         if (canUserEdit)
             setEditingBlog(true);
         else 
@@ -326,7 +327,7 @@ const BlogPage : FC<BlogPageProps> = ({isNewBlog=false, isEditing=false, allBlog
     return (
         <section id="blog" className={`${blogIsFeatured === true ? "featured" : ""} ${blogInProgress === true ? "wip" : ""}`}>
 
-            <Head title={`${blogData.blog_title} — Blog`} />
+            <Head title={`${blogTitle} — Blog`} />
 
             <div id="blog_button_back" onClick={handleBack}><span className="svg_icon">{IconChevronLeft}</span> Back to All Blogs</div>
             {canUserEdit && editBlogButton}
@@ -337,9 +338,14 @@ const BlogPage : FC<BlogPageProps> = ({isNewBlog=false, isEditing=false, allBlog
                     <p className="info_item">
                         {format(blogData.blog_createdAt, "dd MMMM yyyy")} 
                     </p>
-                    {/* {blogData.blog_updatedAt && blogCreatedAt !== blogUpdatedAt && 
-                    <p className="info_item">
-                        Updated {format(blogData.blog_updatedAt, "dd MMM yyyy")}</p>} */}
+                    
+                    {blogTags !== "" && <ul id="blog_tag_list">
+                        {blogTags !== "" && 
+                            blogTags.split(",").map((tag) => 
+                                <li className="blog_tag">{tag.trim()}</li>
+                            )
+                        }
+                    </ul> }
                 </div>
             </div>
 
