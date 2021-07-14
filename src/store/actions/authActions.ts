@@ -61,7 +61,7 @@ export const userSignUp = (data : SignUpData, onError: () => void) : ThunkAction
     }
 }
 
-export const getUserById = (id: string) : ThunkAction<void, RootState, null, AuthAction> =>
+export const getUserById = (id: string, onError?: () => {}) : ThunkAction<void, RootState, null, AuthAction> =>
 {
     return async dispatch =>
     {
@@ -83,8 +83,12 @@ export const getUserById = (id: string) : ThunkAction<void, RootState, null, Aut
         }
         catch (error)
         {
+            onError && onError();
+            dispatch(setLoading(false));
             console.log(error);
         }
+
+        dispatch(setLoading(false));
     }
 }
 
@@ -92,6 +96,7 @@ export const setLoading = (value: boolean) : ThunkAction<void, RootState, null, 
 {
     return dispatch => 
     {
+        console.log("SETLOADING:", value);
         dispatch({
             type: User_SetLoading,
             payload: value
@@ -99,21 +104,24 @@ export const setLoading = (value: boolean) : ThunkAction<void, RootState, null, 
     }
 }
 
-export const userSignIn = (data: SignInData, onError: () => void) : ThunkAction<void, RootState, null, AuthAction> => 
+export const userSignIn = (data: SignInData, onError?: (msg?: any) => void) : ThunkAction<void, RootState, null, AuthAction> => 
 {
     return async dispatch =>
     {
         try
         {
+            dispatch(setLoading(true));
             console.log("Signing In");
-            await Firebase.auth().signInWithEmailAndPassword(data.email, data.password);
-            // console.log(userCred.user?.uid);
-            // getUserById(userCred.user!.uid);
+            const response = await Firebase.auth().signInWithEmailAndPassword(data.email, data.password);
+            if(response.user)
+            {
+                dispatch(getUserById(response.user?.uid));
+            }
         }
         catch (error)
         {
             console.log(error);
-            onError();
+            onError && onError();
             dispatch(setError(error));
         }
     }
@@ -134,7 +142,6 @@ export const userSignOut = () : ThunkAction<void, RootState, null, AuthAction> =
         catch (error)
         {
             console.log(error);
-            dispatch(setLoading(false));
         }
     }
 }

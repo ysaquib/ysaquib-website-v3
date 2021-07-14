@@ -19,14 +19,14 @@ export interface User
     email:      string;
     firstname:  string;
     lastname:   string;
-    roles:      [string];
+    roles:      string[];
     id:         string;
     createdAt:  any;
 }
 export interface AuthState
 {
     user:               User | null;
-    userRoles:          [string];
+    userRoles:          string[];
     authenticated:      boolean;
     loading:            boolean;
     error:              string;
@@ -65,7 +65,7 @@ interface SetUserAction
 interface SetUserRolesAction
 {
     type: typeof User_SetUserRoles;
-    payload: [string];
+    payload: string[];
 }
 
 interface SetLoadingAction

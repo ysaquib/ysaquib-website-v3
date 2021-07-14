@@ -67,14 +67,13 @@ const RegisterPortal : FC = () =>
         setRegistered(data.emailaddress);
     }
 
-    if(authenticated)
+    if(authenticated && isRegistered === "")
     {
         return (
-            <Redirect to="/account" />
+            <Redirect to="/" />
         );
     }
-
-    if(isRegistered !== '')
+    else if(isRegistered !== "")
     {
         return (
             <Section id="register" title="Create An Account">

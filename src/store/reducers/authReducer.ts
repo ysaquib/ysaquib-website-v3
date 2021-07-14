@@ -3,7 +3,7 @@ import { AuthAction, AuthState , User_SetUser, User_SignedOut, User_NeedVerifica
 const initialState: AuthState = {
   user: null,
   authenticated: false,
-  userRoles: [''],
+  userRoles: [],
   loading: true,
   error: '',
   warning: '',
@@ -18,7 +18,8 @@ const AuthFn = (state = initialState, action: AuthAction) => {
             return {
                 ...state,
                 user: action.payload,
-                authenticated: true
+                authenticated: true,
+                error: "",
             };
         
         case User_SetUserRoles:
@@ -38,7 +39,8 @@ const AuthFn = (state = initialState, action: AuthAction) => {
                 ...state,
                 user: null,
                 authenticated: false,
-                loading: false
+                error: "",
+                userRoles: [],
             };
 
         case User_SetError:

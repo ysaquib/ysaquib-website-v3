@@ -8,12 +8,12 @@ import TextField from '../elements/TextField';
 import Section from '../elements/Section';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import Button from '../elements/Button';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
-import { setLoading, userSignIn } from '../../store/actions/authActions';
+import { userSignIn } from '../../store/actions/authActions';
 
 interface FormInputs
 {
@@ -35,37 +35,25 @@ const schema = yup.object().shape(
 const LoginPortal : FC = () =>
 {
     const resolver = yupResolver(schema);
-    const {register, handleSubmit, formState: {errors}} = useForm<FormInputs>({mode: "all", resolver});
-    const [isLoading, setIsLoading] = useState(false);
+    const {register, handleSubmit, formState: {errors, isSubmitting}} = useForm<FormInputs>({mode: "all", resolver});
     
     const dispatch = useDispatch();
-    const {error, authenticated} = useSelector((state : RootState) => state.auth);
+    const {error} = useSelector((state : RootState) => state.auth);
 
     const onSubmit : SubmitHandler<FormInputs> = (data) => 
     {
         console.log(JSON.stringify(data));
-        setIsLoading(true);
-        dispatch(userSignIn(
-            {
-                email: data.emailaddress, 
-                password: data.password
-            }, 
-            () => {setIsLoading(false)}));
-
-        dispatch(setLoading(true));
-    }
-
-    if (authenticated)
-    {
-        return (
-            <Redirect to="/" />
-        )
+        
+        dispatch(userSignIn({
+            email: data.emailaddress, 
+            password: data.password
+        }));
     }
 
     return (
         <Section id="login" title="Sign In">
             <form className="login_wrapper" onSubmit={handleSubmit(onSubmit)}>
-                {error && <p className="error_banner">{error}</p>}
+                {error && <p className="banner">{error}</p>}
                 <TextField 
                     label="Email Address" 
                     name="emailaddress"
@@ -85,9 +73,10 @@ const LoginPortal : FC = () =>
                 </Link>
 
                 <Button 
-                    text={isLoading ? "Signing In" : "Sign In"} 
+                    text={isSubmitting ? "Signing In" : "Sign In"} 
                     className="confirmbtn"
-                    disabled={isLoading} />
+                    disabled={isSubmitting}
+                    type="submit"/>
            </form>
         </Section>
     );

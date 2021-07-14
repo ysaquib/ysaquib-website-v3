@@ -8,7 +8,7 @@ import './styles/main.scss';
 import './firebase/config'
 
 import { useDispatch, useSelector } from 'react-redux';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 
 import Admin from './pages/AdminPage';
 import HomePage from './pages/HomePage';
@@ -58,26 +58,37 @@ const App : FC = () =>
         }
     }, [currentTheme]);
 
-
+    console.log("Is Loading", AuthState.loading);
+    
     useEffect(() => {
-        dispatch(setLoading(true));
         const unsubscribe = firebase.auth().onAuthStateChanged(async (user) => 
         {
+            console.log("Check user");
             if(user) 
             {
+                console.log("Is user");
                 dispatch(setLoading(true));
-                dispatch(getMessages());
                 dispatch(getUserById(user.uid));
+                dispatch(getMessages());
+                
                 if(!user.emailVerified) 
                 {
                     dispatch(setNeedVerification());
                 }
             }
-            dispatch(setLoading(false));
+            else 
+            {
+                dispatch(setLoading(false));
+            }
+            console.log("Done user");
         });
+        
+        console.log("Done subscribe user");
         
         return () => 
         {
+            console.log("Unsubscribe");
+            dispatch(setLoading(false));
             unsubscribe();
         };
     }, [dispatch]);
@@ -101,7 +112,11 @@ const App : FC = () =>
             <div id="main_container">
                 <Switch>
                     <PublicRoute exact path="/"> <HomePage /> </PublicRoute>
-                    <PublicRoute exact path="/signin"> <SignIn /> </PublicRoute>
+                    
+                    <PublicRoute exact path="/signin"> 
+                        {AuthState.authenticated ? <Redirect to="/" /> : <SignIn /> } 
+                    </PublicRoute>
+                    
                     <PublicRoute exact path="/signup"> <SignUp /> </PublicRoute>
                     <PublicRoute path="/blog"> <BlogsPage /> </PublicRoute>
                     <PublicRoute path="/projects"> <Projects id="all_projects" sectionTitle="Projects Archive" showAllProjects={true}/> </PublicRoute>
