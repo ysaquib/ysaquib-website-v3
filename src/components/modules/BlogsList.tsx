@@ -110,9 +110,9 @@ const BlogsList : FC = () =>
     
     const { authenticated, userRoles } = useSelector((state : RootState) => state.auth);
     
-    const bpp_options: number[] = [5, 10, 25];
+    const bpp_options: number[] = [2, 4, 6];
     
-    const local_bpp: number = parseInt(localStorage.getItem("blogs_per_page") ?? "5");
+    const local_bpp: number = parseInt(localStorage.getItem("blogs_per_page") ?? "2");
     const bpp_index: number = bpp_options.findIndex((x) => x === local_bpp);
     const final_index: number = bpp_index === -1 ? 0 : bpp_index;
     
@@ -124,7 +124,7 @@ const BlogsList : FC = () =>
     const [ totalPages, setTotalPages] = useState<number>(Math.ceil(blogs.length / blogsPerPage));
 
     const currentPageArg: number = parseInt(useQuery().get("page") ?? "1");
-    const currentPage = currentPageArg % totalPages === 0 ? totalPages : currentPageArg % totalPages;
+    const currentPage = currentPageArg > totalPages ? totalPages : (currentPageArg < 1 ? 1 : currentPageArg);
     const [ page, setPage] = useState<number>(currentPage);
 
     const handlePageChange = (_event: React.ChangeEvent<unknown>, value: number) =>
@@ -150,20 +150,19 @@ const BlogsList : FC = () =>
     
     useEffect(() => {
         const newTotal = Math.ceil(blogs.length / blogsPerPage);
-        const pageParam: number = currentPageArg % newTotal;
-        const newPage = pageParam === 0 ? newTotal : pageParam;
+        const newPage: number = currentPageArg > newTotal ? newTotal : (currentPageArg < 1 ? 1 : currentPageArg);
         
         setTotalPages(newTotal);
         setPage(newPage);
 
-        if (!isNaN(newPage) && newPage !== page)
+        if (newPage !== page || currentPageArg === 0)
         {
             history.push(`/blog?page=${newPage}`)
         }
 
         localStorage.setItem("blogs_per_page", blogsPerPage.toString());
         
-    }, [blogs, blogsPerPage, currentPageArg]);
+    }, [blogs, blogsPerPage, currentPageArg, page, history]);
     
     useEffect(() => {
         document.getElementById(currentBPP)?.classList.add("selected");

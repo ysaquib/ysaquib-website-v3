@@ -59,7 +59,6 @@ const Header : FC = () =>
      * Toggle view of Mobile Header
      */
     useEffect(() => {
-        console.log(isOpen);
         if (isOpen)
             document.getElementById("header_menu_wrapper")?.classList.add("open");
         else
