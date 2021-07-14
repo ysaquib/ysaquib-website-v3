@@ -133,7 +133,8 @@ const Editor: FC<EditorProps> = ({className="", content, setContent, name, ...pr
     }, [editorContent, editorRef, setContent]);
 
     useEffect(() => {
-        editorRef.current?.focus();
+        if(editorSelection[0] !== 0 && editorSelection[1] !== 0)
+            editorRef.current?.focus();
         // console.log(editorSelection);
         editorRef.current?.setSelectionRange(editorSelection[0], editorSelection[1]);
 
