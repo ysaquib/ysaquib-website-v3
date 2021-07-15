@@ -20,14 +20,14 @@
 
 .text_label
 {
-    margin: none;
-    opacity: 0%;
+    margin: 0rem;
+    opacity: 0.0;
     transition: $trans-regular;
     
     &.shown
     {
         transition: $trans-regular;
-        opacity: 100%;
+        opacity: 1.0;
 
         @include themify()
         {

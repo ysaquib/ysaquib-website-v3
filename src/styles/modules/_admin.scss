@@ -218,6 +218,12 @@
             .banner_buttons
             {
                 gap: 1rem;
+                .btn
+                {
+                    padding: 0.7rem 0.9rem;
+                    min-width: 8rem;
+                    min-height: 2.8rem;
+                }
             }    
             
             .my_title { margin-bottom: 2rem; } 

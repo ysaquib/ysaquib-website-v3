@@ -42,7 +42,6 @@ const LoginPortal : FC = () =>
 
     const onSubmit : SubmitHandler<FormInputs> = (data) => 
     {
-        
         dispatch(userSignIn({
             email: data.emailaddress, 
             password: data.password

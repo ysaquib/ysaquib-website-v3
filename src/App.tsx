@@ -47,7 +47,6 @@ const App : FC = () =>
     if(getTheme == null)
     {
         document.body.classList.add("theme-dark");
-        console.log(getTheme);
     }
 
     useEffect(() => {

@@ -44,7 +44,7 @@
 
 html 
 {
-    font-size: 62.5%;
+    font-size: 62.5%; // 10/16
     height: 100%;
     overflow-y: scroll;
 
@@ -54,19 +54,19 @@ html
     }
     @include media("<=tablet-big")
     {
-        font-size: 59.375%;
+        font-size: 59.375%; // 9.5/16 
     }
     @include media("<=tablet")
     {
-        font-size: 56.25%;
+        font-size: 56.25%; // 9/16
     }
     @include media("<=phone")
     {
-        font-size: 53.125%;
+        font-size: 53.125%; // 8.5/16
     }
     @include media("<=phone-small")
     {
-        font-size: 50%;
+        font-size: 53.125%; // 8.5/16
     }
 }  
 body
