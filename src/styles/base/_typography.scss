@@ -18,11 +18,10 @@ h1
     }
     font: $medium-weight $large-size $serif-font;
 }
-  
+
 h2
 {
     font: $medium-weight $regular-size $mono-font;
-    // color: $primary-color;
     @include themify()
     {
         color: themed('primary');
@@ -32,7 +31,6 @@ h2
 title
 {
     font: $bold-weight $regular-size $sans-font;
-    // color: $primary-color;
     @include themify()
     {
         color: themed('primary');
@@ -45,6 +43,8 @@ title
     -moz-font-feature-settings: "lnum";
     font-feature-settings: "lnum";
 }
+
+
 
 // $ Section ==================================================================
 
@@ -104,11 +104,11 @@ title
     }
     .my_name
     {
-        font: $bolder-weight $huge-size $sans-font;
+        font: $bolder-weight $Largest-size $sans-font;
     }
     .my_title
     {
-        font: $bold-weight $Largest-size $sans-font;
+        font: $bold-weight $Large-size $sans-font;
     }
 }
 
@@ -136,7 +136,7 @@ title
         font: $bold-weight $Medium-size $sans-font;
         @include media(">tablet-big")
         {
-            &.featured_project_text { font-size: $Large-size; }
+            &.featured_project_text { font-size: $large-size; }
             &.large_project_text { font-size: $large-size; }
         }
         @include media(">tablet", "<=tablet-big")
@@ -151,7 +151,7 @@ title
         line-height: $line-height-medium;
         @include media(">tablet-big")
         {
-            &.featured_project_text { font-size: $Regular-size; }
+            &.featured_project_text { font-size: $regular-size; }
             &.featured_large_text { font-size: $regular-size; }
             
         }
@@ -166,7 +166,7 @@ title
         font: $regular-weight $small-size $mono-font;
         @include media(">tablet-big")
         {
-            &.featured_project_text { font-size: $regular-size; }
+            &.featured_project_text { font-size: $Small-size; }
             &.large_project_text { font-size: $Small-size; }
             
         }
@@ -199,7 +199,7 @@ title
 {
     #blog_button_back
     {
-        font: $regular-weight $small-size $mono-font;
+        font: $regular-weight $Small-size $mono-font;
     }
     #blog_edit_button
     {
@@ -207,15 +207,15 @@ title
     }
     #blog_title
     {
-        font: $bold-weight $Largest-size $serif-font;
+        font: $bold-weight $larger-size $serif-font;
     }
     .info_item
     {
-        font: $regular-weight $small-size $serif-font;
+        font: $regular-weight $Small-size $serif-font;
     }
     .blog_tag
     {
-        font: $semi-weight $little-size $sans-font;
+        font: $semi-weight $Small-size $sans-font;
     }
 }
 
@@ -344,7 +344,7 @@ input[type=checkbox]
 
 #footer .footer_label
 {
-    font: $semi-weight $little-size $mono-font;
+    font: $regular-weight $Little-size $mono-font;
 }
 
 // $ Header ===================================================================

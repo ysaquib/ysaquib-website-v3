@@ -47,8 +47,28 @@ html
     font-size: 62.5%;
     height: 100%;
     overflow-y: scroll;
-}
-  
+
+    @include media(">desktop-big")
+    {
+        font-size: 100%;
+    }
+    @include media("<=tablet-big")
+    {
+        font-size: 59.375%;
+    }
+    @include media("<=tablet")
+    {
+        font-size: 56.25%;
+    }
+    @include media("<=phone")
+    {
+        font-size: 53.125%;
+    }
+    @include media("<=phone-small")
+    {
+        font-size: 50%;
+    }
+}  
 body
 {
 

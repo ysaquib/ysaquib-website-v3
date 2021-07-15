@@ -16,7 +16,7 @@
 
         @include themify()
         {
-            color: themed('grey-500');
+            color: themed('grey-700');
         }
         
         &::before
@@ -51,7 +51,6 @@
             gap: 0.3rem;
             cursor: pointer;
             text-decoration: none;
-            opacity: 80%;
             transition: color $trans-regular $trans-effect;
             
             * { transition: none; }

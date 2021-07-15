@@ -16,84 +16,27 @@ $breakpoints: (
     "desktop-big": 1800px,
 );
 
-:root
-{
-    --size-multiplier:   0.0;
-    --small-diff:        0.1rem;
-    --regular-diff:      0.2rem;
-    --medium-diff:       0.5rem;
-    --large-diff:        1.0rem;
-    
-    @include media(">desktop-big")
-    {
-        --size-multiplier: -4.0;
-        --small-diff:       0.3rem;
-        --regular-diff:     0.6rem;
-        --medium-diff:      0.8rem;
-        --large-diff:       1.2rem;
-    }
-    @include media("<=tablet-big")
-    {
-        --size-multiplier: 0.5;
-    }
-    @include media("<=tablet")
-    {
-        --size-multiplier: 0.75;
-    }
-    @include media("<=phone")
-    {
-        --size-multiplier: 1.0;
-    }
-    @include media("<=phone-small")
-    {
-        --size-multiplier: 1.5;
-    }
-    
-    --small-delta:        calc(var(--small-diff) * var(--size-multiplier));
-    --regular-delta:      calc(var(--regular-diff) * var(--size-multiplier));
-    --medium-delta:       calc(var(--medium-diff) * var(--size-multiplier));
-    --large-delta:        calc(var(--large-diff) * var(--size-multiplier));
-
-    --tiny-size:         calc(1.0rem - var(--small-delta));
-    --Tiny-size:         calc(1.1rem - var(--small-delta));
-    --little-size:       calc(1.2rem - var(--small-delta));
-    --Little-size:       calc(1.3rem - var(--small-delta));
-    --small-size:        calc(1.4rem - var(--small-delta));
-    --Small-size:        calc(1.5rem - var(--small-delta));
-    --regular-size:      calc(1.6rem - var(--small-delta));
-    --Regular-size:      calc(1.8rem - var(--small-delta));
-    --medium-size:       calc(2.0rem - var(--regular-delta));
-    --Medium-size:       calc(2.5rem - var(--regular-delta));
-    --large-size:        calc(3.0rem - var(--regular-delta));
-    --larger-size:       calc(3.7rem - var(--medium-delta));
-    --Large-size:        calc(4.0rem - var(--medium-delta));
-    --Largest-size:      calc(4.5rem - var(--large-delta));
-    --huge-size:         calc(5.0rem - var(--large-delta));
-    --huger-size:        calc(5.5rem - var(--large-delta));
-    --Huge-size:         calc(6.0rem - var(--large-delta));
-    --gigantic-size:     calc(7.0rem - var(--large-delta));
-}
-
 // # Text Variables -----------------------------------------------------------
 
-$tiny-size:        var(--tiny-size);
-$Tiny-size:        var(--Tiny-size);
-$little-size:      var(--little-size);
-$Little-size:      var(--Little-size);
-$small-size:       var(--small-size);
-$Small-size:       var(--Small-size);
-$regular-size:     var(--regular-size);
-$Regular-size:     var(--Regular-size);
-$medium-size:      var(--medium-size);
-$Medium-size:      var(--Medium-size);
-$large-size:       var(--large-size);
-$larger-size:      var(--larger-size);
-$Large-size:       var(--Large-size);
-$Largest-size:     var(--Largest-size);
-$huge-size:        var(--huge-size);
-$huger-size:       var(--huger-size);
-$Huge-size:        var(--Huge-size);
-$gigantic-size:    var(--gigantic-size);
+$tiny-size:        1.0rem;
+$Tiny-size:        1.1rem;
+$little-size:      1.2rem;
+$Little-size:      1.3rem;
+$small-size:       1.4rem;
+$Small-size:       1.5rem;
+$regular-size:     1.6rem;
+$Regular-size:     1.8rem;
+$medium-size:      2.0rem;
+$Medium-size:      2.5rem;
+$large-size:       3.0rem;
+$llarge-size:      3.4rem;
+$larger-size:      3.7rem;
+$Large-size:       4.0rem;
+$Largest-size:     4.5rem;
+$huge-size:        5.0rem;
+$huger-size:       5.5rem;
+$Huge-size:        6.0rem;
+$gigantic-size:    7.0rem;
 
 // # Line Height Variables ----------------------------------------------------
 
@@ -135,8 +78,8 @@ $trans-effect-drawer: ease-in-out;
 $trans-fastest: 0.15s;
 $trans-fast: 0.2s;
 $trans-regular: 0.3s;
-$trans-slow: 0.45s;
-$trans-slowest: 0.6s;
+$trans-slow: 0.4s;
+$trans-slowest: 0.5s;
 
 $anim-long: 2s;
 
