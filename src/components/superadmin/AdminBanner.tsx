@@ -60,7 +60,6 @@ const AdminBanner : FC = () =>
      */
     const onSubmit : SubmitHandler<BannerData> = (data) => 
     {
-        console.log(data);
         setLoading(true);
         dispatch(setBannerData(data, (err) => {setError(err)}));
         setLoading(false);

@@ -84,7 +84,6 @@ const Contact : FC = () =>
     const onSubmit : SubmitHandler<FormInputs> = (data) => 
     {
         window.onbeforeunload = () => undefined;
-        console.log(JSON.stringify(data));
         const message: MessageData = 
         {
             msg_id: "",
@@ -113,9 +112,7 @@ const Contact : FC = () =>
         {
             setButtonDisabled(true);
             const token = await executeRecaptcha('Contact');
-            console.log(token);
             const resp = await axios.get(`http://localhost:5001/ysaquib-website/us-central1/sendRecaptcha?token=${token}`);
-            console.log(resp.data.score);
             if (resp.data.success && resp.data.score >= 0.5)
             {
                 handleSubmit(onSubmit)();

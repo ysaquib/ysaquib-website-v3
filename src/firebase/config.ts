@@ -26,7 +26,6 @@ const Firebase = firebase.initializeApp(config);
 
 // eslint-disable-next-line no-restricted-globals
 if (location.hostname === 'localhost') {
-    console.log("On Localhost");
     Firebase.firestore().useEmulator('localhost', 8080);
     Firebase.auth().useEmulator('http://localhost:9099/');
 }

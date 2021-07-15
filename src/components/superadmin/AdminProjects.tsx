@@ -80,7 +80,6 @@ const AdminProjects : FC = () =>
             
             setMessage("");
             setInProgress(project.project_inProgress ?? false);
-            console.log(project?.project_title, project?.project_order);
             setFocus("project_title");
         }
         return () => 
@@ -216,7 +215,6 @@ const AdminProjects : FC = () =>
      */
     const onSubmit : SubmitHandler<ProjectData> = (data) => 
     {
-        console.log(project?.project_title, data.project_title, project?.project_order);
         dispatch(setProjectsLoading(true));
 
         const proj_id = project?.project_id ?? "";
@@ -232,15 +230,12 @@ const AdminProjects : FC = () =>
             project_createdAt: parse(currentDate, "yyyy-MM-dd", new Date())
         };
 
-        console.log(new_project);
         if(isNewProject && project)
         {
-            console.log("New project");
             dispatch(addNewProject(new_project, projects, undefined, (err) => {setError(err)}));
         }
         else if(!isNewProject && project)
         {
-            console.log("Existing project");
             dispatch(setProjectData(new_project, undefined, (err) => {setError(err)}));
         }
         

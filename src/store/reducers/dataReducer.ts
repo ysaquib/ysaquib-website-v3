@@ -53,11 +53,8 @@ export const projectReducer = (state = initialProjectsState, action: ProjectActi
 
         case Data_SetProjectData:
             const newProjects = state.allProjects;
-            console.log(state.allProjects);
             const project_index = newProjects.findIndex((proj) => {return proj.project_id === action.payload.project_id});
-            console.log(project_index);
             newProjects[project_index] = action.payload;
-            console.log(newProjects);
             return {...state, allProjects: newProjects};
             
         case Data_AddProject:
@@ -107,7 +104,6 @@ export const blogReducer = (state = initialBlogsState, action: BlogAction) : Blo
         case Data_AddBlog:
             const allBlogsAdd = state.allBlogs;
             allBlogsAdd.unshift(action.payload);
-            console.log(state);
             return {...state, allBlogs: allBlogsAdd};
 
         case Data_isLoadingBlogs:
@@ -148,7 +144,6 @@ export const messageReducer = (state = initialMessagesState, action: MessageActi
             return {...state, newMessagesCount: state.newMessagesCount + 1, hasNewMessages: true};
 
         case Data_DecrementNew:
-            console.log(state.hasNewMessages, state.newMessagesCount);
             return {...state, newMessagesCount: state.newMessagesCount - 1, hasNewMessages: (state.newMessagesCount - 1 > 0)};
 
         case Data_isLoadingMessages:

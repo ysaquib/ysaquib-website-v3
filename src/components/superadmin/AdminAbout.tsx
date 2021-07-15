@@ -57,7 +57,6 @@ const AdminAbout : FC = () =>
      */
     const onSubmit : SubmitHandler<AboutData> = (data) => 
     {
-        console.log(data);
         setLoading(true);
         dispatch(setAboutData(data, (err) => {setError(err)}));
         setLoading(false);

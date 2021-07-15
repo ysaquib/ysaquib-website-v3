@@ -97,7 +97,6 @@ const BlogPage : FC<BlogPageProps> = ({isNewBlog=false, isEditing=false, allBlog
      */
     const handleClickEditBlog = () =>
     {
-        console.log(blogContent);
         window.scrollTo(0,0);
         if (canUserEdit)
             setEditingBlog(true);
@@ -117,7 +116,6 @@ const BlogPage : FC<BlogPageProps> = ({isNewBlog=false, isEditing=false, allBlog
     {
         const title: string = event.target.value ?? "";
         const url: string = title.toLowerCase().replaceAll(/[\W_]+/g, "-");
-        console.log(blogURL);
         setBlogTitle(title);
         setBlogURL(url);
     }
@@ -146,7 +144,7 @@ const BlogPage : FC<BlogPageProps> = ({isNewBlog=false, isEditing=false, allBlog
     {
         if (blogCreatedAt.match(/yyyy|MM|dd/g) !== null || blogUpdatedAt.match(/yyyy|MM|dd/g) !== null)
         {
-            console.log("BAD >:(");
+            console.error("Error: bad date.");
             return;
         }
         setLoading(true);

@@ -130,9 +130,9 @@ const BlogsList : FC = () =>
     
     const { authenticated, userRoles } = useSelector((state : RootState) => state.auth);
     
-    const bpp_options: number[] = [2, 4, 6];
+    const bpp_options: number[] = [5, 10, 15];
     
-    const local_bpp: number = parseInt(localStorage.getItem("blogs_per_page") ?? "2");
+    const local_bpp: number = parseInt(localStorage.getItem("blogs_per_page") ?? "5");
     const bpp_index: number = bpp_options.findIndex((x) => x === local_bpp);
     const final_index: number = bpp_index === -1 ? 0 : bpp_index;
     
