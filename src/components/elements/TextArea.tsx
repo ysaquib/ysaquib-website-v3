@@ -22,9 +22,10 @@ interface TextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement>
     show_label?: boolean;
     classNameInner?: string;
     className?: string;
+    onChangeEvent?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
-const TextArea: FC<TextAreaProps> = ({ label, name, classNameInner, className, disabled, message, register, registration, replace_label, show_label=false, ...props }) => 
+const TextArea: FC<TextAreaProps> = ({ label, name, classNameInner, className, disabled, message, register, registration, replace_label, show_label=false, onChangeEvent, ...props }) => 
 {
     const [showLabel, setShowLabel] = useState(props.defaultValue != null || show_label);
 
@@ -40,30 +41,47 @@ const TextArea: FC<TextAreaProps> = ({ label, name, classNameInner, className, d
         }
     }, [showLabel, message, name]);
 
+    if(register)
+    {
+        const {onChange, ...reg} = register && register(name, registration);
+
+        return (
+            <div className={`input_wrapper ${className ? className : ""}`}>
+                <label id={name} htmlFor={name} className={`text_label ${message ? "error" : ""}`}>
+                    {replace_label ? `${message != null ? message : label }` : `${label} ${message != null ? message : "" }`}
+                </label>
+                <textarea {...props}
+                    {...reg}
+                    id={`${name}_input`}
+                    name={name}
+                    className={`${classNameInner ?? ""} ${message ? "error" : ""}`}
+                    disabled={disabled} 
+                    placeholder={label}
+                    onChange={(event) => {
+                        onChangeEvent && onChangeEvent(event); 
+                        onChange(event); 
+                        (event.target.value === "" && !show_label) ? setShowLabel(false) : setShowLabel(true)}}
+                    />
+            </div>
+        );
+    }
+
     
     return (
         <div className={`input_wrapper ${className ? className : ""}`}>
             <label id={name} htmlFor={name} className={`text_label ${message ? "error" : ""}`}>
                 {replace_label ? `${message != null ? message : label }` : `${label} ${message != null ? message : "" }`}
             </label>
-            {register
-            ? 
-                <textarea {...register(name, registration)} {...props}
-                    id={`${name}_input`}
-                    name={name}
-                    className={`${classNameInner ?? ""} ${message ? "error" : ""}`}
-                    disabled={disabled} 
-                    placeholder={label}
-                    onChange={(event) => (event.target.value === "" && !show_label) ? setShowLabel(false) : setShowLabel(true)}/>
-            :
-                <textarea {...props}
-                    id={`${name}_input`}
-                    name={name}
-                    className={`${classNameInner ?? ""} ${message ? "error" : ""}`}
-                    disabled={disabled} 
-                    placeholder={label}
-                    onChange={(event) => (event.target.value === "" && !show_label) ? setShowLabel(false) : setShowLabel(true)}/>
-            }
+            <textarea {...props}
+                id={`${name}_input`}
+                name={name}
+                className={`${classNameInner ?? ""} ${message ? "error" : ""}`}
+                disabled={disabled} 
+                placeholder={label}
+                onChange={(event) => {
+                    onChangeEvent && onChangeEvent(event); 
+                    (event.target.value === "" && !show_label) ? setShowLabel(false) : setShowLabel(true)}}
+                />
         </div>
     );
 }

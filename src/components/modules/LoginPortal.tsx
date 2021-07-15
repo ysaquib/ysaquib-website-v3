@@ -35,14 +35,13 @@ const schema = yup.object().shape(
 const LoginPortal : FC = () =>
 {
     const resolver = yupResolver(schema);
-    const {register, handleSubmit, formState: {errors, isSubmitting}} = useForm<FormInputs>({mode: "all", resolver});
+    const {register, handleSubmit, formState: {errors, isSubmitting, isValid}} = useForm<FormInputs>({mode: "all", resolver});
     
     const dispatch = useDispatch();
     const {error} = useSelector((state : RootState) => state.auth);
 
     const onSubmit : SubmitHandler<FormInputs> = (data) => 
     {
-        console.log(JSON.stringify(data));
         
         dispatch(userSignIn({
             email: data.emailaddress, 
@@ -69,13 +68,13 @@ const LoginPortal : FC = () =>
                     register={register} 
                     registration={{required: true}} />
                 <Link to="/signup" className="leftbtn">
-                    <Button className="no_background" text="Create an account" />
+                    <Button type="button" className="no_background" text="Create an account" />
                 </Link>
 
                 <Button 
                     text={isSubmitting ? "Signing In" : "Sign In"} 
                     className="confirmbtn"
-                    disabled={isSubmitting}
+                    disabled={isSubmitting || !isValid}
                     type="submit"/>
            </form>
         </Section>

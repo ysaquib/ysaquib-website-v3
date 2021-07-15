@@ -46,7 +46,7 @@ const schema = yup.object().shape(
 const RegisterPortal : FC = () =>
 {
     const resolver = yupResolver(schema);
-    const {register, handleSubmit, formState: {errors}} = useForm<FormInputs>({mode: "all", resolver});
+    const {register, handleSubmit, formState: {errors, isValid}} = useForm<FormInputs>({mode: "all", resolver});
     const [isLoading, setLoading] = useState(false);
     const [isRegistered, setRegistered] = useState('');
     const dispatch = useDispatch();
@@ -54,7 +54,6 @@ const RegisterPortal : FC = () =>
 
     const onSubmit : SubmitHandler<FormInputs> = (data) => 
     {
-        console.log(JSON.stringify(data));
         setLoading(true);
         dispatch(userSignUp(
             {
@@ -142,12 +141,13 @@ const RegisterPortal : FC = () =>
                     registration={{required: true}} />
 
                 <Link to="/signin" className="leftbtn">
-                    <Button className="no_background" text="Already Registered?"/>
+                    <Button type="button" className="no_background" text="Already Registered?"/>
                 </Link>
                 <Button 
                     text={isLoading ? "Signing Up" : "Sign Up"} 
                     className="confirmbtn"
-                    disabled={isLoading} />
+                    type="submit"
+                    disabled={isLoading || !isValid} />
             </form>
         </Section>
     );

@@ -38,35 +38,49 @@ const TextField: FC<TextFieldProps> = ({ label, onChangeEvent, type, name, class
         {
             document.getElementById(name)?.classList.add("shown");
         }
-    }, [showLabel, message, name])
+    }, [showLabel, message, name]);
 
+    if (register)
+    {
+        const {onChange, ...reg} = register && register(name, registration);
+
+        return (
+            <div className={`input_wrapper ${className ? className : ""}`}>
+                <label id={name} htmlFor={name} className={`text_label ${message ? "error" : ""}`}>
+                    {replace_label ? `${message != null ? message : label }` : `${label} ${message != null ? message : "" }`}
+                </label>
+                <input {...props}
+                    {...reg}
+                    type={type}
+                    id={`${name}_input`}
+                    name={name}
+                    className={`${classNameInner ?? ""} ${message ? "error" : ""}`}
+                    disabled={disabled} 
+                    placeholder={label}
+                    onChange={(event) => {
+                        onChangeEvent && onChangeEvent(event); 
+                        onChange(event); 
+                        (event.target.value === "" && !show_label) ? setShowLabel(false) : setShowLabel(true)}}
+                    />
+            </div>
+        );
+    }
     return (
        <div className={`input_wrapper ${className ? className : ""}`}>
             <label id={name} htmlFor={name} className={`text_label ${message ? "error" : ""}`}>
                 {replace_label ? `${message != null ? message : label }` : `${label} ${message != null ? message : "" }`}
             </label>
-            {register 
-            ?
-                <input {...props}
-                    type={type}
-                    {...register(name, registration)}
-                    id={`${name}_input`}
-                    name={name}
-                    className={`${classNameInner ?? ""} ${message ? "error" : ""}`}
-                    disabled={disabled} 
-                    placeholder={label}
-                    onChange={(event) => {onChangeEvent && onChangeEvent(event); (event.target.value === "" && !show_label) ? setShowLabel(false) : setShowLabel(true)}}/>
-            :
-                <input {...props} 
-                    type={type}
-                    id={`${name}_input`}
-                    name={name}
-                    className={`${classNameInner ?? ""} ${message ? "error" : ""}`}
-                    disabled={disabled} 
-                    placeholder={label}
-                    onChange={(event) => {onChangeEvent && onChangeEvent(event); (event.target.value === "" && !show_label) ? setShowLabel(false) : setShowLabel(true)}}/>
-
-            }
+            <input {...props}
+                type={type}
+                id={`${name}_input`}
+                name={name}
+                className={`${classNameInner ?? ""} ${message ? "error" : ""}`}
+                disabled={disabled} 
+                placeholder={label}
+                onChange={(event) => {
+                    onChangeEvent && onChangeEvent(event); 
+                    (event.target.value === "" && !show_label) ? setShowLabel(false) : setShowLabel(true)}}
+                />
        </div>
     );
 }
