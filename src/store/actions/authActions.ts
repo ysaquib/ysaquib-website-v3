@@ -126,7 +126,7 @@ export const userSignIn = (data: SignInData, onError?: (msg?: any) => void) : Th
         }
         catch (error)
         {
-            console.error(error);
+            // console.error(error);
             onError && onError();
             dispatch(setError(error));
         }
@@ -163,14 +163,16 @@ export const setError = (error: firebase.FirebaseError) : ThunkAction<void, Root
         "auth/user-not-found" : "Email address is not associated with any user.",
         "auth/uid-already-exists" : "UserID already exists.",
         "auth/email-already-exists" : "Email already exists.",
+        "auth/wrong-password": "Password is incorrect.",
     }
     return dispatch =>
     {
         const message = error_messages[error.code];
         dispatch({
             type: User_SetError,
-            payload: message != null ? message : "An unexpected error occured. Please try again later."
+            payload: message != null ? message : "An unexpected error has occured. Please check your details or try again later."
         });
+        dispatch(setLoading(false));
     }
 }
 
