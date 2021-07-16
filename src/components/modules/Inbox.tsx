@@ -92,6 +92,7 @@ const Inbox : FC = () =>
 {
     const dispatch = useDispatch();
     const { allMessages, isLoadingMessages } = useSelector((state: RootState) => state.messages);
+    const { authenticated, userRoles } = useSelector((state: RootState) => state.auth);
     const [ selectedMessage, setSelectedMessage] = useState<MessageData>();
     const [ dialog, setDialog ] = useState<JSX.Element>(<></>);
 
@@ -101,8 +102,9 @@ const Inbox : FC = () =>
      */
     useEffect(() => 
     {
-        dispatch(getMessages(undefined, () => {console.log("Error getting message data")}));
-    }, [dispatch]);
+        if(authenticated && userRoles.includes("superadmin")) 
+            dispatch(getMessages(undefined, () => {console.log("Error getting message data")}));
+    }, [dispatch, authenticated, userRoles]);
 
     const handleClickDelete = (message: MessageData) =>
     {
