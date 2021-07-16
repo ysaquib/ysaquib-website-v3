@@ -1,3 +1,8 @@
+/**
+ * File: PublicRoute.tsx
+ * Author: Yusuf Saquib
+ */
+
 import React, { FC } from 'react'
 import { Route, RouteProps } from 'react-router-dom'
 

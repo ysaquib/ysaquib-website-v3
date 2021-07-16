@@ -1,3 +1,8 @@
+/**
+ * File: PrivateRoute.tsx
+ * Author: Yusuf Saquib
+ */
+
 import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
 import { Redirect, Route, RouteProps } from 'react-router-dom';
