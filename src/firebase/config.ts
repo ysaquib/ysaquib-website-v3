@@ -9,26 +9,22 @@ import 'firebase/auth';
 
 const config : Object = 
 {
-    apiKey: process.env.REACT_APP_API_KEY,
-    authDomain: process.env.REACT_APP_AUTH_DOMAIN,
-    projectId: process.env.REACT_APP_PROJECT_ID,
-    storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
-    messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
-    appId: process.env.REACT_APP_APP_ID,
-    measurementId: process.env.REACT_APP_MEASUREMENT_ID
+    apiKey: "AIzaSyACD81evf9LEPTaYHhaYFWXtfL4W9CcTx4",
+    authDomain: "ysaquib-website.firebaseapp.com",
+    projectId: "ysaquib-website",
+    storageBucket: "ysaquib-website.appspot.com",
+    messagingSenderId: "1018298456714",
+    appId: "1:1018298456714:web:1fa942ddd53cf0bcdfeb73",
+    measurementId: "G-8KS3KMRG4",
 }
-
-// const Firebase = (!firebase.apps.length) 
-//                     ? firebase.initializeApp(config) 
-//                     : firebase.app();
 
 const Firebase = firebase.initializeApp(config);
 
 // eslint-disable-next-line no-restricted-globals
-if (location.hostname === 'localhost') {
-    Firebase.firestore().useEmulator('localhost', 8080);
-    Firebase.auth().useEmulator('http://localhost:9099/');
-}
+// if (location.hostname === 'localhost') {
+//     Firebase.firestore().useEmulator('localhost', 8080);
+//     Firebase.auth().useEmulator('http://localhost:9099/');
+// }
 
 export default Firebase;
 export {firebase};
