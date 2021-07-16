@@ -1,9 +1,50 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    match /{document=**} {
-      allow read, write: if
-          request.time < timestamp.date(2021, 7, 28);
+  	
+    function isAuthenticated() {
+    	return request.auth != null;
+    }
+    
+    function isSuperAdmin() {
+    	return isAuthenticated() &&
+      	get(/databases/$(database)/documents/users/$(request.auth.uid)).data.roles.hasAny(["superadmin"]);
+    }
+  
+  
+    match /basic_info/{info_item} {
+      allow read:
+      	if true;
+      allow write:
+      	if isSuperAdmin();
+    }
+    
+    match /projects/{project} {
+    	allow read: 
+      	if true;
+      allow write:
+      	if isSuperAdmin();
+    }
+    
+    match /blogs/{blog} {
+    	allow read:
+      	if true;
+      allow write:
+      	if isSuperAdmin();
+    }
+    
+    match /messages/{message} {
+    	allow read, update, delete:
+      	if isSuperAdmin();
+      allow create:
+      	if true;
+    }
+    
+    match /users/{user_id} {
+    	allow read, update, delete:
+      	if (isAuthenticated() && request.auth.uid == user_id) || isSuperAdmin();
+      allow create:
+      	if true;
     }
   }
 }
