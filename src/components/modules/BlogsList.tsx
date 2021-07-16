@@ -255,6 +255,7 @@ const BlogsList : FC = () =>
             <Section id="blogslist" title="All Blogs" className="">
                 <div className="blogs_list_wrapper">
                     <ul className="blogs_list">
+                        {create_new_blog}
                         <li className="blogs_list_item_wrapper">
                             <div className={`blogs_list_item error`}>
                                 No blogs to show. {errorDatabase !== "" ? errorDatabase : errorInvalidPage}
