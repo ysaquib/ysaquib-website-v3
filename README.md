@@ -1,9 +1,9 @@
-# Yusuf Saquib Website
+# Yusuf Saquib's Website
 
-This is version 3 of my website. The motivation behind this project was to learn React and create a website that I can modify without having to edit the source files. 
+ysaquib-website-v3 is the third version of my [personal professional portfolio website](https://www.yusufsaquib.com). The motivation behind a third version was the fact that the previous version did not allow for easy website modification. Specifically, in order to change any of the data on the website, I had to change the source files, rebuild the project, and redeploy to the hosting server. Thus began my journey into creating a website that could interact with a database and involve a form of authentication using React, Redux, and Firebase.
 
-This website will accomplish this goal by being linked to a database as well as having a way to login as the owner of the website and modify content through an admin dashboard.
+After learning and understanding the basics, I had some fun with adding features such as a blog page to post blogs (of course) and an admin dashboard where I can control some website data directly from the website itself. Furthermore, I ensured that the source code was documented and modular so that I can continue to add features in the future with minimal effort. 
 
-The purpose of this repository is not to provide a template for others to use, rather as a way to demonstrate the progress of my learning and to diversify my portfolio.
+I do plan to add more pages soon, specifically a page that acts as a Quick CV displaying everything else that did not make it onto my Resume in a very elegant manner (at least that's the goal).
 
-However, if there is any demand, I can modify the repo to act more as a template for people to use or learn from.
+As a result, this project is non-collaborative. However if you notice any vulnerabilities, please let me know :)
