@@ -45,6 +45,8 @@ const schema = yup.object().shape(
  
 const RegisterPortal : FC = () =>
 {
+    const disallowSignUp = true;
+
     const resolver = yupResolver(schema);
     const {register, handleSubmit, formState: {errors, isValid}} = useForm<FormInputs>({mode: "all", resolver});
     const [isLoading, setLoading] = useState(false);
@@ -70,6 +72,21 @@ const RegisterPortal : FC = () =>
     {
         return (
             <Redirect to="/" />
+        );
+    }
+    else if(disallowSignUp)
+    {
+        return (
+            <Section id="register" title="Create An Account">
+                <div className="register_wrapper">
+                    <p className="banner error">
+                        Unfortunately, this website is not allowing new user registration at this time.
+                    </p>
+                    <Link to="/signin" className="leftbtn">
+                        <Button className="no_background" text="Sign In"/>
+                    </Link>
+                </div>
+            </Section>
         );
     }
     else if(isRegistered !== "")

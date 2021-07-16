@@ -67,7 +67,7 @@ const LoginPortal : FC = () =>
                     register={register} 
                     registration={{required: true}} />
                 <Link to="/signup" className="leftbtn">
-                    <Button type="button" className="no_background" text="Create an account" />
+                    <Button type="button" className="no_background" text="Create an account" disabled />
                 </Link>
 
                 <Button 
