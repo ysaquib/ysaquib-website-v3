@@ -41,6 +41,19 @@ const Banner : FC = () =>
             setBanner(BannerData);
         }
     }, [BannerData]);
+
+    /**
+     * Scrolls contact section into view smoothly.
+     */
+    const handleContact = () => 
+    {
+        const contact_section = document.getElementById("contact");
+        if (contact_section)
+        {
+            const scroll_location = contact_section.getBoundingClientRect().top - 40;
+            window.scrollTo({top: scroll_location, behavior: "smooth"});
+        }
+    }
     
     return (
        <section id="banner">
@@ -50,7 +63,7 @@ const Banner : FC = () =>
                 <h1 className="my_title">{banner.banner_title}</h1>
                 <div className="banner_buttons">
                     <Button type="button" text={resume_btn} onClick={() => window.open(resume, "_blank", "noopener noreferrer")} />
-                    <Button type="button" className="secondary" text={contact_btn}/>
+                    <Button type="button" className="secondary" text={contact_btn} onClick={handleContact}/>
                     <ThemeSwitcher />
                 </div>
            </div>

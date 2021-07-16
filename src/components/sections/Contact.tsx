@@ -46,6 +46,7 @@ const Contact : FC = () =>
     const {register, handleSubmit, reset, formState: {errors, isDirty, isValid} } = useForm<FormInputs>({mode: "all" ,resolver});
     const [isSent, setSent] = useState(false);
     const [isButtonDisabled, setButtonDisabled] = useState(false);
+    const [isSending, setIsSending] = useState<boolean>(false);
     const { executeRecaptcha } = useGoogleReCaptcha();
 
     const [errorMsg, setErrorMsg] = useState<string>("");
@@ -111,6 +112,7 @@ const Contact : FC = () =>
         if (executeRecaptcha) 
         {
             setButtonDisabled(true);
+            setIsSending(true);
             const token = await executeRecaptcha('Contact');
             const resp = await axios.get(`https://us-central1-ysaquib-website.cloudfunctions.net/sendRecaptcha?token=${token}`);
             if (resp.data.success && resp.data.score >= 0.5)
@@ -125,6 +127,7 @@ const Contact : FC = () =>
         }
         else
         {
+            setIsSending(false);
             setButtonDisabled(false);
             setErrorMsg("An unknown error has occured. Please try again later.");
         }
@@ -191,7 +194,7 @@ const Contact : FC = () =>
                     when={isDirty && !isSent}
                     message='You have unsaved changes, are you sure you want to leave?'/>
                     
-                <Button text="Send Message" disabled={isButtonDisabled} className="confirmbtn" onClick={(e) => {e.preventDefault(); handleReCaptchaVerify();}} />
+                <Button text={isSending ? "Sending Message" : "Send Message"} disabled={isButtonDisabled} className="confirmbtn" onClick={(e) => {e.preventDefault(); handleReCaptchaVerify();}} />
                 <div className="google_recaptcha_branding">
                     This site is protected by reCAPTCHA and the Google <a href="https://policies.google.com/privacy">Privacy Policy</a> and <a href="https://policies.google.com/terms">Terms of Service</a> apply.
                 </div>
