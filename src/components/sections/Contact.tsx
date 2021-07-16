@@ -112,7 +112,7 @@ const Contact : FC = () =>
         {
             setButtonDisabled(true);
             const token = await executeRecaptcha('Contact');
-            const resp = await axios.get(`http://localhost:5001/ysaquib-website/us-central1/sendRecaptcha?token=${token}`);
+            const resp = await axios.get(`https://us-central1-ysaquib-website.cloudfunctions.net/sendRecaptcha?token=${token}`);
             if (resp.data.success && resp.data.score >= 0.5)
             {
                 handleSubmit(onSubmit)();

@@ -5,7 +5,7 @@
  * functions are pretty self-explanatory.
  */
 
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 import { ThunkAction } from 'redux-thunk';
 import { RootState } from '..';
 import Firebase from '../../firebase/config';
@@ -290,7 +290,6 @@ export const setBlogData = (blogData: BlogData, onComplete?: () => void, onError
     {
         try
         {
-            console.error(blogData);
             const {blog_id, ...blog} = blogData;
             const createdAt = firebase.firestore.Timestamp.fromDate(blogData.blog_createdAt);
             

@@ -23,7 +23,10 @@ import PrivateRoute from './components/auth/PrivateRoute';
 
 import { RootState } from './store';
 import { getUserById, setLoading, setNeedVerification } from './store/actions/authActions';
-import firebase from 'firebase';
+
+import firebase from 'firebase/app';
+import "firebase/auth";
+
 import Error404 from './pages/ErrorPage';
 import Loader from './components/layout/Loader';
 import BlogsPage from './pages/BlogsPage';
