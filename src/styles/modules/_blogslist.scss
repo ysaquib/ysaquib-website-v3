@@ -327,7 +327,7 @@
                     &.error
                     {
                         transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
-
+                        cursor: default;
                         color: themed("grey-000");
                         background-color: themed("error");
                     }

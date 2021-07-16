@@ -28,7 +28,7 @@
             {
                 background-color: themed('grey-300');
             }
-            height: 0.5px;
+            height: 1px;
             width: $section-width-regular;
             @include media(">tablet-big", "<desktop")
             {
