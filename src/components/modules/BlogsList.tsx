@@ -12,10 +12,10 @@ import { useHistory } from 'react-router';
 import { useLocation } from 'react-router-dom';
 import { RootState } from '../../store';
 import { deleteBlog, setBlogData } from '../../store/actions/dataActions';
-import { BlogData } from '../../store/types/dataTypes';
+import { BlogData, BlogVisibility } from '../../store/types/dataTypes';
 import DialogBox from '../elements/DialogBox';
 import { format } from "date-fns";
-import { IconEye, IconEyeOff, IconGarbageDelete } from '../elements/Icons';
+import { IconEye, IconEyeOff, IconGarbageDelete, IconLock } from '../elements/Icons';
 import LoadingSkeleton from '../elements/LoadingSkeleton';
 import Pagination from '../elements/Pagination';
 import Section from '../elements/Section';
@@ -41,17 +41,61 @@ const BlogListItem: FC<BlogListItemProps> = ({blog}) =>
 {
     const dispatch = useDispatch();
     const { authenticated, userRoles } = useSelector((state : RootState) => state.auth);
-    const [isBlogHidden, setBlogHidden] = useState(blog.blog_isHidden);
+    const visibilityOptions : BlogVisibility[] = ["public", "unlisted", "private"];
+    const [ blogVisibility, setBlogVisibility] = useState<BlogVisibility>(blog.blog_visibility);
     const [ dialog, setDialog ] = useState<JSX.Element>(<></>);
     
     /**
-     * Toggle hidden state of blog.
+     * Get Icon based on visibility state
      */
-    const setHidden = () =>
+    const getIcon = () =>
     {
-        setBlogHidden(!isBlogHidden);
-        dispatch(setBlogData({...blog, blog_isHidden: !isBlogHidden}));
+        switch (blogVisibility)
+        {
+            case "public":
+                return IconEye;
+            case "private":
+                return IconLock;
+            case "unlisted":
+                return IconEyeOff;
+        }
     }
+
+
+    /**
+     * Toggle visibility state of blog.
+     */
+    const setVisibility = () =>
+    {
+        const nextStateIndex = (visibilityOptions.findIndex((value) => value === blogVisibility) + 1) % visibilityOptions.length;
+        const nextState = visibilityOptions[nextStateIndex];
+        setBlogVisibility(nextState);
+
+        console.log("test");
+    }
+
+    /**
+     * When blogVisibility is changed, set a timer for t time, after which
+     * the blog visibility field will be changed in the database.
+     * If blogVisibility is changed before the timer is finished, clear the 
+     * previous timer and set a new timer.
+     * 
+     * This allows the user to cycle through the options and only dispatches
+     * the data to the database after the blogVisibility has not changed for
+     * exactly t seconds.
+     */
+    useEffect(() => {
+        const sender = setTimeout(() => {
+            if(blogVisibility !== blog.blog_visibility)
+            {
+                console.log("AAAAAAAAAAAAAAAAAAAAAA");
+                dispatch(setBlogData({...blog, blog_visibility: blogVisibility}));
+            }
+        }, 1250);
+        return () => {
+            clearTimeout(sender);
+        }
+    }, [blogVisibility, blog, dispatch])
 
     const featured_tag: JSX.Element = blog.blog_isFeatured ? (
         <p className="blogs_list_tag">
@@ -115,7 +159,7 @@ const BlogListItem: FC<BlogListItemProps> = ({blog}) =>
                 </div>
             </div>
             {(authenticated && userRoles.includes("superadmin")) && (<div className="blogs_list_buttons">
-                <div className="blogs_list_item_button hide" id="hide" onClick={setHidden}><span className="svg_icon">{isBlogHidden ? IconEyeOff : IconEye}</span></div>
+                <div className="blogs_list_item_button hide" id="hide" onClick={setVisibility}><span className="svg_icon">{getIcon()}</span></div>
                 
                 <div className="blogs_list_item_button delete" id="delete" onClick={() => handleClickDelete(blog)}><span className="svg_icon">{IconGarbageDelete}</span></div>
             </div>)}
@@ -222,7 +266,7 @@ const BlogsList : FC = () =>
      */
     useEffect(() => {
         const blogsList = allBlogs
-            .filter((blog) => {return (!blog.blog_isHidden ?? true) || (authenticated && userRoles.includes("superadmin"))});
+            .filter((blog) => {return (blog.blog_visibility === "public") || (authenticated && userRoles.includes("superadmin"))});
         setBlogs(blogsList);
     }, [allBlogs, setBlogs, authenticated, userRoles]);
 

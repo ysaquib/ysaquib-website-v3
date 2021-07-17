@@ -115,6 +115,8 @@ export interface ProjectState
     isLoadingProjects: boolean;
 }
 
+export type BlogVisibility = "public" | "unlisted" | "private";
+
 export interface BlogData
 {
     blog_id: string;
@@ -124,7 +126,7 @@ export interface BlogData
     blog_createdAt: Date;
     blog_updatedAt?: Date;
     blog_tags?: string;
-    blog_isHidden: boolean;
+    blog_visibility: BlogVisibility;
     blog_inProgress?: boolean;
     blog_isFeatured?: boolean;
 }

@@ -17,7 +17,7 @@ import { format, parse } from "date-fns";
 import { Light as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomOneDark, atomOneLight } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import { addNewBlog, setBlogData } from '../store/actions/dataActions';
-import { Redirect, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import TextField from '../components/elements/TextField';
 import CheckBox from '../components/elements/Checkbox';
 import { ThemeContext } from '../contexts/ThemeContext';
@@ -219,16 +219,10 @@ const BlogPage : FC<BlogPageProps> = ({isNewBlog=false, isEditing=false, allBlog
         window.scrollTo(0,0);
     }, []);
 
-    if (blogData.blog_id == null)
+    if (blogData.blog_id == null || blogData.blog_visibility === "private")
     {
         return (
             <PageNotFound />
-        );
-    }
-    else if (blogData.blog_isHidden && !canUserEdit)
-    {
-        return (
-            <Redirect to="/blog" />
         );
     }
     else if (editingBlog)
