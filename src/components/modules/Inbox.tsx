@@ -103,7 +103,7 @@ const Inbox : FC = () =>
     useEffect(() => 
     {
         if(authenticated && userRoles.includes("superadmin")) 
-            dispatch(getMessages(undefined, () => {console.log("Error getting message data")}));
+            dispatch(getMessages(undefined, () => {console.error("Error getting message data")}));
     }, [dispatch, authenticated, userRoles]);
 
     const handleClickDelete = (message: MessageData) =>

@@ -22,7 +22,7 @@ const About : FC = () =>
      */
     useEffect(() => 
     {
-        dispatch(getAboutData(() => {console.log("Error getting about data")}));
+        dispatch(getAboutData(() => {console.error("Error getting about data")}));
     }, [dispatch]);
 
     useEffect(() => 

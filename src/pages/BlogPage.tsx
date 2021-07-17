@@ -230,19 +230,29 @@ const BlogPage : FC<BlogPageProps> = ({isNewBlog=false, isEditing=false, allBlog
         return (
             <section id="edit_blog">
 
-                <Head title={`${blogData.blog_title} — Editing Blog`} />
+                <Head title={isNew ? "Create New Blog | Yusuf Saquib" : `${blogData.blog_title} — Editing Blog | Yusuf Saquib`} />
 
-
+                    
                 <TextField
-                    name="blog_tags"
-                    label="Blog Tags"
-                    placeholder="Blog Tags"
-                    className="blog_field"
-                    defaultValue={blogTags}
-                    onChangeEvent={(e) => setBlogTags(e.target.value)}
+                    name="blog_title"
+                    label="Blog Title"
+                    placeholder="Blog Title"
+                    className="blog_title_field"
+                    defaultValue={blogTitle}
+                    onChangeEvent={handleTitleChange}
                     type="text" 
                     show_label/>
 
+                <TextField
+                    name="blog_url"
+                    label="Blog URL"
+                    placeholder="Blog URL"
+                    className="blog_field"
+                    value={blogURL}
+                    onChangeEvent={handleURLChange}
+                    type="text" 
+                    show_label/>
+                    
                 <div className="blog_input_group">
 
                     <TextField
@@ -278,24 +288,14 @@ const BlogPage : FC<BlogPageProps> = ({isNewBlog=false, isEditing=false, allBlog
                             className="half"
                             onChange={() => setBlogIsFeatured(!blogIsFeatured)}/>
                 </div>
-
+                
                 <TextField
-                    name="blog_url"
-                    label="Blog URL"
-                    placeholder="Blog URL"
+                    name="blog_tags"
+                    label="Blog Tags"
+                    placeholder="Blog Tags"
                     className="blog_field"
-                    value={blogURL}
-                    onChangeEvent={handleURLChange}
-                    type="text" 
-                    show_label/>
-                    
-                <TextField
-                    name="blog_title"
-                    label="Blog Title"
-                    placeholder="Blog Title"
-                    className="blog_title_field"
-                    defaultValue={blogTitle}
-                    onChangeEvent={handleTitleChange}
+                    defaultValue={blogTags}
+                    onChangeEvent={(e) => setBlogTags(e.target.value)}
                     type="text" 
                     show_label/>
 

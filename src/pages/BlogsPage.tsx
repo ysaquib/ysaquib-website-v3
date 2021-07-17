@@ -38,7 +38,7 @@ const BlogsPage : FC = () =>
      */
     useEffect(() => 
     {
-        dispatch(getBlogData(() => setLoading(false), () => {console.log("Error getting Blog data.")}));
+        dispatch(getBlogData(() => setLoading(false), () => {console.error("Error getting Blog data.")}));
         return () => {}
     }, [dispatch]);
     

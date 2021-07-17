@@ -94,7 +94,7 @@ const AdminProjects : FC = () =>
      */
     useEffect(() => 
     {
-        dispatch(getProjectData(undefined, () => {console.log("Error getting project data")}));
+        dispatch(getProjectData(undefined, () => {console.error("Error getting project data")}));
     }, [dispatch]);
 
 

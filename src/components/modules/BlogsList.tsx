@@ -70,8 +70,6 @@ const BlogListItem: FC<BlogListItemProps> = ({blog}) =>
         const nextStateIndex = (visibilityOptions.findIndex((value) => value === blogVisibility) + 1) % visibilityOptions.length;
         const nextState = visibilityOptions[nextStateIndex];
         setBlogVisibility(nextState);
-
-        console.log("test");
     }
 
     /**
@@ -88,7 +86,6 @@ const BlogListItem: FC<BlogListItemProps> = ({blog}) =>
         const sender = setTimeout(() => {
             if(blogVisibility !== blog.blog_visibility)
             {
-                console.log("AAAAAAAAAAAAAAAAAAAAAA");
                 dispatch(setBlogData({...blog, blog_visibility: blogVisibility}));
             }
         }, 1250);
@@ -122,7 +119,7 @@ const BlogListItem: FC<BlogListItemProps> = ({blog}) =>
                     optionClose="Keep Blog"
                     optionReject="Delete Blog"
                     onClose={() => setDialog(<></>)}
-                    onReject={() => dispatch(deleteBlog(blogData, () => setDialog(<></>), (err) => console.log(err)))}/>
+                    onReject={() => dispatch(deleteBlog(blogData, () => setDialog(<></>), (err) => console.error(err)))}/>
             );
         }
         else
