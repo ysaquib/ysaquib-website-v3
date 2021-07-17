@@ -219,16 +219,10 @@ const BlogPage : FC<BlogPageProps> = ({isNewBlog=false, isEditing=false, allBlog
         window.scrollTo(0,0);
     }, []);
 
-    if (blogData.blog_id == null)
+    if (blogData.blog_id == null || blogData.blog_visibility === "private")
     {
         return (
             <PageNotFound />
-        );
-    }
-    else if (blogData.blog_isHidden && !canUserEdit)
-    {
-        return (
-            <Redirect to="/blog" />
         );
     }
     else if (editingBlog)
