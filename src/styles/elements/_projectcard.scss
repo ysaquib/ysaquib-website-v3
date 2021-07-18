@@ -155,11 +155,10 @@
         align-self: left;
         width: fit-content;
         margin: 0rem;
-        padding: 0.4rem 0.8rem;
+        padding: 0.4rem 0.6rem;
         border-radius: $radius-small;
         display: grid;
         place-items: center;
-        position: relative;
     }
 
     .project_languages, .wip_bar_wrapper
@@ -212,6 +211,13 @@
     {
 
         list-style-type: none;
+
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+
+        justify-content: flex-start;
+        align-items: center;
 
         li
         {
@@ -282,6 +288,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        padding: 2rem;
         grid-column: span 6; 
     }
 }
