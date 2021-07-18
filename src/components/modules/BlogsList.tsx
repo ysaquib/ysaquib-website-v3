@@ -171,7 +171,7 @@ const BlogsList : FC = () =>
     
     const { authenticated, userRoles } = useSelector((state : RootState) => state.auth);
     
-    const bpp_options: number[] = [5, 10, 15];
+    const bpp_options: number[] = [5, 10, 20];
     
     const local_bpp: number = parseInt(localStorage.getItem("blogs_per_page") ?? "5");
     const bpp_index: number = bpp_options.findIndex((x) => x === local_bpp);
