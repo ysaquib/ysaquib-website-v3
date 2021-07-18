@@ -3,6 +3,7 @@
  * Author: Yusuf Saquib
  */
 
+import { format } from 'date-fns';
 import React, {FC} from 'react';
 import { useHistory } from 'react-router-dom';
 import { ProjectData } from '../../store/types/dataTypes';
@@ -37,12 +38,51 @@ const ProjectCard : FC<CardProps> = ({children, className, order, ...projectData
             In Progress
         </p>) : (<></>);
 
+
+    /**
+     * Create the date tag depending on the following cases:
+     *
+     * Case 1: Project is in progress and start year is the current year.
+     *         Display Start month - present.
+     * Case 2: Project is in progress and start year is not the current year.
+     *         Display start month and year - present.
+     * Case 3: Start and End are the same. Display Month and Year.
+     * Case 4: Start and End month are in the same year. Only display year for
+     *         end date. 
+     * Case 5: Start and End month are not in the same year. Display
+     *         years for both dates. 
+     */
+    const currentYear = (new Date(Date.now())).getFullYear();
+    const isSameYear = projectData.project_startDate.getFullYear() === projectData.project_endDate.getFullYear();
+    
+    const start = format(projectData.project_startDate, "MMM yyyy");
+    const start_month = format(projectData.project_startDate, "MMM");
+    const end = format(projectData.project_endDate, "MMM yyyy");
+
+    const projectDate = () =>
+    {
+        if (projectData.project_inProgress)
+        {
+            if (projectData.project_startDate.getFullYear() === currentYear)
+                return `${start_month} — Present`;
+            return `${start} — Present`;
+        }
+        if (end === start)
+            return end;
+        else
+        {
+            if (isSameYear)
+                return `${start_month} — ${end}`;
+            return `${start} — ${end}`;
+        }
+        
+    }
+
     const date_tag: JSX.Element = (
         <p className="project_tag date_tag">
-            {projectData.project_createdAt.toLocaleDateString(undefined, {month: "short", year: "numeric"})}
+            {projectDate()}
         </p>
     );
-
 
     const wip_bar: JSX.Element = projectData.project_inProgress ? (
         <div className="wip_bar_wrapper">
