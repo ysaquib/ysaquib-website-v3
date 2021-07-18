@@ -64,7 +64,8 @@ export interface ProjectData
     project_description: string;
     project_tags: string;
     project_order: number;
-    project_createdAt: Date;
+    project_startDate: Date;
+    project_endDate: Date;
     project_blog?: string;
     project_github?: string;
     project_url?: string;

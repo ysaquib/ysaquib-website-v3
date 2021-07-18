@@ -55,7 +55,10 @@ const AdminProjects : FC = () =>
     const [isNewProject, setNewProject] = useState<boolean>(false);
     const [isInProgress, setInProgress] = useState<boolean>(project?.project_inProgress ?? false);
     const [isHidden, setIsHidden] = useState<boolean>(project?.project_isHidden ?? false);
-    const [currentDate, setCurrentDate] = useState<string>(format(project?.project_createdAt ?? new Date(Date.now()), "yyyy-MM-dd"));
+    
+    const dateNow = new Date(Date.now());
+    const [startDate, setStartDate] = useState<string>(format(project?.project_startDate ?? dateNow, "yyyy-MM-dd"));
+    const [endDate, setEndDate] = useState<string>(format(project?.project_endDate ?? dateNow, "yyyy-MM-dd"));
 
     const [dialog, setDialog] = useState(<></>);
     
@@ -76,7 +79,8 @@ const AdminProjects : FC = () =>
             setValue("project_inProgress", project.project_inProgress ?? false);
             setValue("project_isHidden", project.project_isHidden ?? false);
             setValue("project_progress", project.project_progress ?? 0);
-            setCurrentDate(format(project.project_createdAt, "yyyy-MM-dd"));
+            setStartDate(format(project.project_startDate, "yyyy-MM-dd"));
+            setEndDate(format(project.project_endDate, "yyyy-MM-dd"));
             
             setMessage("");
             setInProgress(project.project_inProgress ?? false);
@@ -86,7 +90,7 @@ const AdminProjects : FC = () =>
         {
             setMessage("");
         }
-    }, [project, setValue, setFocus, setCurrentDate]);
+    }, [project, setValue, setFocus, setStartDate]);
 
     /**
      * When the message is updated, we get the data again and set the list 
@@ -148,7 +152,8 @@ const AdminProjects : FC = () =>
             project_order: -1,
             project_tags: "",
             project_progress: 0,
-            project_createdAt: new Date(Date.now()),
+            project_startDate: dateNow,
+            project_endDate: dateNow
         }
         setNewProject(true);
         setProject(new_project);
@@ -227,7 +232,8 @@ const AdminProjects : FC = () =>
             project_id: proj_id,
             project_progress: proj_prog,
             project_inProgress: isInProgress,
-            project_createdAt: parse(currentDate, "yyyy-MM-dd", new Date())
+            project_startDate: parse(startDate, "yyyy-MM-dd", new Date()),
+            project_endDate: parse(endDate, "yyyy-MM-dd", new Date()),
         };
 
         if(isNewProject && project)
@@ -364,7 +370,6 @@ const AdminProjects : FC = () =>
                            name="project_tags"
                            type="text"
                            classNameInner="elevated"
-                           className="half"
                            defaultValue={project?.project_tags}
                            message={errors.project_tags?.message} 
                            register={register} 
@@ -372,19 +377,49 @@ const AdminProjects : FC = () =>
                            disabled={project == null}
                            show_label />
 
-                <TextField  label="Creation Date"
+                <TextField  label="Start Date"
                             type="date"
                             className="half"
                             classNameInner="elevated"
-                            name="project_createdAt"
-                            value={currentDate}
-                            onChangeEvent={(e) => setCurrentDate(e.currentTarget.value)}
-                            message={errors.project_createdAt?.message} 
+                            name="project_startDate"
+                            value={startDate}
+                            onChangeEvent={(e) => {
+                                if (startDate === endDate)
+                                    setEndDate(e.currentTarget.value);
+                                setStartDate(e.currentTarget.value);
+                            }}
+                            message={errors.project_startDate?.message} 
+                            disabled={project == null}
+                            register={register} 
+                            registration={{required: true}}
+                            show_label  />
+                
+                <TextField  label="End Date"
+                            type="date"
+                            className="half"
+                            classNameInner="elevated"
+                            name="project_endDate"
+                            value={endDate}
+                            onChangeEvent={(e) => setEndDate(e.currentTarget.value)}
+                            message={errors.project_endDate?.message} 
                             disabled={project == null}
                             register={register} 
                             registration={{required: true}}
                             show_label  />
 
+
+                <TextField label="Progress" 
+                           name="project_progress"
+                           type="text"
+                           classNameInner="elevated"
+                           className="half"
+                           defaultValue={project?.project_progress}
+                           message={errors.project_progress?.message} 
+                           register={register} 
+                           registration={{required: false}} 
+                           disabled={!isInProgress}
+                           show_label />
+                
                 <div className="checkboxes">
                     <CheckBox label="In Progress?"
                             name="project_inProgress"
@@ -402,18 +437,6 @@ const AdminProjects : FC = () =>
                             disabled={project == null} 
                             onChange={() => setIsHidden(!isHidden)}/>
                 </div>
-
-                <TextField label="Progress" 
-                           name="project_progress"
-                           type="text"
-                           classNameInner="elevated"
-                           className="half"
-                           defaultValue={project?.project_progress}
-                           message={errors.project_progress?.message} 
-                           register={register} 
-                           registration={{required: false}} 
-                           disabled={!isInProgress}
-                           show_label />
 
 
                 <p className={`message ${error != null && !isLoadingProjects ? "error" : ""}`}>
