@@ -32,3 +32,5 @@ old-start-emulator.py
 
 .VSCodeCounter
 .firebase
+
+firebase-dev/export/**
