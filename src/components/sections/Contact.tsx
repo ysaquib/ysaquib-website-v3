@@ -114,15 +114,21 @@ const Contact : FC = () =>
             setButtonDisabled(true);
             setIsSending(true);
             const token = await executeRecaptcha('Contact');
-            const resp = await axios.get(`https://us-central1-ysaquib-website.cloudfunctions.net/sendRecaptcha?token=${token}`);
-            if (resp.data.success && resp.data.score >= 0.5)
-            {
-                handleSubmit(onSubmit)();
+            try {
+                const resp = await axios.get(`https://us-central1-ysaquib-website.cloudfunctions.net/sendRecaptcha?token=${token}`);
+                if (resp.data.success && resp.data.score >= 0.5)
+                {
+                    handleSubmit(onSubmit)();
+                }
+                else
+                {
+                    setButtonDisabled(false);
+                    setErrorMsg("An error has occured. Please try again later.");
+                }
             }
-            else
-            {
+            catch (error) {
+                setErrorMsg("An unexpected error has occured. Please try again later.");
                 setButtonDisabled(false);
-                setErrorMsg("An error has occured. Please try again later.");
             }
         }
         else

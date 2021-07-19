@@ -46,6 +46,12 @@
             line-height: 1.5;
             grid-column: span 2;
             text-align: right;
+            transition: color $trans-regular $trans-effect;
+            a 
+            {
+                transition: color $trans-regular $trans-effect;
+            }
+            
             @include media("<=tablet")
             {
                 text-align: center;

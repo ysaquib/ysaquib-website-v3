@@ -94,7 +94,7 @@ const Header : FC = () =>
     }
 
     useEffect(() => {
-        if (scrollPosition > 0)
+        if (scrollPosition > 5)
         {
             return document.getElementById("header")?.classList.add("scrolling");
         }

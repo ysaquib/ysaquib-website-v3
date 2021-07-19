@@ -4,7 +4,7 @@
  */
 section 
 {
-    margin: 0rem auto 5vh;
+    margin: 0rem auto;
     width: $section-width-regular;
     text-align: left;
     // flex: 1;
@@ -107,6 +107,7 @@ section
 
     display: flex;
     flex-direction: column;
+    gap: 5vh;
     flex: 1;
 
     box-sizing: border-box;

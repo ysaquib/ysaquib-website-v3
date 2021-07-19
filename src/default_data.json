@@ -12,10 +12,10 @@
     },
     "banner" : 
     {
-        "banner_prefix": "Hi! My name is",
+        "banner_prefix": "Hello! My name is",
         "banner_name" : "Yusuf Saquib.",
         "banner_title" : "I am a Computer Science Student.",
-        "banner_resume_url" : "www.google.com",
+        "banner_resume_url" : "https://yusufsaquib.com/resume.pdf",
         "banner_resume_btn" : "See Resume",
         "banner_contact_btn" : "Contact Me"
     },

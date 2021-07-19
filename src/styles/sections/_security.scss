@@ -35,6 +35,7 @@
             justify-content: left;
             .icon
             {
+                transition: color $trans-effect $trans-regular;
                 margin: 0.5rem;
             }
 

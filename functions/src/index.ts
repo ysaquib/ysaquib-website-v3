@@ -10,7 +10,7 @@ import axios from "axios";
 // });
 
 exports.sendRecaptcha = functions.https.onRequest(async (req, res) => {
-  res.set("Access-Control-Allow-Origin", "https://www.yusufsaquib.com/");
+  res.set("Access-Control-Allow-Origin", "https://yusufsaquib.com");
   const secret = functions.config().recaptcha.secret;
   const token = req.query.token;
   const response = await axios.get(`https://recaptcha.google.com/recaptcha/api/siteverify?secret=${secret}&response=${token}`);

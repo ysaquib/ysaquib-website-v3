@@ -54,8 +54,10 @@ const App : FC = () =>
 
     useEffect(() => {
         document.body.classList.add(currentTheme);
+        document.documentElement.classList.add(currentTheme);
         localStorage.setItem("theme", currentTheme);
         return () => {
+            document.documentElement.classList.remove(currentTheme);
             document.body.classList.remove(currentTheme);
         }
     }, [currentTheme]);
