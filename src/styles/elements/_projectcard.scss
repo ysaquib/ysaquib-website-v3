@@ -81,8 +81,9 @@
             background-color: themed("error");
         }
     }
+    display: grid;
+    place-items: stretch;
     transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
-
     min-height: $project-card-height;
     
     @include media(">tablet", "<=tablet-big")
@@ -114,7 +115,7 @@
         flex-direction: column;
         border: none;
         margin: 0rem;
-        height: 100%;
+        // background-color: red;
     }
     
     .project_links
@@ -161,35 +162,6 @@
         place-items: center;
     }
 
-    .project_languages, .wip_bar_wrapper
-    {
-        overflow: hidden;
-        margin: 0rem;
-        padding: 0rem;
-        width: 100%;
-    }
-    
-    .wip_bar_wrapper
-    {
-        transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
-        
-        
-        .wip_bar
-        {
-            margin-top: 0.5rem;
-            border-radius: $radius-small;
-            padding: 1rem;
-            position: relative;
-            transition: background-color $trans-effect $trans-regular;
-            .wip_progress
-            {
-                position: absolute;
-                inset: 0rem;
-                border-radius: $radius-small;
-                height: 100%;
-            }
-        }
-    }
     
     .project_title
     {
@@ -203,22 +175,31 @@
         width: 100%;
         text-align: start;
         white-space: pre-wrap;
-        flex: 1;
+        flex: 1 1 auto;
+        // flex: 1 1;
         margin: 0rem 0rem 3rem;
     }
-
+    
+    .project_languages, .wip_bar_wrapper
+    {
+        overflow: hidden;
+        margin: 0rem;
+        padding: 0rem;
+        width: 100%;
+    }
+    
     .project_languages
     {
-
+        min-height: fit-content;
+        flex: 0 0 auto;
         list-style-type: none;
-
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
-
+        
         justify-content: flex-start;
         align-items: center;
-
+        
         li
         {
             display: inline;
@@ -239,6 +220,32 @@
             {
                 padding-left: 0.75rem;
                 content: "";
+            }
+        }
+    }
+    .wip_bar_wrapper
+    {
+        min-height: 0;
+        transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
+        flex: 0 0 auto;
+        
+        .wip_bar
+        {
+            margin-top: 0.5rem;
+            border-radius: $radius-small;
+            // padding: 1rem;
+            height: 2rem;
+            // position: relative;
+            display: grid;
+            place-items: stretch;
+            transition: background-color $trans-effect $trans-regular;
+            .wip_progress
+            {
+                // position: absolute;
+                // inset: 0rem;
+                margin: 0rem;
+                border-radius: $radius-small;
+                height: 100%;
             }
         }
     }
