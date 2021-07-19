@@ -18,7 +18,7 @@
         border: 0.1rem solid;
         border-radius: $radius-regular;
         width: fit-content;
-        transition: border-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
+        transition: border-color $trans-effect $trans-regular, background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
         * {
             transition: none;
         }
@@ -34,7 +34,7 @@
     .toolbar_divider
     {
         padding: 0.04rem;
-        margin: 0.2rem 0.5rem;
+        margin: 0.1rem 0.5rem;
         transition: background-color $trans-effect $trans-regular;
     }
 
@@ -50,11 +50,12 @@
             color: themed('grey-800');
             &:hover
             {
-                border-color: themed('grey-400');
-                background-color: themed('grey-150');
+                border-color: themed('grey-300');
+                background-color: themed('grey-300');
             }
             &:active
             {
+                transition: none;
                 border-color: themed('secondary');
                 color: themed('secondary');
                 background-color: themed('grey-150');

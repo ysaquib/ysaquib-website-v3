@@ -32,5 +32,6 @@ old-start-emulator.py
 
 .VSCodeCounter
 .firebase
+
 .firebase/hosting.YnVpbGQ.cache
 firebase-dev/export/**
