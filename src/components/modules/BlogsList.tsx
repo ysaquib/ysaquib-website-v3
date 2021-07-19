@@ -61,6 +61,22 @@ const BlogListItem: FC<BlogListItemProps> = ({blog}) =>
         }
     }
 
+    /**
+     * Get ClassName based on visibility state
+     */
+    const getClassName = () =>
+    {
+        switch (blogVisibility)
+        {
+            case "public":
+                return "";
+            case "private":
+                return "private_blog";
+            case "unlisted":
+                return "unlisted_blog";
+        }
+    }
+
 
     /**
      * Toggle visibility state of blog.
@@ -103,6 +119,16 @@ const BlogListItem: FC<BlogListItemProps> = ({blog}) =>
         <p className="blogs_list_tag">
             In Progress
         </p>) : (<></>);
+    
+    const private_tag: JSX.Element = blogVisibility === "private" ? (
+        <p className="blogs_list_tag">
+            Private
+        </p>) : (<></>);
+    
+    const unlisted_tag: JSX.Element = blogVisibility === "unlisted" ? (
+        <p className="blogs_list_tag">
+            Unlisted
+        </p>) : (<></>);
 
     /**
      * Confirm deletion of blog with dialog.
@@ -143,11 +169,14 @@ const BlogListItem: FC<BlogListItemProps> = ({blog}) =>
            
             {dialog}
             
-            <div className={`blogs_list_item ${blog.blog_isFeatured ? "featured" : ""} ${blog.blog_inProgress ? "wip" : ""}`} onClick={() => history.push(`/blog/${blog.blog_url}`)}>
+            <div className={`blogs_list_item ${blog.blog_isFeatured ? "featured" : ""} ${blog.blog_inProgress ? "wip" : ""} ${getClassName()}`} 
+                    onClick={() => history.push(`/blog/${blog.blog_url}`)}>
                 <h1 className="blogs_list_title">
                     {blog.blog_title}
                 </h1>
                 <div className="blogs_list_tags">
+                    {private_tag}
+                    {unlisted_tag}
                     {featured_tag}
                     {wip_tag}
                     <p className="blogs_list_tag">
@@ -156,9 +185,9 @@ const BlogListItem: FC<BlogListItemProps> = ({blog}) =>
                 </div>
             </div>
             {(authenticated && userRoles.includes("superadmin")) && (<div className="blogs_list_buttons">
-                <div className="blogs_list_item_button hide" id="hide" onClick={setVisibility}><span className="svg_icon">{getIcon()}</span></div>
+                <div className={`blogs_list_item_button hide ${getClassName()}`} id="hide" onClick={setVisibility}><span className="svg_icon">{getIcon()}</span></div>
                 
-                <div className="blogs_list_item_button delete" id="delete" onClick={() => handleClickDelete(blog)}><span className="svg_icon">{IconGarbageDelete}</span></div>
+                <div className={`blogs_list_item_button delete ${getClassName()}`} id="delete" onClick={() => handleClickDelete(blog)}><span className="svg_icon">{IconGarbageDelete}</span></div>
             </div>)}
         </li>
     )

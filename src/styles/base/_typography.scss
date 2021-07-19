@@ -255,6 +255,10 @@ title
     {
         font: $medium-weight $medium-size $sans-font;
     }
+    .private_blog .blogs_list_title::after 
+    {
+        font: $medium-weight $regular-size $mono-font;
+    }
     .error
     {
         font: $medium-weight $medium-size $sans-font;
