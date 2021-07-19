@@ -73,24 +73,25 @@
         #blog_info
         {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             justify-content: space-between;
             flex-direction: row;
             margin: 1rem 0rem;
-            gap: 1rem;
+            gap: 2rem;
             
             @include media("<=tablet")
             {
-                text-align: center;
-                flex-direction: column-reverse;
-                align-items: center;
-                justify-content: flex-end;
+                text-align: left;
+                // flex-direction: column-reverse;
+                align-items: flex-start;
+                justify-content: space-between;
             }
             
             .info_item
             {
                 transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
                 margin: 0rem;
+                flex: 1 0 auto;
             }
         }
 
@@ -98,7 +99,7 @@
         {
             display: flex;
             flex-wrap: wrap;
-            justify-content: center;
+            justify-content: flex-end;
             align-items: center;
             gap: 1rem;
             padding: 0rem;
