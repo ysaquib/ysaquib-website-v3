@@ -213,17 +213,8 @@ input[type=checkbox]
 
     &::after
     {
-        content: '\2714';
         transition: color $trans-effect $trans-regular;
         color: transparent;
-    }
-    
-    &:checked, &:checked:active
-    {
-        &::after
-        {
-            content: '\2714';
-        }
     }
 
     
