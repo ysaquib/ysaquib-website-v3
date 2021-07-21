@@ -23,6 +23,7 @@ import CheckBox from '../components/elements/Checkbox';
 import { ThemeContext } from '../contexts/ThemeContext';
 import Head from '../components/layout/Head';
 import { IconChevronLeft } from '../components/elements/Icons';
+import Anchor from '../components/elements/Anchor';
 
 /**
  * Override component for markdown image
@@ -343,11 +344,13 @@ const BlogPage : FC<BlogPageProps> = ({isNewBlog=false, isEditing=false, allBlog
             
             <Markdown
                       options={{
+                            forceBlock: true,
                             // disableParsingRawHTML: true,
                             overrides: 
                             {
                                 img: ImageEnv,
-                                code:{component: CodeEnv, props: {theme: codeTheme}}
+                                code:{component: CodeEnv, props: {theme: codeTheme}},
+                                a: Anchor
                             }
                         }}
                       >

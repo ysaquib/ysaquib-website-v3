@@ -21,9 +21,9 @@
     
     li 
     {
-        margin: 0.5rem 0rem;
+        margin: 1.2rem 0rem;
         transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
-        
+        line-height: 1.00;
     }
 
     footer 
@@ -94,11 +94,11 @@
         }
         transition: background-color $trans-effect $trans-regular, border-color $trans-effect $trans-regular;
 
-
         display: inline-flex;
         align-items: center;
-
-        margin: 0.2rem 0rem;
+        justify-content: flex-start;
+        vertical-align: middle;
+        margin: 0rem 0rem;
         margin-right: 0.8rem;
     }
     
@@ -132,6 +132,7 @@
     
     a 
     {
+        cursor: pointer;
         text-decoration: none;
         &:hover
         {

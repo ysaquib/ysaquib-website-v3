@@ -163,13 +163,13 @@ const Header : FC = () =>
             <header id="pseudo_header">
                 <div id="header">
                     <div className="header_wrapper">
-                        <ThemeSwitcher useButton={false}>
-                            <p className="header_title">
-                                {default_data.header.title}
-                            </p>
-                        </ThemeSwitcher>
+                    <ThemeSwitcher type="icon"/>
 
-                        <span className="svg_icon menu_icon" onClick={()=>setIsOpen(!isOpen)}>{IconMenu}</span>
+                    <p className="header_title">
+                        {default_data.header.title}
+                    </p>
+
+                    <span className="svg_icon menu_icon" onClick={()=>setIsOpen(!isOpen)}>{IconMenu}</span>
 
                     </div>
                     <div id="header_menu_wrapper" className="header_menu_wrapper" onClick={()=>setIsOpen(!isOpen)}>
@@ -192,19 +192,19 @@ const Header : FC = () =>
         <header id="pseudo_header">
             <div id="header">
                 <div className="header_wrapper">
-                    <ThemeSwitcher useButton={false}>
-                        <p className="header_title">
-                            {default_data.header.title}
-                        </p>
-                    </ThemeSwitcher>
+                    <p className="header_title" onClick={() => history.push("/")}>{default_data.header.title}</p>
+                    <span className="icon_wrapper">
+                        <ol className="header_list">
+                            {list_items}
+                            {signin_tab}
+                            {messages_tab}
+                            {admin_tab}
+                            {signout_tab}
+                        </ol>
+                        <ThemeSwitcher type="icon"/>
+                    </span>
+                    
 
-                    <ol className="header_list">
-                        {list_items}
-                        {signin_tab}
-                        {messages_tab}
-                        {admin_tab}
-                        {signout_tab}
-                    </ol>
 
                 </div>
             </div>

@@ -13,7 +13,7 @@ const Footer : FC = () =>
     return (
         <footer id="footer">
             <div className="footer_wrapper">
-                <Anchor url={default_data.footer.url} className="footer_label"><ChevronLeft />{default_data.footer.text}<ChevronRight /></Anchor>
+                <Anchor href={default_data.footer.url} title={default_data.footer.alt} className="footer_label"><ChevronLeft />{default_data.footer.text}<ChevronRight /></Anchor>
             </div>
         </footer>
     );

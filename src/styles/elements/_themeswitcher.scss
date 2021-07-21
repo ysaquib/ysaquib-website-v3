@@ -2,4 +2,25 @@
 {
     background-color: transparent;
     border-color: transparent;
+    
+    &.icon_type
+    {
+        cursor: pointer;
+        padding: 0.5rem;
+        border-radius: 50px;
+        transition: color $trans-effect $trans-regular;
+        @include themify()
+        {
+            color: themed("grey-750");
+            &:hover
+            {
+                color: themed("primary");
+            }
+            &:active:focus, &:active
+            {
+                transition: none;
+                color: themed("secondary");
+            }
+        }
+    }
 }

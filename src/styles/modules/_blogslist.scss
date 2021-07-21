@@ -226,24 +226,60 @@
                 {
                     color: themed("grey-700");
                     background-color: themed("grey-150");
-                    transition: background $trans-regular $trans-effect, color $trans-regular $trans-effect;
+                    transition: background-color $trans-regular $trans-effect, color $trans-regular $trans-effect;
                     
                     * { transition: none; }
 
                     &:hover
                     {    
                         background-color: themed("grey-200");
-                        color: themed("secondary") !important;
+                        color: themed("secondary");
+                    }
+
+                    &:active
+                    {    
+                        background-color: themed("grey-300");
+                        transition: none;
                     }
                     
-                    &.delete 
-                    {
-                        &:hover
-                        {    
-                            background-color: mix(themed("grey-200"), themed("error"), $color-mix-least);
-                            color: adjust-color(themed("error"), $saturation: 90%) !important;
+                    &.delete
+                    {    
+                        &:hover 
+                        {
+                            color: adjust-color(themed("error"), $saturation: 90%);
                         }
+                    }
 
+                    &.private_blog
+                    {
+                        background-color: mix(themed("grey-100"), themed("error"), $color-mix-least);
+                        color: themed("error");
+                        &:hover 
+                        {
+                            background-color: mix(themed("grey-150"), themed("error"), $color-mix-least);
+                            color: adjust-color(themed("error"), $saturation: 90%);
+                        }
+                        &:active 
+                        {
+                            background-color: mix(themed("grey-200"), themed("error"), $color-mix-least);
+                            transition: none;
+                        }
+                    }
+
+                    &.unlisted_blog
+                    {
+                        background-color: mix(themed("grey-100"), themed("warning"), $color-mix-least);
+                        color: themed("warning");
+                        &:hover 
+                        {
+                            background-color: mix(themed("grey-150"), themed("warning"), $color-mix-least);
+                            color: adjust-color(themed("warning"), $saturation: 90%);
+                        }
+                        &:active 
+                        {
+                            background-color: mix(themed("grey-200"), themed("warning"), $color-mix-least);
+                            transition: none;
+                        }
                     }
                 }
                 .blogs_list_item:not(.loading)
@@ -274,6 +310,11 @@
                             color: themed("grey-150");
                         }
                     }
+                    &:active
+                    {
+                        transition: none;
+                        background-color: themed("grey-300");
+                    }
                     
                     &.featured
                     {
@@ -288,6 +329,11 @@
                             {
                                 color: themed("secondary");
                             }
+                        }
+                        &:active
+                        {
+                            transition: none;
+                            background-color: themed("grey-300");
                         }
                     }
 
@@ -304,6 +350,71 @@
                             {
                                 color: themed("grey-700");
                             }
+                        }
+                        &:active
+                        {
+                            transition: none;
+                            background-color: themed("grey-300");
+                        }
+                    }
+
+                    &.private_blog
+                    {
+                        background-color: mix(themed("grey-100"), themed("error"), $color-mix-least);
+                        .blogs_list_tag
+                        {
+                            background-color: themed("error");
+                        }
+                        .blogs_list_title
+                        {
+                            color: themed("error");
+                        }
+                        &:hover
+                        {    
+                            background-color: mix(themed("grey-150"), themed("error"), $color-mix-least);
+                            .blogs_list_title
+                            {
+                                color: adjust-color(themed("error"), $saturation: 90%);
+                            }
+                            .blogs_list_tag
+                            {
+                                background-color: adjust-color(themed("error"), $saturation: 90%);
+                            }
+                        }
+                        &:active
+                        {
+                            transition: none;
+                            background-color: mix(themed("grey-200"), themed("error"), $color-mix-least);
+                        }
+                    }
+
+                    &.unlisted_blog
+                    {
+                        background-color: mix(themed("grey-100"), themed("warning"), $color-mix-least);
+                        .blogs_list_tag
+                        {
+                            background-color: themed("warning");
+                        }
+                        .blogs_list_title
+                        {
+                            color: themed("warning");
+                        }
+                        &:hover
+                        {    
+                            background-color: mix(themed("grey-150"), themed("warning"), $color-mix-least);
+                            .blogs_list_title
+                            {
+                                color: adjust-color(themed("warning"), $saturation: 90%);
+                            }
+                            .blogs_list_tag
+                            {
+                                background-color: adjust-color(themed("warning"), $saturation: 90%);
+                            }
+                        }
+                        &:active
+                        {
+                            transition: none;
+                            background-color: mix(themed("grey-200"), themed("warning"), $color-mix-least);
                         }
                     }
                     

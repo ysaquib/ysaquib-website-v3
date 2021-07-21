@@ -29,6 +29,14 @@
         padding: 1rem 2rem;
     }
 
+    .icon_wrapper
+    {
+        display: flex;
+        gap: 1.5rem;
+        align-items: center;
+        justify-content: center;
+    }
+
     &.scrolling
     {
         height: $huge-size;
@@ -133,6 +141,7 @@
     .menu_icon
     {
         transition: color $trans-effect $trans-regular;
+        padding: 0.5rem;
     }
 
 
