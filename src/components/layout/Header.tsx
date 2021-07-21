@@ -165,7 +165,7 @@ const Header : FC = () =>
                     <div className="header_wrapper">
                     <ThemeSwitcher type="icon"/>
 
-                    <p className="header_title">
+                    <p className="header_title" onClick={() => history.push("/")}>
                         {default_data.header.title}
                     </p>
 
