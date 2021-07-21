@@ -37,7 +37,7 @@ const About : FC = () =>
     return (
        <Section id="about" className="mini" title={about.about_title}>
            <div className="about_wrapper">
-                <Markdown className="about_description markdown_content">
+                <Markdown className="about_description markdown_content" options={{forceBlock: true}}>
                     {about.about_description}
                 </Markdown>
            </div>
