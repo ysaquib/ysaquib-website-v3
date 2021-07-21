@@ -44,6 +44,7 @@
     "footer" :
     {
         "text" : "Designed and Built by Yusuf Saquib",
+        "alt" : "Check out this website's repository on Github!",
         "url" : "https://github.com/ysaquib/ysaquib-website-v3"
     }
 }

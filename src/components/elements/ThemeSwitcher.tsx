@@ -7,7 +7,7 @@
 import React, { FC } from 'react';
 import { ThemeContext } from '../../contexts/ThemeContext';
 import Button from './Button';
-import { IconMoon, IconMoonFilled, IconSun, IconSunFilled } from './Icons';
+import { IconMoonFilled, IconSunFilled } from './Icons';
 
 
 interface ThemeSwitcherProps
