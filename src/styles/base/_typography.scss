@@ -369,17 +369,17 @@ input[type=checkbox]
 
 #pagenotfound
 {
-    .title
+    .err_title
     {
         font: $black-weight $huge-size $mono-font;
     }
-    .subtitle
+    .err_subtitle
     {
         font: $medium-weight $Medium-size $mono-font;
     }
-    .home_btn
+    .err_home
     {
-        font: $light-weight $regular-size $mono-font !important;
+        font: $light-weight $regular-size $mono-font;
     }
 }
 

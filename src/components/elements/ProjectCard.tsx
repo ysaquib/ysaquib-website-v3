@@ -5,7 +5,7 @@
 
 import { format } from 'date-fns';
 import React, {FC} from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { ProjectData } from '../../store/types/dataTypes';
 import { IconArticle, IconGithub, IconLaunch } from './Icons';
 
@@ -18,11 +18,6 @@ interface CardProps extends ProjectData
 const ProjectCard : FC<CardProps> = ({children, className, order, ...projectData}) => 
 {
     const featured_order : number = 0;
-    const history = useHistory();
-
-    const currentURL = new URL(window.location.href);
-    const blogURL = new URL(projectData.project_blog && projectData.project_blog !== "" ? projectData.project_blog : "https://www.yusufsaquib.com/");
-    const isOriginSame = blogURL.origin === currentURL.origin;
 
     /**
      * Create the "Featured Project" tag that will only be applied to the 
@@ -124,9 +119,9 @@ const ProjectCard : FC<CardProps> = ({children, className, order, ...projectData
                     {featured_tag}
                     {wip_tag}
                     <ul className="links_list">
-                        {projectData.project_blog && <li className="links_item svg_icon" key="blog" title="Read More" onClick={() => isOriginSame ? history.push(blogURL.pathname) : window.open(projectData.project_blog, "_blank", "noopener noreferrer")}>{IconArticle}</li>}
-                        {projectData.project_github && <li className="links_item svg_icon" key="github" title="View Github Repo" onClick={()=>window.open(projectData.project_github, "_blank", "noopener noreferrer")}>{IconGithub}</li>}
-                        {projectData.project_url && <li className="links_item svg_icon" key="demo" title="View Demo" onClick={()=>window.open(projectData.project_url, "_blank", "noopener noreferrer")}>{IconLaunch}</li>}
+                        {projectData.project_blog && <Link className="links_item svg_icon" key="blog" title="Read More" to={projectData.project_blog}>{IconArticle}</Link>}
+                        {projectData.project_github && <Link className="links_item svg_icon" key="github" title="View Github Repo" to={projectData.project_github}>{IconGithub}</Link>}
+                        {projectData.project_url && <Link className="links_item svg_icon" key="demo" title="View Demo" to={projectData.project_url}>{IconLaunch}</Link>}
                     </ul>
                 </div>
                 <p className={`project_description ${getClassName(order)}_text`}>
