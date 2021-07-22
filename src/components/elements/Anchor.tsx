@@ -14,9 +14,18 @@
 const Anchor: FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({href, ...props}) => 
 {
 
-    function scrollToElement(scroll_location: number)
+    const scrollToElement = () =>
     {
-        window.scrollTo({top: scroll_location, behavior: "smooth"});
+        if (href)
+        {
+            const element = document.getElementById(href.replace("#", ""));
+            const scroll_location = element ? element.offsetTop - 60 : 0;
+            window.scrollTo({top: scroll_location, behavior: "smooth"});
+        }
+        else
+        {
+            window.scrollTo({top: 0, behavior: "smooth"});
+        }
     }
 
     if (href && href.startsWith("#"))
@@ -24,11 +33,7 @@ const Anchor: FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({href, ...props}) =
         
         
         return (
-            <a {...props} onClick={() => {
-                    const element = document.getElementById(href.replace("#", ""));
-                    const scroll_location = element ? element.getBoundingClientRect().top - 60 : 0;
-                    element && scrollToElement(scroll_location)
-                }}>
+            <a {...props} onClick={scrollToElement}>
                 {props.children}
             </a>
         );

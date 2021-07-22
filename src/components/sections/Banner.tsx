@@ -50,7 +50,7 @@ const Banner : FC = () =>
         const contact_section = document.getElementById("contact");
         if (contact_section)
         {
-            const scroll_location = contact_section.getBoundingClientRect().top - 40;
+            const scroll_location = contact_section.offsetTop - 40;
             window.scrollTo({top: scroll_location, behavior: "smooth"});
         }
     }
