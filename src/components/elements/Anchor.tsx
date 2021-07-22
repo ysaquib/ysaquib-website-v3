@@ -13,16 +13,6 @@
  
 const Anchor: FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({href, ...props}) => 
 {
-    /**
-     * Only open links in new tab. Requires that a url be passed in
-     */
-    function openInNewTab(href : string)
-    {
-        const newWindow = window.open(href, "_blank", "noopener, noreferrer");
-        if (newWindow)
-            newWindow.opener = null;
-        return;
-    }
 
     function scrollToElement(scroll_location: number)
     {
@@ -43,7 +33,7 @@ const Anchor: FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({href, ...props}) =
 
 
     return (
-        <a {...props} title={`Link${href && ` to ${href}`}`} onClick={() => {href && openInNewTab(href)}}>
+        <a {...props} href={href} rel="noopener noreferrer" target="_blank">
             {props.children}
         </a>
     );
