@@ -17,7 +17,7 @@ const HomePage : FC = () =>
 {
     return (
         <>
-            <Head />
+            <Head title="Home" />
             
             <Banner />
             <Projects projectsLimit={6} id="projects"/>

@@ -231,7 +231,7 @@ const BlogPage : FC<BlogPageProps> = ({isNewBlog=false, isEditing=false, allBlog
         return (
             <section id="edit_blog">
 
-                <Head title={isNew ? "Create New Blog | Yusuf Saquib" : `${blogData.blog_title} — Editing Blog | Yusuf Saquib`} />
+                <Head title={isNew ? "Create New Blog" : `${blogData.blog_title} — Editing Blog`} />
 
                     
                 <TextField
