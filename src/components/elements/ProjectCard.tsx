@@ -120,7 +120,7 @@ const ProjectCard : FC<CardProps> = ({children, className, order, ...projectData
                     {featured_tag}
                     {wip_tag}
                     <ul className="links_list">
-                        {projectData.project_blog && <Link className="links_item svg_icon" key="blog" title="Read More" to={projectData.project_blog}>{IconArticle}</Link>}
+                        {projectData.project_blog && <Link className="links_item svg_icon" key="blog" title="Read More" to={"/blog/" + projectData.project_blog}>{IconArticle}</Link>}
                         {projectData.project_github && <Anchor className="links_item svg_icon" key="github" title="View Github Repo" href={projectData.project_github}>{IconGithub}</Anchor>}
                         {projectData.project_url && <Anchor className="links_item svg_icon" key="demo" title="View Demo" href={projectData.project_url}>{IconLaunch}</Anchor>}
                     </ul>

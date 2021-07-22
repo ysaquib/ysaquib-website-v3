@@ -25,9 +25,9 @@ const schema = yup.object().shape(
     project_title : yup.string().required("is required."),
     project_description: yup.string().required("is required."),
     project_tags: yup.string().required("is required."),
-    project_blog: yup.string().url("must be a valid URL"),
+    project_url: yup.string().url("must be a valid URL"),
     project_github: yup.string().url("must be a valid URL"),
-    project_url: yup.string().matches(/^(.+)\/([^/]+)$/gs, {message: "is not a valid file path.", excludeEmptyString: true}),
+    project_blog: yup.string().matches(/^([\w-]+)/gs, {message: "must be a valid blog URL.", excludeEmptyString: true}),
     project_inProgress: yup.boolean(),
     project_isHidden: yup.boolean(),
     project_progress: yup.number().typeError("must be a valid number.")
@@ -318,7 +318,7 @@ const AdminProjects : FC = () =>
                            disabled={project == null}
                            show_label />
 
-                <TextField label="Blog URL" 
+                <TextField label="Blog" 
                            name="project_blog"
                            type="text"
                            className="half"

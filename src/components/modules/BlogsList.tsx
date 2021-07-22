@@ -266,9 +266,9 @@ const BlogsList : FC = () =>
         const newTotal = Math.ceil(blogs.length / blogsPerPage);
         const newPage: number = currentPageArg > newTotal ? newTotal : (currentPageArg < 1 ? 1 : currentPageArg);
         
+        setPageBlogs(blogs.slice(0 + blogsPerPage * (newPage - 1), blogsPerPage + blogsPerPage * (newPage - 1)));
         setTotalPages(newTotal);
         setPage(newPage);
-        setPageBlogs(blogs.slice(0 + blogsPerPage * (newPage - 1), blogsPerPage + blogsPerPage * (newPage - 1)));
 
         if (newPage !== page || currentPageArg === 0)
         {
@@ -296,7 +296,9 @@ const BlogsList : FC = () =>
         const blogsList = allBlogs
             .filter((blog) => {return (blog.blog_visibility === "public") || (authenticated && userRoles.includes("superadmin"))});
         setBlogs(blogsList);
-    }, [allBlogs, setBlogs, authenticated, userRoles]);
+        // setPageBlogs(blogsList.slice(0, 5));
+
+    }, [allBlogs, authenticated, userRoles]);
 
     /**
      * If use is superadmin and logged in, show create new blog button
