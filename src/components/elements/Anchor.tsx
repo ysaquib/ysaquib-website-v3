@@ -21,11 +21,14 @@ const Anchor: FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({href, ...props}) =
 
     if (href && href.startsWith("#"))
     {
-        const element = document.getElementById(href.replace("#", ""));
-        const scroll_location = element ? element.getBoundingClientRect().top - 60 : 0;
+        
         
         return (
-            <a {...props} onClick={() => {element && scrollToElement(scroll_location)}}>
+            <a {...props} onClick={() => {
+                    const element = document.getElementById(href.replace("#", ""));
+                    const scroll_location = element ? element.getBoundingClientRect().top - 60 : 0;
+                    element && scrollToElement(scroll_location)
+                }}>
                 {props.children}
             </a>
         );
