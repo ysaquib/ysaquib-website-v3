@@ -2,28 +2,48 @@
 {
     text-align: center;
     margin-top: 25vh;
-    .title
+    .err_title
     {
         transition: color $trans-effect $trans-regular;
-        margin: 0;
+        margin: 1rem;
     }
     
-    .subtitle
+    .err_subtitle
     {
         transition: color $trans-effect $trans-regular;
-        margin: 0;
+        margin: 1rem;
     }
     
-
+    .err_home
+    {
+        transition: color $trans-effect $trans-regular;
+        margin: 1rem;
+        text-decoration: none;
+    }
+    
+    
     @include themify()
     {
-        .title
+        .err_title
         {
             color: themed('primary');
         }
-        .subtitle
+        .err_subtitle
         {
             color: themed('grey-800');
+        }
+        .err_home
+        {
+            color: themed('grey-800');
+            &:hover
+            {
+                color: themed('primary');
+            }
+            &:active
+            {
+                transition: none;
+                color: themed('secondary');
+            }
         }
         
     }

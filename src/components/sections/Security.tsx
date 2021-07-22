@@ -49,7 +49,7 @@ const Security : FC = () =>
             <div className="security_wrapper">
                 <div className="label" onClick={() => setShowKey(!showKey)}>
                     <h2 className="key_toggle">{showKey ? `Hide` : `Show`} Public Key Details</h2>
-                    {showKey ? <ExpandLess className="icon"/> : <ExpandMore className="icon"/>}
+                    {showKey ? <ExpandLess className="icon" /> : <ExpandMore className="icon"/>}
                 </div>
                 <div id="public_key" className="public_key">
                     <p className="pgp_key">
