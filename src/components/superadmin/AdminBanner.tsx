@@ -20,7 +20,7 @@ const schema = yup.object().shape(
     banner_prefix : yup.string().required("is required."),
     banner_name : yup.string().required("is required."),
     banner_title : yup.string().required("is required."),
-    banner_resume_url : yup.string().url("must be a valid URL.").required("is required."),
+    banner_resume_url : yup.string().matches(/^(.+)\/([^/]+)$/gs, {message: "is not a valid file path.", excludeEmptyString: true}).required("is required."),
 });
 
 

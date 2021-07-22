@@ -27,7 +27,7 @@ const schema = yup.object().shape(
     project_tags: yup.string().required("is required."),
     project_blog: yup.string().url("must be a valid URL"),
     project_github: yup.string().url("must be a valid URL"),
-    project_url: yup.string().url("must be a valid URL"),
+    project_url: yup.string().matches(/^(.+)\/([^/]+)$/gs, {message: "is not a valid file path.", excludeEmptyString: true}),
     project_inProgress: yup.boolean(),
     project_isHidden: yup.boolean(),
     project_progress: yup.number().typeError("must be a valid number.")
