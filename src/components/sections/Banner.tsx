@@ -10,6 +10,7 @@ import { BannerData } from '../../store/types/dataTypes';
 import { getBannerData } from '../../store/actions/dataActions';
 import Button from '../elements/Button'
 import ThemeSwitcher from '../elements/ThemeSwitcher'
+import Anchor from '../elements/Anchor';
 
 let default_data = require('../../default_data.json');
 
@@ -61,7 +62,7 @@ const Banner : FC = () =>
                 <h1 className="my_name">{banner.banner_name}</h1>
                 <h1 className="my_title">{banner.banner_title}</h1>
                 <div className="banner_buttons">
-                    <Button type="button" text={resume_btn} onClick={() => window.open(banner.banner_resume_url, "_blank", "noopener noreferrer")} />
+                    <Anchor href={banner.banner_resume_url}><Button type="button" text={resume_btn} /></Anchor>
                     <Button type="button" className="secondary" text={contact_btn} onClick={handleContact}/>
                     <ThemeSwitcher />
                 </div>

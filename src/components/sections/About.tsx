@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import { getAboutData } from '../../store/actions/dataActions';
 import { AboutData } from '../../store/types/dataTypes';
+import Anchor from '../elements/Anchor';
 import Section from '../elements/Section';
 
 const About : FC = () =>
@@ -37,7 +38,7 @@ const About : FC = () =>
     return (
        <Section id="about" className="mini" title={about.about_title}>
            <div className="about_wrapper">
-                <Markdown className="about_description markdown_content" options={{forceBlock: true}}>
+                <Markdown className="about_description markdown_content" options={{forceBlock: true, overrides: {a: Anchor}}}>
                     {about.about_description}
                 </Markdown>
            </div>

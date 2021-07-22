@@ -7,6 +7,7 @@ import { format } from 'date-fns';
 import React, {FC} from 'react';
 import { Link } from 'react-router-dom';
 import { ProjectData } from '../../store/types/dataTypes';
+import Anchor from './Anchor';
 import { IconArticle, IconGithub, IconLaunch } from './Icons';
 
 interface CardProps extends ProjectData
@@ -120,8 +121,8 @@ const ProjectCard : FC<CardProps> = ({children, className, order, ...projectData
                     {wip_tag}
                     <ul className="links_list">
                         {projectData.project_blog && <Link className="links_item svg_icon" key="blog" title="Read More" to={projectData.project_blog}>{IconArticle}</Link>}
-                        {projectData.project_github && <Link className="links_item svg_icon" key="github" title="View Github Repo" to={projectData.project_github}>{IconGithub}</Link>}
-                        {projectData.project_url && <Link className="links_item svg_icon" key="demo" title="View Demo" to={projectData.project_url}>{IconLaunch}</Link>}
+                        {projectData.project_github && <Anchor className="links_item svg_icon" key="github" title="View Github Repo" href={projectData.project_github}>{IconGithub}</Anchor>}
+                        {projectData.project_url && <Anchor className="links_item svg_icon" key="demo" title="View Demo" href={projectData.project_url}>{IconLaunch}</Anchor>}
                     </ul>
                 </div>
                 <p className={`project_description ${getClassName(order)}_text`}>
