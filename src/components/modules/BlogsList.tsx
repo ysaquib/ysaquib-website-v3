@@ -9,7 +9,7 @@ import { usePagination } from '@material-ui/lab/Pagination';
 import React, { FC, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { RootState } from '../../store';
 import { deleteBlog, setBlogData } from '../../store/actions/dataActions';
 import { BlogData, BlogVisibility } from '../../store/types/dataTypes';
@@ -161,7 +161,10 @@ const BlogListItem: FC<BlogListItemProps> = ({blog}) =>
         window.scrollTo(0,0);
     }, []);
 
-    const history = useHistory();
+    const location = {
+        pathname: "/blog/" + blog.blog_url,
+        state: {fromList: true}
+    }
     return (
         <li className="blogs_list_item_wrapper"
             id={blog.blog_id} 
@@ -169,8 +172,8 @@ const BlogListItem: FC<BlogListItemProps> = ({blog}) =>
            
             {dialog}
             
-            <div className={`blogs_list_item ${blog.blog_isFeatured ? "featured" : ""} ${blog.blog_inProgress ? "wip" : ""} ${getClassName()}`} 
-                    onClick={() => history.push(`/blog/${blog.blog_url}`)}>
+            <Link className={`blogs_list_item ${blog.blog_isFeatured ? "featured" : ""} ${blog.blog_inProgress ? "wip" : ""} ${getClassName()}`} 
+                    to={location}>
                 <h1 className="blogs_list_title">
                     {blog.blog_title}
                 </h1>
@@ -183,7 +186,7 @@ const BlogListItem: FC<BlogListItemProps> = ({blog}) =>
                         {format(blog.blog_createdAt, "dd MMM yyyy")}
                     </p>
                 </div>
-            </div>
+            </Link>
             {(authenticated && userRoles.includes("superadmin")) && (<div className="blogs_list_buttons">
                 <div className={`blogs_list_item_button hide ${getClassName()}`} id="hide" onClick={setVisibility}><span className="svg_icon">{getIcon()}</span></div>
                 
@@ -229,7 +232,6 @@ const BlogsList : FC = () =>
     {
         history.push(`/blog?page=${value}`);
         window.scrollTo(0,0);
-
         setPage(value);
     }
 
@@ -264,9 +266,9 @@ const BlogsList : FC = () =>
         const newTotal = Math.ceil(blogs.length / blogsPerPage);
         const newPage: number = currentPageArg > newTotal ? newTotal : (currentPageArg < 1 ? 1 : currentPageArg);
         
+        setPageBlogs(blogs.slice(0 + blogsPerPage * (newPage - 1), blogsPerPage + blogsPerPage * (newPage - 1)));
         setTotalPages(newTotal);
         setPage(newPage);
-        setPageBlogs(blogs.slice(0 + blogsPerPage * (newPage - 1), blogsPerPage + blogsPerPage * (newPage - 1)));
 
         if (newPage !== page || currentPageArg === 0)
         {
@@ -294,7 +296,9 @@ const BlogsList : FC = () =>
         const blogsList = allBlogs
             .filter((blog) => {return (blog.blog_visibility === "public") || (authenticated && userRoles.includes("superadmin"))});
         setBlogs(blogsList);
-    }, [allBlogs, setBlogs, authenticated, userRoles]);
+        // setPageBlogs(blogsList.slice(0, 5));
+
+    }, [allBlogs, authenticated, userRoles]);
 
     /**
      * If use is superadmin and logged in, show create new blog button

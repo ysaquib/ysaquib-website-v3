@@ -74,7 +74,7 @@ const BlogPage : FC<BlogPageProps> = ({isNewBlog=false, isEditing=false, allBlog
     const canUserEdit: boolean = authenticated && userRoles.includes("superadmin");
     const dispatch = useDispatch();
     const history = useHistory();
-
+    
     const [blogTitle, setBlogTitle] = useState<string>(blogData.blog_title);
     const [blogTags, setBlogTags] = useState<string>(blogData.blog_tags ?? "");
     const [blogURL, setBlogURL] = useState<string>(blogData.blog_url);
@@ -163,11 +163,11 @@ const BlogPage : FC<BlogPageProps> = ({isNewBlog=false, isEditing=false, allBlog
 
         if(isNew)
         {
-            dispatch(addNewBlog(blogPayload, () => {setEditingBlog(false); history.push(`/blog/${blogURL}`)}));
+            dispatch(addNewBlog(blogPayload, () => {setEditingBlog(false); history.replace(`/blog/${blogURL}`)}));
         }
         else
         {
-            dispatch(setBlogData(blogPayload, () => {setEditingBlog(false); history.push(`/blog/${blogURL}`)}));
+            dispatch(setBlogData(blogPayload, () => {setEditingBlog(false); history.replace(`/blog/${blogURL}`)}));
         }
 
         setIsNew(false);
@@ -184,7 +184,7 @@ const BlogPage : FC<BlogPageProps> = ({isNewBlog=false, isEditing=false, allBlog
         setEditingBlog(false);
 
         if (isNew)
-            history.push("/blog");
+            history.replace("/blog");
     }
 
     /**
@@ -195,6 +195,12 @@ const BlogPage : FC<BlogPageProps> = ({isNewBlog=false, isEditing=false, allBlog
      */
     const handleBack = () =>
     {
+        const loc_state = history.location.state as {fromList: boolean};
+        if (loc_state && loc_state.fromList === true)
+        {
+            history.goBack();
+        }
+
         history.push("/blog");
     }
 
@@ -231,7 +237,7 @@ const BlogPage : FC<BlogPageProps> = ({isNewBlog=false, isEditing=false, allBlog
         return (
             <section id="edit_blog">
 
-                <Head title={isNew ? "Create New Blog | Yusuf Saquib" : `${blogData.blog_title} — Editing Blog | Yusuf Saquib`} />
+                <Head title={isNew ? "Create New Blog" : `${blogData.blog_title} — Editing Blog`} />
 
                     
                 <TextField

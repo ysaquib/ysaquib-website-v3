@@ -51,6 +51,7 @@
 
     .header_title
     {
+        text-decoration: none;
         border-radius: $radius-regular;
         margin: 0rem;
         padding: 1rem;
@@ -100,6 +101,7 @@
     
     .header_item
     {
+        text-decoration: none;
         border-radius: $radius-regular;
         list-style-type: none;
         user-select: none;

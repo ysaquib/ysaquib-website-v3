@@ -7,6 +7,7 @@
 {
     border: none;
     border-radius: $radius-small;
+    text-decoration: none;
     // flex: 1 1 auto;
     
     transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular, box-shadow $trans-effect $trans-regular;

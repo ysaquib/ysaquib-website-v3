@@ -7,7 +7,7 @@
 
 import React, { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useLocation } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import { RootState } from '../../store';
 import { userSignOut } from '../../store/actions/authActions';
 import ThemeSwitcher from '../elements/ThemeSwitcher';
@@ -130,31 +130,30 @@ const Header : FC = () =>
 
     const list_items: JSX.Element = default_data.header.sections.map(([title, path] : [string, string]) => {
         return (
-        <li className={`header_item ${selectedPath === path ? "selected_path" : ""}`} 
+        <Link className={`header_item ${selectedPath === path ? "selected_path" : ""}`} 
             key={title} 
             id={path} 
-            onClick=
-            {() => history.push(path)}>
+            to={path}>
             {title}
-        </li>);
+        </Link>);
     });
     
     const signin_tab: JSX.Element = !authenticated 
-        ? ( <li className={`header_item ${selectedPath === "/signin" ? "selected_path" : ""}`} id="/signin" onClick={() => {history.push("/signin")}}>Sign In</li> ) 
+        ? ( <Link to="/signin" className={`header_item ${selectedPath === "/signin" ? "selected_path" : ""}`} id="/signin">Sign In</Link> ) 
         : ( <></> );
 
     const messages_tab: JSX.Element = authenticated && userRoles.includes("superadmin") 
-        ? ( <li className={`header_item ${selectedPath === "/inbox" ? "selected_path" : ""}`} id="/inbox" onClick={() => history.push("/inbox")}> 
+        ? ( <Link to="/inbox" className={`header_item ${selectedPath === "/inbox" ? "selected_path" : ""}`} id="/inbox"> 
                 {`${hasNewMessages ? `${newMessagesCount} New ` : ""}Message${newMessagesCount > 1 || !hasNewMessages ? "s" : ""}`}
-            </li>) 
+            </Link>) 
         : ( <></> );
 
     const admin_tab: JSX.Element = authenticated && userRoles.includes("superadmin")
-        ? ( <li className={`header_item ${selectedPath === "/admin" ? "selected_path" : ""}`} id="/admin" onClick={() => history.push("/admin")}>Admin Dashboard</li> )
+        ? ( <Link to="/admin" className={`header_item ${selectedPath === "/admin" ? "selected_path" : ""}`} id="/admin">Admin Dashboard</Link> )
         : ( <></> );
 
     const signout_tab: JSX.Element = authenticated
-        ? ( <li className="header_item sign_out" onClick={handleSignOut}>Sign Out</li> ) 
+        ? ( <Link to="/" className="header_item sign_out" onClick={handleSignOut}>Sign Out</Link> ) 
         : ( <></> );
 
     if (isMobileHeader)
@@ -165,9 +164,9 @@ const Header : FC = () =>
                     <div className="header_wrapper">
                     <ThemeSwitcher type="icon"/>
 
-                    <p className="header_title" onClick={() => history.push("/")}>
+                    <Link to="/" className="header_title" >
                         {default_data.header.title}
-                    </p>
+                    </Link>
 
                     <span className="svg_icon menu_icon" onClick={()=>setIsOpen(!isOpen)}>{IconMenu}</span>
 
@@ -192,7 +191,7 @@ const Header : FC = () =>
         <header id="pseudo_header">
             <div id="header">
                 <div className="header_wrapper">
-                    <p className="header_title" onClick={() => history.push("/")}>{default_data.header.title}</p>
+                    <Link to="/" className="header_title">{default_data.header.title}</Link>
                     <span className="icon_wrapper">
                         <ol className="header_list">
                             {list_items}

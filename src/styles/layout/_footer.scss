@@ -13,11 +13,6 @@
         align-items: center;
         justify-content: center;
         text-align: center;
-
-        @include themify()
-        {
-            color: themed('grey-700');
-        }
         
         &::before
         {
@@ -54,10 +49,10 @@
             transition: color $trans-regular $trans-effect;
             
             * { transition: none; }
-            
-            &:hover
+            @include themify()
             {
-                @include themify()
+                color: themed('grey-600');
+                &:hover
                 {
                     color: themed('primary');
                 }
