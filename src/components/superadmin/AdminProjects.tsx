@@ -53,6 +53,7 @@ const AdminProjects : FC = () =>
     const [message, setMessage] = useState<string>("");
 
     const [isNewProject, setNewProject] = useState<boolean>(false);
+    const [isNewCreated, setNewCreated] = useState<boolean>(false);
     const [isInProgress, setInProgress] = useState<boolean>(project?.project_inProgress ?? false);
     const [isHidden, setIsHidden] = useState<boolean>(project?.project_isHidden ?? false);
     
@@ -101,7 +102,6 @@ const AdminProjects : FC = () =>
         dispatch(getProjectData(undefined, () => {console.error("Error getting project data")}));
     }, [dispatch]);
 
-
     /**
      * When projects is updated or when we first get the ProjectData, 
      * set the projects accordingly
@@ -115,27 +115,37 @@ const AdminProjects : FC = () =>
         }
     }, [allProjects]);
 
+
     /**
-     * This function takes an id of a project and sets the current selected 
-     * projects for visual purposes and removes the selected class from any
-     * previously selected projects.
-     * 
-     * Also it makes sure that if a new project was being created before, it
-     * cancels its creation.
+     * This useEffect changes the currently selected project by removing the 
+     * selected class from the previously selected project and adding it to the 
+     * new one.
      */
-    function changeProject(id: string)
-    {
-        setNewProject(false);
-        const collection = document.getElementsByClassName("project_item");
-
-        for (var i = 0; i < collection.length; i++)
+    useEffect(() => {
+        if(project)
         {
-            collection.item(i)?.classList.remove("selected");
+            document.getElementById(project.project_id)?.classList.add("selected");
         }
+        return () => {
+            if (project)
+            {
+                document.getElementById(project.project_id)?.classList.remove("selected");
+            }
+        }
+    }, [project]);
 
-        document.getElementById(id)?.classList.add("selected");
-        setProject(projects.find((proj) => {return proj.project_id === id})); 
-    }
+    /**
+     * This useEffect will cause the new project to be selected after it is
+     * added to the project list.
+     */
+    useEffect(() => {
+        if (isNewCreated === true)
+        {
+            setProject(projects[projects.length - 1]);
+            setNewCreated(false);
+        }
+    }, [isNewCreated, projects]);
+
 
     /**
      * createNewProject will create an empty project and set it as the current
@@ -238,13 +248,13 @@ const AdminProjects : FC = () =>
 
         if(isNewProject && project)
         {
-            dispatch(addNewProject(new_project, projects, undefined, (err) => {setError(err)}));
+            dispatch(addNewProject(new_project, projects, () => {setNewCreated(true)}, (err) => {setError(err)}));
         }
         else if(!isNewProject && project)
         {
             dispatch(setProjectData(new_project, undefined, (err) => {setError(err)}));
         }
-        
+
         setNewProject(false);
 
         setMessage(`Successfully ${isNewProject ? "created" : "updated"} '` + data.project_title +"'.");
@@ -281,7 +291,7 @@ const AdminProjects : FC = () =>
                                             className="project_item"
                                             key={project.project_id} 
                                             id={project.project_id}
-                                            onClick={() => changeProject(project.project_id)}>
+                                            onClick={() => setProject(project)}>
                                             
                                             <h3 className="project_item_title">{project.project_title}</h3>
                                             <span className="svg_icon chevron">{IconChevronRight}</span>
@@ -293,7 +303,6 @@ const AdminProjects : FC = () =>
                         );})}
                         {provided.placeholder}
                     </ul>
-
                 )}
                 </Droppable>
                 </DragDropContext>  
