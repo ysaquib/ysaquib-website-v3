@@ -85,7 +85,7 @@ title
     }
     .dialog_box_message
     {
-        font: $regular-weight $regular-size $sans-font;
+        font: $medium-weight $regular-size $sans-font;
         &.error, &.warning, &.success
         {
             font: $semi-weight $regular-size $sans-font;
@@ -423,9 +423,12 @@ input[type=checkbox]
     }
 }
 
-#admin_projects_list .project_item_title
+#admin_projects_list
 {
-    font: $regular-weight $regular-size $sans-font;
+    .project_item_title
+    {
+        font: $medium-weight $regular-size $sans-font;
+    }
 }
 
 // $ Login & Register =========================================================

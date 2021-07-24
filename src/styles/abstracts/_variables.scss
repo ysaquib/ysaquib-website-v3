@@ -104,12 +104,14 @@ $radius-large: 0.5rem;
 
 // # Box Shadow Variables -----------------------------------------------------
 
-$project-card-box-shadow: 0.1rem 0.1rem 0.7rem 0.0rem rgba(#000, 20%);
-$image-shadow:            0.1rem 0.1rem 1.0rem 0.1rem rgba(#000, 20%);
-$blog-list-box-shadow:    0.1rem 0.1rem 0.5rem 0.0rem rgba(#000, 20%);
-$inbox-shadow:            0.1rem 0.1rem 0.7rem 0.0rem rgba(#000, 20%);
-$messages-list-shadow:    0.1rem 0.1rem 0.5rem 0.0rem rgba(#000, 20%);
-$button-hover-box-shadow: 0.1rem 0.1rem 0.7rem 0.0rem rgba(#000, 30%);
+$project-card-box-shadow: 0.1rem 0.1rem 0.3rem 0.1rem rgba(#000, 22%);
+$admin-edit-box-shadow:   0.1rem 0.1rem 0.3rem 0.1rem rgba(#000, 22%);
+$admin-proj-list:         0.1rem 0.1rem 0.2rem 0.1rem rgba(#000, 22%);
+$admin-proj-list-sel:     0.1rem 0.1rem 0.2rem 0.1rem rgba(#000, 35%);
+$image-shadow:            0.1rem 0.1rem 1.0rem 0.1rem rgba(#000, 22%);
+$blog-list-box-shadow:    0.1rem 0.1rem 0.3rem 0.1rem rgba(#000, 22%);
+$inbox-shadow:            0.1rem 0.1rem 0.5rem 0.1rem rgba(#000, 22%);
+$messages-list-shadow:    0.1rem 0.1rem 0.5rem 0.0rem rgba(#000, 22%);
 $header-box-shadow:       0.0rem 0.1rem 1.0rem 0.5rem rgba(#000, 10%);
 $dialog-box-shadow:       0.0rem 0.1rem 3.0rem 0.5rem rgba(#000, 25%);
 $menu-box-shadow:        -2.0rem 0.0rem 5.0rem 0.5rem rgba(#000, 75%);

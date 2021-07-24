@@ -23,7 +23,7 @@
         flex: 1;
         @include themify()
         {
-            background-color: themed('grey-300');
+            background-color: themed("grey-300");
             transition: background-color $trans-effect $trans-regular;
         }
         height: 1px;
@@ -55,6 +55,7 @@
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         margin: 0rem;
+        box-shadow: $admin-edit-box-shadow;
 
         gap: 1.5rem;
         padding: $padding-card-regular;
@@ -160,21 +161,44 @@
 
         @include themify()
         {
+            &.new
+            {
+                input, textarea
+                {
+                    &:focus, &:active
+                    {
+                        border-color: themed("secondary");
+                    }
+                }
+                input[type=checkbox]
+                {
+                    &:checked, &:checked:active
+                    {
+                        color: themed('secondary');
+                        background-color: themed('secondary');
+                    }
+                }
+                .confirmbtn
+                {
+                    background-color: themed("secondary");
+                }
+            }
+
             .category_title 
             {
-                color: themed('grey-900');
+                color: themed("grey-900");
             }
             .message
             {
-                color: themed('success');
+                color: themed("success");
                 &.error 
                 {
-                    color: themed('error');
+                    color: themed("error");
                 }
                 
             }
-            // border: 0.1rem solid themed('grey-500');
-            background-color: themed('grey-150');
+            // border: 0.1rem solid themed("grey-500");
+            background-color: themed("grey-150");
         }
     }
 }
@@ -203,7 +227,7 @@
     {
         @include themify()
         {
-            border: 0.1rem solid themed('grey-900');
+            border: 0.1rem solid themed("grey-900");
             transition: border-color $trans-effect $trans-regular;
         }
 
@@ -251,6 +275,7 @@
     
     .project_item
     {
+        box-shadow: $admin-proj-list;
         border-radius: $radius-regular;
         list-style-type: none;
         padding: 1.5rem;
@@ -276,11 +301,17 @@
         }
     }
 
+    .new_project
+    {
+        grid-column: span 2;
+    }
+
     .project_buttons
     {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 1.5rem;
+
 
         .button_add, .button_delete
         {
@@ -295,44 +326,51 @@
         .project_item
         {
             transition: color $trans-regular $trans-effect, background-color $trans-regular $trans-effect;
-            * {
-                transition: none;
-            }
             
-            background-color: themed('grey-150');
-            color: themed('grey-900');
+            background-color: themed("grey-150");
+            color: themed("grey-900");
             &:hover
             {
-                background-color: themed('grey-200');
-                color: themed('primary');
+                background-color: themed("grey-200");
+                color: themed("primary");
             }
             &.selected
             {
-                background-color: themed('grey-200');
-                color: themed('secondary');    
+                background-color: themed("primary");
+                color: themed("grey-000");
+                box-shadow: $admin-proj-list-sel;
             }
             
+            &.new_project
+            {
+                background-color: themed("secondary");
+                color: themed("grey-000");
+                box-shadow: $admin-proj-list-sel;
+                cursor: default;
+            }
         }
+
+
         .project_buttons
         {
             .button_add
             {
-                background-color: themed('grey-150');
-                color: themed('grey-500');
+                background-color: themed("grey-150");
+                color: themed("grey-500");
                 &:hover 
                 {
-                    color: themed('grey-000');
-                    background-color: mix(themed('success'), themed('grey-150'), $color-mix-least);
+                    color: themed("grey-000");
+                    background-color: mix(themed("success"), themed("grey-150"), $color-mix-least);
                 }
             }
             .button_delete
             {
-                color: themed('grey-500');
-                background-color: themed('grey-150');
+                color: themed("grey-500");
+                background-color: themed("grey-150");
                 &:hover 
                 {
-                    color: themed('grey-000');
-                    background-color: mix(themed('error'), themed('grey-150'), $color-mix-least);
+                    color: themed("grey-000");
+                    background-color: mix(themed("error"), themed("grey-150"), $color-mix-least);
                 }
             }
         }

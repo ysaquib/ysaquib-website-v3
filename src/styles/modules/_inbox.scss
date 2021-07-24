@@ -193,7 +193,7 @@
             
             .message_li.new_msg
             {
-                background-color: mix(themed("secondary"), themed("grey-000"), 40%);
+                background-color: mix(themed("secondary"), themed("grey-000"), 35%);
                 .msgli
                 {
                     color: mix(themed("secondary"), themed("grey-900"), 20%);
@@ -211,7 +211,7 @@
 
             .message_li.selected_msg
             {
-                background-color: mix(themed("primary"), themed("grey-900"), 90%);
+                background-color: themed("primary");
                 .msgli
                 {
                     color: mix(themed("primary"), themed("grey-000"), 10%);
