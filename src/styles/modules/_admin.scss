@@ -161,6 +161,29 @@
 
         @include themify()
         {
+            &.new
+            {
+                input, textarea
+                {
+                    &:focus, &:active
+                    {
+                        border-color: themed("secondary");
+                    }
+                }
+                input[type=checkbox]
+                {
+                    &:checked, &:checked:active
+                    {
+                        color: themed('secondary');
+                        background-color: themed('secondary');
+                    }
+                }
+                .confirmbtn
+                {
+                    background-color: themed("secondary");
+                }
+            }
+
             .category_title 
             {
                 color: themed("grey-900");
@@ -252,7 +275,7 @@
     
     .project_item
     {
-        box-shadow: $admin-edit-box-shadow;
+        box-shadow: $admin-proj-list;
         border-radius: $radius-regular;
         list-style-type: none;
         padding: 1.5rem;
@@ -311,10 +334,18 @@
                 background-color: themed("grey-200");
                 color: themed("primary");
             }
-            &.selected, &.new_project
+            &.selected
             {
-                background-color: mix(themed("primary"), themed("grey-000"), 25%);;
-                color: themed("grey-900");    
+                background-color: themed("primary");
+                color: themed("grey-000");
+                box-shadow: $admin-proj-list-sel;
+            }
+            
+            &.new_project
+            {
+                background-color: themed("secondary");
+                color: themed("grey-000");
+                box-shadow: $admin-proj-list-sel;
             }
         }
 

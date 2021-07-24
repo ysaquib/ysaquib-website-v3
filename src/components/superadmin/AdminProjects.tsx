@@ -248,14 +248,12 @@ const AdminProjects : FC = () =>
 
         if(isNewProject && project)
         {
-            dispatch(addNewProject(new_project, projects, () => {setNewCreated(true)}, (err) => {setError(err)}));
+            dispatch(addNewProject(new_project, projects, () => {setNewCreated(true); setNewProject(false);}, (err) => {setError(err)}));
         }
         else if(!isNewProject && project)
         {
             dispatch(setProjectData(new_project, undefined, (err) => {setError(err)}));
         }
-
-        setNewProject(false);
 
         setMessage(`Successfully ${isNewProject ? "created" : "updated"} '` + data.project_title +"'.");
     }
@@ -309,13 +307,17 @@ const AdminProjects : FC = () =>
 
                 {/* $ Here are the project buttons to add and delete $ */}
                 <div className="project_buttons">
+                    {(isNewProject || isNewCreated) && <li className="project_item new_project" key="newproj">
+                        <h3 className="project_item_title">New Project</h3>
+                        <span className="svg_icon chevron">{IconChevronRight}</span>
+                    </li>}
                     <li className="project_item button_add" key="add" onClick={createNewProject}><span className="svg_icon add">{IconAdd}</span></li>
                     <li className="project_item button_delete" key="delete" onClick={handleDeleteDialog}><span className="svg_icon add">{IconGarbageDelete}</span></li>
                 </div>
 
             </div>
-            <form className="edit projects" onSubmit={handleSubmit(onSubmit)}>
-                <h3 className="category_title">Edit Project Information</h3>
+            <form className={`edit projects ${(isNewProject || isNewCreated) ? "new" : ""}`} onSubmit={handleSubmit(onSubmit)}>
+                <h3 className="category_title">{isNewProject || isNewCreated ? "Set" : "Edit"} Project Information</h3>
                 <TextField label="Project Title" 
                            name="project_title"
                            type="text"
