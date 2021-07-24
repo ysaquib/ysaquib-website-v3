@@ -341,6 +341,40 @@
                 box-shadow: $admin-proj-list-sel;
             }
             
+            &.wip
+            {
+                background-color: mix(themed("grey-000"), themed("warning"), $color-mix-least);
+                color: mix(themed("warning"), themed("grey-700"), $color-mix-least);
+                box-shadow: $admin-proj-list-sel;
+                &:hover
+                {
+                    background-color: mix(themed("grey-150"), themed("warning"), $color-mix-least);
+                    color: mix(themed("warning"), themed("grey-900"), $color-mix-least);
+                }
+                &.selected
+                {
+                    color: mix(themed("grey-000"), themed("warning"), $color-mix-least);
+                    background-color: mix(themed("warning"), themed("grey-900"), $color-mix-regular);
+                }
+            }
+
+            &.hidden
+            {
+                background-color: mix(themed("grey-000"), themed("error"), $color-mix-least);
+                color: mix(themed("error"), themed("grey-700"), $color-mix-least);
+                box-shadow: $admin-proj-list-sel;
+                &:hover
+                {
+                    background-color: mix(themed("grey-150"), themed("error"), $color-mix-least);
+                    color: mix(themed("error"), themed("grey-900"), $color-mix-least);
+                }
+                &.selected
+                {
+                    color: mix(themed("grey-000"), themed("error"), $color-mix-least);
+                    background-color: mix(themed("error"), themed("grey-900"), $color-mix-regular);
+                }
+            }
+            
             &.new_project
             {
                 background-color: themed("secondary");
