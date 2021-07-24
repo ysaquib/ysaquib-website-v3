@@ -80,6 +80,9 @@ const AdminProjects : FC = () =>
             setValue("project_inProgress", project.project_inProgress ?? false);
             setValue("project_isHidden", project.project_isHidden ?? false);
             setValue("project_progress", project.project_progress ?? 0);
+            
+            setIsHidden(project.project_isHidden ?? false);
+            setInProgress(project.project_inProgress ?? false);
             setStartDate(format(project.project_startDate, "yyyy-MM-dd"));
             setEndDate(format(project.project_endDate, "yyyy-MM-dd"));
             
@@ -124,7 +127,8 @@ const AdminProjects : FC = () =>
     useEffect(() => {
         if(project)
         {
-            document.getElementById(project.project_id)?.classList.add("selected");
+            const element = document.getElementById(project.project_id);
+            element?.classList.add("selected");
         }
         return () => {
             if (project)
@@ -137,6 +141,43 @@ const AdminProjects : FC = () =>
             }
         }
     }, [project, isNewProject]);
+
+
+    /**
+     * Adds class based on InProgress state.
+     */
+    useEffect(() => {
+        if (project)
+        {
+            const element = document.getElementById(project.project_id);
+            if(isInProgress)
+            {
+                element?.classList.add("wip");
+            }
+            else
+            {
+                element?.classList.remove("wip");
+            }
+        }
+    }, [isInProgress, project]);
+
+    /**
+     * Adds class based on isHidden state.
+     */
+    useEffect(() => {
+        if (project)
+        {
+            const element = document.getElementById(project.project_id);
+            if(isHidden)
+            {
+                element?.classList.add("hidden");
+            }
+            else
+            {
+                element?.classList.remove("hidden");
+            }
+        }
+    }, [isHidden, project]);
 
     /**
      * This useEffect will cause the new project to be selected after it is
@@ -246,6 +287,7 @@ const AdminProjects : FC = () =>
             project_id: proj_id,
             project_progress: proj_prog,
             project_inProgress: isInProgress,
+            project_isHidden: isHidden,
             project_startDate: parse(startDate, "yyyy-MM-dd", new Date()),
             project_endDate: parse(endDate, "yyyy-MM-dd", new Date()),
         };
@@ -285,17 +327,21 @@ const AdminProjects : FC = () =>
                 {
                     (provided) => (
                     <ul className="projects_list" {...provided.droppableProps} ref={provided.innerRef}>
-                        {projects && projects.map((project: ProjectData, index: number) =>
+                        {projects && projects.map((proj: ProjectData, index: number) =>
                         {return (
-                            <Draggable key={project.project_id} draggableId={project.project_id} index={index} >
+                            <Draggable key={proj.project_id} draggableId={proj.project_id} index={index} >
                                 {(provided) => (
                                         <li ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}
-                                            className="project_item"
-                                            key={project.project_id} 
-                                            id={project.project_id}
-                                            onClick={() => setProject(project)}>
+                                            className={
+                                                "project_item " + 
+                                                (proj.project_isHidden? "hidden " : "") + 
+                                                (proj.project_inProgress? "wip " : "") +
+                                                (proj.project_id === project?.project_id ? "selected " : "")}
+                                            key={proj.project_id} 
+                                            id={proj.project_id}
+                                            onClick={() => setProject(proj)}>
                                             
-                                            <h3 className="project_item_title">{project.project_title}</h3>
+                                            <h3 className="project_item_title">{proj.project_title}</h3>
                                             <span className="svg_icon chevron">{IconChevronRight}</span>
                                         
                                         </li>
