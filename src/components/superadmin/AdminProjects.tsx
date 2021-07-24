@@ -130,9 +130,13 @@ const AdminProjects : FC = () =>
             if (project)
             {
                 document.getElementById(project.project_id)?.classList.remove("selected");
+                if(isNewProject)
+                {
+                    setNewProject(false);
+                }
             }
         }
-    }, [project]);
+    }, [project, isNewProject]);
 
     /**
      * This useEffect will cause the new project to be selected after it is
