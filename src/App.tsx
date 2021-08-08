@@ -101,12 +101,11 @@ const App : FC = () =>
 
         <BrowserRouter>
         <HelmetProvider>
+        <ThemeContext.Provider value={{theme: currentTheme, toggleTheme: () => setCurrentTheme(currentTheme === "theme-dark" ? "theme-light" : "theme-dark")}}>
 
             <Head main={true}/>
 
-            <ThemeContext.Provider value={{theme: currentTheme, toggleTheme: () => setCurrentTheme(currentTheme === "theme-dark" ? "theme-light" : "theme-dark")}}>
             <Header />
-
             <div id="main_container">
                 <Switch>
                     <PublicRoute exact path="/"> <HomePage /> </PublicRoute>
@@ -120,13 +119,13 @@ const App : FC = () =>
                     <PublicRoute path="/projects"> <Projects id="all_projects" sectionTitle="Projects Archive" showAllProjects={true}/> </PublicRoute>
                     <PrivateRoute path="/admin" authRoles={["superadmin"]}> <Admin /> </PrivateRoute>
                     <PrivateRoute path="/inbox" authRoles={["superadmin"]}> <Inbox /> </PrivateRoute>
+                    
                     <Route component={Error404} />
                 </Switch>
             <Footer />
             </div>
 
-            </ThemeContext.Provider>
-
+        </ThemeContext.Provider>
         </HelmetProvider>
         </BrowserRouter>
     </GoogleReCaptchaProvider>
