@@ -3,7 +3,10 @@ import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 import authReducer from './reducers/authReducer';
-import {aboutReducer, bannerReducer, blogReducer, messageReducer, projectReducer} from './reducers/dataReducer';
+import {aboutReducer, bannerReducer} from './reducers/dataReducer';
+import { projectReducer } from './reducers/projectReducers';
+import { blogReducer } from './reducers/blogReducers';
+import { messageReducer } from './reducers/messageReducers';
 
 const rootReducer = combineReducers({
     auth: authReducer,

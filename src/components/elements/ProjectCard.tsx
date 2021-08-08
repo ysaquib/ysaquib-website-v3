@@ -6,7 +6,7 @@
 import { format } from 'date-fns';
 import React, {FC} from 'react';
 import { Link } from 'react-router-dom';
-import { ProjectData } from '../../store/types/dataTypes';
+import { ProjectData } from '../../store/types/projectTypes';
 import Anchor from './Anchor';
 import { IconArticle, IconGithub, IconLaunch } from './Icons';
 

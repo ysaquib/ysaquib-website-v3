@@ -9,8 +9,8 @@ import React, { FC, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { RootState } from '../../store';
-import { getProjectData } from '../../store/actions/dataActions';
-import { ProjectData } from '../../store/types/dataTypes';
+import { getProjectData } from '../../store/actions/projectActions';
+import { ProjectData } from '../../store/types/projectTypes';
 import Button from '../elements/Button';
 import LoadingSkeleton from '../elements/LoadingSkeleton';
 import ProjectCard from '../elements/ProjectCard';

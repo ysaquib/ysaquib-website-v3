@@ -30,7 +30,7 @@ import "firebase/auth";
 import Error404 from './pages/ErrorPage';
 import Loader from './components/layout/Loader';
 import BlogsPage from './pages/BlogsPage';
-import { getMessages } from './store/actions/dataActions';
+import { getMessages } from './store/actions/messageActions';
 import Inbox from './components/modules/Inbox';
 import Projects from './components/sections/Projects';
 import { ThemeContext } from './contexts/ThemeContext';
