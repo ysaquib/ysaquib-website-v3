@@ -37,6 +37,7 @@ import { ThemeContext } from './contexts/ThemeContext';
 import Head from './components/layout/Head';
 import { HelmetProvider } from 'react-helmet-async';
 import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
+import CareerPage from './pages/CareerPage';
 
 let default_data = require('./default_data.json');
 
@@ -52,6 +53,11 @@ const App : FC = () =>
         document.body.classList.add("theme-dark");
     }
 
+    /**
+     * Add the current theme to the classlist upon loading the page.
+     * This is to set a default theme if a currently selected theme is not
+     * present
+     */
     useEffect(() => {
         document.body.classList.add(currentTheme);
         document.documentElement.classList.add(currentTheme);
@@ -62,7 +68,10 @@ const App : FC = () =>
         }
     }, [currentTheme]);
 
-    
+    /**
+     * Subscribe to the firebase auth state change to check the user login 
+     * status
+     */
     useEffect(() => {
         const unsubscribe = firebase.auth().onAuthStateChanged(async (user) => 
         {
@@ -115,6 +124,7 @@ const App : FC = () =>
                     </PublicRoute>
                     
                     <PublicRoute exact path="/signup"> <SignUp /> </PublicRoute>
+                    <PublicRoute path="/career"> <CareerPage /> </PublicRoute>
                     <PublicRoute path="/blog"> <BlogsPage /> </PublicRoute>
                     <PublicRoute path="/projects"> <Projects id="all_projects" sectionTitle="Projects Archive" showAllProjects={true}/> </PublicRoute>
                     <PrivateRoute path="/admin" authRoles={["superadmin"]}> <Admin /> </PrivateRoute>
