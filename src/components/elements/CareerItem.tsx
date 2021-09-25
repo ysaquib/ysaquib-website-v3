@@ -5,14 +5,15 @@
 
 import { format } from 'date-fns';
 import React, {FC} from 'react';
+import { CareerData } from '../../store/types/careerTypes';
 
 
-interface CareerProps
+interface CareerProps extends CareerData
 {
     className?: string;
 }
 
-const CareerItem : FC<CareerProps> = ({className}) => 
+const CareerItem : FC<CareerProps> = ({className, ...careerData}) => 
 {
     
     return (
