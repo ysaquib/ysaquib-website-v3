@@ -6,8 +6,8 @@
 import React, { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
-import { deleteMessage, getMessages, seenMessage } from '../../store/actions/dataActions';
-import { MessageData } from '../../store/types/dataTypes';
+import { deleteMessage, getMessages, seenMessage } from '../../store/actions/messageActions';
+import { MessageData } from '../../store/types/messageTypes';
 import DialogBox from '../elements/DialogBox';
 import LoadingSkeleton from '../elements/LoadingSkeleton';
 import Head from '../layout/Head';

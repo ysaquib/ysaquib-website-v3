@@ -1,0 +1,32 @@
+/*
+ * File: _careeritem.scss
+ * Author: Yusuf Saquib
+ */
+
+.career_item_wrapper
+{
+    display: flex;
+    flex-direction: row;
+    gap: 1.0rem;
+
+    .career_item_title
+    {
+        border-radius: $radius-regular;
+        padding: 0.5rem 0.5rem;
+    }
+
+    .career_item_location
+    {
+        padding: 0.5rem 0rem;
+    }
+
+
+    @include themify()
+    {
+        .career_item_title
+        {
+            color: themed("grey-000");
+            background-color: themed("primary");
+        }
+    }
+}

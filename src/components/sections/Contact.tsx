@@ -13,9 +13,9 @@ import Button from '../elements/Button';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { Prompt } from 'react-router-dom';
-import { MessageData } from '../../store/types/dataTypes';
+import { MessageData } from '../../store/types/messageTypes';
 import { useDispatch } from 'react-redux';
-import { addNewMessage } from '../../store/actions/dataActions';
+import { addNewMessage } from '../../store/actions/messageActions';
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import axios from "axios";
 

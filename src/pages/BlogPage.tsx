@@ -5,7 +5,7 @@
 
 import React, { FC, ImgHTMLAttributes, useEffect, useState } from 'react';
 
-import { BlogData } from '../store/types/dataTypes';
+import { BlogData } from '../store/types/blogTypes';
 import PageNotFound from '../components/layout/PageNotFound';
 import Editor from '../components/elements/MarkdownEditor';
 import Markdown from 'markdown-to-jsx';
@@ -16,7 +16,7 @@ import { format, parse } from "date-fns";
 
 import { Light as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomOneDark, atomOneLight } from 'react-syntax-highlighter/dist/esm/styles/hljs';
-import { addNewBlog, setBlogData } from '../store/actions/dataActions';
+import { addNewBlog, setBlogData } from '../store/actions/blogActions';
 import { useHistory } from 'react-router-dom';
 import TextField from '../components/elements/TextField';
 import CheckBox from '../components/elements/Checkbox';
