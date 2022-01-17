@@ -7,26 +7,72 @@
 {
     display: flex;
     flex-direction: row;
-    gap: 1.0rem;
-
-    .career_item_title
+    gap: 3.5rem;
+    
+    .career_item_details
     {
-        border-radius: $radius-regular;
-        padding: 0.5rem 0.5rem;
-    }
+        width: 30%;
+        
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
 
-    .career_item_location
-    {
-        padding: 0.5rem 0rem;
-    }
-
-
-    @include themify()
-    {
+        line-height: inherit;
+        gap: 1rem;
+        
         .career_item_title
         {
-            color: themed("grey-000");
-            background-color: themed("primary");
+            margin: 0rem;
+            border-radius: $radius-regular;
+            padding: 0.3rem 0.4rem 0.25rem;
+        }
+        
+        .career_item_location
+        {
+            display: flex;
+            flex-direction: row;
+            gap: 1rem;
+            margin: 0rem;
+            padding: 0.3rem 0rem 0.25rem;
+        }
+    }
+    
+    .career_item_description
+    {
+        padding: 1rem 0rem;
+        flex: 1 1 auto;
+    }
+
+    .career_vert_line
+    {
+        border-left: 2px dashed;
+        width: 0px;
+    }
+    
+    
+    
+    @include themify()
+    {
+        .career_vert_line
+        {
+            border-color: themed("grey-600");
+        }
+        .career_item_details
+        {
+            .career_item_title
+            {
+                color: themed("grey-000");
+                background-color: themed("primary");
+            }
+        }
+        // .career_item_details
+        // {
+        // }
+
+        .career_item_description
+        {
+            color: themed("grey-800");
         }
     }
 }
