@@ -1,0 +1,7 @@
+ - `npm start` to start development build.
+ - `npm run build` to create production build.
+ - `start-emulator.py [f s a h fn]` to start emulators.
+ - `serve -s build` to serve production build locally.
+ - `firebase deploy` to deploy everything.
+ - `firebase deploy --only hosting` to deploy only hosting.
+ - `firebase serve` to serve build locally with emulators (?)
