@@ -9,11 +9,13 @@ export interface CareerData
 {
     career_id: string;
     career_title: string;
-    career_location: string;
     career_startDate: Date;
     career_endDate: Date;
-    career_description: string;
-    career_locationURL: string;
+
+    career_subtitle?: string;
+    career_description?: string;
+    career_organization?: string;
+    career_organizationURL?: string;
     career_isCurrent?: boolean;
     career_isHidden?: boolean;
     career_city?: string;

@@ -3,12 +3,23 @@
  * Author: Yusuf Saquib
  */
 
+.careers_wrapper
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+
+    gap: 5rem;
+}
+
 .career_item_wrapper
 {
     display: flex;
     flex-direction: row;
     gap: 3.5rem;
     
+
     .career_item_details
     {
         width: 30%;
@@ -19,7 +30,7 @@
         justify-content: center;
 
         line-height: inherit;
-        gap: 1rem;
+        gap: 0.5rem;
         
         .career_item_title
         {
@@ -27,21 +38,42 @@
             border-radius: $radius-regular;
             padding: 0.3rem 0.4rem 0.25rem;
         }
+        .career_item_subtitle
+        {
+            margin: 0rem;
+        }
         
-        .career_item_location
+        .career_item_organization
         {
             display: flex;
             flex-direction: row;
+            justify-content: center;
+            align-items: center;
             gap: 1rem;
             margin: 0rem;
-            padding: 0.3rem 0rem 0.25rem;
+            // padding: 0.3rem 0rem 0.25rem;
+        }
+        
+        .career_item_date, .career_item_location
+        {
+            margin: 0rem;
         }
     }
     
-    .career_item_description
+    .career_item_desc
     {
-        padding: 1rem 0rem;
+        white-space: pre-line;
+        
+        margin: 0rem;
+        //padding: 1.5rem 0rem;
         flex: 1 1 auto;
+        width: auto;
+
+        li
+        {
+            line-height: 1.5;
+        }
+
     }
 
     .career_vert_line
@@ -49,7 +81,7 @@
         border-left: 2px dashed;
         width: 0px;
     }
-    
+
     
     
     @include themify()
@@ -65,14 +97,27 @@
                 color: themed("grey-000");
                 background-color: themed("primary");
             }
+            .career_item_subtitle
+            {
+                color: themed("primary");
+            }
+            .career_item_organization
+            {
+                color: themed("primary");
+            }
+            .career_item_location
+            {
+                color: themed("grey-600");
+            }
         }
-        // .career_item_details
-        // {
-        // }
 
-        .career_item_description
+        .career_item_desc
         {
-            color: themed("grey-800");
+            padding: 1rem 0rem 1rem 1.5rem;
+            li
+            {
+                color: themed("grey-750");
+            }
         }
     }
 }
