@@ -76,8 +76,10 @@ const MessageBox: FC<MessageBoxProps> = ({message, handleDelete}) =>
             <textarea readOnly className="msginfo content" value={message.msg_message} />
             <div className="msginfo buttons">
                 <div className="msgbtn delete" 
-                     onClick={() => handleDelete(message)}>Delete Message</div>
-                <div className="msgbtn reply" 
+                     onClick={() => handleDelete(message)}>Delete</div>
+                <div className="msgbtn save" 
+                     onClick={() => console.info("Download")}>Save</div>
+                <div className="msgbtn reply"
                      onClick={(event) => 
                      {
                          event.preventDefault();
