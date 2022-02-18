@@ -21,7 +21,7 @@
     
     #message_list
     {
-        border-radius: $radius-regular;
+        border-radius: $radius-large;
         grid-column: span 2;
         padding: 1.2rem 1rem;
         margin: 0rem;
@@ -116,7 +116,7 @@
             &.buttons
             {
                 display: grid;
-                grid-template-columns: 1fr 1fr;
+                grid-template-columns: 1fr 1fr 1fr;
                 margin: 0rem;
                 padding: 0rem;
                 gap: 1.5rem;
@@ -249,6 +249,20 @@
                         {
                             transition: none;
                             background-color: mix(themed("error"), themed("grey-000"), 80%);
+                        }
+                    }
+
+                    .save
+                    {
+                        background-color: mix(themed("info"), themed("grey-000"), 50%);
+                        &:hover
+                        {
+                            background-color: mix(themed("info"), themed("grey-000"), 70%);
+                        }
+                        &:active
+                        {
+                            transition: none;
+                            background-color: mix(themed("info"), themed("grey-000"), 80%);
                         }
                     }
 
