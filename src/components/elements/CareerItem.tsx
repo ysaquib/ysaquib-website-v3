@@ -6,6 +6,7 @@
 import { format } from 'date-fns';
 import React, {FC} from 'react';
 import { CareerData } from '../../store/types/careerTypes';
+import Anchor from './Anchor';
 import { IconAt, IconMapPin } from './Icons';
 
 interface CareerProps extends CareerData
@@ -43,12 +44,20 @@ const CareerItem : FC<CareerProps> = ({className, ...careerData}) =>
 
     return (
         <div id={`js-${careerData.career_id}`} className={`career_item_wrapper`}>
-            <div id={`js-${careerData.career_id}-details`} className={`career_item_details`}>
+            <div id={`js-${careerData.career_id}-details`} className={`career_item_details ${careerData.career_isCurrent && "career_featured"}`}>
                 <h2 className="career_item_title">{careerData.career_title}</h2>
                 
                 <h2 className="career_item_organization">
                     <span className='svg_icon'>{IconAt}</span>
-                    <span>{careerData.career_organization}</span>
+                    {
+                        careerData.career_organizationURL 
+                        ?
+                        <a href={careerData.career_organizationURL} className="career_orgurl">
+                            {careerData.career_organization}
+                            </a>
+                        :
+                        <span>{careerData.career_organization}</span>
+                    }
                 </h2>
                 
                 {careerData.career_subtitle &&
@@ -67,8 +76,10 @@ const CareerItem : FC<CareerProps> = ({className, ...careerData}) =>
                         {careerDate()}
                 </h2>
             </div>
+            
             {careerData.career_description &&
             <div className="career_vert_line" />}
+
             {careerData.career_description &&
             <ul id={`js-${careerData.career_id}-desc`} className="career_item_desc">
                 {careerData.career_description.split("\n").map((item, index) => {

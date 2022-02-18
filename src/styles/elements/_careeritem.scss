@@ -10,7 +10,8 @@
     justify-content: flex-start;
     align-items: stretch;
 
-    gap: 5rem;
+    // gap: 5rem;
+    gap: 2rem;
 }
 
 .career_item_wrapper
@@ -19,58 +20,95 @@
     flex-direction: row;
     gap: 3.5rem;
     
+    @include media("<=tablet")
+    {
+        flex-direction: column;
+    }
 
+    /* BEGIN CARD FOR CAREER ITEM */
+    transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
+    border-radius: $radius-regular;
+    padding: $padding-card-least;
+    box-shadow: $project-card-box-shadow;
+    
     .career_item_details
     {
         width: 30%;
-        
         display: flex;
         flex-direction: column;
         align-items: flex-start;
         justify-content: center;
-
+        
+        @include media("<=tablet")
+        {
+            width: 100%;
+        }
+        
         line-height: inherit;
         gap: 0.5rem;
         
         .career_item_title
         {
             margin: 0rem;
-            border-radius: $radius-regular;
-            padding: 0.3rem 0.4rem 0.25rem;
+            border-radius: $radius-large;
+            padding: 0.4rem 0.8rem;
+            transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
         }
-        .career_item_subtitle
-        {
-            margin: 0rem;
-        }
-        
+
         .career_item_organization
         {
+            transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
+
             display: flex;
             flex-direction: row;
             justify-content: center;
             align-items: center;
             gap: 1rem;
             margin: 0rem;
+            margin-bottom: $regular-size;
+            .career_orgurl
+            {
+                text-decoration: underline dotted 2px;
+                color: inherit;
+                font: inherit;
+                &:hover
+                {
+                    text-decoration: underline solid 2px;
+                }
+            }
             // padding: 0.3rem 0rem 0.25rem;
         }
+
+        .career_item_subtitle
+        {
+            transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
+            margin: 0rem;
+            margin-bottom: $regular-size;
+        }
+        
         
         .career_item_date, .career_item_location
         {
+            transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
+            
+            line-height: 1.0;
             margin: 0rem;
         }
     }
     
     .career_item_desc
     {
+        
         white-space: pre-line;
         
         margin: 0rem;
         //padding: 1.5rem 0rem;
         flex: 1 1 auto;
         width: auto;
-
+        
         li
         {
+            transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
             line-height: 1.5;
         }
 
@@ -78,18 +116,32 @@
 
     .career_vert_line
     {
-        border-left: 2px dashed;
+        border-left: 1px solid;
         width: 0px;
+    
+        @include media("<=tablet")
+        {
+            border-left: 0px;
+            border-top: 1px solid;
+            width: 100%;
+            height: 0px;
+        }
     }
 
     
     
     @include themify()
     {
+
+        background-color: themed("grey-150");
+        
+
+
         .career_vert_line
         {
-            border-color: themed("grey-600");
+            border-color: themed("grey-300");
         }
+
         .career_item_details
         {
             .career_item_title
@@ -99,15 +151,27 @@
             }
             .career_item_subtitle
             {
-                color: themed("primary");
+                color: themed("grey-800");
             }
             .career_item_organization
             {
                 color: themed("primary");
             }
-            .career_item_location
+            .career_item_location, .career_item_date
             {
-                color: themed("grey-600");
+                color: themed("grey-700");
+            }
+            
+            &.career_featured
+            {
+                .career_item_title
+                {
+                    background-color: themed("secondary");
+                }
+                .career_item_organization
+                {
+                    color: themed("secondary");
+                }
             }
         }
 
@@ -116,7 +180,7 @@
             padding: 1rem 0rem 1rem 1.5rem;
             li
             {
-                color: themed("grey-750");
+                color: themed("grey-800");
             }
         }
     }
