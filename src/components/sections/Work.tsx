@@ -34,7 +34,7 @@ const Work : FC = () =>
                             career_description={`* Workd on some stuff\n\n* Andmore stuff`} 
                             career_startDate={new Date(Date.now())} 
                             career_endDate={new Date(Date.now())}
-                            career_isCurrent={true}
+                            career_isCurrent={false}
                             />
             </div>
         </Section>
