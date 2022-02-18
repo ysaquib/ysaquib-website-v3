@@ -158,17 +158,17 @@
 
     h4
     {
-        font: $semi-weight $large-size $sans-font, sans-serif;
+        font: $medium-weight $Medium-size $mono-font, monospace;
     }
     
     h5
     {
-        font: $medium-weight $Medium-size $mono-font, monospace;
+        font: $regular-weight $Medium-size $serif-font, serif;
     }
     
     h6
     {
-        font: $regular-weight $Medium-size $serif-font, serif;
+        font: $bold-weight $mmedium-size $sans-font, sans-serif;
     }
     
     h1, h2, h3, h4, h5, h6

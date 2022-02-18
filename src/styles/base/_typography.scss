@@ -196,23 +196,23 @@ title
 
 .career_item_title
 {
+    font: $medium-weight $regular-size $sans-font;
+}
+.career_item_organization
+{
     font: $semi-weight $regular-size $sans-font;
 }
 .career_item_subtitle
 {
-    font: $light-weight italic $regular-size $sans-font;
-}
-.career_item_organization
-{
-    font: $medium-weight $regular-size $sans-font;
+    font: $medium-weight $small-size $mono-font;
 }
 .career_item_location
 {
-    font: $light-weight $small-size $mono-font;
+    font: $regular-weight $small-size $mono-font;
 }
 .career_item_date
 {
-    font: $light-weight $small-size $mono-font;
+    font: $regular-weight $small-size $mono-font;
 }
 .career_item_desc
 {

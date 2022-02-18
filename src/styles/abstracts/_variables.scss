@@ -27,6 +27,7 @@ $Small-size:       1.5rem;
 $regular-size:     1.6rem;
 $Regular-size:     1.8rem;
 $medium-size:      2.0rem;
+$mmedium-size:     2.3rem;
 $Medium-size:      2.5rem;
 $large-size:       3.0rem;
 $llarge-size:      3.4rem;
@@ -97,10 +98,14 @@ $scrollbar-width: 0.9rem;
 
 // # Border Radius Variables --------------------------------------------------
 
-$radius-small: 0.2rem;
-$radius-regular: 0.3rem;
-$radius-medium: 0.4rem;
-$radius-large: 0.5rem;
+// $radius-small:      0.2rem;
+$radius-small:      1rem;
+// $radius-regular:    0.3rem;
+$radius-regular:    1.2rem;
+// $radius-medium:     0.4rem;
+$radius-medium:     1.3rem;
+// $radius-large:      0.5rem;
+$radius-large:      1.4rem;
 
 // # Box Shadow Variables -----------------------------------------------------
 
@@ -119,13 +124,13 @@ $menu-box-shadow:        -2.0rem 0.0rem 5.0rem 0.5rem rgba(#000, 75%);
 // # Padding and Margin Variables ---------------------------------------------
 
 
-$padding-card-least: 2rem;
-$padding-card-less: 2.5rem;
-$padding-card-regular: 3rem;
+$padding-card-least:    2rem;
+$padding-card-less:     2.5rem;
+$padding-card-regular:  3rem;
 
 // # Width and Height Variables -----------------------------------------------
 
-$project-card-height: 30rem;
+$project-card-height:   30rem;
 $section-width-regular: 75%;
 $section-width-more:    90%;
 $section-width-most:    100%;
