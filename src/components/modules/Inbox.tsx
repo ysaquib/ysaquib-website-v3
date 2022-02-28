@@ -3,6 +3,7 @@
  * Author: Yusuf Saquib
  */
 
+import { format } from 'date-fns';
 import React, { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
@@ -24,6 +25,7 @@ interface MessageBoxProps
 {
     message: MessageData | undefined;
     handleDelete: (msg: MessageData) => void;
+    handleSave: (msg: MessageData) => void;
 }
 
 /**
@@ -50,7 +52,9 @@ const ListItem: FC<ListItemProps> = ({message, onClick, selected, ...props}) =>
             ref={ref}
             onClick={handleClick} {...props}>
             <h3 className="msgli sender">{message.msg_firstname} {message.msg_lastname}</h3>
-            <p className="msgli time">{message.msg_sentAt.toLocaleString("en-GB", {dateStyle: "short", timeStyle: "short", hour12: false})}</p>
+            <p className="msgli time">
+                {format(message.msg_sentAt, "HH:mm, dd/MM/yyyy")}
+            </p>
             <h3 className="msgli subject">{message.msg_subject}</h3>
         </li>
     );
@@ -59,7 +63,7 @@ const ListItem: FC<ListItemProps> = ({message, onClick, selected, ...props}) =>
 /**
  * Creates area where the message is shown.
  */
-const MessageBox: FC<MessageBoxProps> = ({message, handleDelete}) =>
+const MessageBox: FC<MessageBoxProps> = ({message, handleDelete, handleSave}) =>
 {
     if(!message)
     {
@@ -78,7 +82,7 @@ const MessageBox: FC<MessageBoxProps> = ({message, handleDelete}) =>
                 <div className="msgbtn delete" 
                      onClick={() => handleDelete(message)}>Delete</div>
                 <div className="msgbtn save" 
-                     onClick={() => console.info("Download")}>Save</div>
+                     onClick={() => handleSave(message)}>Save</div>
                 <div className="msgbtn reply"
                      onClick={(event) => 
                      {
@@ -122,6 +126,28 @@ const Inbox : FC = () =>
                            dispatch(deleteMessage(message));
                            setDialog(<></>);
                        }}/>);
+    }
+
+    const handleClickSave = (message: MessageData) =>
+    {
+        const send_date = format(message.msg_sentAt, "yyyy-MM-dd HH:mm:ss.SSS 'UTC'xxx")
+        const message_data = `From: ${message.msg_firstname} ${message.msg_lastname}\n` +
+                             `Email: <${message.msg_emailaddress}>\n` +
+                             `Date: ${send_date}\n` +
+                             `Subject: ${message.msg_subject}\n` +
+                             `\n` +
+                             `Message:\n` +
+                             `${message.msg_message}`
+
+        const filedate = format(message.msg_sentAt, "yyyy-MM-dd-'T'HH-mm-ss")
+        const data = new Blob([message_data], {type: "text/plain"});
+        const elem = document.createElement("a");
+
+        elem.href = URL.createObjectURL(data);
+        elem.download = `${filedate}.txt`;
+        
+        document.body.appendChild(elem);
+        elem.click();
     }
     
     if (isLoadingMessages)
@@ -174,7 +200,9 @@ const Inbox : FC = () =>
                           }}/>
             )}
             </ul>
-            <MessageBox message={selectedMessage} handleDelete={handleClickDelete}/>
+            <MessageBox message={selectedMessage} 
+                        handleDelete={handleClickDelete}
+                        handleSave={handleClickSave}/>
         </section>
     );
 }
