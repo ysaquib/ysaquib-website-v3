@@ -325,7 +325,11 @@ const BlogPage : FC<BlogPageProps> = ({isNewBlog=false, isEditing=false, allBlog
 
             <Head title={`${blogTitle} — Blog`} />
 
-            <div id="blog_button_back" onClick={handleBack}><span className="svg_icon">{IconChevronLeft}</span> Back to All Blogs</div>
+            <div id="blog_button_back" onClick={handleBack}><span className="svg_icon">
+                {IconChevronLeft}
+            </span>
+            All Blogs
+            </div>
             {canUserEdit && editBlogButton}
             
             <div id="blog_header" >

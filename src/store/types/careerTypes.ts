@@ -13,6 +13,7 @@ export interface CareerData
     career_endDate: Date;
 
     career_subtitle?: string;
+    career_subtitleURL?: string;
     career_description?: string;
     career_organization?: string;
     career_organizationURL?: string;

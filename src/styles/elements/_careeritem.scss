@@ -55,6 +55,19 @@
             transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
         }
 
+        .career_item_subtitle
+        {
+            transition: color $trans-effect $trans-regular;
+            a
+            {
+                text-decoration: underline dotted 1px;
+                &:hover
+                {
+                    text-decoration: underline solid 1px;
+                }
+            }
+        }
+
         .career_item_organization
         {
             transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
@@ -149,7 +162,7 @@
                 color: themed("grey-000");
                 background-color: themed("primary");
             }
-            .career_item_subtitle
+            .career_item_subtitle, .career_item_subtitle > a
             {
                 color: themed("grey-800");
             }

@@ -6,8 +6,7 @@
 import { format } from 'date-fns';
 import React, {FC} from 'react';
 import { CareerData } from '../../store/types/careerTypes';
-import Anchor from './Anchor';
-import { IconAt, IconMapPin } from './Icons';
+import { IconAt } from './Icons';
 
 interface CareerProps extends CareerData
 {
@@ -52,7 +51,10 @@ const CareerItem : FC<CareerProps> = ({className, ...careerData}) =>
                     {
                         careerData.career_organizationURL 
                         ?
-                        <a href={careerData.career_organizationURL} className="career_orgurl">
+                        <a href={careerData.career_organizationURL} 
+                           className="career_orgurl"
+                           target="_blank"
+                           rel="noopener noreferrer">
                             {careerData.career_organization}
                             </a>
                         :
@@ -61,7 +63,15 @@ const CareerItem : FC<CareerProps> = ({className, ...careerData}) =>
                 </h2>
                 
                 {careerData.career_subtitle &&
-                <h2 className="career_item_subtitle">{careerData.career_subtitle}</h2>}
+                <h2 className="career_item_subtitle">
+                    {
+                        careerData.career_subtitleURL
+                        ?
+                        <a href={careerData.career_subtitleURL}>{careerData.career_subtitle}</a>
+                        :
+                        careerData.career_subtitle
+                    }
+                </h2>}
 
                 <h2 className="career_item_location">
                     {/* <span className='svg_icon'>{IconMapPin}</span> */}
@@ -89,10 +99,7 @@ const CareerItem : FC<CareerProps> = ({className, ...careerData}) =>
                         </li>
                     );
                 })}
-                
             </ul>}
-               
-        
         </div>
     );
 }

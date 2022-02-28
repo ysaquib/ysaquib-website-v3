@@ -228,7 +228,7 @@ title
 {
     #blog_button_back
     {
-        font: $regular-weight $Small-size $mono-font;
+        font: $medium-weight $Small-size $sans-font;
     }
     #blog_edit_button
     {
@@ -240,11 +240,11 @@ title
     }
     .info_item
     {
-        font: $regular-weight $Small-size $serif-font;
+        font: $regular-weight $small-size $mono-font;
     }
     .blog_tag
     {
-        font: $semi-weight $Small-size $sans-font;
+        font: $semi-weight $little-size $mono-font;
     }
 }
 
@@ -306,7 +306,7 @@ title
         }
         &.time
         {
-            font: $medium-weight $little-size $sans-font;
+            font: $regular-weight $little-size $mono-font;
         }
         &.subject
         {
@@ -316,7 +316,26 @@ title
 
     #message
     {
-        font: $regular-weight $regular-size $sans-font;
+        font: $regular-weight $small-size $sans-font;
+        .msginfo
+        {
+            &.sender
+            {
+                font-weight: $bold-weight;
+            }
+            .sender_email
+            {
+                font-weight: $light-weight;
+            }
+            &.subject
+            {
+                font: $regular-weight $large-size $sans-font;
+            }
+            &.date
+            {
+                font: $light-weight $little-size $sans-font;
+            }
+        }
         .msgbtn
         {
             font: $medium-weight $Little-size $sans-font;
