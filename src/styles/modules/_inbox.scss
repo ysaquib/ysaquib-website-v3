@@ -54,7 +54,7 @@
             padding: 1.5rem;
             border-radius: $radius-regular;
             display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
+            grid-template-columns: 1.4fr 0.6fr;
             grid-template-rows: repeat(2, fit-content);
             gap: 0.5rem;
             
@@ -99,7 +99,7 @@
         display: inline-flex;
         flex-direction: column;
         grid-column: span 3;
-        padding: 1rem;
+        padding: 2rem;
 
         @include media("<=tablet")
         {
@@ -108,11 +108,28 @@
         
         .msginfo
         {
-            border-radius: $radius-regular;
-            margin: 0rem 0rem 1rem;
+            margin: 0rem 0rem;
             width: 100%;
-            padding: 1.5rem;
+            padding: 0rem 0rem;
+
+            &.subject
+            {
+                margin-bottom: 1rem;
+            }
             
+            &.sender
+            {
+                margin-bottom: 0.3rem;
+            }
+            &.date
+            {
+                margin-bottom: 3rem;
+            }
+            &.content
+            {
+                line-height: 1.5;
+            }
+
             &.buttons
             {
                 display: grid;
@@ -156,7 +173,7 @@
     @include themify()
     {
 
-        .empty_list, .empty_message
+        .empty_list
         {
             color: themed("grey-700");
         }
@@ -230,14 +247,18 @@
 
         #message
         {
-            background-color: themed("grey-150");
+            background-color: themed("grey-200");
+            &.empty_message
+            {
+                background-color: themed("grey-150");
+            }
             color: themed("grey-900");
             .msginfo
             {
-                background-color: themed("grey-200");
+                // background-color: themed("grey-200");
                 &.buttons
                 {
-                    background-color: themed("grey-150");
+                    // background-color: themed("grey-150");
                     .delete
                     {
                         background-color: mix(themed("error"), themed("grey-000"), 50%);

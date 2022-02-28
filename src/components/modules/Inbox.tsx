@@ -53,7 +53,7 @@ const ListItem: FC<ListItemProps> = ({message, onClick, selected, ...props}) =>
             onClick={handleClick} {...props}>
             <h3 className="msgli sender">{message.msg_firstname} {message.msg_lastname}</h3>
             <p className="msgli time">
-                {format(message.msg_sentAt, "HH:mm, dd/MM/yyyy")}
+                {format(message.msg_sentAt, "dd/MM/yyyy HH:mm")}
             </p>
             <h3 className="msgli subject">{message.msg_subject}</h3>
         </li>
@@ -75,9 +75,24 @@ const MessageBox: FC<MessageBoxProps> = ({message, handleDelete, handleSave}) =>
     }
     return (
         <div id="message">
-            <input type="text" readOnly className="msginfo sender" value={`${message.msg_firstname} ${message.msg_lastname} <${message.msg_emailaddress}>`}></input>
+            <div className="msginfo subject">
+                {message.msg_subject}
+            </div>
+            <div className="msginfo sender">
+                {message.msg_firstname} {message.msg_lastname}
+                <span className="sender_email">
+                    &nbsp;&lt;{message.msg_emailaddress}&gt;
+                </span>
+            </div>
+            <div className="msginfo date">
+                {format(message.msg_sentAt, "E, MMM dd, yyyy 'at' HH:mm")}
+            </div>
+            <div className="msginfo content">
+                {message.msg_message}
+            </div>
+            {/* <input type="text" readOnly className="msginfo sender" value={`${message.msg_firstname} ${message.msg_lastname} <${message.msg_emailaddress}>`}></input>
             <input type="text" readOnly className="msginfo subject" value={`${message.msg_subject}`} />
-            <textarea readOnly className="msginfo content" value={message.msg_message} />
+            <textarea readOnly className="msginfo content" value={message.msg_message} /> */}
             <div className="msginfo buttons">
                 <div className="msgbtn delete" 
                      onClick={() => handleDelete(message)}>Delete</div>
