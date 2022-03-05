@@ -71,6 +71,10 @@ title
 .btn
 {
     font: $medium-weight $small-size $sans-font;
+    &.no_background
+    {
+        font-weight: $regular-weight;
+    }
 }
 
 // $ Dialog Box ===============================================================
@@ -198,7 +202,7 @@ title
 }
 .career_item_organization
 {
-    font: $semi-weight $regular-size $sans-font;
+    font: $medium-weight $regular-size $sans-font;
 }
 .career_item_subtitle
 {
@@ -206,11 +210,11 @@ title
 }
 .career_item_location
 {
-    font: $regular-weight $small-size $mono-font;
+    font: $light-weight $Little-size $mono-font;
 }
 .career_item_date
 {
-    font: $regular-weight $small-size $mono-font;
+    font: $light-weight $Little-size $mono-font;
 }
 .career_item_desc
 {
@@ -331,7 +335,7 @@ title
             }
             &.date
             {
-                font: $light-weight $little-size $sans-font;
+                font: $regular-weight $little-size $sans-font;
             }
         }
         .msgbtn
