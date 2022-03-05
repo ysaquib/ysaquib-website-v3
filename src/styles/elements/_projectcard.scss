@@ -15,7 +15,12 @@
             color: themed("primary");
             &:hover
             {
-                color: themed("grey-900");
+                color: themed("primary-l");
+            }
+            &:focus:active, &:active
+            {
+                transition: none;
+                color: themed("primary-d")
             }
         }
 
@@ -31,7 +36,12 @@
             color: themed("secondary");
             &:hover
             {
-                color: themed("grey-900");
+                color: themed("secondary-l");
+            }
+            &:focus:active, &:active
+            {
+                transition: none;
+                color: themed("secondary-d")
             }
         }
         .featured_tag, &.featured_project .date_tag
@@ -47,6 +57,10 @@
             &:hover
             {
                 color: themed("grey-900");
+            }
+            &:focus:active, &:active
+            {
+                color: themed("grey-500");
             }
         }
         .wip_tag, &.wip_project .date_tag

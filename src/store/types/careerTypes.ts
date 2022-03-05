@@ -12,6 +12,7 @@ export interface CareerData
     career_startDate: Date;
     career_endDate: Date;
 
+    career_blog?: string;
     career_subtitle?: string;
     career_subtitleURL?: string;
     career_description?: string;

@@ -5,8 +5,10 @@
 
 import { format } from 'date-fns';
 import React, {FC} from 'react';
+import { Link } from 'react-router-dom';
 import { CareerData } from '../../store/types/careerTypes';
-import { IconAt } from './Icons';
+import Button from './Button';
+import { IconArticle, IconAt } from './Icons';
 
 interface CareerProps extends CareerData
 {
@@ -42,9 +44,15 @@ const CareerItem : FC<CareerProps> = ({className, ...careerData}) =>
     }
 
     return (
-        <div id={`js-${careerData.career_id}`} className={`career_item_wrapper`}>
-            <div id={`js-${careerData.career_id}-details`} className={`career_item_details ${careerData.career_isCurrent && "career_featured"}`}>
-                <h2 className="career_item_title">{careerData.career_title}</h2>
+        <div id={`js-${careerData.career_id}`} className={`career_item_wrapper ${careerData.career_isCurrent ? "career_featured" : ""}`}>
+            <div id={`js-${careerData.career_id}-details`} className={`career_item_details`}>
+                <div className="career_title_area">
+                    <h2 className="career_item_title">
+                        {careerData.career_title}
+                    </h2>
+                    {careerData.career_blog && <Link className="links_item svg_icon" key="blog" title="Read More" to={"/blog/" + careerData.career_blog}>{IconArticle}</Link>}
+
+                </div>
                 
                 <h2 className="career_item_organization">
                     <span className='svg_icon'>{IconAt}</span>
@@ -61,26 +69,15 @@ const CareerItem : FC<CareerProps> = ({className, ...careerData}) =>
                         <span>{careerData.career_organization}</span>
                     }
                 </h2>
-                
-                {careerData.career_subtitle &&
-                <h2 className="career_item_subtitle">
-                    {
-                        careerData.career_subtitleURL
-                        ?
-                        <a href={careerData.career_subtitleURL}>{careerData.career_subtitle}</a>
-                        :
-                        careerData.career_subtitle
-                    }
-                </h2>}
 
-                <h2 className="career_item_location">
-                    {/* <span className='svg_icon'>{IconMapPin}</span> */}
+                {careerData.career_city &&
+                    <h2 className="career_item_location">
                     <span>
                         {careerData.career_city && `${careerData.career_city}`}
                         {careerData.career_state && `, ${careerData.career_state}`}
                         {careerData.career_country && `, ${careerData.career_country} `}
                     </span>
-                </h2>
+                </h2>}
 
                 <h2 className="career_item_date">
                         {careerDate()}
@@ -91,15 +88,18 @@ const CareerItem : FC<CareerProps> = ({className, ...careerData}) =>
             <div className="career_vert_line" />}
 
             {careerData.career_description &&
+            <>
             <ul id={`js-${careerData.career_id}-desc`} className="career_item_desc">
                 {careerData.career_description.split("\n").map((item, index) => {
-                    if (item.length > 0) return (
+                    return item.length > 0 && (
                         <li id={`item-${index}`}>
                             {item}
                         </li>
                     );
                 })}
-            </ul>}
+            </ul>
+            </>
+            }
         </div>
     );
 }
