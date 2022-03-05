@@ -3,9 +3,10 @@
  * Author: Yusuf Saquib
  */
 
- @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap');
- @import url('https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
- @import url('https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap&subset=arabic');
 
 h1 
 {
@@ -69,7 +70,7 @@ title
 
 .btn
 {
-    font: $semi-weight $small-size $sans-font;
+    font: $medium-weight $small-size $sans-font;
 }
 
 // $ Dialog Box ===============================================================
@@ -279,7 +280,7 @@ title
     }
     .blogs_list_title
     {
-        font: $medium-weight $medium-size $sans-font;
+        font: $regular-weight $medium-size $sans-font;
     }
     .private_blog .blogs_list_title::after 
     {
@@ -363,7 +364,7 @@ title
 
 .text_label
 {
-    font: $medium-weight $Little-size $sans-font;
+    font: $regular-weight $Little-size $sans-font;
 }
 
 .editor_wrapper .editor_area
@@ -373,7 +374,7 @@ title
 
 textarea, input[type=text], input[type=password], input[type=date]
 {
-    font: $medium-weight $regular-size $sans-font;
+    font: $regular-weight $regular-size $sans-font;
 }
 
 input[type=checkbox]
