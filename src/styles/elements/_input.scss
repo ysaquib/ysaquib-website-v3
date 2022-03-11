@@ -48,8 +48,29 @@ textarea
     resize: none;
 }
 
+.select-wrapper
+{
+    position: relative;
+    &::after
+    {
+        position: absolute;
+        font-size: 1.4rem;
+        top: 0;
+        display: flex;
+        align-items: center;
+        right: 1rem;
+        height: 100%;
+        content: "⯆";
+        // float: right;
+        @include themify()
+        {
+            color: themed("grey-800");
+            transition: color $trans-effect $trans-regular;
+        }
+    }
+}
 
-textarea, input[type=text], input[type=password], input[type=date]
+textarea, input[type=text], input[type=password], input[type=date], select
 {
 
     width: 100%;
@@ -76,8 +97,7 @@ textarea, input[type=text], input[type=password], input[type=date]
         }
         
         &:hover
-        {
-            
+        { 
             background-color: mix(themed("grey-150"), themed("primary"), $color-mix-most);
             border-color: themed("grey-150");
         }
@@ -127,6 +147,12 @@ textarea, input[type=text], input[type=password], input[type=date]
 
         }
     }
+}
+
+select
+{
+    appearance: none;
+    cursor: pointer;
 }
 
 .checkbox_wrapper

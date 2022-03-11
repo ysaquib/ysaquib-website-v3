@@ -223,6 +223,10 @@ title
         font: $regular-weight $small-size $sans-font;
     }
 }
+.career_item_error
+{
+    font: $regular-weight $regular-size $sans-font;
+}
 
 // $ Blog (not including markdown) ============================================
 
@@ -373,12 +377,12 @@ title
 
 .editor_wrapper .editor_area
 {
-    font: $regular-weight $regular-size $mono-font;
+    font: $regular-weight $Small-size $mono-font;
 }
 
-textarea, input[type=text], input[type=password], input[type=date]
+textarea, input[type=text], input[type=password], input[type=date], select
 {
-    font: $regular-weight $regular-size $sans-font;
+    font: $regular-weight $Small-size $sans-font;
 }
 
 input[type=checkbox]
@@ -473,11 +477,11 @@ input[type=checkbox]
     }
 }
 
-#admin_projects_list
+.admin_list
 {
-    .project_item_title
+    .item_title
     {
-        font: $regular-weight $regular-size $sans-font;
+        font: $regular-weight $Small-size $sans-font;
     }
 }
 
