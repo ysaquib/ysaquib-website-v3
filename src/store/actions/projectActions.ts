@@ -47,13 +47,13 @@ export const setProjectData = (projectData: ProjectData, onComplete?: () => void
         try 
         {
             const {project_id, ...project} = projectData;
-            const proj_startDate = firebase.firestore.Timestamp.fromDate(project.project_startDate);
-            const proj_endDate = firebase.firestore.Timestamp.fromDate(project.project_endDate);
+            const project_startDate = firebase.firestore.Timestamp.fromDate(project.project_startDate);
+            const project_endDate = firebase.firestore.Timestamp.fromDate(project.project_endDate);
 
             await Firebase.firestore().collection("projects").doc(projectData.project_id).set({
                 ...project, 
-                project_startDate: proj_startDate, 
-                project_endDate: proj_endDate
+                project_startDate, 
+                project_endDate
             });
 
             dispatch({
@@ -114,13 +114,13 @@ export const addNewProject = (projectData: ProjectData, allProjects: ProjectData
         try 
         {
             const {project_id, ...project} = {...projectData, project_order: allProjects.length};
-            const proj_startDate = firebase.firestore.Timestamp.fromDate(project.project_startDate);
-            const proj_endDate = firebase.firestore.Timestamp.fromDate(project.project_endDate);
+            const project_startDate = firebase.firestore.Timestamp.fromDate(project.project_startDate);
+            const project_endDate = firebase.firestore.Timestamp.fromDate(project.project_endDate);
             
             const storedProject = await Firebase.firestore().collection("projects").add({
                 ...project, 
-                project_startDate: proj_startDate, 
-                project_endDate: proj_endDate
+                project_startDate, 
+                project_endDate
             });
 
             dispatch({
