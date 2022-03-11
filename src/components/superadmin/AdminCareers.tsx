@@ -1,5 +1,5 @@
 /**
- * File: AdminProjects.tsx
+ * File: AdminCareers.tsx
  * Author: Yusuf Saquib
  */
 
@@ -9,92 +9,76 @@ import * as yup from 'yup';
 import { format, parse } from "date-fns";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { ProjectData } from '../../store/types/projectTypes';
+import { CareerData, CareerType } from '../../store/types/careerTypes';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
-import { addNewProject, deleteProject, getProjectData, setProjectData, setProjectsLoading, updateAllProjects } from '../../store/actions/projectActions';
+import { addNewCareer, deleteCareer, getCareerData, setCareerData, setCareersLoading } from '../../store/actions/careerActions';
 import Button from '../elements/Button';
 import TextArea from '../elements/TextArea';
 import CheckBox from '../elements/Checkbox';
-import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd';
 import DialogBox from '../elements/DialogBox';
 import { IconAdd, IconChevronRight, IconGarbageDelete } from '../elements/Icons';
 
 const schema = yup.object().shape(
 {
-    project_title : yup.string().required("is required."),
-    project_description: yup.string().required("is required."),
-    project_tags: yup.string().required("is required."),
-    project_url: yup.string().url("must be a valid URL"),
-    project_github: yup.string().url("must be a valid URL"),
-    project_blog: yup.string().matches(/^([\w-]+)/gs, {message: "must be a valid blog URL.", excludeEmptyString: true}),
-    project_inProgress: yup.boolean(),
-    project_isHidden: yup.boolean(),
-    project_progress: yup.number().typeError("must be a valid number.")
-                         .when('project_inProgress', {
-                             is: true, 
-                             then: yup.number()
-                                      .typeError("must be a valid number.")
-                                      .min(0, "must be at least 0")
-                                      .max(100, "must be at most 100.")
-                                      .required("is required.")})
+    career_title : yup.string().required("is required."),
+    career_description: yup.string().required("is required."),
+    career_blog: yup.string().matches(/^([\w-]+)/gs, {message: "must be a valid blog URL.", excludeEmptyString: true}),
+    career_isCurrent: yup.boolean(),
+    career_isHidden: yup.boolean(),
+    career_org: yup.string(),
+    career_org_url: yup.string().url({message: "must be a valid URL."}),
+    career_location: yup.string()
 });
 
 const AdminCareers : FC = () =>
 {
     const dispatch = useDispatch();
-    const {allProjects, isLoadingProjects} = useSelector((state: RootState) => state.projects);
+    const {allCareers, isLoadingCareers} = useSelector((state: RootState) => state.careers);
     const resolver = yupResolver(schema);
-    const {register, handleSubmit, formState: {errors}, setValue, setFocus} = useForm<ProjectData>({mode:"onChange", resolver});
-    const [projects, setProjects] = useState<ProjectData[]>(allProjects);
-    const [project, setProject] = useState<ProjectData>();
+    const {register, handleSubmit, formState: {errors}, setValue, setFocus} = useForm<CareerData>({mode:"onChange", resolver});
+    const [careers, setCareers] = useState<CareerData[]>(allCareers);
+    const [career, setCareer] = useState<CareerData>();
 
     const [error, setError] = useState(null);
     const [message, setMessage] = useState<string>("");
 
-    const [isNewProject, setNewProject] = useState<boolean>(false);
+    const [careerType, setCareerType] = useState<CareerType>("other");
+    const [isNewCareer, setNewCareer] = useState<boolean>(false);
     const [isNewCreated, setNewCreated] = useState<boolean>(false);
-    const [isInProgress, setInProgress] = useState<boolean>(project?.project_inProgress ?? false);
-    const [isHidden, setIsHidden] = useState<boolean>(project?.project_isHidden ?? false);
+    const [isCurrent, setIsCurrent] = useState<boolean>(career?.career_isCurrent ?? false);
+    const [isHidden, setIsHidden] = useState<boolean>(career?.career_isHidden ?? false);
     
     const dateNow = new Date(Date.now());
-    const [startDate, setStartDate] = useState<string>(format(project?.project_startDate ?? dateNow, "yyyy-MM-dd"));
-    const [endDate, setEndDate] = useState<string>(format(project?.project_endDate ?? dateNow, "yyyy-MM-dd"));
+    const [startDate, setStartDate] = useState<string>(format(career?.career_startDate ?? dateNow, "yyyy-MM-dd"));
+    const [endDate, setEndDate] = useState<string>(format(career?.career_endDate ?? dateNow, "yyyy-MM-dd"));
 
     const [dialog, setDialog] = useState(<></>);
     
     /**
-     * This useEffect sets the initial values of all the fields when a project
-     * is selected (or when the current project is changed)
+     * This useEffect sets the initial values of all the fields when a career
+     * is selected (or when the current career is changed)
      */
     useEffect(() => 
     {
-        if (project)
+        if (career)
         {
-            setValue("project_title", project.project_title);
-            setValue("project_description", project.project_description);
-            setValue("project_tags", project.project_tags);
-            setValue("project_blog", project.project_blog ?? "");
-            setValue("project_github", project.project_github ?? "");
-            setValue("project_url", project.project_url ?? "");
-            setValue("project_inProgress", project.project_inProgress ?? false);
-            setValue("project_isHidden", project.project_isHidden ?? false);
-            setValue("project_progress", project.project_progress ?? 0);
+            setValue("career_title", career.career_title);
             
-            setIsHidden(project.project_isHidden ?? false);
-            setInProgress(project.project_inProgress ?? false);
-            setStartDate(format(project.project_startDate, "yyyy-MM-dd"));
-            setEndDate(format(project.project_endDate, "yyyy-MM-dd"));
+            setIsHidden(career.career_isHidden ?? false);
+            setIsCurrent(career.career_isCurrent ?? false);
+            setStartDate(format(career.career_startDate, "yyyy-MM-dd"));
+            setEndDate(format(career.career_endDate, "yyyy-MM-dd"));
             
             setMessage("");
-            setInProgress(project.project_inProgress ?? false);
-            setFocus("project_title");
+            setIsCurrent(career.career_isCurrent ?? false);
+            setFocus("career_title");
         }
         return () => 
         {
             setMessage("");
         }
-    }, [project, setValue, setFocus, setStartDate]);
+    }, [career, setValue, setFocus, setStartDate]);
 
     /**
      * When the message is updated, we get the data again and set the list 
@@ -102,55 +86,55 @@ const AdminCareers : FC = () =>
      */
     useEffect(() => 
     {
-        dispatch(getProjectData(undefined, () => {console.error("Error getting project data")}));
+        dispatch(getCareerData(undefined, () => {console.error("Error getting career data")}));
     }, [dispatch]);
 
     /**
-     * When projects is updated or when we first get the ProjectData, 
-     * set the projects accordingly
+     * When careers is updated or when we first get the CareerData, 
+     * set the careers accordingly
      */
     useEffect(() => 
     {
-        setProjects(allProjects);
+        setCareers(allCareers);
         return () =>
         {
-            setProjects([]);
+            setCareers([]);
         }
-    }, [allProjects]);
+    }, [allCareers]);
 
 
     /**
-     * This useEffect changes the currently selected project by removing the 
-     * selected class from the previously selected project and adding it to the 
+     * This useEffect changes the currently selected career by removing the 
+     * selected class from the previously selected career and adding it to the 
      * new one.
      */
     useEffect(() => {
-        if(project)
+        if(career)
         {
-            const element = document.getElementById(project.project_id);
+            const element = document.getElementById(career.career_id);
             element?.classList.add("selected");
         }
         return () => {
-            if (project)
+            if (career)
             {
-                document.getElementById(project.project_id)?.classList.remove("selected");
-                if(isNewProject)
+                document.getElementById(career.career_id)?.classList.remove("selected");
+                if(isNewCareer)
                 {
-                    setNewProject(false);
+                    setNewCareer(false);
                 }
             }
         }
-    }, [project, isNewProject]);
+    }, [career, isNewCareer]);
 
 
     /**
      * Adds class based on InProgress state.
      */
     useEffect(() => {
-        if (project)
+        if (career)
         {
-            const element = document.getElementById(project.project_id);
-            if(isInProgress)
+            const element = document.getElementById(career.career_id);
+            if(isCurrent)
             {
                 element?.classList.add("wip");
             }
@@ -159,15 +143,15 @@ const AdminCareers : FC = () =>
                 element?.classList.remove("wip");
             }
         }
-    }, [isInProgress, project]);
+    }, [isCurrent, career]);
 
     /**
      * Adds class based on isHidden state.
      */
     useEffect(() => {
-        if (project)
+        if (career)
         {
-            const element = document.getElementById(project.project_id);
+            const element = document.getElementById(career.career_id);
             if(isHidden)
             {
                 element?.classList.add("hidden");
@@ -177,54 +161,51 @@ const AdminCareers : FC = () =>
                 element?.classList.remove("hidden");
             }
         }
-    }, [isHidden, project]);
+    }, [isHidden, career]);
 
     /**
-     * This useEffect will cause the new project to be selected after it is
-     * added to the project list.
+     * This useEffect will cause the new career to be selected after it is
+     * added to the career list.
      */
     useEffect(() => {
         if (isNewCreated === true)
         {
-            setProject(projects[projects.length - 1]);
+            setCareer(careers[careers.length - 1]);
             setNewCreated(false);
         }
-    }, [isNewCreated, projects]);
+    }, [isNewCreated, careers]);
 
 
     /**
-     * createNewProject will create an empty project and set it as the current
-     * project such that when the form is submitted, the current project will
+     * createNewCareer will create an empty career and set it as the current
+     * career such that when the form is submitted, the current career will
      * be created in the database
      */
-    const createNewProject = () =>
+    const createNewCareer = () =>
     {
-        const new_project = 
+        const new_career = 
         {
-            project_description: "", 
-            project_title: "",
-            project_id: "",
-            project_order: -1,
-            project_tags: "",
-            project_progress: 0,
-            project_startDate: dateNow,
-            project_endDate: dateNow
-        }
-        setNewProject(true);
-        setProject(new_project);
+            career_title: "",
+            career_id: "",
+            career_type: "other",
+            career_startDate: dateNow,
+            career_endDate: dateNow
+        } as CareerData;
+        setNewCareer(true);
+        setCareer(new_career);
     }
 
     /**
-     * dispatches a project to be deleted from the database.
+     * dispatches a career to be deleted from the database.
      */
-    const delProject = () =>
+    const delCareer = () =>
     {
         setDialog(<></>);
-        if(project)
+        if(career)
         {
-            dispatch(deleteProject(project, projects, undefined, (err) => {setError(err)}));
+            dispatch(deleteCareer(career, undefined, (err) => {setError(err)}));
         }
-        setProject(undefined);
+        setCareer(undefined);
         setMessage("Successfully Deleted");
     }
 
@@ -233,224 +214,182 @@ const AdminCareers : FC = () =>
      */
     const handleDeleteDialog = () =>
     {
-        if (project)
+        if (career)
         {
             setDialog(
                 <DialogBox 
-                    title="Confirm Delete Project" 
-                    message={`Are you sure you want to delete '${project?.project_title ?? "undefined" }' ?`}
+                    title="Confirm Delete Career" 
+                    message={`Are you sure you want to delete '${career?.career_title ?? "undefined" }' ?`}
                     messageError="Warning: this action cannot be undone."
-                    optionReject="Delete Project"
-                    onReject={delProject}
-                    optionClose="Keep Project"
+                    optionReject="Delete Career"
+                    onReject={delCareer}
+                    optionClose="Keep Career"
                     onClose={() => {setDialog(<></>)}}/>
             );
         }
     }
-
-    /**
-     * handleOnDragEnd handles the result when the project list is reordered 
-     * using drag and drop features. In this case, the orders of all projects
-     * are updated by index in the array and the dispatch is sent to update
-     * the projects in the database. 
-     */
-    function handleOnDragEnd (result: any)
-    {
-        if (!result.destination) return;
-
-        const reorderedProjects = Array.from(projects);
-        const [reorderedItem] = reorderedProjects.splice(result.source.index, 1);
-        reorderedProjects.splice(result.destination.index, 0, reorderedItem);
-
-        setProjects(reorderedProjects);
-        dispatch(updateAllProjects(reorderedProjects, () => {}));
-    }
     
     /**
-     * Upon form submission, check if we are creating a new project or updating
+     * Upon form submission, check if we are creating a new career or updating
      * an existing one. Perform the appropriate function.
      * 
-     * We assume project is not null since we cannot submit the form if the 
-     * project does not exist.
+     * We assume career is not null since we cannot submit the form if the 
+     * career does not exist.
      */
-    const onSubmit : SubmitHandler<ProjectData> = (data) => 
+    const onSubmit : SubmitHandler<CareerData> = (data) => 
     {
-        dispatch(setProjectsLoading(true));
+        dispatch(setCareersLoading(true));
 
-        const proj_id = project?.project_id ?? "";
-        const proj_prog = data.project_progress ?? project?.project_progress ?? 0;
+        const car_id = career?.career_id ?? "";
 
-        const {project_id, ...project_data} = data;
-        const new_project = {
-            ...project, 
-            ...project_data,
-            project_id: proj_id,
-            project_progress: proj_prog,
-            project_inProgress: isInProgress,
-            project_isHidden: isHidden,
-            project_startDate: parse(startDate, "yyyy-MM-dd", new Date()),
-            project_endDate: parse(endDate, "yyyy-MM-dd", new Date()),
+        const {career_id, ...career_data} = data;
+        const new_career = {
+            ...career, 
+            ...career_data,
+            career_id: car_id,
+            career_inProgress: isCurrent,
+            career_isHidden: isHidden,
+            career_startDate: parse(startDate, "yyyy-MM-dd", new Date()),
+            career_endDate: parse(endDate, "yyyy-MM-dd", new Date()),
         };
 
-        if(isNewProject && project)
+        if(isNewCareer && career)
         {
-            dispatch(addNewProject(new_project, projects, () => {setNewCreated(true); setNewProject(false);}, (err) => {setError(err)}));
+            dispatch(addNewCareer(new_career, () => {setNewCreated(true); setNewCareer(false);}, (err) => {setError(err)}));
         }
-        else if(!isNewProject && project)
+        else if(!isNewCareer && career)
         {
-            dispatch(setProjectData(new_project, undefined, (err) => {setError(err)}));
+            dispatch(setCareerData(new_career, undefined, (err) => {setError(err)}));
         }
 
-        setMessage(`Successfully ${isNewProject ? "created" : "updated"} '` + data.project_title +"'.");
+        setMessage(`Successfully ${isNewCareer ? "created" : "updated"} '` + data.career_title +"'.");
     }
     
-    /**
-     * TODO: Add isHidden checkbox to dashboard
-     * TODO: Improve the CSS
-     */
-
     /**
      * This could definitely be made a lot better but at this point it works
      * well and it could break things to separate the list and box into two
      * separate components so I will just leave it for now.
      * 
      * Either way, not much will change since realistically I can only separate
-     * the list item, which isnt that much anyways, and the project details are
+     * the list item, which isnt that much anyways, and the career details are
      * not that complicated.
      */
     return (
-        <section id="admin_project" className="admin projects" >
+        <section id="admin_career" className="admin careers" >
             {dialog}
-            <div id="admin_projects_list">
-                <DragDropContext onDragEnd={handleOnDragEnd}>
-                <Droppable droppableId="projects_list">
-                {
-                    (provided) => (
-                    <ul className="projects_list" {...provided.droppableProps} ref={provided.innerRef}>
-                        {projects && projects.map((proj: ProjectData, index: number) =>
-                        {return (
-                            <Draggable key={proj.project_id} draggableId={proj.project_id} index={index} >
-                                {(provided) => (
-                                        <li ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}
-                                            className={
-                                                "project_item " + 
-                                                (proj.project_isHidden? "hidden " : "") + 
-                                                (proj.project_inProgress? "wip " : "") +
-                                                (proj.project_id === project?.project_id ? "selected " : "")}
-                                            key={proj.project_id} 
-                                            id={proj.project_id}
-                                            onClick={() => setProject(proj)}>
-                                            
-                                            <h3 className="project_item_title">{proj.project_title}</h3>
-                                            <span className="svg_icon chevron">{IconChevronRight}</span>
-                                        
-                                        </li>
-                                    )
-                                }
-                            </Draggable>
-                        );})}
-                        {provided.placeholder}
-                    </ul>
-                )}
-                </Droppable>
-                </DragDropContext>  
-
-                {/* $ Here are the project buttons to add and delete $ */}
-                <div className="project_buttons">
-                    {(isNewProject || isNewCreated) && <li className="project_item new_project" key="newproj">
-                        <h3 className="project_item_title">New Project</h3>
+            <div id="admin_careers_list">
+                <ul className="careers_list">
+                    {careers && careers.map((car: CareerData, index: number) =>
+                    {return (
+                        <li
+                            className={
+                                "career_item " + 
+                                (car.career_isHidden? "hidden " : "") + 
+                                (car.career_isCurrent? "wip " : "") +
+                                (car.career_id === career?.career_id ? "selected " : "")}
+                            key={car.career_id} 
+                            id={car.career_id}
+                            onClick={() => setCareer(car)}>
+                            
+                            <h3 className="career_item_title">{car.career_title}</h3>
+                            <span className="svg_icon chevron">{IconChevronRight}</span>
+                        
+                        </li>
+                    );})}
+                </ul>
+                {/* $ Here are the career buttons to add and delete $ */}
+                <div className="career_buttons">
+                    {(isNewCareer || isNewCreated) && <li className="career_item new_career" key="newcar">
+                        <h3 className="career_item_title">New Career</h3>
                         <span className="svg_icon chevron">{IconChevronRight}</span>
                     </li>}
-                    <li className="project_item button_add" key="add" onClick={createNewProject}><span className="svg_icon add">{IconAdd}</span></li>
-                    <li className="project_item button_delete" key="delete" onClick={handleDeleteDialog}><span className="svg_icon add">{IconGarbageDelete}</span></li>
+                    <li className="career_item button_add" key="add" onClick={createNewCareer}><span className="svg_icon add">{IconAdd}</span></li>
+                    <li className="career_item button_delete" key="delete" onClick={handleDeleteDialog}><span className="svg_icon add">{IconGarbageDelete}</span></li>
                 </div>
 
             </div>
-            <form className={`edit projects ${(isNewProject || isNewCreated) ? "new" : ""}`} onSubmit={handleSubmit(onSubmit)}>
-                <h3 className="category_title">{isNewProject || isNewCreated ? "Set" : "Edit"} Project Information</h3>
-                <TextField label="Project Title" 
-                           name="project_title"
+            <form className={`edit careers ${(isNewCareer || isNewCreated) ? "new" : ""}`} onSubmit={handleSubmit(onSubmit)}>
+                <h3 className="category_title">{isNewCareer || isNewCreated ? "Set" : "Edit"} Career Information</h3>
+                <TextField label="Title" 
+                           name="career_title"
+                           type="text"
+                           classNameInner="elevated"
+                           message={errors.career_title?.message} 
+                           register={register} 
+                           registration={{required: true}} 
+                           disabled={career == null}
+                           show_label />
+
+                <TextField label="Organization" 
+                           name="career_org"
                            type="text"
                            classNameInner="elevated"
                            className="half"
-                           message={errors.project_title?.message} 
+                           message={errors.career_title?.message} 
                            register={register} 
                            registration={{required: true}} 
-                           disabled={project == null}
+                           disabled={career == null}
+                           show_label />
+
+                <TextField label="Organization URL" 
+                           name="career_org_url"
+                           type="text"
+                           classNameInner="elevated"
+                           className="half"
+                           message={errors.career_organizationURL?.message} 
+                           register={register} 
+                           registration={{required: true}} 
+                           disabled={career == null}
+                           show_label />
+                
+                <TextField label="Location" 
+                           name="career_location"
+                           type="text"
+                           classNameInner="elevated"
+                           className="half"
+                           message={errors.career_organizationURL?.message} 
+                           register={register} 
+                           registration={{required: true}} 
+                           disabled={career == null}
                            show_label />
 
                 <TextField label="Blog" 
-                           name="project_blog"
+                           name="career_blog"
                            type="text"
                            className="half"
                            classNameInner="elevated"
-                           defaultValue={project?.project_blog}
-                           message={errors.project_blog?.message} 
+                           defaultValue={career?.career_blog}
+                           message={errors.career_blog?.message} 
                            register={register} 
                            registration={{required: false}} 
-                           disabled={project == null}
-                           show_label />
-                                
-                <TextField label="Github Repository URL" 
-                           name="project_github"
-                           type="text"
-                           classNameInner="elevated"
-                           className="half"
-                           defaultValue={project?.project_github}
-                           message={errors.project_github?.message} 
-                           register={register} 
-                           registration={{required: false}} 
-                           disabled={project == null}
+                           disabled={career == null}
                            show_label />
 
-                <TextField label="Project Demo URL" 
-                           name="project_url"
-                           type="text"
-                           classNameInner="elevated"
-                           className="half"
-                           defaultValue={project?.project_url}
-                           message={errors.project_url?.message} 
-                           register={register} 
-                           registration={{required: false}} 
-                           disabled={project == null}
-                           show_label />
-
-                <TextArea label="Project Description" 
-                           name="project_description"
+                <TextArea label="Description" 
+                           name="career_description"
                            classNameInner="elevated"
                            className="desc_textarea"
                            rows={5}
-                           defaultValue={project?.project_description}
-                           message={errors.project_description?.message} 
+                           defaultValue={career?.career_description}
+                           message={errors.career_description?.message} 
                            register={register} 
                            registration={{required: true}} 
-                           disabled={project == null}
-                           show_label />
-
-                <TextField label="Tags" 
-                           name="project_tags"
-                           type="text"
-                           classNameInner="elevated"
-                           defaultValue={project?.project_tags}
-                           message={errors.project_tags?.message} 
-                           register={register} 
-                           registration={{required: true}} 
-                           disabled={project == null}
+                           disabled={career == null}
                            show_label />
 
                 <TextField  label="Start Date"
                             type="date"
                             className="half"
                             classNameInner="elevated"
-                            name="project_startDate"
+                            name="career_startDate"
                             value={startDate}
                             onChangeEvent={(e) => {
                                 if (startDate === endDate)
                                     setEndDate(e.currentTarget.value);
                                 setStartDate(e.currentTarget.value);
                             }}
-                            message={errors.project_startDate?.message} 
-                            disabled={project == null}
+                            message={errors.career_startDate?.message} 
+                            disabled={career == null}
                             register={register} 
                             registration={{required: true}}
                             show_label  />
@@ -459,51 +398,38 @@ const AdminCareers : FC = () =>
                             type="date"
                             className="half"
                             classNameInner="elevated"
-                            name="project_endDate"
+                            name="career_endDate"
                             value={endDate}
                             onChangeEvent={(e) => setEndDate(e.currentTarget.value)}
-                            message={errors.project_endDate?.message} 
-                            disabled={project == null}
+                            message={errors.career_endDate?.message} 
+                            disabled={career == null}
                             register={register} 
                             registration={{required: true}}
                             show_label  />
-
-
-                <TextField label="Progress" 
-                           name="project_progress"
-                           type="text"
-                           classNameInner="elevated"
-                           className="half"
-                           defaultValue={project?.project_progress}
-                           message={errors.project_progress?.message} 
-                           register={register} 
-                           registration={{required: false}} 
-                           disabled={!isInProgress}
-                           show_label />
                 
                 <div className="checkboxes">
-                    <CheckBox label="In Progress?"
-                            name="project_inProgress"
+                    <CheckBox label="Is Current Position?"
+                            name="career_inProgress"
                             className="half"
                             register={register} 
                             registration={{required: false}} 
-                            disabled={project == null} 
-                            onChange={() => setInProgress(!isInProgress)}/>
+                            disabled={career == null} 
+                            onChange={() => setIsCurrent(!isCurrent)}/>
                     
                     <CheckBox label="Is Hidden?"
-                            name="project_isHidden"
+                            name="career_isHidden"
                             className="half"
                             register={register} 
                             registration={{required: false}} 
-                            disabled={project == null} 
+                            disabled={career == null} 
                             onChange={() => setIsHidden(!isHidden)}/>
                 </div>
 
 
-                <p className={`message ${error != null && !isLoadingProjects ? "error" : ""}`}>
-                    {error != null && !isLoadingProjects ? error : message}
+                <p className={`message ${error != null && !isLoadingCareers ? "error" : ""}`}>
+                    {error != null && !isLoadingCareers ? error : message}
                 </p>
-                <Button text={isNewProject ? "Create Project" : "Update Project"} className="confirmbtn" />
+                <Button text={isNewCareer ? "Create Career" : "Update Career"} className="confirmbtn" />
             </form>
             
         </section>

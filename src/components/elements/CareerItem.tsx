@@ -70,12 +70,10 @@ const CareerItem : FC<CareerProps> = ({className, ...careerData}) =>
                     }
                 </h2>
 
-                {careerData.career_city &&
+                {careerData.career_location &&
                     <h2 className="career_item_location">
                     <span>
-                        {careerData.career_city && `${careerData.career_city}`}
-                        {careerData.career_state && `, ${careerData.career_state}`}
-                        {careerData.career_country && `, ${careerData.career_country} `}
+                        {careerData.career_location && `${careerData.career_location}`}
                     </span>
                 </h2>}
 
