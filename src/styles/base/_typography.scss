@@ -421,7 +421,7 @@ input[type=checkbox]
 {
     .err_title
     {
-        font: $black-weight $Largest-size $mono-font;
+        font: $black-weight $Largest-size $sans-font;
     }
     .err_subtitle
     {
@@ -429,7 +429,7 @@ input[type=checkbox]
     }
     .err_home
     {
-        font: $regular-weight $Regular-size $mono-font;
+        font: $regular-weight $Regular-size $sans-font;
     }
 }
 
@@ -477,7 +477,7 @@ input[type=checkbox]
 {
     .project_item_title
     {
-        font: $medium-weight $regular-size $sans-font;
+        font: $regular-weight $regular-size $sans-font;
     }
 }
 

@@ -178,6 +178,7 @@ input[type=checkbox]
     border: 1px solid;
     transition: background-color $trans-effect $trans-regular, border-color $trans-effect $trans-regular;
     // margin-right: 1.5rem;
+    border-radius: 0.5rem;
 
 
     @include themify()
