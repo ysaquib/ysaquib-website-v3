@@ -9,7 +9,7 @@ import * as yup from 'yup';
 import { format, parse } from "date-fns";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { CareerData, CareerType } from '../../store/types/careerTypes';
+import { CareerData } from '../../store/types/careerTypes';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import { addNewCareer, deleteCareer, getCareerData, setCareerData, setCareersLoading } from '../../store/actions/careerActions';
@@ -18,6 +18,7 @@ import TextArea from '../elements/TextArea';
 import CheckBox from '../elements/Checkbox';
 import DialogBox from '../elements/DialogBox';
 import { IconAdd, IconChevronRight, IconGarbageDelete } from '../elements/Icons';
+import SelectMenu from '../elements/SelectMenu';
 
 const schema = yup.object().shape(
 {
@@ -26,8 +27,8 @@ const schema = yup.object().shape(
     career_blog: yup.string().matches(/^([\w-]+)/gs, {message: "must be a valid blog URL.", excludeEmptyString: true}),
     career_isCurrent: yup.boolean(),
     career_isHidden: yup.boolean(),
-    career_org: yup.string(),
-    career_org_url: yup.string().url({message: "must be a valid URL."}),
+    career_organization: yup.string(),
+    career_organization_url: yup.string().url({message: "must be a valid URL."}),
     career_location: yup.string()
 });
 
@@ -43,7 +44,6 @@ const AdminCareers : FC = () =>
     const [error, setError] = useState(null);
     const [message, setMessage] = useState<string>("");
 
-    const [careerType, setCareerType] = useState<CareerType>("other");
     const [isNewCareer, setNewCareer] = useState<boolean>(false);
     const [isNewCreated, setNewCreated] = useState<boolean>(false);
     const [isCurrent, setIsCurrent] = useState<boolean>(career?.career_isCurrent ?? false);
@@ -64,9 +64,19 @@ const AdminCareers : FC = () =>
         if (career)
         {
             setValue("career_title", career.career_title);
-            
+            setValue("career_organization", career.career_organization ?? "");
+            setValue("career_organizationURL", career.career_organizationURL ?? "");
+            // setValue("career_organization_url", career.career_organization_url ?? "");
+            setValue("career_location", career.career_location ?? "");
+            setValue("career_blog", career.career_blog ?? "");
+            setValue("career_description", career.career_description ?? "");
+            setValue("career_type", career.career_type ?? "other");
+            setValue("career_isHidden", career.career_isHidden ?? false);
+            setValue("career_isCurrent", career.career_isCurrent ?? false);
+
             setIsHidden(career.career_isHidden ?? false);
             setIsCurrent(career.career_isCurrent ?? false);
+
             setStartDate(format(career.career_startDate, "yyyy-MM-dd"));
             setEndDate(format(career.career_endDate, "yyyy-MM-dd"));
             
@@ -247,7 +257,7 @@ const AdminCareers : FC = () =>
             ...career, 
             ...career_data,
             career_id: car_id,
-            career_inProgress: isCurrent,
+            career_isCurrent: isCurrent,
             career_isHidden: isHidden,
             career_startDate: parse(startDate, "yyyy-MM-dd", new Date()),
             career_endDate: parse(endDate, "yyyy-MM-dd", new Date()),
@@ -275,15 +285,15 @@ const AdminCareers : FC = () =>
      * not that complicated.
      */
     return (
-        <section id="admin_career" className="admin careers" >
+        <section id="admin_career" className="admin options" >
             {dialog}
-            <div id="admin_careers_list">
-                <ul className="careers_list">
+            <div className="admin_list">
+                <ul className="item_list">
                     {careers && careers.map((car: CareerData, index: number) =>
                     {return (
                         <li
                             className={
-                                "career_item " + 
+                                "item " + 
                                 (car.career_isHidden? "hidden " : "") + 
                                 (car.career_isCurrent? "wip " : "") +
                                 (car.career_id === career?.career_id ? "selected " : "")}
@@ -291,24 +301,24 @@ const AdminCareers : FC = () =>
                             id={car.career_id}
                             onClick={() => setCareer(car)}>
                             
-                            <h3 className="career_item_title">{car.career_title}</h3>
+                            <h3 className="item_title">{car.career_title}</h3>
                             <span className="svg_icon chevron">{IconChevronRight}</span>
                         
                         </li>
                     );})}
                 </ul>
                 {/* $ Here are the career buttons to add and delete $ */}
-                <div className="career_buttons">
-                    {(isNewCareer || isNewCreated) && <li className="career_item new_career" key="newcar">
-                        <h3 className="career_item_title">New Career</h3>
+                <div className="item_buttons">
+                    {(isNewCareer || isNewCreated) && <li className="item new_item" key="newcar">
+                        <h3 className="item_title">New Career</h3>
                         <span className="svg_icon chevron">{IconChevronRight}</span>
                     </li>}
-                    <li className="career_item button_add" key="add" onClick={createNewCareer}><span className="svg_icon add">{IconAdd}</span></li>
-                    <li className="career_item button_delete" key="delete" onClick={handleDeleteDialog}><span className="svg_icon add">{IconGarbageDelete}</span></li>
+                    <li className="item button_add" key="add" onClick={createNewCareer}><span className="svg_icon add">{IconAdd}</span></li>
+                    <li className="item button_delete" key="delete" onClick={handleDeleteDialog}><span className="svg_icon add">{IconGarbageDelete}</span></li>
                 </div>
 
             </div>
-            <form className={`edit careers ${(isNewCareer || isNewCreated) ? "new" : ""}`} onSubmit={handleSubmit(onSubmit)}>
+            <form className={`edit options ${(isNewCareer || isNewCreated) ? "new" : ""}`} onSubmit={handleSubmit(onSubmit)}>
                 <h3 className="category_title">{isNewCareer || isNewCreated ? "Set" : "Edit"} Career Information</h3>
                 <TextField label="Title" 
                            name="career_title"
@@ -321,7 +331,7 @@ const AdminCareers : FC = () =>
                            show_label />
 
                 <TextField label="Organization" 
-                           name="career_org"
+                           name="career_organization"
                            type="text"
                            classNameInner="elevated"
                            className="half"
@@ -332,7 +342,7 @@ const AdminCareers : FC = () =>
                            show_label />
 
                 <TextField label="Organization URL" 
-                           name="career_org_url"
+                           name="career_organizationURL"
                            type="text"
                            classNameInner="elevated"
                            className="half"
@@ -406,10 +416,21 @@ const AdminCareers : FC = () =>
                             register={register} 
                             registration={{required: true}}
                             show_label  />
+
+                <SelectMenu label="Section"
+                            name="career_type"
+                            classNameInner="elevated"
+                            className="half"
+                            options={["Work", "Education", "Research", "Other"]}
+                            show_label
+                            message={errors.career_type?.message}
+                            disabled={career == null}
+                            register={register}
+                            registration={{required: true}}/>
                 
                 <div className="checkboxes">
                     <CheckBox label="Is Current Position?"
-                            name="career_inProgress"
+                            name="career_isCurrent"
                             className="half"
                             register={register} 
                             registration={{required: false}} 
