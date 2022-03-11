@@ -7,6 +7,7 @@ import {aboutReducer, bannerReducer} from './reducers/dataReducer';
 import { projectReducer } from './reducers/projectReducers';
 import { blogReducer } from './reducers/blogReducers';
 import { messageReducer } from './reducers/messageReducers';
+import { careerReducer } from './reducers/careerReducers';
 
 const rootReducer = combineReducers({
     auth: authReducer,
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
     about: aboutReducer,
     projects: projectReducer,
     blogs: blogReducer,
-    messages: messageReducer
+    messages: messageReducer,
+    careers: careerReducer
 });
 
 const store = createStore(

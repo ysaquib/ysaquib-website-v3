@@ -4,6 +4,7 @@ export const Data_SetCareerData = "Data_SetCareerData";
 export const Data_AddCareer = "Data_AddCareer";
 export const Data_DelCareer = "Data_DelCareer";
 export const Data_isLoadingCareers = "Data_isLoadingCareers";
+export type CareerType = "work" | "research" | "education" | "other";
 
 export interface CareerData
 {
@@ -11,6 +12,8 @@ export interface CareerData
     career_title: string;
     career_startDate: Date;
     career_endDate: Date;
+
+    career_type: CareerType;
 
     career_blog?: string;
     career_subtitle?: string;
@@ -20,9 +23,7 @@ export interface CareerData
     career_organizationURL?: string;
     career_isCurrent?: boolean;
     career_isHidden?: boolean;
-    career_city?: string;
-    career_state?: string;
-    career_country?: string;
+    career_location?: string;
 }
 
 interface SetAllCareersDataAction

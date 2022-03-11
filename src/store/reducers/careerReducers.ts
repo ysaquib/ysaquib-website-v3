@@ -1,19 +1,16 @@
 import { CareerAction, CareerState, Data_AddCareer, Data_DelCareer, Data_SetAllCareersData, Data_SetCareerData, Data_UpdateAllCareersData, Data_isLoadingCareers } from "../types/careerTypes";
 
-const initialBlogsState: CareerState =
+const initialCareersState: CareerState =
 {
     allCareers: [],
     isLoadingCareers: true,
 }
-export const blogReducer = (state = initialBlogsState, action: CareerAction) : CareerState =>
+export const careerReducer = (state = initialCareersState, action: CareerAction) : CareerState =>
 {
     switch (action.type)
     {
         case Data_SetAllCareersData:
             return {...state, allCareers: action.payload};
-
-        // case Data_UpdateAllCareersData:
-        //     return state;
 
         case Data_SetCareerData:
             const newCareers = state.allCareers;
