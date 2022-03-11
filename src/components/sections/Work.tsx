@@ -3,51 +3,59 @@
  * Author: Yusuf Saquib
  */
 
-import React, { FC } from 'react'
+import React, { FC, useEffect, useState } from 'react'
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
+import { CareerData } from '../../store/types/careerTypes';
 import CareerItem from '../elements/CareerItem';
+import LoadingSkeleton from '../elements/LoadingSkeleton';
 import Section from '../elements/Section';
 
 const Work : FC = () =>
 {
+    const {allCareers, isLoadingCareers, isError} = useSelector((state: RootState) => state.careers);
+    const allCareers_filtered = allCareers.filter((car) => car.career_type === "work" && car.career_isHidden === false)
+    const [work, setWork] = useState<CareerData[]>(allCareers_filtered);
+
+    useEffect(() => {
+        setWork(allCareers.filter((car) => car.career_type === "work" && car.career_isHidden === false))
+      return () => {}
+    }, [allCareers]);
     
+    if (isLoadingCareers)
+    {
+        return (
+
+            <Section id="work" title="Work Experience">
+                <div className="careers_wrapper">
+                    <LoadingSkeleton type="rectangle" className="loading_career_card" />
+                    <LoadingSkeleton type="rectangle" className="loading_career_card" />
+                </div>
+            </Section>
+        )
+    }
+
+    if (isError)
+    {
+        return (
+
+            <Section id="work" title="Work Experience">
+                <div className="careers_wrapper">
+                    <div className="career_item_error">Error Retrieving Data.</div>
+                </div>
+            </Section>
+        )
+    }
+
     return (
         <Section id="work" title="Work Experience">
             <div className="careers_wrapper">
-                <CareerItem career_id="fd" 
-                            career_title="Security Researcher" 
-                            career_organization="Carnegie Mellon University" 
-                            career_organizationURL="www.cmu.edu"
-                            career_description={`Workd on some stuff\nAndmore stuff`} 
-                            career_startDate={new Date(Date.now())} 
-                            career_endDate={new Date(Date.now())}
-                            career_blog="https://www.google.com" 
-                            career_isCurrent={true}
-                            career_type="work"
-                            />
-                <CareerItem career_id="fd2" 
-                            career_title="Course Assistant" 
-                            career_subtitle="15-122: Principles of Imperative Computation" 
-                            career_organization="Carnegie Mellon University" 
-                            career_organizationURL="www.cmu.edu"
-                            career_location='Doha' 
-                            career_description={`Workd on some stuff\n\nAndmore stuff\nI did some stuff here\nI did quire a lot of stuff\nmore stuff here and here\ni dont even know anymore\nDid dkslafjdj dsakfj kdsaj fdjsal fkds ajfdj sakfk sda fkdlsjak lds alkfdjsa;l fd sa fkdlsa lfd;sa fdsa fld;jsa klfd sak; fds afklds;a fdlska fldsjka jkj`} 
-                            career_startDate={new Date(Date.now())} 
-                            career_endDate={new Date(Date.now())}
-                            career_isCurrent={false}
-                            career_type="work"
-                            />
-                <CareerItem career_id="fd3" 
-                            career_title="Intern" 
-                            career_subtitle="Software Engineering" 
-                            career_organization="Biomotivate" 
-                            career_organizationURL="blogs"
-                            career_location='Doha' 
-                            career_description={`Workd on some stuff\n\nAndmore stuff`} 
-                            career_startDate={new Date(Date.now())} 
-                            career_endDate={new Date(Date.now())}
-                            career_isCurrent={false}
-                            career_type="work"
-                            />
+                {
+                    work.map((car) => {
+                        return (
+                            <CareerItem key={car.career_id} {...car} />
+                    )})
+                }
             </div>
         </Section>
     );

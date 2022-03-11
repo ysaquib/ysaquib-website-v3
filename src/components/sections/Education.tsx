@@ -3,40 +3,60 @@
  * Author: Yusuf Saquib
  */
 
-import Markdown from 'markdown-to-jsx';
-import React, { FC } from 'react'
-import Anchor from '../elements/Anchor';
+import React, { FC, useEffect, useState } from 'react'
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
+import { CareerData } from '../../store/types/careerTypes';
 import CareerItem from '../elements/CareerItem';
+import LoadingSkeleton from '../elements/LoadingSkeleton';
 import Section from '../elements/Section';
 
 const Education : FC = () =>
 {
+    const {allCareers, isLoadingCareers, isError} = useSelector((state: RootState) => state.careers);
+    const allCareers_filtered = allCareers.filter((car) => car.career_type === "education" && car.career_isHidden === false)
     
+    const [education, setEducation] = useState<CareerData[]>(allCareers_filtered);
+
+    useEffect(() => {
+      setEducation(allCareers.filter((car) => (car.career_type === "education" && car.career_isHidden === false)))
+      return () => {}
+    }, [allCareers])
+    
+
+    if (isLoadingCareers)
+    {
+        return (
+
+            <Section id="education" title="Education">
+                <div className="careers_wrapper">
+                    <LoadingSkeleton type="rectangle" className="loading_career_card" />
+                </div>
+            </Section>
+        )
+    }
+
+    if (isError)
+    {
+        return (
+
+            <Section id="education" title="Education">
+                <div className="careers_wrapper">
+                    <div className="career_item_error">Error Retrieving Data.</div>
+                </div>
+            </Section>
+        )
+    }
+
     return (
         <Section id="education" title="Education">
             <div className="careers_wrapper">
-                <CareerItem career_id="fdd" 
-                            career_title="B.Sc. Computer Science" 
-                            career_organization="Carnegie Mellon University" 
-                            //    career_organizationURL="www.cmu.edu"
-                            career_location='Doha' 
-                            //    career_description={`Workd on some stuff\nAndmore stuff`} 
-                            career_startDate={new Date(Date.now())} 
-                            career_endDate={new Date(Date.now())}
-                            career_isCurrent={true}
-                            career_type="education"
-                            />
-                <CareerItem career_id="fd2d" 
-                            career_title="M.Sc. Computer Science" 
-                            career_organization="Carnegie Mellon University" 
-                            //    career_organizationURL="www.cmu.edu"
-                            career_location='Pittsburgh' 
-                            //    career_description={`Workd on some stuff\nAndmore stuff`} 
-                            career_startDate={new Date(Date.now())} 
-                            career_endDate={new Date(Date.now())}
-                            career_isCurrent={false}
-                            career_type="education"
-                            />
+                {
+                    education.map((car) => {
+                        return (
+                            <CareerItem key={car.career_id} {...car} />
+                    )})
+                }
             </div>
         </Section>
     );
