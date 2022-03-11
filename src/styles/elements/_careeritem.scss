@@ -14,6 +14,28 @@
     gap: 2rem;
 }
 
+.loading_career_card
+{
+    height: $career-card-height;
+}
+
+.career_item_error
+{
+    border-radius: $radius-regular;
+    width: 100%;
+    height: $career-card-height;
+    display: grid;
+    place-items: center center;
+    transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
+
+    @include themify()
+    {
+        background-color: themed("error");
+        color: themed("grey-100");
+    }
+
+}
+
 .career_item_wrapper
 {
     display: flex;
@@ -176,8 +198,6 @@
 
         background-color: themed("grey-150");
         
-
-
         .career_vert_line
         {
             border-color: themed("grey-150");

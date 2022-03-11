@@ -7,7 +7,6 @@ import { format } from 'date-fns';
 import React, {FC} from 'react';
 import { Link } from 'react-router-dom';
 import { CareerData } from '../../store/types/careerTypes';
-import Button from './Button';
 import { IconArticle, IconAt } from './Icons';
 
 interface CareerProps extends CareerData
@@ -90,7 +89,7 @@ const CareerItem : FC<CareerProps> = ({className, ...careerData}) =>
             <ul id={`js-${careerData.career_id}-desc`} className="career_item_desc">
                 {careerData.career_description.split("\n").map((item, index) => {
                     return item.length > 0 && (
-                        <li id={`item-${index}`}>
+                        <li key={`item-${index}`}>
                             {item}
                         </li>
                     );
