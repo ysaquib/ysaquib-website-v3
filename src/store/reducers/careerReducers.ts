@@ -1,9 +1,10 @@
-import { CareerAction, CareerState, Data_AddCareer, Data_DelCareer, Data_SetAllCareersData, Data_SetCareerData, Data_UpdateAllCareersData, Data_isLoadingCareers } from "../types/careerTypes";
+import { CareerAction, CareerState, Data_AddCareer, Data_DelCareer, Data_SetAllCareersData, Data_SetCareerData, Data_isLoadingCareers } from "../types/careerTypes";
 
 const initialCareersState: CareerState =
 {
     allCareers: [],
     isLoadingCareers: true,
+    isError: false
 }
 export const careerReducer = (state = initialCareersState, action: CareerAction) : CareerState =>
 {
@@ -18,7 +19,7 @@ export const careerReducer = (state = initialCareersState, action: CareerAction)
             newCareers[career_index] = action.payload;
             return {...state, allCareers: newCareers};
             
-            case Data_AddCareer:
+        case Data_AddCareer:
             const allCareers = state.allCareers;
             allCareers.push(action.payload);
             return {...state, allCareers: allCareers};

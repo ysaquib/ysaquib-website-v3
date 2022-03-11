@@ -6,7 +6,7 @@ import firebase from 'firebase/app';
 import { ThunkAction } from 'redux-thunk';
 import { RootState } from '..';
 import Firebase from '../../firebase/config';
-import { CareerAction, CareerData, Data_AddCareer, Data_DelCareer, Data_isLoadingCareers, Data_SetCareerData } from '../types/careerTypes';
+import { CareerAction, CareerData, Data_AddCareer, Data_DelCareer, Data_isLoadingCareers, Data_SetAllCareersData, Data_SetCareerData, Data_SetErrorCareers } from '../types/careerTypes';
 
 export const getCareerData = (onComplete?: () => void, onError?: (msg: any) => void) : ThunkAction<void, RootState, null, CareerAction> =>
 {
@@ -25,12 +25,16 @@ export const getCareerData = (onComplete?: () => void, onError?: (msg: any) => v
                 } as CareerData);
             });
 
+            dispatch({type: Data_SetAllCareersData, payload: career_items});
+            dispatch(setCareersLoading(false));
+
             onComplete && onComplete();
         }
         catch (error)
         {
             onError && onError(error);
             console.error(error);
+            dispatch(setCareersError(true));
             dispatch(setCareersLoading(false));
         }
     }
@@ -128,6 +132,17 @@ export const setCareersLoading = (isLoading: boolean) : ThunkAction<void, RootSt
         dispatch({
             type: Data_isLoadingCareers, 
             payload: isLoading
+        });
+    }
+}
+
+export const setCareersError = (isError: boolean) : ThunkAction<void, RootState, null, CareerAction> =>
+{
+    return async dispatch =>
+    {
+        dispatch({
+            type: Data_SetErrorCareers, 
+            payload: isError
         });
     }
 }

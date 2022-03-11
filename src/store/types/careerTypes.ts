@@ -1,4 +1,5 @@
 export const Data_SetAllCareersData = "Data_SetAllCareersData";
+export const Data_SetErrorCareers = "Data_SetErrorCareers";
 export const Data_UpdateAllCareersData = "Data_UpdateAllCareersData";
 export const Data_SetCareerData = "Data_SetCareerData";
 export const Data_AddCareer = "Data_AddCareer";
@@ -62,10 +63,17 @@ interface SetLoadingCareersAction
     payload: boolean;
 }
 
+interface SetErrorCareersAction
+{
+    type: typeof Data_SetErrorCareers;
+    payload: boolean;
+}
+
 export interface CareerState
 {
     allCareers: CareerData[];
     isLoadingCareers: boolean;
+    isError: boolean;
 }
 
-export type CareerAction = SetAllCareersDataAction | UpdateAllCareersDataAction | setCareerDataAction | AddCareerDataAction | DelCareerDataAction | SetLoadingCareersAction;
+export type CareerAction = SetErrorCareersAction | SetAllCareersDataAction | UpdateAllCareersDataAction | setCareerDataAction | AddCareerDataAction | DelCareerDataAction | SetLoadingCareersAction;
