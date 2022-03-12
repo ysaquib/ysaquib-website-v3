@@ -88,7 +88,7 @@ const Work : FC<WorkProps> = ({showButton = false, getData = false, itemLimit}) 
                 }
             </div>
             {showButton && <div className="career_button">
-                    <Link to="/experience"><Button text="See All Work Experiences" onClick={() => window.scrollTo(0,0)}/></Link>
+                    <Link to="/experience"><Button text="See All Experience" onClick={() => window.scrollTo(0,0)}/></Link>
                 </div>
                 }
         </Section>

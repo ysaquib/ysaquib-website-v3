@@ -9,8 +9,10 @@ import React, { FC } from 'react';
 import Head from '../components/layout/Head';
 
 import Banner from '../components/sections/Banner';
+import Education from '../components/sections/Education';
 import Projects from '../components/sections/Projects';
 import Security from '../components/sections/Security';
+import Work from '../components/sections/Work';
 import ACWrapper from '../components/wrappers/ACWrapper';
 
 const HomePage : FC = () =>
@@ -20,7 +22,9 @@ const HomePage : FC = () =>
             <Head />
             
             <Banner />
-            <Projects projectsLimit={6} id="projects"/>
+            <Projects projectsLimit={3} id="projects"/>
+            <Work getData={true} itemLimit={3} showButton/>
+            <Education getData={true}/>
             <ACWrapper />
             <Security />
         </>

@@ -23,7 +23,7 @@ import SelectMenu from '../elements/SelectMenu';
 const schema = yup.object().shape(
 {
     career_title : yup.string().required("is required."),
-    career_description: yup.string().required("is required."),
+    career_description: yup.string(),
     career_blog: yup.string().matches(/^([\w-]+)/gs, {message: "must be a valid blog URL.", excludeEmptyString: true}),
     career_isCurrent: yup.boolean(),
     career_isHidden: yup.boolean(),
@@ -70,7 +70,7 @@ const AdminCareers : FC = () =>
             setValue("career_location", career.career_location ?? "");
             setValue("career_blog", career.career_blog ?? "");
             setValue("career_description", career.career_description ?? "");
-            setValue("career_type", career.career_type ?? "other");
+            setValue("career_type", career.career_type ?? "work");
             setValue("career_isHidden", career.career_isHidden ?? false);
             setValue("career_isCurrent", career.career_isCurrent ?? false);
 
@@ -197,7 +197,7 @@ const AdminCareers : FC = () =>
         {
             career_title: "",
             career_id: "",
-            career_type: "other",
+            career_type: "work",
             career_startDate: dateNow,
             career_endDate: dateNow
         } as CareerData;
