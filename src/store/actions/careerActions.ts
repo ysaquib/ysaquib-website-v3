@@ -14,7 +14,7 @@ export const getCareerData = (onComplete?: () => void, onError?: (msg: any) => v
     {
         try
         {
-            const careers = await Firebase.firestore().collection("careers").get();
+            const careers = await Firebase.firestore().collection("careers").orderBy("career_endDate", "desc").get();
             const career_items: CareerData[] = [];
             careers.forEach((doc) => {
                 career_items.push({
