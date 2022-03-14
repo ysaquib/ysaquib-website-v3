@@ -100,7 +100,7 @@ const AdminBanner : FC = () =>
                            register={register} 
                            registration={{required: true}} />
 
-                <TextField label="Resume URL" 
+                <TextField label="Resume Path" 
                            name="banner_resume_url"
                            classNameInner="elevated"
                            type="text"

@@ -319,21 +319,21 @@ const AdminProjects : FC = () =>
      * not that complicated.
      */
     return (
-        <section id="admin_project" className="admin projects" >
+        <section id="admin_project" className="admin options" >
             {dialog}
-            <div id="admin_projects_list">
+            <div className="admin_list">
                 <DragDropContext onDragEnd={handleOnDragEnd}>
                 <Droppable droppableId="projects_list">
                 {
                     (provided) => (
-                    <ul className="projects_list" {...provided.droppableProps} ref={provided.innerRef}>
+                    <ul className="item_list" {...provided.droppableProps} ref={provided.innerRef}>
                         {projects && projects.map((proj: ProjectData, index: number) =>
                         {return (
                             <Draggable key={proj.project_id} draggableId={proj.project_id} index={index} >
                                 {(provided) => (
                                         <li ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}
                                             className={
-                                                "project_item " + 
+                                                "item " + 
                                                 (proj.project_isHidden? "hidden " : "") + 
                                                 (proj.project_inProgress? "wip " : "") +
                                                 (proj.project_id === project?.project_id ? "selected " : "")}
@@ -341,7 +341,7 @@ const AdminProjects : FC = () =>
                                             id={proj.project_id}
                                             onClick={() => setProject(proj)}>
                                             
-                                            <h3 className="project_item_title">{proj.project_title}</h3>
+                                            <h3 className="item_title">{proj.project_title}</h3>
                                             <span className="svg_icon chevron">{IconChevronRight}</span>
                                         
                                         </li>
@@ -356,17 +356,17 @@ const AdminProjects : FC = () =>
                 </DragDropContext>  
 
                 {/* $ Here are the project buttons to add and delete $ */}
-                <div className="project_buttons">
-                    {(isNewProject || isNewCreated) && <li className="project_item new_project" key="newproj">
-                        <h3 className="project_item_title">New Project</h3>
+                <div className="item_buttons">
+                    {(isNewProject || isNewCreated) && <li className="item new_item" key="newproj">
+                        <h3 className="item_title">New Project</h3>
                         <span className="svg_icon chevron">{IconChevronRight}</span>
                     </li>}
-                    <li className="project_item button_add" key="add" onClick={createNewProject}><span className="svg_icon add">{IconAdd}</span></li>
-                    <li className="project_item button_delete" key="delete" onClick={handleDeleteDialog}><span className="svg_icon add">{IconGarbageDelete}</span></li>
+                    <li className="item button_add" key="add" onClick={createNewProject}><span className="svg_icon add">{IconAdd}</span></li>
+                    <li className="item button_delete" key="delete" onClick={handleDeleteDialog}><span className="svg_icon add">{IconGarbageDelete}</span></li>
                 </div>
 
             </div>
-            <form className={`edit projects ${(isNewProject || isNewCreated) ? "new" : ""}`} onSubmit={handleSubmit(onSubmit)}>
+            <form className={`edit options ${(isNewProject || isNewCreated) ? "new" : ""}`} onSubmit={handleSubmit(onSubmit)}>
                 <h3 className="category_title">{isNewProject || isNewCreated ? "Set" : "Edit"} Project Information</h3>
                 <TextField label="Project Title" 
                            name="project_title"

@@ -10,8 +10,8 @@ const PageNotFound : FC = () =>
 {
     return (
         <section id="pagenotfound">
-            <h1 className="err_title">Error: 404 Not Found</h1>
-            <Link to="/" className="err_home">Back to Homepage</Link>
+            <h1 className="err_title">Page Not Found</h1>
+            <Link to="/" className="err_home">Go Back to Homepage</Link>
         </section>
     );
 }

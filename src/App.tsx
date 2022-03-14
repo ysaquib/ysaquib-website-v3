@@ -124,7 +124,7 @@ const App : FC = () =>
                     </PublicRoute>
                     
                     <PublicRoute exact path="/signup"> <SignUp /> </PublicRoute>
-                    <PublicRoute path="/career"> <CareerPage /> </PublicRoute>
+                    <PublicRoute path="/experience"> <CareerPage /> </PublicRoute>
                     <PublicRoute path="/blog"> <BlogsPage /> </PublicRoute>
                     <PublicRoute path="/projects"> <Projects id="all_projects" sectionTitle="Projects Archive" showAllProjects={true}/> </PublicRoute>
                     <PrivateRoute path="/admin" authRoles={["superadmin"]}> <Admin /> </PrivateRoute>

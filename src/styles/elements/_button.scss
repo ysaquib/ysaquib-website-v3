@@ -11,7 +11,6 @@
     // flex: 1 1 auto;
     
     transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular, box-shadow $trans-effect $trans-regular;
-    
     position: relative;
     padding: 1rem 1.3rem;
     min-width: 11rem;
@@ -31,13 +30,9 @@
     {
         color: themed('grey-000');
         background-color: themed('primary');
-        &.secondary
-        {
-            background-color: themed('grey-800');
-        }
         &:hover
         {
-            background-color: mix(themed('secondary'), themed('grey-900'), $color-mix-regular);
+            background-color: mix(themed('primary-l'), themed('grey-900'), $color-mix-regular);
         }
         &:focus-visible
         {
@@ -46,11 +41,33 @@
         &:active:focus
         {
             transition: none;
-            background-color: mix(themed('secondary'), themed('grey-300'), $color-mix-least);
+            background-color: themed('primary-d');
+            // background-color: mix(themed('primary-l'), themed('grey-300'), $color-mix-least);
         }
         &:disabled
         {
-            background-color: mix(themed('grey-000'), themed('primary'), 60%);
+            background-color: mix(themed('grey-000'), themed('primary-d'), 60%);
+        }
+        &.secondary
+        {
+            background-color: themed('grey-750');
+            &:hover
+            {
+                background-color: themed('grey-900');
+            }
+            &:focus-visible
+            {
+                outline: themed('secondary') dashed 2px;
+            }
+            &:active:focus
+            {
+                transition: none;
+                background-color: themed('grey-700');
+            }
+            &:disabled
+            {
+                background-color: themed('grey-500');
+            }
         }
     }
     
@@ -82,11 +99,12 @@
             }
             &:focus-visible
             {
-                color: themed('secondary');
+                color: themed('primary-l');
             }
             &:active:focus
             {
-                color: mix(themed('secondary'), themed('grey-300'), $color-mix-least);
+                color: themed('primary-d');
+                // color: mix(themed('primary-l'), themed('grey-300'), $color-mix-least);
             }
             &:disabled
             {
@@ -216,6 +234,5 @@
             }
         }
     }
-
 }
 

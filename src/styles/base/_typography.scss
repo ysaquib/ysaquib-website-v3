@@ -3,12 +3,10 @@
  * Author: Yusuf Saquib
  */
 
-// @import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700,900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap');
-// @import url('https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;500;700&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap&subset=arabic');
 
 h1 
 {
@@ -72,7 +70,11 @@ title
 
 .btn
 {
-    font: $semi-weight $small-size $sans-font;
+    font: $medium-weight $small-size $sans-font;
+    &.no_background
+    {
+        font-weight: $regular-weight;
+    }
 }
 
 // $ Dialog Box ===============================================================
@@ -196,11 +198,34 @@ title
 
 .career_item_title
 {
-    font: $semi-weight $regular-size $sans-font;
+    font: $medium-weight $regular-size $sans-font;
+}
+.career_item_organization
+{
+    font: $medium-weight $regular-size $sans-font;
+}
+.career_item_subtitle
+{
+    font: $medium-weight $small-size $mono-font;
 }
 .career_item_location
 {
-    font: $semi-weight $regular-size $sans-font;
+    font: $light-weight $Little-size $mono-font;
+}
+.career_item_date
+{
+    font: $light-weight $Little-size $mono-font;
+}
+.career_item_desc
+{
+    li
+    {
+        font: $regular-weight $small-size $sans-font;
+    }
+}
+.career_item_error
+{
+    font: $regular-weight $regular-size $sans-font;
 }
 
 // $ Blog (not including markdown) ============================================
@@ -209,7 +234,7 @@ title
 {
     #blog_button_back
     {
-        font: $regular-weight $Small-size $mono-font;
+        font: $medium-weight $Small-size $sans-font;
     }
     #blog_edit_button
     {
@@ -221,11 +246,11 @@ title
     }
     .info_item
     {
-        font: $regular-weight $Small-size $serif-font;
+        font: $regular-weight $small-size $mono-font;
     }
     .blog_tag
     {
-        font: $semi-weight $Small-size $sans-font;
+        font: $semi-weight $little-size $mono-font;
     }
 }
 
@@ -263,7 +288,7 @@ title
     }
     .blogs_list_title
     {
-        font: $medium-weight $medium-size $sans-font;
+        font: $regular-weight $medium-size $sans-font;
     }
     .private_blog .blogs_list_title::after 
     {
@@ -287,7 +312,7 @@ title
         }
         &.time
         {
-            font: $medium-weight $little-size $sans-font;
+            font: $regular-weight $little-size $mono-font;
         }
         &.subject
         {
@@ -297,7 +322,26 @@ title
 
     #message
     {
-        font: $regular-weight $regular-size $sans-font;
+        font: $regular-weight $small-size $sans-font;
+        .msginfo
+        {
+            &.sender
+            {
+                font-weight: $bold-weight;
+            }
+            .sender_email
+            {
+                font-weight: $light-weight;
+            }
+            &.subject
+            {
+                font: $regular-weight $large-size $sans-font;
+            }
+            &.date
+            {
+                font: $regular-weight $little-size $sans-font;
+            }
+        }
         .msgbtn
         {
             font: $medium-weight $Little-size $sans-font;
@@ -328,17 +372,17 @@ title
 
 .text_label
 {
-    font: $medium-weight $Little-size $sans-font;
+    font: $regular-weight $Little-size $sans-font;
 }
 
 .editor_wrapper .editor_area
 {
-    font: $regular-weight $regular-size $mono-font;
+    font: $regular-weight $Small-size $mono-font;
 }
 
-textarea, input[type=text], input[type=password], input[type=date]
+textarea, input[type=text], input[type=password], input[type=date], select
 {
-    font: $medium-weight $regular-size $sans-font;
+    font: $regular-weight $Small-size $sans-font;
 }
 
 input[type=checkbox]
@@ -381,7 +425,7 @@ input[type=checkbox]
 {
     .err_title
     {
-        font: $black-weight $Largest-size $mono-font;
+        font: $black-weight $Largest-size $sans-font;
     }
     .err_subtitle
     {
@@ -389,7 +433,7 @@ input[type=checkbox]
     }
     .err_home
     {
-        font: $regular-weight $Regular-size $mono-font;
+        font: $regular-weight $Regular-size $sans-font;
     }
 }
 
@@ -433,11 +477,11 @@ input[type=checkbox]
     }
 }
 
-#admin_projects_list
+.admin_list
 {
-    .project_item_title
+    .item_title
     {
-        font: $medium-weight $regular-size $sans-font;
+        font: $regular-weight $Small-size $sans-font;
     }
 }
 

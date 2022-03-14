@@ -3,16 +3,9 @@
  * Author: Yusuf Saquib
  */
 
-.projects
-{
-    .projects_wrapper
-    {
-        display: grid;
-        grid-template-columns: repeat(6, 1fr);
-        gap: 1.5rem;
-    }
-    
-    .projects_button
+.career_section
+{   
+    .career_button
     {
         margin-top: 4rem;    
         display: flex;

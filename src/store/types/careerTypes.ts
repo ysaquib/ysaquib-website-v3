@@ -1,24 +1,30 @@
 export const Data_SetAllCareersData = "Data_SetAllCareersData";
+export const Data_SetErrorCareers = "Data_SetErrorCareers";
 export const Data_UpdateAllCareersData = "Data_UpdateAllCareersData";
 export const Data_SetCareerData = "Data_SetCareerData";
 export const Data_AddCareer = "Data_AddCareer";
 export const Data_DelCareer = "Data_DelCareer";
 export const Data_isLoadingCareers = "Data_isLoadingCareers";
+export type CareerType = "work" | "research" | "education" | "other";
 
 export interface CareerData
 {
     career_id: string;
     career_title: string;
-    career_location: string;
     career_startDate: Date;
     career_endDate: Date;
-    career_description: string;
-    career_locationURL: string;
+
+    career_type: CareerType;
+
+    career_blog?: string;
+    career_subtitle?: string;
+    career_subtitleURL?: string;
+    career_description?: string;
+    career_organization?: string;
+    career_organizationURL?: string;
     career_isCurrent?: boolean;
     career_isHidden?: boolean;
-    career_city?: string;
-    career_state?: string;
-    career_country?: string;
+    career_location?: string;
 }
 
 interface SetAllCareersDataAction
@@ -57,10 +63,17 @@ interface SetLoadingCareersAction
     payload: boolean;
 }
 
+interface SetErrorCareersAction
+{
+    type: typeof Data_SetErrorCareers;
+    payload: boolean;
+}
+
 export interface CareerState
 {
     allCareers: CareerData[];
     isLoadingCareers: boolean;
+    isError: boolean;
 }
 
-export type CareerAction = SetAllCareersDataAction | UpdateAllCareersDataAction | setCareerDataAction | AddCareerDataAction | DelCareerDataAction | SetLoadingCareersAction;
+export type CareerAction = SetErrorCareersAction | SetAllCareersDataAction | UpdateAllCareersDataAction | setCareerDataAction | AddCareerDataAction | DelCareerDataAction | SetLoadingCareersAction;

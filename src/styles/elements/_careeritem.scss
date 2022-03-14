@@ -3,30 +3,286 @@
  * Author: Yusuf Saquib
  */
 
+.careers_wrapper
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+
+    // gap: 5rem;
+    gap: 2rem;
+}
+
+.loading_career_card
+{
+    height: $career-card-height;
+}
+
+.career_item_error
+{
+    border-radius: $radius-regular;
+    width: 100%;
+    height: $career-card-height;
+    display: grid;
+    place-items: center center;
+    transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
+
+    @include themify()
+    {
+        background-color: themed("error");
+        color: themed("grey-100");
+    }
+
+}
+
 .career_item_wrapper
 {
     display: flex;
     flex-direction: row;
-    gap: 1.0rem;
-
-    .career_item_title
+    gap: 3.5rem;
+    
+    @include media("<=tablet")
     {
-        border-radius: $radius-regular;
-        padding: 0.5rem 0.5rem;
+        gap: 2rem;
+        flex-direction: column;
     }
 
-    .career_item_location
+    /* BEGIN CARD FOR CAREER ITEM */
+    transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
+    border-radius: $radius-regular;
+    padding: $padding-card-least;
+    box-shadow: $project-card-box-shadow;
+    
+    .career_item_details
     {
-        padding: 0.5rem 0rem;
-    }
+        width: 30%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        flex: 0 0 auto;
 
-
-    @include themify()
-    {
+        
+        @include media("<=tablet")
+        {
+            width: 100%;
+        }
+        
+        line-height: inherit;
+        gap: 0.5rem;
+        
         .career_item_title
         {
-            color: themed("grey-000");
-            background-color: themed("primary");
+            margin: 0rem;
+            border-radius: $radius-large;
+            padding: 0.4rem 0.8rem;
+            transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
         }
+        .career_title_area
+        {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            .links_item
+            {
+                transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
+                cursor: pointer;
+                display: inline;
+                margin: 0rem;
+                margin-left: 1rem;
+            }
+        }
+
+        .career_item_organization
+        {
+            transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
+
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin: 0rem;
+            margin-bottom: 0.5rem;
+            .career_orgurl
+            {
+                text-underline-offset: 0.2rem;
+                text-decoration: underline dotted 2px;
+                color: inherit;
+                font: inherit;
+                &:hover
+                {
+                    text-decoration: underline solid 2px;
+                }
+            }
+            // padding: 0.3rem 0rem 0.25rem;
+        }
+
+        .career_item_subtitle, .career_item_subtitle > a
+        {
+            transition: color $trans-effect $trans-regular;
+            margin: 0rem;
+            margin-bottom: $regular-size;
+        }
+        
+        
+        .career_item_date, .career_item_location
+        {
+            transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
+            
+            line-height: 1.0;
+            margin: 0rem;
+        }
+    }
+    
+    .career_item_desc
+    {
+        
+        white-space: pre-line;
+        
+        margin: 0rem;
+        padding: 1rem 0rem 1rem 1.5rem;
+        flex: 1 1 auto;
+        width: auto;
+
+        @include media("<=tablet")
+        {
+            padding-top: 0rem;
+            padding-bottom: 0rem;
+        }
+        
+        li
+        {
+            transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
+            line-height: 1.5;
+            list-style: none;
+            &::before
+            {
+                transition: color $trans-effect $trans-regular;
+                display: inline-block;
+                width: 2rem;
+                margin-left: -2rem;
+                content: "▸";
+            }
+        }
+        
+    }
+
+    .read_more
+    {
+        min-width: fit-content;
+        padding: 1rem;
+    }
+    
+    .career_vert_line
+    {
+        border-left: 1px solid;
+        width: 0px;
+        height: auto;
+        transition: border-color $trans-effect $trans-regular;
+        
+        @include media("<=tablet")
+        {
+            border-left: 0px;
+            border-top: 1px solid;
+            width: auto;
+            height: 0px;
+        }
+    }
+
+    
+    
+    @include themify()
+    {
+
+        background-color: themed("grey-150");
+        
+        .career_vert_line
+        {
+            border-color: themed("grey-150");
+        }
+
+        .career_item_details
+        {
+            .links_item
+            {
+                color: themed("primary");
+                &:hover
+                {
+                    color: themed("primary-l");
+                }
+                &:focus:active, &:active
+                {
+                    transition: none;
+                    color: themed("primary-d")
+                }
+            }
+
+            .career_item_title
+            {
+                color: themed("grey-000");
+                background-color: themed("primary");
+            }
+            .career_item_subtitle, .career_item_subtitle > a
+            {
+                color: themed("grey-800");
+            }
+            .career_item_organization
+            {
+                color: themed("primary");
+            }
+            .career_item_location, .career_item_date
+            {
+                color: themed("grey-750");
+            }
+            
+        }
+        .career_item_desc
+        {
+            li
+            {
+                color: themed("grey-750");
+            }
+            li::before
+            {
+                color: themed("primary");
+            }
+        }
+        &.career_featured
+        {
+            .career_item_details
+            {
+                .career_item_title
+                {
+                    background-color: themed("secondary");
+                }
+                .career_item_organization
+                {
+                    color: themed("secondary");
+                }
+                .links_item
+                {
+                    color: themed("secondary");
+                    &:hover
+                    {
+                        color: themed("secondary-l");
+                    }
+                    &:focus:active, &:active
+                    {
+                        transition: none;
+                        color: themed("secondary-d")
+                    }
+                }
+            }
+            .career_item_desc
+            {
+                li::before
+                {
+                    color: themed("secondary");
+                }
+            }
+        }
+
     }
 }

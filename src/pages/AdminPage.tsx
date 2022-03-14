@@ -12,6 +12,7 @@ import AdminAbout from '../components/superadmin/AdminAbout';
 import AdminProjects from '../components/superadmin/AdminProjects';
 import Section from '../components/elements/Section';
 import Head from '../components/layout/Head';
+import AdminCareers from '../components/superadmin/AdminCareers';
  
 const Admin : FC = () =>
 {
@@ -27,6 +28,7 @@ const Admin : FC = () =>
                 <AdminBanner />
                 <AdminAbout />
                 <AdminProjects />
+                <AdminCareers />
             </section>
         </Section>
     );

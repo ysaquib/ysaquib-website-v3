@@ -1,5 +1,5 @@
 /**
- * File: Education.tsx
+ * File: Research.tsx
  * Author: Yusuf Saquib
  */
 
@@ -14,20 +14,25 @@ import CareerItem from '../elements/CareerItem';
 import LoadingSkeleton from '../elements/LoadingSkeleton';
 import Section from '../elements/Section';
 
-interface EducationProps
+interface ResearchProps
 {
     showButton?: boolean;
     getData?: boolean;
     itemLimit?: number;
 }
 
-const Education : FC<EducationProps> = ({showButton = false, getData = false, itemLimit}) =>
+const Research : FC<ResearchProps> = ({showButton = false, getData = false, itemLimit}) =>
 {
     const {allCareers, isLoadingCareers, isError} = useSelector((state: RootState) => state.careers);
-    const allCareers_filtered = allCareers.filter((car) => car.career_type === "education" && car.career_isHidden === false)
-    
-    const [education, setEducation] = useState<CareerData[]>(allCareers_filtered);
-    const dispatch = useDispatch();
+    const allCareers_filtered = allCareers.filter((car) => car.career_type === "research" && car.career_isHidden === false)
+    const dispatch = useDispatch()
+    const [research, setResearch] = useState<CareerData[]>(allCareers_filtered);
+
+    useEffect(() => {
+        const items = allCareers.filter((car) => (car.career_type === "research" && car.career_isHidden === false));
+        setResearch(items.splice(0, itemLimit ?? items.length))
+        return () => {}
+    }, [allCareers, itemLimit])
     
     useEffect(() => 
     {
@@ -38,25 +43,6 @@ const Education : FC<EducationProps> = ({showButton = false, getData = false, it
         return () => {}
     }, [dispatch, getData]);
 
-    useEffect(() => {
-        const items = allCareers.filter((car) => car.career_type === "education" && car.career_isHidden === false);
-        setEducation(items.splice(0, itemLimit ?? items.length))
-        return () => {}
-    }, [allCareers, itemLimit])
-    
-    
-    if (isLoadingCareers)
-    {
-        return (
-            
-            <Section id="education" className="career_section" title="Education">
-                <div className="careers_wrapper">
-                    <LoadingSkeleton type="rectangle" className="loading_career_card" />
-                </div>
-            </Section>
-        )
-    }
-
     if (allCareers_filtered.length === 0)
     {
         return (
@@ -64,11 +50,23 @@ const Education : FC<EducationProps> = ({showButton = false, getData = false, it
         )
     }
 
+    if (isLoadingCareers)
+    {
+        return (
+
+            <Section id="research" className="career_section" title="Research">
+                <div className="careers_wrapper">
+                    <LoadingSkeleton type="rectangle" className="loading_career_card" />
+                </div>
+            </Section>
+        )
+    }
+
     if (isError)
     {
         return (
 
-            <Section id="education" className="career_section" title="Education">
+            <Section id="research" className="career_section" title="Research">
                 <div className="careers_wrapper">
                     <div className="career_item_error">Error Retrieving Data.</div>
                 </div>
@@ -77,22 +75,21 @@ const Education : FC<EducationProps> = ({showButton = false, getData = false, it
     }
 
     return (
-        <Section id="education" className="career_section" title="Education">
+        <Section id="research" className="career_section" title="Research">
             <div className="careers_wrapper">
                 {
-                    education.map((car) => {
+                    research.map((car) => {
                         return (
                             <CareerItem key={car.career_id} {...car} />
                     )})
                 }
-                
             </div>
             {showButton && <div className="career_button">
-                <Link to="/experience"><Button text="See All Education" onClick={() => window.scrollTo(0,0)}/></Link>
-            </div>
-            }
+                    <Link to="/experience"><Button text="See All Research" onClick={() => window.scrollTo(0,0)}/></Link>
+                </div>
+                }
         </Section>
     );
 }
 
-export default Education;
+export default Research;

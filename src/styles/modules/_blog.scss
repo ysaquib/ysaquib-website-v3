@@ -38,7 +38,7 @@
         margin-bottom: 1rem;
         width: 100%;
         
-        border-radius: $radius-regular;
+        border-radius: $radius-large;
     }
 
     #blog_button_back
@@ -46,7 +46,7 @@
         display: inline-flex;
         justify-content: flex-start;
         align-items: center;
-        gap: 1rem;
+        gap: 0.5rem;
         margin-bottom: 2rem;
         transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
     }
@@ -110,7 +110,7 @@
         {
             transition: background-color $trans-effect $trans-regular, color $trans-effect $trans-regular;
             list-style-type: none;
-            padding: 0.4rem 0.6rem;
+            padding: 0.2rem 0.6rem;
             border-radius: $radius-small;
         }
     }

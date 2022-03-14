@@ -40,7 +40,7 @@
     height: 100%;
     margin: 0rem;
 
-    &.projects
+    &.options
     {
         grid-column: span 2;
         display: grid;
@@ -99,7 +99,7 @@
                 margin: 0rem;
             }
         }
-        &.projects
+        &.options
         {
             grid-column: span 2;
             @include media("<=tablet")
@@ -255,15 +255,15 @@
     }
 }
 
-#admin_projects_list
+.admin_list
 {
-    .projects_list
+    .item_list
     {
         padding: 0rem;
         margin: 0rem;
         li
         {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
         }
     }
 
@@ -273,12 +273,12 @@
     }
 
     
-    .project_item
+    .item
     {
         box-shadow: $admin-proj-list;
         border-radius: $radius-regular;
         list-style-type: none;
-        padding: 1.5rem;
+        padding: 0.8rem 1rem;
         display: inline-flex;
         flex-direction: row;
         width: 100%;
@@ -290,7 +290,7 @@
             cursor: pointer;
         }
         
-        .project_item_title
+        .item_title
         {
             margin: 0rem;
         }
@@ -301,16 +301,16 @@
         }
     }
 
-    .new_project
+    .new_item
     {
         grid-column: span 2;
     }
 
-    .project_buttons
+    .item_buttons
     {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: 1.5rem;
+        gap: 1rem;
 
 
         .button_add, .button_delete
@@ -323,7 +323,7 @@
     
     @include themify()
     {
-        .project_item
+        .item
         {
             transition: color $trans-regular $trans-effect, background-color $trans-regular $trans-effect;
             
@@ -375,7 +375,7 @@
                 }
             }
             
-            &.new_project
+            &.new_items
             {
                 background-color: themed("secondary");
                 color: themed("grey-000");
@@ -385,7 +385,7 @@
         }
 
 
-        .project_buttons
+        .item_buttons
         {
             .button_add
             {
