@@ -6,11 +6,10 @@
  */
 
 import React, { FC, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Education from '../components/sections/Education';
 import Research from '../components/sections/Research';
 import Work from '../components/sections/Work';
-import { RootState } from '../store';
 import { getCareerData } from '../store/actions/careerActions';
  
 const CareerPage : FC = () =>
