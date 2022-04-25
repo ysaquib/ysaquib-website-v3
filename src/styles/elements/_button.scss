@@ -3,6 +3,14 @@
  * Author: Yusuf Saquib
  */
 
+a > .btn
+{
+    &:focus-visible
+    {
+        outline: none;
+    }
+}
+
 .btn
 {
     border: none;
