@@ -62,11 +62,11 @@
             text-align: center;
             
             border-radius: $radius-regular;
-            padding: 2rem;
+            padding: 2.5rem;
             @include media("<=tablet")
             {
                 text-align: left;
-                padding: 1rem;
+                padding: 1.8rem;
             }
         }
         
