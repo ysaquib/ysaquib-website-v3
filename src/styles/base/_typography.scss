@@ -145,6 +145,11 @@ title
         {
             &.featured_project_text { font-size: $large-size; }
         }
+        // @include media(">=desktop-big")
+        // {
+        //     &.featured_project_text { font-size: $medium-size; }
+        //     &.large_project_text { font-size: $medium-size; }
+        // }
     }
 
     .project_description

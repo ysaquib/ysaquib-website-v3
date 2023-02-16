@@ -112,15 +112,15 @@
     grid-column: span 2;
     border-radius: $radius-large;
     box-shadow: $project-card-box-shadow;
+    @include media(">desktop-big")
+    {
+        grid-column: span 2;
+    }
     
     
     .project_card
     {
         padding: $padding-card-regular;
-        @include media(">desktop-big")
-        {
-            padding: 6rem;
-        }
         @include media("<=tablet")
         {
             padding: $padding-card-less;

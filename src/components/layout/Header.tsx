@@ -175,7 +175,6 @@ const Header : FC = () =>
                         <div id="header_mobile_menu" className="header_menu">
                             <ol className="header_list">
                                 {list_items}
-                                {signin_tab}
                                 {messages_tab}
                                 {admin_tab}
                                 {signout_tab}
@@ -195,7 +194,6 @@ const Header : FC = () =>
                     <span className="icon_wrapper">
                         <ol className="header_list">
                             {list_items}
-                            {signin_tab}
                             {messages_tab}
                             {admin_tab}
                             {signout_tab}
